@@ -1,0 +1,22 @@
+/* Make headers bold and adjust color based on the theme */
+
+/* Light theme header styles (default scheme) */
+[data-md-color-scheme="default"] .md-typeset h1,
+[data-md-color-scheme="default"] .md-typeset h2,
+[data-md-color-scheme="default"] .md-typeset h3 {
+    font-weight: 700; /* Bold font */
+    color: #000000;   /* Black color for light theme */
+}
+
+/* Dark theme header styles (slate scheme) */
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3 {
+    font-weight: 700; /* Bold font */
+    color: #ffffff;   /* White color for dark theme */
+}
+
+
+
+
+
