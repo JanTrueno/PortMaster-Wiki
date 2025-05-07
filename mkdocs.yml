@@ -1,0 +1,83 @@
+site_name: PortMaster Wiki
+site_url: https://portmaster.games
+repo_url: https://github.com/PortsMaster/PortMaster-New
+repo_name: GitHub
+theme:
+  name: material
+  logo: assets/images/logo.png  # Ensure logo is in the 'assets' folder
+  font:
+      text: Roboto
+      code: Roboto Mono
+  icon:
+      repo: fontawesome/brands/github
+  palette:
+    - scheme: default
+      primary: indigo  # Blue
+      accent: deep orange  # Orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange  # Orange
+      accent: indigo  # Blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - content.tooltips
+    - content.code.copy
+    - content.code.annotate
+    - header.social  # Enable social links in the header
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.footer
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/PortsMaster
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/eqjK6yNQS4
+markdown_extensions:
+  - tables
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - md_in_html
+  - pymdownx.blocks.caption
+  - toc:
+      toc_depth: 3
+      permalink: ¶
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+extra_css:
+  - assets/stylesheets/extra.css
+plugins:
+   - glightbox
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/PortsMaster
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/eqjK6yNQS4
+    - icon: fontawesome/solid/envelope
+      link: mailto:contact@portmaster.games
+
+
+
