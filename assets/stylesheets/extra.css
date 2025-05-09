@@ -1,3 +1,101 @@
+/* Colors Light & Dark */
+[data-md-color-scheme="light"] {
+  /* Primary color shades */
+  --md-primary-fg-color:               #111111;
+  --md-primary-bg-color:               #eeeeee;
+  --md-primary-bg-color--light:        #bbbbbb;
+
+  /* Accent color shades */
+  --md-accent-fg-color:                #F49519;  /* Orange instead of red */
+  --md-accent-fg-color--transparent:   #cccccc;
+
+  /* Default color shades */
+  --md-default-fg-color:               #111111;
+  --md-default-fg-color--light:        #222222;
+  --md-default-fg-color--lighter:      #cccccc;
+  --md-default-fg-color--lightest:     #cccccc;
+  --md-default-bg-color:               #dddddd;
+  --md-default-bg-color--light:        #dddddd;
+  --md-default-bg-color--lighter:      #dddddd;
+  --md-default-bg-color--lightest:     #dddddd;
+
+  /* Typeset color shades */
+  --md-typeset-color:                  #111111;
+
+  /* Typeset `a` color shades */
+  --md-typeset-a-color:                #F49519;  /* Orange links instead of red */
+
+  /* Typeset `table` color shades */
+  --md-typeset-table-color:            #cccccc;
+  --md-typeset-table-color--light:     #eeeeee;
+
+  /* Footer color shades */
+  --md-footer-bg-color:                #111111;
+
+  /* Typeset `kbd` color shades */
+  --md-typeset-kbd-color:              #eeeeee;
+  --md-typeset-kbd-accent-color:       #dddddd;
+  --md-typeset-kbd-border-color:       #bbbbbb;
+
+  /* Code color shades */
+  --md-code-bg-color:                  #eee;
+  --md-code-fg-color:                  #111;
+  --md-code-hl-operator-color:         #111;
+  --md-code-hl-variable-color:         #111;
+  --md-code-hl-comment-color:          #999;
+  --md-code-hl-punctuation-color:      #111;
+}
+
+[data-md-color-scheme="dark"] {
+  /* Primary color shades */
+  --md-primary-fg-color:               #111111;
+  --md-primary-bg-color:               #eeeeee;
+  --md-primary-bg-color--light:        #bbbbbb;
+
+  /* Accent color shades */
+  --md-accent-fg-color:                #F49519;  /* Orange instead of red */
+  --md-accent-fg-color--transparent:   #333333;
+
+  /* Default color shades */
+  --md-default-fg-color:               #eeeeee;
+  --md-default-fg-color--light:        #eeeeee;
+  --md-default-fg-color--lighter:      #888888;
+  --md-default-fg-color--lightest:     #444444;
+  --md-default-bg-color:               #222222;
+  --md-default-bg-color--light:        #222222;
+  --md-default-bg-color--lighter:      #222222;
+  --md-default-bg-color--lightest:     #222222;
+
+  /* Typeset color shades */
+  --md-typeset-color:                  #eeeeee;
+
+  /* Typeset `a` color shades */
+  --md-typeset-a-color:                #F49519;  /* Orange links instead of red */
+
+  /* Typeset `table` color shades */
+  --md-typeset-table-color:            #333333;
+  --md-typeset-table-color--light:     #444444;
+
+  /* Footer color shades */
+  --md-footer-bg-color:                #111111;
+
+  /* Typeset `kbd` color shades */
+  --md-typeset-kbd-color:              #555;
+  --md-typeset-kbd-accent-color:       #444;
+  --md-typeset-kbd-border-color:       #222;
+
+  /* Code color shades */
+  --md-code-bg-color:                  #111;
+  --md-code-fg-color:                  #fff;
+  --md-code-hl-operator-color:         #fff;
+  --md-code-hl-variable-color:         #fff;
+  --md-code-hl-comment-color:          #999;
+  --md-code-hl-punctuation-color:      #fff;
+}
+
+
+.md-typeset .admonition, .md-typeset details {
+
 /* Make headers bold and adjust color based on the theme */
 
 /* Light theme header styles (default scheme) */
