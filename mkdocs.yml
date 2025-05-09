@@ -11,15 +11,15 @@ theme:
   icon:
       repo: fontawesome/brands/github
   palette:
-    - scheme: default
-      primary: indigo  # Blue
-      accent: deep orange  # Orange
+    - scheme: light
+      primary: 
+      accent: 
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    - scheme: slate
-      primary: deep orange  # Orange
-      accent: indigo  # Blue
+    - scheme: dark
+      primary: 
+      accent:   
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -78,6 +78,10 @@ extra:
       link: https://discord.gg/eqjK6yNQS4
     - icon: fontawesome/solid/envelope
       link: mailto:contact@portmaster.games
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/PortMasterLinux
+    - icon: fontawesome/solid/hand-holding-dollar
+      link: https://opencollective.com/portmaster
 
 
 
