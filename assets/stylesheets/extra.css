@@ -54,7 +54,7 @@
 
   /* Accent color shades */
   --md-accent-fg-color:                #F49519;  /* Orange instead of red */
-  --md-accent-fg-color--transparent:   #333333;
+  --md-accent-fg-color--transparent:   #F49519;
 
   /* Default color shades */
   --md-default-fg-color:               #eeeeee;
@@ -94,24 +94,18 @@
 }
 
 
-.md-typeset .admonition, .md-typeset details {
 
-/* Make headers bold and adjust color based on the theme */
-
-/* Light theme header styles (default scheme) */
-[data-md-color-scheme="default"] .md-typeset h1,
-[data-md-color-scheme="default"] .md-typeset h2,
-[data-md-color-scheme="default"] .md-typeset h3 {
-    font-weight: 700; /* Bold font */
-    color: #000000;   /* Black color for light theme */
+.md-typeset h1, .md-typeset h2, .md-typeset h3 {
+    font-weight: 700;
 }
-
-/* Dark theme header styles (slate scheme) */
-[data-md-color-scheme="slate"] .md-typeset h1,
-[data-md-color-scheme="slate"] .md-typeset h2,
-[data-md-color-scheme="slate"] .md-typeset h3 {
-    font-weight: 700; /* Bold font */
-    color: #ffffff;   /* White color for dark theme */
+.md-typeset h1 {
+    margin: 0 0 0.64em;
+}
+.md-typeset h2 {
+    margin: 1em 0 0.64em;
+}
+.md-typeset h3 {
+    margin: 0.64em 0 0.8em;
 }
 
 
