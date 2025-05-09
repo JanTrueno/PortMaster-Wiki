@@ -5,8 +5,11 @@
 
 # Welcome to the PortMaster Wiki :material-gamepad:
 
-[![Latest Version](https://img.shields.io/github/release/PortMaster/games.svg?labelColor=111111&color=FF5555&label=Latest&style=flat#only-light)](https://github.com/PortMaster/games/releases/latest) [![Activity](https://img.shields.io/github/commit-activity/m/PortMaster/games?labelColor=111111&color=FF5555&label=Commits&style=flat#only-light)](https://github.com/PortMaster/games/commits) [![Pull Requests](https://img.shields.io/github/issues-pr-closed/PortMaster/games?labelColor=111111&color=FF5555&label=Pull&nbsp;Requests&style=flat#only-light)](https://github.com/PortMaster/games/pulls) [![Community](https://img.shields.io/discord/948029830325235753?labelColor=111111&color=FF5555&label=Community&style=flat#only-light)](https://discord.gg/seTxckZjJy)
-[![Latest Version](https://img.shields.io/github/release/PortMaster/games.svg?labelColor=dddddd&color=FF5555&label=Latest&style=flat#only-dark)](https://github.com/PortMaster/games/releases/latest) [![Activity](https://img.shields.io/github/commit-activity/m/PortMaster/games?labelColor=dddddd&color=FF5555&label=Commits&style=flat#only-dark)](https://github.com/PortMaster/games/commits) [![Pull Requests](https://img.shields.io/github/issues-pr-closed/PortMaster/games?labelColor=dddddd&color=FF5555&label=Pull&nbsp;Requests&style=flat#only-dark)](https://github.com/PortMaster/games/pulls) [![Community](https://img.shields.io/discord/948029830325235753?labelColor=dddddd&color=FF5555&label=Community&style=flat#only-dark)](https://discord.gg/eqjK6yNQS4)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/PortsMaster/PortMaster-New?style=flat&color=4DBEEE&label=Latest)](https://github.com/PortsMaster/PortMaster-New/releases/latest)
+[![Activity](https://img.shields.io/github/commit-activity/m/PortsMaster/PortMaster-New?style=flat&color=4DBEEE&label=Commits)](https://github.com/PortsMaster/PortMaster-New/commits)
+[![Pull Requests](https://img.shields.io/github/issues-pr-closed/PortsMaster/PortMaster-New?style=flat&color=4DBEEE&label=Pull%20Requests)](https://github.com/PortsMaster/PortMaster-New/pulls)
+[![Community](https://img.shields.io/discord/948029830325235753?style=flat&color=4DBEEE&label=Community)](https://discord.gg/eqjK6yNQS4)
+
 
 PortMaster is a powerful, community-driven platform that simplifies the process of managing game ports on Linux handheld devices. Designed for retro gaming enthusiasts, it offers an easy way to download, install, and update PC game ports on custom firmware setups. Whether you're playing indie classics or commercial titles, PortMaster ensures smooth compatibility for a wide range of games.
 

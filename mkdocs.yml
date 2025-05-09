@@ -37,12 +37,6 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.footer
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/PortsMaster
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/eqjK6yNQS4
 markdown_extensions:
   - tables
   - attr_list
