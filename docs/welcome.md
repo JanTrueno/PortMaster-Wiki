@@ -1,7 +1,7 @@
 <div class="preview-container">
-  <img class="off-glb" src="assets/images/trimui.png"/>
+  <img class="off-glb" src="../assets/images/trimui.png"/>
   <video class="overlay-video" autoplay loop muted>
-    <source src="assets/videos/homepage.mp4" type="video/mp4">
+    <source src="../assets/videos/homepage.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -29,14 +29,15 @@ PortMaster is a powerful, community-driven platform that simplifies the process 
 
 <table>
   <tr>
-    <td><img src="assets/images/portslist.png" width="300" /></td>
-    <td><img src="assets/images/portinfo.png" width="300" /></td>
+    <td><img src="../assets/images/portslist.png" style="width: 100%;" /></td>
+    <td><img src="../assets/images/portinfo.png" style="width: 100%;" /></td>
   </tr>
   <tr>
-    <td><img src="assets/images/gardenstory.jpeg" width="300" /></td>
-    <td><img src="assets/images/tmntsr.jpeg" width="300" /></td>
+    <td><img src="../assets/images/gardenstory.jpeg" style="width: 100%;" /></td>
+    <td><img src="../assets/images/tmntsr.jpeg" style="width: 100%;" /></td>
   </tr>
 </table>
+
 
 
 ## Supported Games

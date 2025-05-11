@@ -24,18 +24,18 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
+    - navigation.tabs.sticky
     - navigation.top
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
-    - toc.follow
+    - navigation.tracking
+   # - toc.follow
     - search.suggest
     - content.tooltips
     - content.code.copy
     - content.code.annotate
     - header.social  # Enable social links in the header
-    - navigation.instant
-    - navigation.instant.progress
     - navigation.footer
 markdown_extensions:
   - tables
@@ -85,12 +85,12 @@ extra:
 
 
 nav:
-  - Home: index.md
+  - Home: 
+      - Welcome: welcome.md
   - Installation: 
       - Installing the GUI: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
       - Supported Handhelds: installation/supported-handhelds.md
-  - FAQ: faq.md
   - Games: games.md
   - Tools:
       - Markdown Generator: tools/markdown-generator.md
@@ -99,7 +99,8 @@ nav:
       - Engines:
           - Gamemaker Studio: contribute/engines/gamemaker-studio.md
       - Developer Details: contribute/developer-details.md
-
+  - FAQ:
+      - Frequenty Asked Questions: faq.md
 
  
 
