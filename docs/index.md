@@ -34,7 +34,7 @@ PortMaster is a powerful, community-driven platform that simplifies the process 
   </tr>
   <tr>
     <td><img src="assets/images/gardenstory.jpeg" style="width: 100%;" /></td>
-    <td><img src="sssets/images/tmntsr.jpeg" style="width: 100%;" /></td>
+    <td><img src="assets/images/tmntsr.jpeg" style="width: 100%;" /></td>
   </tr>
 </table>
 
