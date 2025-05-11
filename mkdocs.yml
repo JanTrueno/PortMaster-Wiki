@@ -86,7 +86,7 @@ extra:
 
 nav:
   - Home: 
-      - Welcome: welcome.md
+      - Welcome: index.md
   - Installation: 
       - Installing the GUI: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
