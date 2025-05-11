@@ -63,6 +63,9 @@ extra_css:
   - assets/stylesheets/extra.css
 plugins:
    - glightbox
+   - search
+
+
 extra:
   generator: false
   social:
@@ -76,6 +79,28 @@ extra:
       link: https://x.com/PortMasterLinux
     - icon: fontawesome/solid/hand-holding-dollar
       link: https://opencollective.com/portmaster
+  favicon: assets/images/logo.ico  
 
+
+
+
+nav:
+  - Home: index.md
+  - Installation: 
+      - Installing the GUI: installation/installing-portmaster.md
+      - Installing Ports: installation/installing-ports.md
+      - Supported Handhelds: installation/supported-handhelds.md
+  - FAQ: faq.md
+  - Games: games.md
+  - Tools:
+      - Markdown Generator: tools/markdown-generator.md
+  - Contribute:
+      - What can be ported?: contribute/what-can-be-ported.md
+      - Engines:
+          - Gamemaker Studio: contribute/engines/gamemaker-studio.md
+      - Developer Details: contribute/developer-details.md
+
+
+ 
 
 

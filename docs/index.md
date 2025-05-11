@@ -1,9 +1,13 @@
 <div class="preview-container">
-  <img class="off-glb" src="_inc/images/video-frame.png"/>
-  <video autoplay loop muted><source src="_inc/video/preview.mp4" type="video/mp4"></video>
+  <img class="off-glb" src="assets/images/trimui.png"/>
+  <video class="overlay-video" autoplay loop muted>
+    <source src="assets/videos/homepage.mp4" type="video/mp4">
+  </video>
 </div>
 
-# Welcome to the PortMaster Wiki :material-gamepad:
+<br>
+
+# Welcome to the PortMaster Wiki! :material-nintendo-game-boy:
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/PortsMaster/PortMaster-New?style=flat&color=4DBEEE&label=Latest)](https://github.com/PortsMaster/PortMaster-New/releases/latest)
 [![Activity](https://img.shields.io/github/commit-activity/m/PortsMaster/PortMaster-New?style=flat&color=4DBEEE&label=Commits)](https://github.com/PortsMaster/PortMaster-New/commits)
@@ -25,45 +29,36 @@ PortMaster is a powerful, community-driven platform that simplifies the process 
 
 <table>
   <tr>
-    <td><img src="assets/images/screenshots/system-view.png"/></td>
-    <td><img src="assets/images/screenshots/game-installation.png"/></td>
+    <td><img src="assets/images/portslist.png" width="300" /></td>
+    <td><img src="assets/images/portinfo.png" width="300" /></td>
   </tr>
   <tr>
-    <td><img src="assets/images/screenshots/game-library.png"/></td>
-    <td><img src="assets/images/screenshots/settings.png"/></td>
+    <td><img src="assets/images/gardenstory.jpeg" width="300" /></td>
+    <td><img src="assets/images/tmntsr.jpeg" width="300" /></td>
   </tr>
 </table>
 
+
 ## Supported Games
 
-PortMaster hosts a variety of games, from indie gems to classic titles. Some examples include:
+PortMaster hosts a variety of games, from indie gems to classic titles. 
 
-- **Balatro**: A fast-paced 2D shooting game with random storylines and humor.
-- **World of Goo**: A physics-based puzzle game that is fun and challenging.
-- **Stardew Valley**: A beloved farming simulation that runs smoothly on supported devices.
-- **Half-Life**: The classic FPS experience, now available on handhelds.
-- **Feather Park**: A relaxing, cozy autumn-themed game where players explore a park as a bird.
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1083313795?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Portmaster_1000-Final"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
-Check out the full list of supported games [here](https://portmaster.games/games.html).
 
-## Installation Guide
+## Installation
 
-### Prerequisites
+#### Prerequisites
 
-Before you begin, ensure your device is running a supported custom firmware (CFW) such as AmberELEC, ArkOS, or muOS. PortMaster is designed for Linux-based handheld devices.
+Ensure your device is running a compatible custom firmware (CFW), such as AmberELEC, ArkOS, or muOS. PortMaster is intended for Linux-based handheld systems.
+Installation Steps
 
-### Installation Steps
-
-1. **Download PortMaster**: Go to the [PortMaster installation page](https://portmaster.games/installation.html) and download the appropriate script for your device.
-2. **Place the Script**: Copy the installation script to your device's storage in the specified directory.
-3. **Execute the Script**: Run the script to install PortMaster. Follow the on-screen instructions.
-4. **Start Managing Ports**: Once installed, open PortMaster and begin downloading and managing your favorite game ports.
-
-For detailed, step-by-step instructions, refer to the [full installation guide](https://portmaster.games/installation.html).
+#### Installation Steps
+Most supported CFWs include PortMaster by default. If not, you can install it manually using a simple installer script. For complete instructions, visit the [:material-download: Installation](installation/installing-portmaster.md) page!
 
 ## Community
 
-The PortMaster community thrives on collaboration. Join us on Discord to share your thoughts, contribute to development, or just talk about games: &nbsp;[:simple-discord: Discord](https://discord.gg/seTxckZjJy)
+The PortMaster community thrives on collaboration. Join us on Discord to share your thoughts, contribute to development, or just talk about games: &nbsp;[:simple-discord: Discord](https://discord.gg/eqjK6yNQS4)
 
 ## Licenses
 
