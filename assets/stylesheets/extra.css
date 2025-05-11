@@ -7,7 +7,7 @@
 
   /* Accent color shades */
   --md-accent-fg-color:                #F49519;  /* Orange instead of red */
-  --md-accent-fg-color--transparent:   #cccccc;
+  --md-accent-fg-color--transparent:   #F49519;
 
   /* Default color shades */
   --md-default-fg-color:               #111111;
@@ -23,7 +23,7 @@
   --md-typeset-color:                  #111111;
 
   /* Typeset `a` color shades */
-  --md-typeset-a-color:                #F49519;  /* Orange links instead of red */
+  --md-typeset-a-color:                #4DBEEE;  /* Orange links instead of red */
 
   /* Typeset `table` color shades */
   --md-typeset-table-color:            #cccccc;
@@ -70,7 +70,7 @@
   --md-typeset-color:                  #eeeeee;
 
   /* Typeset `a` color shades */
-  --md-typeset-a-color:                #F49519;  /* Orange links instead of red */
+  --md-typeset-a-color:                #4DBEEE;  /* Orange links instead of red */
 
   /* Typeset `table` color shades */
   --md-typeset-table-color:            #333333;
@@ -94,7 +94,6 @@
 }
 
 
-
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
     font-weight: 700;
 }
@@ -109,6 +108,25 @@
 }
 
 
+.preview-container {
+  position: relative;
+  display: inline-block; /* or block, depending on your layout */
+}
+
+.off-glb {
+  width: 100%; /* adjust to your layout */
+  display: block;
+}
+
+.overlay-video {
+  position: absolute;
+  top:9%;     /* adjust position vertically */
+  left: 22%;    /* adjust position horizontally */
+  width: 56%;   /* make it slightly smaller */
+  z-index: 2;   /* put it on top */
+  pointer-events: none; /* optional: lets clicks pass through */
+  border-radius: 4px; /* optional: adds rounded corners */
+}
 
 
 

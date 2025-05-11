@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://portmaster.games/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Contribute/Developer%20Details/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/faq/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Contribute/What%20can%20be%20ported%3F/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/contribute/developer-details/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Contribute/Engines/Gamemaker%20Studio/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/contribute/what-can-be-ported/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Installation/Installing%20Ports/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/contribute/engines/gamemaker-studio/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Installation/Installing%20the%20App/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/installation/installing-portmaster/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Installation/Supported%20Handhelds/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/installation/installing-ports/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
     <url>
-         <loc>https://portmaster.games/Tools/Markdown%20Generator/</loc>
-         <lastmod>2025-05-09</lastmod>
+         <loc>https://portmaster.games/installation/supported-handhelds/</loc>
+         <lastmod>2025-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://portmaster.games/tools/markdown-generator/</loc>
+         <lastmod>2025-05-11</lastmod>
     </url>
 </urlset>
