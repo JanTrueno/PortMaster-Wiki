@@ -28,15 +28,16 @@ theme:
     - navigation.top
     - navigation.tabs
     - navigation.sections
-    - navigation.indexes
+  #  - navigation.indexes
     - navigation.tracking
-   # - toc.follow
+    - toc.follow
     - search.suggest
     - content.tooltips
     - content.code.copy
     - content.code.annotate
     - header.social  # Enable social links in the header
     - navigation.footer
+    - toc.integrate
 markdown_extensions:
   - tables
   - attr_list
@@ -85,8 +86,7 @@ extra:
 
 
 nav:
-  - Home: 
-      - Welcome: index.md
+  - Home: index.md
   - Installation: 
       - Installing the GUI: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
