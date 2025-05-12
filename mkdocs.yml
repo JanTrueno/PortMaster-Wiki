@@ -65,6 +65,13 @@ extra_css:
 plugins:
    - glightbox
    - search
+   - blog:
+      blog_dir: news
+      blog_toc: true
+      post_date_format: full
+      archive: true
+      archive_toc: true
+      post_excerpt: required
 
 
 extra:
@@ -81,9 +88,7 @@ extra:
     - icon: fontawesome/solid/hand-holding-dollar
       link: https://opencollective.com/portmaster
   favicon: assets/images/logo.ico  
-
-
-
+    
 
 nav:
   - Home: index.md
@@ -92,6 +97,10 @@ nav:
       - Installing Ports: installation/installing-ports.md
       - Supported Handhelds: installation/supported-handhelds.md
   - Games: games.md
+  - News: 
+      - Posts: news/index.md
+  - FAQ:
+      - Frequenty Asked Questions: faq.md
   - Tools:
       - Markdown Generator: tools/markdown-generator.md
   - Contribute:
@@ -99,9 +108,6 @@ nav:
       - Engines:
           - Gamemaker Studio: contribute/engines/gamemaker-studio.md
       - Developer Details: contribute/developer-details.md
-  - FAQ:
-      - Frequenty Asked Questions: faq.md
 
- 
 
 
