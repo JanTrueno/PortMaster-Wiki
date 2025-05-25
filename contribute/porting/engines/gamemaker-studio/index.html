@@ -1194,30 +1194,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Compatibility">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-is-yyc" class="md-nav__link">
-    <span class="md-ellipsis">
-      What is YYC?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#determining-gms-version-and-compiler-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      Determining GMS Version and Compiler Type
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1226,57 +1202,6 @@
       Steps Involved
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Steps Involved">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-find-the-target-game" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 1: Find the Target Game
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-extract-the-games-bytecode-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 2: Extract the Game’s Bytecode File
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-check-for-yyc-and-gamemaker-version" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 3: Check for YYC and GameMaker Version
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-select-the-correct-wrapper" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 4: Select the Correct Wrapper
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-rework-the-example-package-for-the-game" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 5: Rework the Example Package for the Game
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1287,21 +1212,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Packaging">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gmloader-port-file-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      GMLoader Port File Structure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1310,57 +1220,6 @@
       Patching and known bugs
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Patching and known bugs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pack-audio-into-wrapper" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pack audio into wrapper:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#newtexturerepacker-utmt" class="md-nav__link">
-    <span class="md-ellipsis">
-      NewTextureRepacker (UTMT)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bytecode-updowngraders-utmt" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bytecode up/downgraders (UTMT)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gmtools-portmaster-in-house" class="md-nav__link">
-    <span class="md-ellipsis">
-      GMTools (PortMaster In-house)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#patch-deployment-portmaster-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      Patch deployment (PortMaster tool)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1379,21 +1238,6 @@
       Troubleshooting Performance (Case Study)
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting Performance (Case Study)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#compiling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compiling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1782,23 +1626,23 @@
 </span></code></pre></div>
 <ul>
 <li>
-<p><strong>lib folder</strong><br />
+<p><strong>lib folder</strong>
     The <code>lib</code> folder within the runtime squashfs houses Android AOSP libraries, taken from a prebuilt image provided by Google. This folder is named <code>lib</code> because these are native Android libraries, following the file path structure used in Android. The <code>libs.${DEVICE_ARCH}</code> folder contains libraries native to either <code>aarch64</code> or <code>armhf</code>. GMLoader-Next requires <code>libcrypto</code>, <code>libopenal</code>, and <code>libzip</code> at a minimum to function.</p>
 </li>
 <li>
-<p><strong>licenses folder</strong><br />
+<p><strong>licenses folder</strong>
     The <code>licenses</code> folder contains text and markdown files that outline the license agreements for each library and binary used in GMLoader.</p>
 </li>
 <li>
-<p><strong>assets folder</strong><br />
+<p><strong>assets folder</strong>
     This folder is where the end users place their game data. Typically, users will copy everything from their Steam or GOG installation folder, or unzip an archive from <a href="http://Itch.io">Itch.io</a> into this folder. Once the <code>patchscript</code> completes on the first run, this folder may be removed.</p>
 </li>
 <li>
-<p><strong>saves folder</strong><br />
+<p><strong>saves folder</strong>
     This folder is used to store GameMaker games’ save data. While the folder can be renamed, it is typically referred to as <code>saves</code>.</p>
 </li>
 <li>
-<p><strong>gmloader.json</strong><br />
+<p><strong>gmloader.json</strong>
     This JSON file contains configuration options for GMLoader-Next on a per-port basis. It is configurable and can be named <code>portname.json</code>.</p>
 <p>{
     "save_dir" : "saves",
@@ -1809,11 +1653,11 @@
 }</p>
 </li>
 <li>
-<p><strong>patchscript</strong><br />
+<p><strong>patchscript</strong>
     This is a bash script that runs on the first boot via the PortMaster Patcher program. The <code>.sh</code> file extension is avoided to prevent interference with PortMaster scripts. An example of the script can be found <a href="https://github.com/JeodC/PortMaster-UFO50/blob/main/ufo50/tools/patchscript">here</a>.</p>
 </li>
 <li>
-<p><strong>portname.gptk</strong><br />
+<p><strong>portname.gptk</strong>
     If the GpToKeyB tool is used in the port, this file is likely included. Even if native gamepad controls are present, it is still advisable to include an empty <code>portname.gptk</code> file for debugging.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>back = \&quot;
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>start = \&quot;
@@ -1842,11 +1686,11 @@
 </span></code></pre></div>
 </li>
 <li>
-<p><strong>portname.port</strong><br />
+<p><strong>portname.port</strong>
     This is an archive file structured like an APK file but without any Android-specific references. Upon opening, it will contain a <code>lib</code> folder with the GameMaker Studio runtime file and, if the port has been packed, an <code>assets</code> folder containing all the game data previously stored in the <code>portname/assets</code> folder.</p>
 </li>
 </ul>
-<p><strong>Note:</strong><br />
+<p><strong>Note:</strong>
 Game Maker Studio has listed two end-user license agreements on their website for their runtimes: the <a href="https://gamemaker.io/en/legal/gamemaker-runtime-licence-free">free</a> agreement, and the <a href="https://gamemaker.io/en/legal/gamemaker-runtime-licence-professional">professional</a> agreement. Both list the following clause:</p>
 <blockquote>
 <p>This licence grants you the right to distribute the runtime portion of GameMaker in executable code format only as an integrated and inseparable part of your content to third parties to whom you license such content, subject in each case to your full compliance with the GameMaker Terms and payment of all applicable fees.</p>
@@ -1873,14 +1717,14 @@ Game Maker Studio has listed two end-user license agreements on their website fo
 <p>Not all GameMaker games are the same when it comes to audio. Developers have a variety of audio options, from streaming external audio (like Undertale), to grouping audio files into <code>audiogroup.dat</code> files, to embedding audio files into the GMS data file. When audio files aren’t streamed, they’re loaded into memory at runtime. For low-mem handhelds, this can cause problems. GMTools analyzes all audiogroups and the data file and converts any <code>.wav</code> files it finds to <code>.ogg</code>, and can also compress audio to a specified bitrate. This can significantly <strong>reduce ram usage</strong>. For our usecase, audio quality isn’t a big concern–the handhelds use small speakers, after all.</p>
 <h3 id="patch-deployment-portmaster-tool">Patch deployment (PortMaster tool)<a class="headerlink" href="#patch-deployment-portmaster-tool" title="Permanent link">¶</a></h3>
 <p>If a GMS data file requires modifications, we need to then supply a method for the end-user to make use of the modifications without having to open up UTMT themselves. PortMaster strives to make ports as accessible and seamless as possible. <a href="https://github.com/Moodkiller/xdelta3-gui-2.0">XDelta3</a> both creates a patch file containing the differences between our two GMS data files, and applies patch files on-device during the first-time launch process for a port. This can be done with out xdelta binary inside the PortMaster controlfolder using the following:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">    </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s2">&quot;data.win&quot;</span><span class="w"> </span>exists<span class="w"> </span>and<span class="w"> </span>its<span class="w"> </span>MD5<span class="w"> </span>checksum<span class="w"> </span>matches<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>value<span class="w"> </span><span class="k">then</span><span class="w"> </span>apply<span class="w"> </span>patch
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="nv">checksum</span><span class="o">=</span><span class="k">$(</span>md5sum<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">#Check if &quot;data.win&quot; exists and its MD5 checksum matches the specified value then apply patch</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nv">checksum</span><span class="o">=</span><span class="k">$(</span>md5sum<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$checksum</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;4b97bb2da8c515d787fe70aa03550ce5&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">            </span><span class="nv">$ESUDO</span><span class="w"> </span><span class="nv">$controlfolder</span>/xdelta3<span class="w"> </span>-d<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;./patch/patch.xdelta3&quot;</span><span class="w"> </span><span class="s2">&quot;assets/game.droid&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">            </span>rm<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="k">fi</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="nv">$ESUDO</span><span class="w"> </span><span class="nv">$controlfolder</span>/xdelta3<span class="w"> </span>-d<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;./patch/patch.xdelta3&quot;</span><span class="w"> </span><span class="s2">&quot;assets/game.droid&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span>rm<span class="w"> </span><span class="s2">&quot;assets/data.win&quot;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">fi</span>
 </span></code></pre></div>
 <hr />
 <h2 id="tools-used">Tools Used<a class="headerlink" href="#tools-used" title="Permanent link">¶</a></h2>
@@ -1906,7 +1750,7 @@ Game Maker Studio has listed two end-user license agreements on their website fo
 <h2 id="troubleshooting-performance-case-study">Troubleshooting Performance (Case Study)<a class="headerlink" href="#troubleshooting-performance-case-study" title="Permanent link">¶</a></h2>
 <div class="admonition quote">
 <p class="admonition-title">UFO 50</p>
-<p>When RAM limitations are not the problem, it’s time to dive deeper to find out why the game performs subpar. GameMaker uses rooms as a space to load content, and will often contain preplaced static content such as tiles to avoid draw calls later. A game can have several different rooms, like one for the title screen, and then another for the game itself, etc. These rooms are loaded into memory wholesale, so if a room has massive dimensions (think 10,000 x 20,000), it might also have a massive amount of object instances. This means the entire game will chug while using that room. A good example of this is UFO 50’s Ninpek game. If we open UFO 50 in UndertaleModTool and load rm34_Ninpek, we can instantly see why it’s choppy and slow on small-arm handhelds: the room dimensions are 15,360 x 216. Ninpek is a sidescrolling game with a constantly moving camera, so it’s natural for the developer to create a room like this to hold the content and flow. However, because the room contains so many instances, it slows to a crawl on low-power devices. There’s not much we can do about a room like this, though, at least not without heavily tampering with the game—which would essentially deviate the project from a simple compatibility patch and turn it into a complete mod.  </p>
+<p>When RAM limitations are not the problem, it’s time to dive deeper to find out why the game performs subpar. GameMaker uses rooms as a space to load content, and will often contain preplaced static content such as tiles to avoid draw calls later. A game can have several different rooms, like one for the title screen, and then another for the game itself, etc. These rooms are loaded into memory wholesale, so if a room has massive dimensions (think 10,000 x 20,000), it might also have a massive amount of object instances. This means the entire game will chug while using that room. A good example of this is UFO 50’s Ninpek game. If we open UFO 50 in UndertaleModTool and load rm34_Ninpek, we can instantly see why it’s choppy and slow on small-arm handhelds: the room dimensions are 15,360 x 216. Ninpek is a sidescrolling game with a constantly moving camera, so it’s natural for the developer to create a room like this to hold the content and flow. However, because the room contains so many instances, it slows to a crawl on low-power devices. There’s not much we can do about a room like this, though, at least not without heavily tampering with the game—which would essentially deviate the project from a simple compatibility patch and turn it into a complete mod.</p>
 </div>
 <div class="admonition quote">
 <p class="admonition-title">Isle of Sea and Sky</p>
@@ -1922,33 +1766,33 @@ Game Maker Studio has listed two end-user license agreements on their website fo
 <ul>
 <li>
 <p>Clone the repository and all submodules
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    git clone https://github.com/JohnnyonFlame/gmloader-next --recursive
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git clone https://github.com/JohnnyonFlame/gmloader-next --recursive
 </span></code></pre></div></p>
 </li>
 <li>
 <p>Build the project with desired target platform options
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    make -f Makefile.gmloader ARCH=aarch64-linux-gnu
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>make -f Makefile.gmloader ARCH=aarch64-linux-gnu
 </span></code></pre></div></p>
 </li>
 <li>
 <p>Example: Build using Debian Bullseye for older platforms
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    make -f Makefile.gmloader \
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>      ARCH=aarch64-linux-gnu \
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>      LLVM_FILE=/usr/lib/llvm-11/lib/libclang-11.so.1 \
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>      LLVM_INC=/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>      -j$(nproc)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make -f Makefile.gmloader \
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ARCH=aarch64-linux-gnu \
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>LLVM_FILE=/usr/lib/llvm-11/lib/libclang-11.so.1 \
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>LLVM_INC=/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>-j$(nproc)
 </span></code></pre></div></p>
 </li>
 <li>
 <p>Generate the libc dependencies
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    python3 scripts/generate_libc.py aarch64-linux-gnu \
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>      --llvm-includes /usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      --llvm-library-file &quot;/usr/lib/llvm-11/lib/libclang-11.so.1&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3 scripts/generate_libc.py aarch64-linux-gnu \
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>--llvm-includes /usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>--llvm-library-file &quot;/usr/lib/llvm-11/lib/libclang-11.so.1&quot;
 </span></code></pre></div></p>
 </li>
 <li>
 <p>Deploy: Copy the lib redist folder to the application directory]
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    cp -r lib_redist/ &lt;application_folder&gt;/
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cp -r lib_redist/ &lt;application_folder&gt;/
 </span></code></pre></div></p>
 </li>
 </ul>
