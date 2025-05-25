@@ -24,20 +24,23 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    - navigation.tabs.sticky
-    - navigation.top
+  #  - navigation.top
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
-  #  - navigation.indexes
-    - navigation.tracking
+    - navigation.indexes
+    - navigation.expand
+    - navigation.path
+  #  - navigation.tracking
+    - navigation.footer
     - toc.follow
+    - toc.integrate 
     - search.suggest
     - content.tooltips
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
     - header.social  # Enable social links in the header
-    - navigation.footer
-    - toc.integrate
 markdown_extensions:
   - tables
   - attr_list
@@ -46,7 +49,11 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - md_in_html
   - pymdownx.blocks.caption
   - toc:
@@ -60,6 +67,15 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.keys
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - admonition
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
 extra_css:
   - assets/stylesheets/extra.css
 plugins:
@@ -88,26 +104,40 @@ extra:
     - icon: fontawesome/solid/hand-holding-dollar
       link: https://opencollective.com/portmaster
   favicon: assets/images/logo.ico  
-    
+
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
+
 
 nav:
   - Home: index.md
+  - FAQ: faq.md
+  - Games: games.md
   - Installation: 
       - Installing the GUI: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
       - Supported Handhelds: installation/supported-handhelds.md
-  - Games: games.md
+      - Runtimes: installation/runtimes.md
   - News: 
       - Posts: news/index.md
-  - FAQ:
-      - Frequenty Asked Questions: faq.md
   - Tools:
       - Markdown Generator: tools/markdown-generator.md
-  - Contribute:
-      - What can be ported?: contribute/what-can-be-ported.md
-      - Engines:
-          - Gamemaker Studio: contribute/engines/gamemaker-studio.md
-      - Developer Details: contribute/developer-details.md
+  - Contribute: 
+      - Porting:
+          - What can be ported?: contribute/porting/what-can-be-ported.md
+          - Engines:
+              - Love2D : contribute/porting/engines/love2d.md
+              - Gamemaker Studio : contribute/porting/engines/gamemaker-studio.md
+          - Build Environments: contribute/porting/build-environments.md
+          - Script Templates: contribute/porting/script-templates.md
+          - Packaging: contribute/porting/packaging.md
+          - Developer Details: contribute/porting/developer-details.md
+      - GUI:
+          - Themes: contribute/gui/theme-engine.md
+          - Translation: contribute/gui/translation.md
+
 
 
 
