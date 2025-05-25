@@ -11,7 +11,7 @@ PortMaster runtimes are shared engines or frameworks required for some ports to 
 
 
 <script>
-  fetch('../../../assets/json/ports.json')
+  fetch('../../assets/json/ports.json')
     .then(response => {
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       return response.json();
