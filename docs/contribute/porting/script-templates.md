@@ -1,6 +1,4 @@
-# Packaging Ports for PortMaster
-
-## Standard Portscript Templates
+# Standard Portscript Templates
 
 === "Basic"
 
@@ -310,7 +308,7 @@
 
 --- 
 
-## Westonpack Portscript Templates
+# Westonpack Portscript Templates
 
 
 === "Godot 4"
