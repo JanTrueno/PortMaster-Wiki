@@ -6,9 +6,7 @@ PortMaster runtimes are shared engines or frameworks required for some ports to 
 
 ## Download runtimes
 
-!!! quote "Runtimes" 
-    <div id="utils-list">Loading runtimes...</div>
-
+<div id="utils-list">Loading runtimes...</div>
 
 <script>
   fetch('../../assets/json/ports.json')

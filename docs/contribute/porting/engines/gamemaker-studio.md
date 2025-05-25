@@ -131,19 +131,19 @@ portname/
 ```
     
 
-*   **lib folder**  
+*   **lib folder**
     The `lib` folder within the runtime squashfs houses Android AOSP libraries, taken from a prebuilt image provided by Google. This folder is named `lib` because these are native Android libraries, following the file path structure used in Android. The `libs.${DEVICE_ARCH}` folder contains libraries native to either `aarch64` or `armhf`. GMLoader-Next requires `libcrypto`, `libopenal`, and `libzip` at a minimum to function.
     
-*   **licenses folder**  
+*   **licenses folder**
     The `licenses` folder contains text and markdown files that outline the license agreements for each library and binary used in GMLoader.
     
-*   **assets folder**  
+*   **assets folder**
     This folder is where the end users place their game data. Typically, users will copy everything from their Steam or GOG installation folder, or unzip an archive from [Itch.io](http://Itch.io) into this folder. Once the `patchscript` completes on the first run, this folder may be removed.
     
-*   **saves folder**  
+*   **saves folder**
     This folder is used to store GameMaker games’ save data. While the folder can be renamed, it is typically referred to as `saves`.
     
-*   **gmloader.json**  
+*   **gmloader.json**
     This JSON file contains configuration options for GMLoader-Next on a per-port basis. It is configurable and can be named `portname.json`.
     
 
@@ -156,10 +156,10 @@ portname/
     }
     
 
-*   **patchscript**  
+*   **patchscript**
     This is a bash script that runs on the first boot via the PortMaster Patcher program. The `.sh` file extension is avoided to prevent interference with PortMaster scripts. An example of the script can be found [here](https://github.com/JeodC/PortMaster-UFO50/blob/main/ufo50/tools/patchscript).
     
-*   **portname.gptk**  
+*   **portname.gptk**
     If the GpToKeyB tool is used in the port, this file is likely included. Even if native gamepad controls are present, it is still advisable to include an empty `portname.gptk` file for debugging.
     
     ```
@@ -189,10 +189,10 @@ portname/
     right_analog_right = \"
     ```
 
-*   **portname.port**  
+*   **portname.port**
     This is an archive file structured like an APK file but without any Android-specific references. Upon opening, it will contain a `lib` folder with the GameMaker Studio runtime file and, if the port has been packed, an `assets` folder containing all the game data previously stored in the `portname/assets` folder.
 
-**Note:**  
+**Note:**
 Game Maker Studio has listed two end-user license agreements on their website for their runtimes: the [free](https://gamemaker.io/en/legal/gamemaker-runtime-licence-free) agreement, and the [professional](https://gamemaker.io/en/legal/gamemaker-runtime-licence-professional) agreement. Both list the following clause:
 
 > This licence grants you the right to distribute the runtime portion of GameMaker in executable code format only as an integrated and inseparable part of your content to third parties to whom you license such content, subject in each case to your full compliance with the GameMaker Terms and payment of all applicable fees.
@@ -237,14 +237,14 @@ Not all GameMaker games are the same when it comes to audio. Developers have a v
 If a GMS data file requires modifications, we need to then supply a method for the end-user to make use of the modifications without having to open up UTMT themselves. PortMaster strives to make ports as accessible and seamless as possible. [XDelta3](https://github.com/Moodkiller/xdelta3-gui-2.0) both creates a patch file containing the differences between our two GMS data files, and applies patch files on-device during the first-time launch process for a port. This can be done with out xdelta binary inside the PortMaster controlfolder using the following:
 
 ```bash
-    Check if "data.win" exists and its MD5 checksum matches the specified value then apply patch
-    if [ -f "assets/data.win" ]; then
-        checksum=$(md5sum "assets/data.win" | awk '{print $1}')
+#Check if "data.win" exists and its MD5 checksum matches the specified value then apply patch
+if [ -f "assets/data.win" ]; then
+    checksum=$(md5sum "assets/data.win" | awk '{print $1}')
         if [ "$checksum" = "4b97bb2da8c515d787fe70aa03550ce5" ]; then
-            $ESUDO $controlfolder/xdelta3 -d -s "assets/data.win" -f "./patch/patch.xdelta3" "assets/game.droid" && \
-            rm "assets/data.win"
-        fi
+        $ESUDO $controlfolder/xdelta3 -d -s "assets/data.win" -f "./patch/patch.xdelta3" "assets/game.droid" && \
+        rm "assets/data.win"
     fi
+fi
 ```
 
 ---
@@ -268,7 +268,7 @@ PortMaster Engineers heavily rely on a few major tools that make GMS ports succe
 ## Troubleshooting Performance (Case Study)
 
 !!! quote "UFO 50"
-    When RAM limitations are not the problem, it’s time to dive deeper to find out why the game performs subpar. GameMaker uses rooms as a space to load content, and will often contain preplaced static content such as tiles to avoid draw calls later. A game can have several different rooms, like one for the title screen, and then another for the game itself, etc. These rooms are loaded into memory wholesale, so if a room has massive dimensions (think 10,000 x 20,000), it might also have a massive amount of object instances. This means the entire game will chug while using that room. A good example of this is UFO 50’s Ninpek game. If we open UFO 50 in UndertaleModTool and load rm34_Ninpek, we can instantly see why it’s choppy and slow on small-arm handhelds: the room dimensions are 15,360 x 216. Ninpek is a sidescrolling game with a constantly moving camera, so it’s natural for the developer to create a room like this to hold the content and flow. However, because the room contains so many instances, it slows to a crawl on low-power devices. There’s not much we can do about a room like this, though, at least not without heavily tampering with the game—which would essentially deviate the project from a simple compatibility patch and turn it into a complete mod.  
+    When RAM limitations are not the problem, it’s time to dive deeper to find out why the game performs subpar. GameMaker uses rooms as a space to load content, and will often contain preplaced static content such as tiles to avoid draw calls later. A game can have several different rooms, like one for the title screen, and then another for the game itself, etc. These rooms are loaded into memory wholesale, so if a room has massive dimensions (think 10,000 x 20,000), it might also have a massive amount of object instances. This means the entire game will chug while using that room. A good example of this is UFO 50’s Ninpek game. If we open UFO 50 in UndertaleModTool and load rm34_Ninpek, we can instantly see why it’s choppy and slow on small-arm handhelds: the room dimensions are 15,360 x 216. Ninpek is a sidescrolling game with a constantly moving camera, so it’s natural for the developer to create a room like this to hold the content and flow. However, because the room contains so many instances, it slows to a crawl on low-power devices. There’s not much we can do about a room like this, though, at least not without heavily tampering with the game—which would essentially deviate the project from a simple compatibility patch and turn it into a complete mod.
 
 !!! quote "Isle of Sea and Sky"
     Isles of Sea and Sky is another fine example of performance troubleshooting. In IOSAS, entering specific areas will result in a huge framerate drop—which instantly recovers as soon as the area is left. This again indicates a problem with rooms. IOSAS has a specific set of rooms called “god rooms” that load a specific script that has to do with “god gem” special effects. This special effect in question is a calculation loop for drawing lines to synchronize with gems rotating around a sprite. Calculations are already CPU-intensive tasks, so putting them into a loop that executes every frame is asking for low performance. This particular case was resolved by modifying the loop to retrieve variables from a file pm-config.ini, an ini file specially made for the port. Inside, the user can configure two variables: Idol_SFX and FrameSkip. If Idol_SFX=1, meaning the loop is allowed to execute, then FrameSkip=x will dictate when the loop will execute. Instead of executing every frame (FrameSkip=0), we can modify the value so the loop only executes every 20 or 30 frames. This results in a change: our low framerate is now a stutter, where the game “pauses” once every x frames when it performs the calculation step. This means the special effect also isn’t perfectly aligned—but it preserves the artistic effect somewhat while compensating for low CPU power.
@@ -284,34 +284,34 @@ Gmloader-next can be cross-compiled using the following steps.
 
 - Clone the repository and all submodules
 ```
-    git clone https://github.com/JohnnyonFlame/gmloader-next --recursive
+git clone https://github.com/JohnnyonFlame/gmloader-next --recursive
 ```
 
 - Build the project with desired target platform options
 ```
-    make -f Makefile.gmloader ARCH=aarch64-linux-gnu
+make -f Makefile.gmloader ARCH=aarch64-linux-gnu
 ```
     
 - Example: Build using Debian Bullseye for older platforms
 ```
-    make -f Makefile.gmloader \
-      ARCH=aarch64-linux-gnu \
-      LLVM_FILE=/usr/lib/llvm-11/lib/libclang-11.so.1 \
-      LLVM_INC=/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
-      -j$(nproc)
+make -f Makefile.gmloader \
+ARCH=aarch64-linux-gnu \
+LLVM_FILE=/usr/lib/llvm-11/lib/libclang-11.so.1 \
+LLVM_INC=/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
+-j$(nproc)
 ```
 
 - Generate the libc dependencies
 ```
-    python3 scripts/generate_libc.py aarch64-linux-gnu \
-      --llvm-includes /usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
-      --llvm-library-file "/usr/lib/llvm-11/lib/libclang-11.so.1"
+python3 scripts/generate_libc.py aarch64-linux-gnu \
+--llvm-includes /usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
+--llvm-library-file "/usr/lib/llvm-11/lib/libclang-11.so.1"
 ```
 
     
 - Deploy: Copy the lib redist folder to the application directory]
 ```
-    cp -r lib_redist/ <application_folder>/
+cp -r lib_redist/ <application_folder>/
 ```
     
 For more details, check the full [documentation](https://github.com/JohnnyonFlame/gmloader-next).

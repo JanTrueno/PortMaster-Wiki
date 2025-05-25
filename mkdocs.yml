@@ -56,13 +56,8 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - md_in_html
   - pymdownx.blocks.caption
-  - toc:
-      toc_depth: 3
-      permalink: ¶
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
@@ -72,9 +67,15 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - admonition
-
   - pymdownx.tabbed:
       alternate_style: true
+  - toc:
+      toc_depth: 2
+      permalink: ¶
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
 
 extra_css:
   - assets/stylesheets/extra.css

@@ -19,11 +19,18 @@ PortMaster is a powerful, community-driven platform that simplifies the process 
 
 ## Features
 
-- **Game Port Management**: Easily install and update game ports, both free and commercial titles.
-- **Multi-Device Support**: Compatible with a variety of Linux handheld devices like AmberELEC, ArkOS, and muOS.
-- **User-Friendly Interface**: Simple graphical interface (GUI) to handle installations and updates with ease.
-- **Community Contributions**: Actively encourages community members to suggest new ports and improve the platform.
-- **Automated Library Management**: Automatically handles necessary libraries for seamless gameplay, preventing system conflicts.
+- [x] Browse and download from over 1000 game ports with ease.
+- [x] Cancel active downloads at any time to save time and bandwidth.
+- [x] View port previews before downloading to help you choose.
+- [x] Filter ports by genre, runtime, update availability, and install status.
+- [x] Sort ports by name, most recent, or recently updated.
+- [x] Manage installed ports — install, update, uninstall with a few clicks.
+- [x] Automatically handles dependencies like runtimes.
+- [x] Custom themes for personalizing your UI (light, dark, Zelda, FF VII, etc.).
+- [x] Works across major custom firmware platforms.
+- [x] Lightweight and fast — no bloat, just performance.
+
+
 
 ## Preview
 
