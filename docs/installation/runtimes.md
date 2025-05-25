@@ -24,9 +24,12 @@ PortMaster runtimes are shared engines or frameworks required for some ports to 
         return;
       }
 
-      const filteredEntries = Object.entries(utils).filter(([key]) => {
+      const filteredEntries = Object.entries(utils).filter(([key, entry]) => {
         const lowerKey = key.toLowerCase();
-        return !lowerKey.includes('images') && !lowerKey.includes('gameinfo');
+        // Filter out keys with images/gameinfo AND only include aarch64 arch
+        return !lowerKey.includes('images') &&
+               !lowerKey.includes('gameinfo') &&
+               entry.runtime_arch === 'aarch64';
       });
 
       if (filteredEntries.length === 0) {
