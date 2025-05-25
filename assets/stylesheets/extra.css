@@ -91,7 +91,10 @@
   --md-code-hl-variable-color:         #fff;
   --md-code-hl-comment-color:          #999;
   --md-code-hl-punctuation-color:      #fff;
+
 }
+
+
 
 
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
@@ -129,6 +132,28 @@
 }
 
 
+/* Admonitions stuff*/
 
+[data-md-color-scheme="light"] .md-typeset .admonition {
+  background-color: var(--md-default-bg-color--light);
+  color: var(--md-default-fg-color--dark); /* Darker text */
+}
+
+[data-md-color-scheme="light"] .md-typeset .admonition-title {
+  color: var(--md-default-fg-color--dark); /* Dark title */
+}
+
+[data-md-color-scheme="dark"] .md-typeset .admonition {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light); /* Light text */
+}
+
+[data-md-color-scheme="dark"] .md-typeset .admonition-title {
+  color: var(--md-default-fg-color--light); /* Light title */
+}
+
+.md-typeset .admonition-title {
+  font-weight: bold;
+}
 
 
