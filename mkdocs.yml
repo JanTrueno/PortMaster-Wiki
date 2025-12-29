@@ -82,6 +82,7 @@ extra_css:
 plugins:
    - glightbox
    - search
+   - macros
    - blog:
       blog_dir: news
       blog_toc: true

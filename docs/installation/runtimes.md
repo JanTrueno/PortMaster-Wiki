@@ -4,6 +4,15 @@ PortMaster runtimes are shared engines or frameworks required for some ports to 
 !!! info 
     Runtimes are automatically installed on devices with an internet connection. If you have an offline device please use the [**Full Portmaster Installer**](installing-portmaster.md)!
 
+## Runtime location
+| CFW		       | Path                                           |
+|------------------|------------------------------------------------|
+| Knulli           | `/userdata/system/.local/share/PortMaster/libs`|
+| MuOS             | `/MUOS/PortMaster/libs`                        |
+| ArkOS            | `/roms/tools/PortMaster/libs/`                 |
+| Rocknix          | `/roms/ports/PortMaster/libs/`                 |
+| AmberELEC        | `/roms/ports/PortMaster/libs/`                 |
+
 ## Download runtimes
 
 <div id="utils-list">Loading runtimes...</div>
