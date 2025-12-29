@@ -2,7 +2,7 @@
 date: 2025-04-21
 authors:
   - jantrueno
-readtime: 10
+readtime: 7
    
 ---
 

@@ -130,7 +130,7 @@ search:
   const allCards = document.querySelectorAll('.game-card');
 
   // ===== Load Devices =====
-  fetch('/assets/json/device_info.json')
+  fetch('https://raw.githubusercontent.com/JanTrueno/PortMaster-Wiki/refs/heads/main/docs/assets/json/device_info.json')
     .then(res => res.json())
     .then(data => {
       devices = data;
