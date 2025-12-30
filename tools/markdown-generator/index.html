@@ -1382,64 +1382,96 @@
   
 
 
-<!DOCTYPE html>
-<html lang="en" data-md-color-scheme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <title>Markdown Generator Test</title>
-  <style>
-    /* Apply existing color scheme for the page */
-    body {
-      background-color: var(--md-default-bg-color);
-      color: var(--md-default-fg-color);
-    }
+<div class="mdgen">
 
-    textarea, input {
-      padding: var(--custom-input-padding); /* Use new custom padding variable */
-      margin: var(--custom-margin); /* Use new custom margin variable */
-      width: 100%;
-    }
+<style>
+/* ===============================
+   Markdown Generator – Scoped CSS
+   =============================== */
 
-    pre {
-      background-color: var(--md-code-bg-color);
-      color: var(--md-code-fg-color);
-      border-radius: var(--custom-table-border-radius); /* Use new custom border radius */
-      overflow: auto;
-    }
+.mdgen {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-    table {
-      width: 100%;
-      background-color: var(--md-typeset-table-color);
-      border-collapse: collapse;
-    }
+.mdgen h1,
+.mdgen h3 {
+  font-weight: 700;
+}
 
-    /* Apply hover effect for better interaction feedback */
-    button:hover {
-      background-color: var(--md-primary-bg-color);
-      color: var(--md-accent-fg-color);
-    }
+.mdgen textarea,
+.mdgen input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.95rem;
+}
 
-  </style>
- <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-    html.glightbox-open { overflow: initial; height: 100%; }
-    .gslide-title { margin-top: 0px; user-select: text; }
-    .gslide-desc { color: #666; user-select: text; }
-    .gslide-image img { background: white; }
-    .gscrollbar-fixer { padding-right: 15px; }
-    .gdesc-inner { font-size: 0.75rem; }
-    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
-<body>
+.mdgen textarea {
+  min-height: 120px;
+  resize: vertical;
+}
 
-<h1>Markdown Generator Test</h1>
+.mdgen textarea:focus,
+.mdgen input:focus {
+  outline: none;
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0 2px rgba(244,149,25,0.2);
+}
 
-<p>This tool will generate port markdowns, needs a proper clean up. </p>
+.mdgen table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.mdgen th,
+.mdgen td {
+  padding: 0.5rem;
+  border: 1px solid var(--md-typeset-table-color--light);
+}
+
+.mdgen th {
+  text-align: left;
+  font-weight: 600;
+  background: var(--md-typeset-table-color);
+}
+
+.mdgen .actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.mdgen pre {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.mdgen .spacer {
+  margin-top: 1.25rem;
+}
+</style>
+
+<h1>Markdown Generator</h1>
 
 <h3>1. Notes</h3>
-<textarea id="markdownInput" placeholder="Thank the developers here and other notes..."></textarea>
+<textarea
+  id="markdownInput"
+  placeholder="Thank the developers here and add any notes..."
+></textarea>
 
-<h3>2. Controls</h3>
+<h3 class="spacer">2. Controls</h3>
+
 <table id="tableContainer">
   <thead>
     <tr>
@@ -1449,72 +1481,101 @@
   </thead>
   <tbody>
     <tr>
-      <td><input type="text" placeholder="Button" class="col1" /></td>
-      <td><input type="text" placeholder="Action" class="col2" /></td>
+      <td><input type="text" class="col1" placeholder="Button" /></td>
+      <td><input type="text" class="col2" placeholder="Action" /></td>
     </tr>
     <tr>
-      <td><input type="text" placeholder="Button" class="col1" /></td>
-      <td><input type="text" placeholder="Action" class="col2" /></td>
+      <td><input type="text" class="col1" placeholder="Button" /></td>
+      <td><input type="text" class="col2" placeholder="Action" /></td>
     </tr>
   </tbody>
 </table>
-<p><button class="md-button md-button--primary" onclick="addRow()">Add Row</button></p>
 
-<h3>3. Output</h3>
+<div class="actions">
+  <button class="md-button md-button--primary" onclick="addRow()">
+    Add row
+  </button>
+</div>
+
+<h3 class="spacer">3. Output</h3>
 <pre id="outputArea"></pre>
 
-<p>
-  <a href="#" onclick="generateMarkdown(); return false;" class="md-button md-button--primary">[Generate Markdown]</a><br />
-  <br> 
-  <a href="#" onclick="downloadMarkdown(); return false;" class="md-button md-button--primary">[Download Markdown]</a>
-</p>
+<div class="actions">
+  <a href="#" class="md-button md-button--primary" onclick="generateMarkdown(); return false;">
+    Generate markdown
+  </a>
+
+  <a href="#" class="md-button" onclick="downloadMarkdown(); return false;">
+    Download markdown
+  </a>
+</div>
 
 <script>
 function addRow() {
-  const container = document.getElementById('tableContainer').getElementsByTagName('tbody')[0];
-  const newRow = document.createElement('tr');
-  newRow.innerHTML = `
-    <td><input type="text" placeholder="Button Text" class="col1" /></td>
-    <td><input type="text" placeholder="Action URL" class="col2" /></td>
+  const tbody = document.querySelector('#tableContainer tbody');
+  const row = document.createElement('tr');
+
+  row.innerHTML = `
+    <td><input type="text" class="col1" placeholder="Button" /></td>
+    <td><input type="text" class="col2" placeholder="Action" /></td>
   `;
-  container.appendChild(newRow);
+
+  tbody.appendChild(row);
 }
 
 function generateMarkdown() {
-  const intro = document.getElementById('markdownInput').value.trim();
+  const notes = document.getElementById('markdownInput').value.trim();
 
-  const rows = Array.from(document.querySelectorAll('#tableContainer tbody tr')).map(row => {
-    const col1 = row.querySelector('.col1').value.trim();
-    const col2 = row.querySelector('.col2').value.trim();
-    return `| ${col1} | ${col2} |`;
-  });
+  const rows = Array.from(
+    document.querySelectorAll('#tableContainer tbody tr')
+  )
+    .map(row => {
+      const b = row.querySelector('.col1').value.trim();
+      const a = row.querySelector('.col2').value.trim();
+      if (!b && !a) return null; // skip empty rows
+      return `| ${b} | ${a} |`;
+    })
+    .filter(Boolean);
 
-  let tableMarkdown = '\n## Data Table\n\n| Button | Action |\n|--------|--------|\n' + rows.join('\n');
+  const table = [
+    '## Controls',
+    '',
+    '| Button | Action |',
+    '|--------|--------|',
+    ...rows
+  ].join('\n');
 
-  const buttons = `
-[Download Markdown]{ .md-button .md-button--primary }
-`.trim();
+  const notesSection = notes
+    ? `## Notes\n\n${notes}`
+    : '';
 
-  const full = `${intro}\n\n${buttons}\n\n${tableMarkdown}`;
-  document.getElementById('outputArea').textContent = full;
+  const output = [
+    notesSection,
+    '',
+    table
+  ].join('\n');
+
+  document.getElementById('outputArea').textContent = output;
 }
 
+
 function downloadMarkdown() {
-  const md = document.getElementById('outputArea').textContent;
-  const blob = new Blob([md], { type: 'text/markdown' });
+  const content = document.getElementById('outputArea').textContent;
+  if (!content) return;
+
+  const blob = new Blob([content], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
+
   const a = document.createElement('a');
   a.href = url;
   a.download = 'README.md';
   a.click();
+
   URL.revokeObjectURL(url);
 }
 </script>
 
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
+</div>
 
 
 
@@ -1666,5 +1727,7 @@ document$.subscribe(() => { lightbox.reload() });
         <script src="../../javascripts/tablesort.js"></script>
       
     
-  </body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

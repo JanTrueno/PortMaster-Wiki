@@ -371,7 +371,7 @@
   width: 100%;
   max-width: 400px;
   height: 100vh;
-  z-index: 1000;
+  z-index: 1100;
   transition: right 0.3s ease;
   overflow-y: auto;
   padding: 2rem 1.5rem;
@@ -400,7 +400,7 @@
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1099;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -652,7 +652,7 @@
 /* Custom Toggle Switch */
 .toggle-switch {
   position: relative;
-  width: 52px;
+  width: 70px;
   height: 28px;
   flex-shrink: 0;
 }
@@ -919,13 +919,13 @@
 
 /* Incompatible cards - greyed out */
 .game-card.incompatible {
-  opacity: 0.4;
-  filter: grayscale(70%);
+  opacity: 0.3;
+  filter: grayscale(50%);
 }
 
 .game-card.incompatible:hover {
-  opacity: 0.6;
-  filter: grayscale(50%);
+  opacity: 0.5;
+  filter: grayscale(30%);
 }
 
 
@@ -1031,23 +1031,29 @@
 }
 
 .modal-download-btn {
-  display: inline-block;
-  padding: 0.875rem 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  height: 70px;
   background-color: #F49519;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(244, 149, 25, 0.3);
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  will-change: transform, background-color;
+  flex: 1;
+  min-width: 200px;
+  flex-shrink: 1;
 }
 
 .modal-download-btn:hover {
   background-color: #ff9d2e;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 149, 25, 0.4);
-  color: #ffffff;
+  transform: scale(1.02);
 }
 
 /* ===== MODAL DETAILS SECTION ===== */
@@ -1434,4 +1440,135 @@
 .modal-header-section .modal-description .desc-md,
 .modal-header-section .modal-description .desc-md * {
   text-align: center !important;
+}
+/* ===== DOWNLOAD WARNING ===== */
+.download-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+  background-color: rgba(244, 149, 25, 0.15);
+  color: #F49519;
+  border: 2px solid #F49519;
+}
+
+/* Error state for incompatible downloads */
+.download-warning.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.download-warning.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.download-warning i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+
+/* ===== DOWNLOAD ACTIONS (Button Group) ===== */
+.download-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Device Filter Button */
+.device-filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: #F49519;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  will-change: transform, background-color;
+  flex-shrink: 0;
+}
+
+.device-filter-btn:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.05);
+}
+
+.device-filter-btn i {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+/* Share Button */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: #4DBEEE;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  will-change: transform, background-color;
+  flex-shrink: 0;
+}
+
+.share-btn:hover {
+  background-color: #5fcbf5;
+  transform: scale(1.05);
+}
+
+.share-btn i {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+@media (max-width: 480px) {
+  .download-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .modal-download-btn {
+    width: 100%;
+  }
+  
+  .device-filter-btn,
+  .share-btn {
+    width: 100%;
+  }
 }
