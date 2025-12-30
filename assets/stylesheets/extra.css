@@ -784,6 +784,7 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
+  height: 100%; /* Fill grid cell height */
 }
 
 [data-md-color-scheme="light"] .game-card {
@@ -811,7 +812,8 @@
 
 .game-card img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 3; /* Consistent image aspect ratio */
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 0.5rem;
 }
@@ -820,6 +822,68 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.3;
+  flex-grow: 1; /* Push stats to bottom */
+  display: flex;
+  align-items: center;
+}
+
+/* Card Stats (Downloads & Date Added) */
+.card-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid;
+  gap: 0.5rem;
+  flex-shrink: 0; /* Never shrink */
+  height: 1.5rem; /* Fixed height - single line */
+  overflow: hidden; /* Hide overflow */
+}
+
+[data-md-color-scheme="light"] .card-stats {
+  border-top-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .card-stats {
+  border-top-color: #444444;
+}
+
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  white-space: nowrap; /* Never wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-stat i {
+  font-size: 0.85rem;
+  color: #F49519;
+  flex-shrink: 0; /* Icon never shrinks */
+}
+
+[data-md-color-scheme="light"] .card-stat {
+  color: #555555;
+}
+
+[data-md-color-scheme="dark"] .card-stat {
+  color: #aaaaaa;
+}
+
+/* Incompatible cards - greyed out */
+.game-card.incompatible {
+  opacity: 0.4;
+  filter: grayscale(70%);
+}
+
+.game-card.incompatible:hover {
+  opacity: 0.6;
+  filter: grayscale(50%);
 }
 
 
