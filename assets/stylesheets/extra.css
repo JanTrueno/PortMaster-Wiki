@@ -779,36 +779,37 @@
   display: grid;
   gap: 1rem;
   padding: 1rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-/* Desktop: 3-5 columns */
-@media (min-width: 1400px) {
-  .game-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1399px) {
-  .game-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 600px) {
   .game-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Tablet: 2 columns */
-@media (min-width: 600px) and (max-width: 767px) {
+@media (min-width: 900px) {
   .game-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Mobile: 1 column for narrow screens */
-@media (max-width: 599px) {
+@media (min-width: 1200px) {
+  .game-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1500px) {
+  .game-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
   .game-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -826,7 +827,9 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
-  height: 100%; /* Fill grid cell height */
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   content-visibility: auto;
   contain-intrinsic-size: 0 280px;
 }
@@ -940,7 +943,8 @@
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: rgba(0,0,0,0.8);
   padding: 2rem 1rem;
   box-sizing: border-box;
@@ -952,9 +956,10 @@
   padding: 0;
   border-radius: 16px;
   width: 100%;
-  max-width: 900px;
+  max-width: min(900px, calc(100% - 2rem));
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 [data-md-color-scheme="light"] .modal-content {
@@ -1368,11 +1373,12 @@
 /* ===== RESPONSIVE MODAL ===== */
 @media (max-width: 600px) {
   .modal {
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
   }
   
   .modal-content {
     border-radius: 12px;
+    max-width: 100%;
   }
   
   .modal-header-section {
@@ -1399,8 +1405,17 @@
   }
   
   .modal-download-btn {
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
+    min-width: 140px;
+  }
+  
+  .download-actions {
+    flex-wrap: wrap;
+  }
+  
+  .modal-screenshot {
+    max-height: 200px;
   }
 }
 
