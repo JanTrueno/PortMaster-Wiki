@@ -99848,6 +99848,9 @@
     const selects = [deviceSelect, osSelect, genreSelect];
 
     selects.forEach(select => {
+      // Skip if already initialized
+      if (select.customWrapper) return;
+
       // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'custom-select-wrapper';
@@ -99919,8 +99922,16 @@
   }
 
   // ===== Initialize =====
-  document.addEventListener('DOMContentLoaded', () => {
+  function initPage() {
     initializeCustomSelects();
+
+    // Force layout recalculation for grid
+    const grid = document.getElementById('gameGrid');
+    if (grid) {
+      grid.style.display = 'none';
+      grid.offsetHeight; // Force reflow
+      grid.style.display = 'grid';
+    }
 
     // Load URL parameters
     const urlParams = getURLParams();
@@ -99948,7 +99959,17 @@
         openModal(portId);
       }
     }
-  });
+  }
+
+  // Run on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPage);
+  } else {
+    initPage();
+  }
+
+  // Also run on MkDocs instant navigation
+  document.addEventListener('DOMContentSwitch', initPage);
 
 </script>
 
