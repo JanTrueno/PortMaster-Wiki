@@ -827,6 +827,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
   height: 100%; /* Fill grid cell height */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 280px;
 }
 
 [data-md-color-scheme="light"] .game-card {
@@ -942,6 +944,7 @@
   background-color: rgba(0,0,0,0.8);
   padding: 2rem 1rem;
   box-sizing: border-box;
+  content-visibility: auto;
 }
 
 .modal-content {
