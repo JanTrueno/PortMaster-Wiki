@@ -919,13 +919,13 @@
 
 /* Incompatible cards - greyed out */
 .game-card.incompatible {
-  opacity: 0.3;
-  filter: grayscale(50%);
+  opacity: 0.4;
+  filter: grayscale(70%);
 }
 
 .game-card.incompatible:hover {
-  opacity: 0.5;
-  filter: grayscale(30%);
+  opacity: 0.6;
+  filter: grayscale(50%);
 }
 
 
@@ -1053,7 +1053,7 @@
 
 .modal-download-btn:hover {
   background-color: #ff9d2e;
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 /* ===== MODAL DETAILS SECTION ===== */
@@ -1085,25 +1085,15 @@
 /* ===== INFO GRID - Icons Layout ===== */
 .modal-info-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
-}
-
-@media (max-width: 900px) {
-  .modal-info-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .modal-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (max-width: 480px) {
   .modal-info-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1113,8 +1103,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 1rem;
-  border-radius: 12px;
+  padding: 0.6rem 0.5rem;
+  border-radius: 8px;
   transition: background-color 0.2s ease;
 }
 
@@ -1132,9 +1122,9 @@
 
 /* Icon */
 .info-icon {
-  font-size: 2rem;
+  font-size: 1.25rem;
   color: #F49519;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.3rem;
 }
 
 /* Info Content */
@@ -1143,28 +1133,28 @@
 }
 
 .info-heading {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.3px;
+  margin: 0 0 0.25rem 0;
   opacity: 0.7;
 }
 
 .info-value {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 /* Info Badge */
 .info-badge {
   display: inline-block;
-  padding: 0.25rem 0.6rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
   font-weight: 500;
-  margin: 0.15rem;
+  margin: 0.1rem;
 }
 
 [data-md-color-scheme="light"] .info-badge {
