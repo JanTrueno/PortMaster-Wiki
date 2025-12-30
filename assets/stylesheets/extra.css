@@ -174,23 +174,17 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Fade effect under search bar */
-.filters-container::after {
+/* Cover the gap between MkDocs header and search bar when sticky */
+.filters-container::before {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -30px;
-  height: 30px;
+  top: -200px; /* Extra tall to cover any gap */
+  left: -100vw;
+  right: -100vw;
+  height: 200px;
+  background-color: var(--md-default-bg-color);
+  z-index: -1;
   pointer-events: none;
-}
-
-[data-md-color-scheme="light"] .filters-container::after {
-  background: linear-gradient(to bottom, var(--md-default-bg-color) 0%, transparent 100%);
-}
-
-[data-md-color-scheme="dark"] .filters-container::after {
-  background: linear-gradient(to bottom, var(--md-default-bg-color) 0%, transparent 100%);
 }
 
 /* Hide old filter rows */
