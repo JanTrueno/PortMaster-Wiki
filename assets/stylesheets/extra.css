@@ -168,7 +168,7 @@
   padding: 1rem;
   position: sticky;
   top: 120px; /* Adjust this value to match your MkDocs header height */
-  z-index: 999;
+  z-index: 2; /* Low z-index to stay below MkDocs header/nav */
   background-color: var(--md-default-bg-color);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -259,6 +259,93 @@
 
 .filter-toggle-btn.active span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Sort Dropdown */
+.sort-dropdown-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sort-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #F49519;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sort-toggle-btn:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.05);
+}
+
+.sort-toggle-btn i {
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+.sort-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  border-radius: 12px;
+  border: 2px solid #F49519;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 100;
+  overflow: hidden;
+}
+
+[data-md-color-scheme="light"] .sort-dropdown {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="dark"] .sort-dropdown {
+  background-color: #2b2b2b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.sort-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sort-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+[data-md-color-scheme="light"] .sort-option {
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .sort-option {
+  color: #eeeeee;
+}
+
+.sort-option:hover {
+  background-color: rgba(244, 149, 25, 0.1);
+  color: #F49519;
+}
+
+.sort-option.selected {
+  background-color: rgba(244, 149, 25, 0.2);
+  color: #F49519;
+  font-weight: 600;
 }
 
 /* Filter Panel */
@@ -633,6 +720,15 @@
   .filter-toggle-btn {
     width: 44px;
     height: 44px;
+  }
+  
+  .sort-toggle-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .sort-dropdown {
+    min-width: 160px;
   }
 }
 
