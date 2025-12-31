@@ -1166,10 +1166,15 @@
 
 .modal-description .desc-md {
   text-align: center;
+  display: block;
 }
 
 .modal-description .desc-md p {
   margin: 0 0 0.75rem 0;
+}
+
+.modal-description .desc-md:empty {
+  display: none;
 }
 
 /* Download Button */
