@@ -76647,8 +76647,8 @@ You can add additional content to this port manually or, if you have an internet
       : '—';
 
     // Helper for porter links
-    const makePorterLinks = arr => arr.length > 0
-      ? arr.map(v => `<a href="../porters/#porter-${encodeURIComponent(v)}" class="porter-link-badge" onclick="event.stopPropagation()">${v} <i class="bi bi-box-arrow-up-right"></i></a>`).join(' ')
+     const makePorterLinks = arr => arr.length > 0
+      ? arr.map(v => `<a href="porters/#porter-${encodeURIComponent(v)}" class="porter-link-badge" onclick="event.stopPropagation()">${v} <i class="bi bi-box-arrow-up-right"></i></a>`).join(' ')
       : '—';
 
     // Info grid
