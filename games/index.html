@@ -1531,6 +1531,36 @@
       </div>
     </div>
   </div>
+
+  <button class="clear-all-filters-btn" onclick="clearAllFilters()">
+    <i class="bi bi-x-circle"></i> Clear All Filters
+  </button>
+
+  <div class="filter-group advanced-filters">
+    <label class="advanced-label" onclick="toggleAdvancedFilters()">
+      Advanced <i class="bi bi-chevron-down" id="advancedArrow"></i>
+    </label>
+    <div class="advanced-filters-content" id="advancedFiltersContent">
+      <div class="filter-subgroup">
+        <label>Runtime</label>
+        <div class="filter-pills" id="runtimePills"></div>
+      </div>
+
+      <div class="filter-subgroup">
+        <label>Architecture</label>
+        <div class="filter-pills" id="archPills"></div>
+      </div>
+
+      <div class="filter-subgroup">
+        <label>Requirements</label>
+        <div class="filter-pills" id="reqPills"></div>
+      </div>
+
+      <button class="clear-filters-btn" onclick="clearAdvancedFilters()">
+        <i class="bi bi-x-circle"></i> Clear All
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- Single Reusable Modal -->
@@ -76279,6 +76309,111 @@ You can add additional content to this port manually or, if you have an internet
   const allGenres = new Set(portsData.flatMap(p => p.genres));
   [...allGenres].sort().forEach(g => genreSelect.appendChild(new Option(g, g)));
 
+  // ===== Advanced Filters (Pills) =====
+  const runtimePills = document.getElementById('runtimePills');
+  const archPills = document.getElementById('archPills');
+  const reqPills = document.getElementById('reqPills');
+
+  // Track selected pills
+  let selectedRuntimes = new Set();
+  let selectedArchs = new Set();
+  let selectedReqs = new Set();
+
+  // Create pill element
+  function createPill(value, container, selectedSet) {
+    const pill = document.createElement('span');
+    pill.className = 'filter-pill';
+    pill.textContent = value;
+    pill.dataset.value = value;
+    pill.addEventListener('click', () => {
+      pill.classList.toggle('selected');
+      if (pill.classList.contains('selected')) {
+        selectedSet.add(value);
+      } else {
+        selectedSet.delete(value);
+      }
+      filterAndSearch();
+    });
+    container.appendChild(pill);
+  }
+
+  // Populate pills
+  const allRuntimes = new Set(portsData.flatMap(p => p.runtime));
+  [...allRuntimes].sort().forEach(r => createPill(r, runtimePills, selectedRuntimes));
+
+  const allArchs = new Set(portsData.flatMap(p => p.arch));
+  [...allArchs].sort().forEach(a => createPill(a, archPills, selectedArchs));
+
+  const allReqs = new Set(portsData.flatMap(p => p.reqs));
+  [...allReqs].sort().forEach(r => createPill(r, reqPills, selectedReqs));
+
+  // Toggle Advanced Filters
+  function toggleAdvancedFilters() {
+    const content = document.getElementById('advancedFiltersContent');
+    const arrow = document.getElementById('advancedArrow');
+    content.classList.toggle('open');
+    arrow.classList.toggle('open');
+  }
+
+  // Clear all advanced filters
+  function clearAdvancedFilters() {
+    selectedRuntimes.clear();
+    selectedArchs.clear();
+    selectedReqs.clear();
+
+    document.querySelectorAll('.filter-pill.selected').forEach(pill => {
+      pill.classList.remove('selected');
+    });
+
+    filterAndSearch();
+  }
+
+  // Clear ALL filters (for main clear button)
+  function clearAllFilters() {
+    // Clear advanced pills
+    clearAdvancedFilters();
+
+    // Clear device
+    deviceSelect.value = '';
+    if (deviceSelect.customTrigger) {
+      deviceSelect.customTrigger.textContent = 'Select your device...';
+    }
+    currentDevice = null;
+
+    // Clear OS
+    osSelect.innerHTML = '<option value="">Select OS...</option>';
+    osSelect.disabled = true;
+    if (osSelect.customTrigger) {
+      osSelect.customTrigger.textContent = 'Select OS...';
+    }
+    if (osSelect.customWrapper) {
+      osSelect.customWrapper.querySelector('.custom-select-trigger').classList.add('disabled');
+    }
+    currentOS = null;
+
+    // Clear genre
+    genreSelect.value = '';
+    if (genreSelect.customTrigger) {
+      genreSelect.customTrigger.textContent = 'All Genres';
+    }
+
+    // Clear toggles
+    readyToggle.checked = false;
+    hideIncompatibleToggle.checked = false;
+
+    // Clear search
+    searchInput.value = '';
+
+    // Clear cookies
+    setCookie('selectedDevice', '', -1);
+    setCookie('selectedOS', '', -1);
+    setCookie('selectedGenre', '', -1);
+    setCookie('readyToggle', '', -1);
+    setCookie('hideIncompatible', '', -1);
+
+    filterAndSearch();
+  }
+
   // ===== Back to Top Button =====
   const backToTopBtn = document.getElementById('backToTop');
 
@@ -76518,13 +76653,23 @@ You can add additional content to this port manually or, if you have an internet
     for (const req of port.reqs) {
       const reqLower = req.toLowerCase();
       if (reqLower.startsWith("!")) {
+        // Negative requirement - device must NOT have this
         const negReq = reqLower.slice(1);
         if (capabilities.has(negReq)) {
           return false;
         }
       } else if (reqLower.startsWith("power:")) {
+        // Power requirements - skip for now
         continue;
+      } else if (reqLower.includes("|")) {
+        // OR requirement - device needs at least one of these
+        const options = reqLower.split("|").map(o => o.trim());
+        const hasAny = options.some(opt => capabilities.has(opt));
+        if (!hasAny) {
+          return false;
+        }
       } else {
+        // Standard requirement - device must have this
         if (!capabilities.has(reqLower)) {
           return false;
         }
@@ -76550,6 +76695,11 @@ You can add additional content to this port manually or, if you have an internet
       const rtrMatch = !readyOnly || port.rtr;
       const compatible = checkCompatibility(port);
 
+      // Advanced filters (pills)
+      const runtimeMatch = selectedRuntimes.size === 0 || port.runtime.some(r => selectedRuntimes.has(r));
+      const archMatch = selectedArchs.size === 0 || port.arch.some(a => selectedArchs.has(a));
+      const reqMatch = selectedReqs.size === 0 || port.reqs.some(r => selectedReqs.has(r));
+
       if (currentOS) {
         if (compatible) {
           supported++;
@@ -76558,7 +76708,7 @@ You can add additional content to this port manually or, if you have an internet
         }
       }
 
-      let shouldShow = matchSearch && genreMatch && rtrMatch;
+      let shouldShow = matchSearch && genreMatch && rtrMatch && runtimeMatch && archMatch && reqMatch;
       if (currentOS && hideIncompatible) {
         shouldShow = shouldShow && compatible;
       }
