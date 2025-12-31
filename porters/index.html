@@ -6183,7 +6183,7 @@
             : '';
 
           portsHTML += `
-            <div class="game-card porter-game-card" onclick="window.location.href='../games/#modal-${portId}'">
+            <div class="game-card porter-game-card" onclick="window.location.href='/games/#modal-${portId}'">
               ${screenshot ? `<a class="glightbox" href="${screenshot}" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="${screenshot}" alt="${title}" data-glightbox="false" loading="lazy" onerror="this.style.display='none'"></a>` : ''}
               <h3>${title}</h3>
               <div class="card-stats">
@@ -6205,20 +6205,50 @@
       portsGrid.innerHTML = '<p class="no-ports">No ports found</p>';
     }
 
-    // Show modal
-    document.getElementById('porterModal').style.display = 'block';
-    history.replaceState(null, null, '#porter-' + encodeURIComponent(porterId));
+    // Show modal with animation and push to history
+    const modal = document.getElementById('porterModal');
+    modal.style.display = 'block';
+    modal.offsetHeight;
+    modal.classList.add('show');
+    history.pushState({ porter: porterId }, '', '#porter-' + encodeURIComponent(porterId));
   }
 
-  function closePorterModal() {
-    document.getElementById('porterModal').style.display = 'none';
-    history.replaceState(null, null, window.location.pathname);
+  function closePorterModal(updateHistory = true) {
+    const modal = document.getElementById('porterModal');
+    if (!modal.classList.contains('show')) return;
+
+    // Animate out
+    modal.classList.remove('show');
+
+    // Wait for animation to complete before hiding
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+
+    // Only update history if not triggered by back button
+    if (updateHistory && window.location.hash.startsWith('#porter-')) {
+      history.pushState({ porter: null }, '', window.location.pathname);
+    }
   }
+
+  // Handle back/forward button
+  window.addEventListener('popstate', (e) => {
+    const hash = window.location.hash;
+
+    if (hash.startsWith('#porter-')) {
+      // Opening a modal from history
+      const porterId = decodeURIComponent(hash.replace('#porter-', ''));
+      openPorterModal(porterId);
+    } else {
+      // Close modal when going back
+      closePorterModal(false);
+    }
+  });
 
   // Close modal on outside click
   window.addEventListener('click', (e) => {
     if (e.target.classList.contains('modal')) {
-      closePorterModal();
+      closePorterModal(true);
     }
   });
 
@@ -6227,6 +6257,8 @@
     const hash = window.location.hash.substring(1);
     if (hash && hash.startsWith('porter-')) {
       const porterId = decodeURIComponent(hash.replace('porter-', ''));
+      // Use replaceState for initial load to not add extra history entry
+      history.replaceState({ porter: porterId }, '', '#porter-' + encodeURIComponent(porterId));
       openPorterModal(porterId);
     }
   });

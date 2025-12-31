@@ -61502,6 +61502,9 @@ You can add additional content to this port manually (check `gamedata/instructio
     } else {
       counterEl.textContent = `Showing: ${visible} of ${portsData.length} ports`;
     }
+
+    // Update URL with current filter state
+    updateURLState();
   }
 
   // ===== Modal Functions =====
@@ -61598,16 +61601,140 @@ You can add additional content to this port manually (check `gamedata/instructio
     // README
     loadReadme(portId, repo);
 
-    // Show modal
+    // Show modal with animation and push to history
     modal.style.display = 'block';
-    history.replaceState(null, null, '#modal-' + portId);
+    // Trigger reflow for animation
+    modal.offsetHeight;
+    modal.classList.add('show');
+    history.pushState({ modal: portId }, '', '#modal-' + portId);
   }
 
-  function closeModal() {
-    document.getElementById('portModal').style.display = 'none';
-    history.replaceState(null, null, window.location.pathname);
+  function closeModal(updateHistory = true) {
+    const modal = document.getElementById('portModal');
+    if (!modal.classList.contains('show')) return;
+
+    // Animate out
+    modal.classList.remove('show');
+
+    // Wait for animation to complete before hiding
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+
     currentPortId = null;
     currentPortData = null;
+
+    // Only update history if not triggered by back button
+    if (updateHistory && window.location.hash.startsWith('#modal-')) {
+      history.pushState({ modal: null }, '', window.location.pathname + window.location.search);
+    }
+  }
+
+  // Handle back/forward button
+  window.addEventListener('popstate', (e) => {
+    const hash = window.location.hash;
+
+    if (hash.startsWith('#modal-')) {
+      // Opening a modal from history
+      const portId = hash.replace('#modal-', '');
+      const card = document.querySelector(`[data-port-id="${portId}"]`);
+      if (card) {
+        // Open modal without pushing to history again
+        openModalDirect(portId);
+      }
+    } else {
+      // Close modal when going back
+      closeModal(false);
+    }
+  });
+
+  // Direct modal open without history push (for popstate)
+  function openModalDirect(portId) {
+    const card = document.querySelector(`[data-port-id="${portId}"]`);
+    if (!card) return;
+
+    currentPortId = portId;
+    currentPortData = portsByPortId[portId];
+
+    const modal = document.getElementById('portModal');
+
+    // Get data from card attributes
+    const title = card.dataset.title || '';
+    const repo = card.dataset.repo || '';
+    const screenshot = card.dataset.screenshot || '';
+    const genres = card.dataset.genres ? card.dataset.genres.split(',').filter(Boolean) : [];
+    const reqs = card.dataset.reqs ? card.dataset.reqs.split(',').filter(Boolean) : [];
+    const porter = card.dataset.porter ? card.dataset.porter.split(',').filter(Boolean) : [];
+    const runtime = card.dataset.runtime ? card.dataset.runtime.split(',').filter(Boolean) : [];
+    const arch = card.dataset.arch ? card.dataset.arch.split(',').filter(Boolean) : [];
+    const rtr = card.dataset.rtr === 'true';
+    const downloads = parseInt(card.dataset.downloads) || 0;
+    const dateAdded = card.dataset.dateAdded || '';
+    const dateUpdated = card.dataset.dateUpdated || '';
+    const url = card.dataset.url || '';
+    const desc = card.dataset.desc || '';
+    const descMd = card.dataset.descMd || '';
+    const inst = card.dataset.inst || '';
+    const instMd = card.dataset.instMd || '';
+
+    // Populate modal (same as openModal)
+    document.getElementById('modal-title').textContent = title;
+
+    const screenshotContainer = document.getElementById('modal-screenshot-container');
+    const screenshotImg = document.getElementById('modal-screenshot');
+    if (screenshot) {
+      screenshotImg.src = `https://raw.githubusercontent.com/${repo}/refs/heads/main/ports/${portId}/${screenshot}`;
+      screenshotImg.alt = title;
+      screenshotContainer.style.display = '';
+    } else {
+      screenshotContainer.style.display = 'none';
+    }
+
+    const descEl = document.getElementById('modal-desc');
+    const descContent = descMd || desc;
+    if (descContent && descContent.trim() && descContent.trim() !== 'None') {
+      descEl.innerHTML = marked.parse(descContent);
+    } else {
+      descEl.innerHTML = '';
+    }
+
+    const downloadBtn = document.getElementById('modal-download-btn');
+    downloadBtn.href = url || '#';
+    updateDownloadButton();
+
+    const makeBadges = arr => arr.length > 0 
+      ? arr.map(v => `<span class="info-badge">${v}</span>`).join('') 
+      : '—';
+
+    const makePorterLinks = arr => arr.length > 0
+      ? arr.map(v => `<a href="../porters/#porter-${encodeURIComponent(v)}" class="porter-link-badge" onclick="event.stopPropagation()">${v} <i class="bi bi-box-arrow-up-right"></i></a>`).join(' ')
+      : '—';
+
+    document.getElementById('modal-genres').innerHTML = makeBadges(genres);
+    document.getElementById('modal-reqs').innerHTML = makeBadges(reqs);
+    document.getElementById('modal-porter').innerHTML = makePorterLinks(porter);
+    document.getElementById('modal-downloads').textContent = downloads > 0 ? downloads.toLocaleString() : 'N/A';
+    document.getElementById('modal-runtimes').innerHTML = makeBadges(runtime);
+    document.getElementById('modal-arch').innerHTML = makeBadges(arch);
+    document.getElementById('modal-date-added').textContent = dateAdded || 'N/A';
+    document.getElementById('modal-date-updated').textContent = dateUpdated || 'N/A';
+    document.getElementById('modal-rtr').innerHTML = rtr 
+      ? '<span style="color: #4CAF50;"><i class="bi bi-check-circle-fill"></i> Yes</span>'
+      : '<span style="color: #F49519;"><i class="bi bi-exclamation-circle-fill"></i> No</span>';
+
+    const instEl = document.getElementById('modal-instructions');
+    const instContent = instMd || inst;
+    if (instContent && instContent.trim() && instContent.trim() !== 'None') {
+      instEl.innerHTML = marked.parse(instContent);
+      instEl.closest('.modal-text-section').style.display = '';
+    } else {
+      instEl.closest('.modal-text-section').style.display = 'none';
+    }
+
+    loadReadme(portId, repo);
+    modal.style.display = 'block';
+    modal.offsetHeight;
+    modal.classList.add('show');
   }
 
   // Close modal when clicking outside
@@ -61866,8 +61993,96 @@ You can add additional content to this port manually (check `gamedata/instructio
   }
 
   // ===== Initialize =====
+  // ===== URL State for Filters =====
+  function updateURLState() {
+    const params = new URLSearchParams();
+
+    // Add filter params if they have values
+    const query = searchInput.value.trim();
+    if (query) params.set('q', query);
+
+    const genre = genreSelect.value;
+    if (genre) params.set('genre', genre);
+
+    if (readyToggle.checked) params.set('rtr', '1');
+    if (hideIncompatibleToggle.checked) params.set('hideIncompat', '1');
+
+    // Advanced filters
+    if (selectedRuntimes.size > 0) params.set('runtime', [...selectedRuntimes].join(','));
+    if (selectedArchs.size > 0) params.set('arch', [...selectedArchs].join(','));
+    if (selectedReqs.size > 0) params.set('reqs', [...selectedReqs].join(','));
+
+    // Device/OS (optional - might be too specific to share)
+    const device = deviceSelect.value;
+    if (device) params.set('device', device);
+    const os = osSelect.value;
+    if (os) params.set('os', os);
+
+    // Update URL without triggering navigation
+    const newUrl = params.toString() 
+      ? `${window.location.pathname}?${params.toString()}${window.location.hash}`
+      : `${window.location.pathname}${window.location.hash}`;
+
+    history.replaceState(null, '', newUrl);
+  }
+
+  function loadURLState() {
+    const params = new URLSearchParams(window.location.search);
+
+    // Search query
+    const query = params.get('q');
+    if (query) searchInput.value = query;
+
+    // Genre
+    const genre = params.get('genre');
+    if (genre && genreSelect.querySelector(`option[value="${genre}"]`)) {
+      genreSelect.value = genre;
+    }
+
+    // Toggles
+    if (params.get('rtr') === '1') readyToggle.checked = true;
+    if (params.get('hideIncompat') === '1') hideIncompatibleToggle.checked = true;
+
+    // Advanced filters - runtime
+    const runtimeParam = params.get('runtime');
+    if (runtimeParam) {
+      runtimeParam.split(',').forEach(r => {
+        selectedRuntimes.add(r);
+        const pill = document.querySelector(`#runtimePills .filter-pill[data-value="${r}"]`);
+        if (pill) pill.classList.add('selected');
+      });
+    }
+
+    // Advanced filters - arch
+    const archParam = params.get('arch');
+    if (archParam) {
+      archParam.split(',').forEach(a => {
+        selectedArchs.add(a);
+        const pill = document.querySelector(`#archPills .filter-pill[data-value="${a}"]`);
+        if (pill) pill.classList.add('selected');
+      });
+    }
+
+    // Advanced filters - reqs
+    const reqsParam = params.get('reqs');
+    if (reqsParam) {
+      reqsParam.split(',').forEach(r => {
+        selectedReqs.add(r);
+        const pill = document.querySelector(`#reqPills .filter-pill[data-value="${r}"]`);
+        if (pill) pill.classList.add('selected');
+      });
+    }
+
+    // Open advanced section if any advanced filters are set
+    if (runtimeParam || archParam || reqsParam) {
+      document.getElementById('advancedFiltersContent').classList.add('open');
+      document.getElementById('advancedArrow').classList.add('open');
+    }
+  }
+
   window.addEventListener('load', () => {
     initializeCustomSelects();
+    loadURLState(); // Load URL state before restoring saved filters
     restoreSavedFilters();
     sortCards();
     filterAndSearch();

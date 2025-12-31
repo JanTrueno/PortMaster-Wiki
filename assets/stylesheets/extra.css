@@ -1085,10 +1085,14 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0);
   padding: 2rem 1rem;
   box-sizing: border-box;
-  content-visibility: auto;
+  transition: background-color 0.3s ease;
+}
+
+.modal.show {
+  background-color: rgba(0,0,0,0.8);
 }
 
 .modal-content {
@@ -1099,6 +1103,26 @@
   max-width: 900px;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.modal.show .modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Porter modal content - same animation */
+.porter-modal-content {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.modal.show .porter-modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 [data-md-color-scheme="light"] .modal-content {
