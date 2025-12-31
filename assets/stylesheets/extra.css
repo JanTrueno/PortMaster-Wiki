@@ -37,6 +37,13 @@
   --md-default-bg-color--lighter:      #dddddd;
   --md-default-bg-color--lightest:     #dddddd;
 
+  /* Card colors */
+  --card-bg:                           #ffffff;
+  --card-bg-hover:                     #f0f8ff;
+  --card-text:                         #111111;
+  --card-border:                       #e0e0e0;
+  --card-stat-color:                   #555555;
+
   /* Typeset color shades */
   --md-typeset-color:                  #111111;
 
@@ -83,6 +90,13 @@
   --md-default-bg-color--light:        #222222;
   --md-default-bg-color--lighter:      #222222;
   --md-default-bg-color--lightest:     #222222;
+
+  /* Card colors */
+  --card-bg:                           #2b2b2b;
+  --card-bg-hover:                     #3a3a3a;
+  --card-text:                         #eeeeee;
+  --card-border:                       #444444;
+  --card-stat-color:                   #aaaaaa;
 
   /* Typeset color shades */
   --md-typeset-color:                  #eeeeee;
@@ -964,29 +978,14 @@
   box-sizing: border-box;
   content-visibility: auto;
   contain-intrinsic-size: 0 280px;
-}
-
-[data-md-color-scheme="light"] .game-card {
-  background-color: #ffffff;
-  color: #111111;
-}
-
-[data-md-color-scheme="dark"] .game-card {
-  background-color: #2b2b2b;
-  color: #eeeeee;
+  background-color: var(--card-bg);
+  color: var(--card-text);
 }
 
 .game-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-[data-md-color-scheme="light"] .game-card:hover {
-  background-color: #f0f8ff;
-}
-
-[data-md-color-scheme="dark"] .game-card:hover {
-  background-color: #3a3a3a;
+  background-color: var(--card-bg-hover);
 }
 
 .game-card img {
@@ -1014,17 +1013,9 @@
   width: 100%;
   margin-top: 0.6rem;
   padding-top: 0.6rem;
-  border-top: 1px solid;
+  border-top: 1px solid var(--card-border);
   gap: 0.25rem;
   flex-shrink: 0;
-}
-
-[data-md-color-scheme="light"] .card-stats {
-  border-top-color: #e0e0e0;
-}
-
-[data-md-color-scheme="dark"] .card-stats {
-  border-top-color: #444444;
 }
 
 .card-stat {
@@ -1036,20 +1027,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--card-stat-color);
 }
 
 .card-stat i {
   font-size: 0.7rem;
   color: #F49519;
   flex-shrink: 0;
-}
-
-[data-md-color-scheme="light"] .card-stat {
-  color: #555555;
-}
-
-[data-md-color-scheme="dark"] .card-stat {
-  color: #aaaaaa;
 }
 
 /* Smaller font on mobile */
@@ -1105,7 +1089,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px) scale(0.95);
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .modal.show .modal-content {
@@ -1117,7 +1101,7 @@
 .porter-modal-content {
   opacity: 0;
   transform: translateY(30px) scale(0.95);
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .modal.show .porter-modal-content {
@@ -1870,27 +1854,13 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
   position: relative;
-}
-
-[data-md-color-scheme="light"] .porter-card {
-  background-color: #ffffff;
-}
-
-[data-md-color-scheme="dark"] .porter-card {
-  background-color: #2b2b2b;
+  background-color: var(--card-bg);
 }
 
 .porter-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-[data-md-color-scheme="light"] .porter-card:hover {
-  background-color: #f0f8ff;
-}
-
-[data-md-color-scheme="dark"] .porter-card:hover {
-  background-color: #3a3a3a;
+  background-color: var(--card-bg-hover);
 }
 
 .porter-avatar {
