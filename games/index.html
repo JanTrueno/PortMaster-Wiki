@@ -61238,12 +61238,15 @@ You can add additional content to this port manually (check `gamedata/instructio
   function sortCards() {
     const order = sortedOrders[currentSort] || sortedOrders['az'];
 
-    // Use CSS order property instead of moving DOM elements
-    order.forEach((key, index) => {
-      const port = portsByKey[key];
-      if (port) {
-        port.card.style.order = index;
-      }
+    // Batch DOM updates to prevent layout thrashing
+    requestAnimationFrame(() => {
+      // Use CSS order property instead of moving DOM elements
+      order.forEach((key, index) => {
+        const port = portsByKey[key];
+        if (port) {
+          port.card.style.order = index;
+        }
+      });
     });
   }
 
@@ -61353,6 +61356,16 @@ You can add additional content to this port manually (check `gamedata/instructio
   });
 
   searchInput.addEventListener('input', debounce(filterAndSearch, 200));
+
+  // Prevent MkDocs search from opening when typing in our search
+  searchInput.addEventListener('keydown', (e) => {
+    e.stopPropagation();
+  });
+
+  // Prevent MkDocs search from opening when focusing our search
+  searchInput.addEventListener('focus', (e) => {
+    e.stopPropagation();
+  });
 
   readyToggle.addEventListener('change', () => {
     setCookie('readyToggle', readyToggle.checked ? 'true' : '');
@@ -61516,9 +61529,12 @@ You can add additional content to this port manually (check `gamedata/instructio
       counterEl.textContent = `Showing: ${visible} of ${portsData.length} ports`;
     }
 
-    // Update URL with current filter state
-    updateURLState();
+    // Update URL with current filter state (debounced)
+    debouncedUpdateURLState();
   }
+
+  // Debounced URL state update to prevent lag on mobile
+  const debouncedUpdateURLState = debounce(updateURLState, 300);
 
   // ===== Modal Functions =====
   function openModal(portId) {
@@ -62012,7 +62028,7 @@ You can add additional content to this port manually (check `gamedata/instructio
 
     // Add filter params if they have values
     const query = searchInput.value.trim();
-    if (query) params.set('q', query);
+    if (query) params.set('search', query);
 
     const genre = genreSelect.value;
     if (genre) params.set('genre', genre);
@@ -62043,7 +62059,7 @@ You can add additional content to this port manually (check `gamedata/instructio
     const params = new URLSearchParams(window.location.search);
 
     // Search query
-    const query = params.get('q');
+    const query = params.get('search');
     if (query) searchInput.value = query;
 
     // Genre
