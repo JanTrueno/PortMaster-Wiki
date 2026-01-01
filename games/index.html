@@ -61339,7 +61339,12 @@ You can add additional content to this port manually (check `gamedata/instructio
     filterAndSearch();
   });
 
-  searchInput.addEventListener('input', filterAndSearch);
+  // Debounce for search to prevent lag on mobile
+  let searchTimeout;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(filterAndSearch, 150);
+  });
 
   readyToggle.addEventListener('change', () => {
     setCookie('readyToggle', readyToggle.checked ? 'true' : '');
@@ -61459,6 +61464,9 @@ You can add additional content to this port manually (check `gamedata/instructio
 
     let supported = 0, unsupported = 0, visible = 0;
 
+    // Collect all changes first, then apply in batch
+    const changes = [];
+
     portsData.forEach(port => {
       const matchSearch = !searchSet || searchSet.has(port);
       const genreMatch = !selectedGenre || port.genres.includes(selectedGenre);
@@ -61483,17 +61491,29 @@ You can add additional content to this port manually (check `gamedata/instructio
         shouldShow = shouldShow && compatible;
       }
 
-      port.card.style.display = shouldShow ? "flex" : "none";
-
       if (shouldShow) {
         visible++;
       }
 
-      if (currentOS && !compatible && !hideIncompatible && shouldShow) {
-        port.card.classList.add('incompatible');
-      } else {
-        port.card.classList.remove('incompatible');
-      }
+      const shouldBeIncompatible = currentOS && !compatible && !hideIncompatible && shouldShow;
+
+      changes.push({
+        card: port.card,
+        display: shouldShow ? "flex" : "none",
+        incompatible: shouldBeIncompatible
+      });
+    });
+
+    // Apply all DOM changes in one batch
+    requestAnimationFrame(() => {
+      changes.forEach(({ card, display, incompatible }) => {
+        card.style.display = display;
+        if (incompatible) {
+          card.classList.add('incompatible');
+        } else {
+          card.classList.remove('incompatible');
+        }
+      });
     });
 
     const counterEl = document.getElementById('portsCounter');
