@@ -62009,15 +62009,18 @@ You can add additional content to this port manually (check `gamedata/instructio
         wrapper.classList.toggle('open');
       });
 
-      document.addEventListener('click', (e) => {
-        if (!wrapper.contains(e.target)) {
-          wrapper.classList.remove('open');
-        }
-      });
-
       select.customWrapper = wrapper;
       select.customTrigger = triggerText;
       select.updateCustomOptions = updateOptions;
+    });
+
+    // Single document click handler for all custom selects
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-select-wrapper')) {
+        document.querySelectorAll('.custom-select-wrapper.open').forEach(w => {
+          w.classList.remove('open');
+        });
+      }
     });
   }
 
