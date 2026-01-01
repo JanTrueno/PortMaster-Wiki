@@ -982,6 +982,14 @@
   color: var(--card-text);
 }
 
+/* Disable content-visibility on mobile - causes lag when keyboard opens */
+@media (max-width: 768px) {
+  .game-card {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+}
+
 .game-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
