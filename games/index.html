@@ -61598,13 +61598,19 @@ You can add additional content to this port manually (check `gamedata/instructio
     // README
     loadReadme(portId, repo);
 
-    // Show modal
+    // Show modal with animation
     modal.style.display = 'block';
+    modal.offsetHeight; // Trigger reflow for animation
+    modal.classList.add('show');
     history.replaceState(null, null, '#modal-' + portId);
   }
 
   function closeModal() {
-    document.getElementById('portModal').style.display = 'none';
+    const modal = document.getElementById('portModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
     history.replaceState(null, null, window.location.pathname);
     currentPortId = null;
     currentPortData = null;
