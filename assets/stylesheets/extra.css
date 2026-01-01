@@ -2369,31 +2369,21 @@ img.no-lightbox {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* ===== Fix card sizing without mobile freeze ===== */
 
-/* ===== Game card performance fixes ===== */
-
-/* Desktop: keep content-visibility optimization */
+/* Desktop only: allow intrinsic size hint */
 @media (min-width: 769px) {
   .game-card {
     content-visibility: auto;
-    contain-intrinsic-size: 0 280px;
     contain: layout style paint;
+    contain-intrinsic-size: 0 280px;
   }
 }
 
-/* Mobile: disable content-visibility to prevent freezes */
 @media (max-width: 768px) {
   .game-card {
-    content-visibility: visible;
-    contain: none;
-    contain-intrinsic-size: auto;
-  }
-}
-
-/* Mobile: prevent hover scaling glitches */
-@media (hover: none) {
-  .game-card:hover {
-    transform: none;
-    box-shadow: var(--md-shadow-z1);
+    content-visibility: visible;   /* disables freeze */
+    contain: layout;               /* keeps grid sizing stable */
+    contain-intrinsic-size: auto;  /* no fake height */
   }
 }
