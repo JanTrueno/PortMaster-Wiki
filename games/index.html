@@ -61529,8 +61529,8 @@ You can add additional content to this port manually (check `gamedata/instructio
       counterEl.textContent = `Showing: ${visible} of ${portsData.length} ports`;
     }
 
-    // Update URL with current filter state (debounced)
-    debouncedUpdateURLState();
+    // URL state update disabled on mobile for performance
+    // debouncedUpdateURLState();
   }
 
   // Debounced URL state update to prevent lag on mobile
