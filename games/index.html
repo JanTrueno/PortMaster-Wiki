@@ -61010,6 +61010,19 @@ You can add additional content to this port manually (check `gamedata/instructio
   let currentPortData = null;
   let readmeCache = {};
 
+  // Debounce utility for search input
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
   const deviceSelect = document.getElementById('deviceSelect');
   const osSelect = document.getElementById('osSelect');
   const genreSelect = document.getElementById('genreSelect');
@@ -61339,7 +61352,7 @@ You can add additional content to this port manually (check `gamedata/instructio
     filterAndSearch();
   });
 
-  searchInput.addEventListener('input', filterAndSearch);
+  searchInput.addEventListener('input', debounce(filterAndSearch, 200));
 
   readyToggle.addEventListener('change', () => {
     setCookie('readyToggle', readyToggle.checked ? 'true' : '');
