@@ -61120,20 +61120,33 @@ You can add additional content to this port manually (check `gamedata/instructio
     container.appendChild(pill);
   }
 
-  // Populate pills
-  const allRuntimes = new Set(portsData.flatMap(p => p.runtime));
-  [...allRuntimes].sort().forEach(r => createPill(r, runtimePills, selectedRuntimes));
+  // Lazy load pills - only populate when advanced section is first opened
+  let pillsInitialized = false;
 
-  const allArchs = new Set(portsData.flatMap(p => p.arch));
-  [...allArchs].sort().forEach(a => createPill(a, archPills, selectedArchs));
+  function initializePills() {
+    if (pillsInitialized) return;
+    pillsInitialized = true;
 
-  const allReqs = new Set(portsData.flatMap(p => p.reqs));
-  [...allReqs].sort().forEach(r => createPill(r, reqPills, selectedReqs));
+    const allRuntimes = new Set(portsData.flatMap(p => p.runtime));
+    [...allRuntimes].sort().forEach(r => createPill(r, runtimePills, selectedRuntimes));
+
+    const allArchs = new Set(portsData.flatMap(p => p.arch));
+    [...allArchs].sort().forEach(a => createPill(a, archPills, selectedArchs));
+
+    const allReqs = new Set(portsData.flatMap(p => p.reqs));
+    [...allReqs].sort().forEach(r => createPill(r, reqPills, selectedReqs));
+  }
 
   // Toggle Advanced Filters
   function toggleAdvancedFilters() {
     const content = document.getElementById('advancedFiltersContent');
     const arrow = document.getElementById('advancedArrow');
+
+    // Initialize pills on first open
+    if (!content.classList.contains('open')) {
+      initializePills();
+    }
+
     content.classList.toggle('open');
     arrow.classList.toggle('open');
   }
