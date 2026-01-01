@@ -976,9 +976,9 @@
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
-  content-visibility: auto;
+  content-visibility: visible;
   contain-intrinsic-size: 0 280px;
-  contain: layout style paint;
+  contain: none;
   background-color: var(--card-bg);
   color: var(--card-text);
 }
