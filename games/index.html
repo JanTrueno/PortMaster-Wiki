@@ -61339,7 +61339,12 @@ You can add additional content to this port manually (check `gamedata/instructio
     filterAndSearch();
   });
 
-  searchInput.addEventListener('input', filterAndSearch);
+  // Debounce for search to prevent lag on mobile
+  let searchTimeout;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(filterAndSearch, 150);
+  });
 
   readyToggle.addEventListener('change', () => {
     setCookie('readyToggle', readyToggle.checked ? 'true' : '');
