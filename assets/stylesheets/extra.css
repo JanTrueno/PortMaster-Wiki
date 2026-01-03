@@ -41,8 +41,10 @@
 [data-md-color-scheme="light"] {
   /* Primary color shades */
   --md-primary-fg-color:               #111111;
+  --md-primary-fg-color--dark:         #F49519;
   --md-primary-bg-color:               #eeeeee;
   --md-primary-bg-color--light:        #bbbbbb;
+  
 
   /* Accent color shades */
   --md-accent-fg-color:                #F49519;
@@ -57,6 +59,7 @@
   --md-default-bg-color--light:        #dddddd;
   --md-default-bg-color--lighter:      #dddddd;
   --md-default-bg-color--lightest:     #dddddd;
+  
 
   /* Card colors */
   --card-bg:                           #ffffff;
@@ -95,6 +98,7 @@
 [data-md-color-scheme="dark"] {
   /* Primary color shades */
   --md-primary-fg-color:               #111111;
+  --md-primary-fg-color--dark:         #F49519;
   --md-primary-bg-color:               #eeeeee;
   --md-primary-bg-color--light:        #bbbbbb;
 
