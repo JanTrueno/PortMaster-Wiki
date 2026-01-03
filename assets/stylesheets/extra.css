@@ -2416,15 +2416,14 @@ img.no-lightbox {
 
 
 
-
 /* ===================================
    HOMEPAGE RESPONSIVE ADDITIONS
    =================================== */
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-  /* Stack video showcase */
-  div[style*="grid-template-columns: 1fr 1fr"] {
+  /* Stack Game Showcase and Port of the Month on mobile */
+  div[style*="padding: 2rem"][style*="background: var(--md-code-bg-color)"] > div[style*="grid-template-columns: 1fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
   
