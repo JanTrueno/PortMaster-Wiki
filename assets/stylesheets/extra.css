@@ -2416,8 +2416,6 @@ img.no-lightbox {
 
 
 
-
-
 /* ===================================
    HOMEPAGE RESPONSIVE ADDITIONS
    =================================== */
@@ -2500,13 +2498,13 @@ img.no-lightbox {
     font-size: 1rem !important; /* 50% of 2rem */
   }
   
-  /* How It Works - 50% */
+  /* How It Works - bigger fonts, same icons */
   div[style*="grid-template-columns: repeat(3, 1fr)"] h3 {
-    font-size: 0.55rem !important;
+    font-size: 0.85rem !important; /* bigger than 50% */
   }
   
   div[style*="grid-template-columns: repeat(3, 1fr)"] p {
-    font-size: 0.425rem !important;
+    font-size: 0.7rem !important; /* bigger than 50% */
   }
   
   div[style*="grid-template-columns: repeat(3, 1fr)"] div[style*="width: 50px"] {
