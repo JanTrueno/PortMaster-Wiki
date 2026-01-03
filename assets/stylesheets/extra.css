@@ -2408,3 +2408,33 @@ img.no-lightbox {
     contain-intrinsic-size: auto;  /* no fake height */
   }
 }
+
+
+
+
+
+
+
+
+
+/* ===================================
+   HOMEPAGE RESPONSIVE ADDITIONS
+   =================================== */
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  /* Stack video showcase */
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Stats bar - 2 columns on mobile */
+  div[style*="grid-template-columns: repeat(4, 1fr)"][style*="background: linear-gradient"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Key Features - 2 columns on mobile */
+  div[style*="grid-template-columns: repeat(4, 1fr)"]:not([style*="background: linear-gradient"]) {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
