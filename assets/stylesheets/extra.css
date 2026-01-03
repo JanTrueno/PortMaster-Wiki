@@ -1,5 +1,26 @@
 /* Colors Light & Dark */
 
+/* Custom button styling for download buttons */
+.md-button {
+  background-color: var(--md-accent-fg-color) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-button:hover {
+  background-color: #d67f0f !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3) !important;
+}
+
+.md-button:active {
+  transform: translateY(0) !important;
+}
+
 /* Disable glightbox on game cards and porter images */
 .game-card img,
 .porter-card img,
