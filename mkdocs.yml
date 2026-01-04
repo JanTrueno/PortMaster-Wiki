@@ -4,7 +4,7 @@ repo_url: https://github.com/PortsMaster/PortMaster-New
 repo_name: GitHub
 theme:
   name: material
-  logo: assets/images/logo.png  # Ensure logo is in the 'assets' folder
+  logo: assets/images/logo.png
   font:
       text: Roboto
       code: Roboto Mono
@@ -24,14 +24,12 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-  #  - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.indexes
     - navigation.expand
     - navigation.path
-  #  - navigation.tracking
     - navigation.footer
     - toc.follow
     - toc.integrate 
@@ -40,7 +38,7 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
-    - header.social  # Enable social links in the header
+    - header.social
 markdown_extensions:
   - tables
   - attr_list
@@ -76,7 +74,6 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-
 extra_css:
   - assets/stylesheets/extra.css
 plugins:
@@ -90,8 +87,6 @@ plugins:
       archive: true
       archive_toc: true
       post_excerpt: required
-
-
 extra:
   generator: false
   social:
@@ -106,32 +101,26 @@ extra:
     - icon: fontawesome/solid/hand-holding-dollar
       link: https://opencollective.com/portmaster
   favicon: assets/images/logo.ico  
-
-
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - javascripts/tablesort.js
-
-
 nav:
   - Home: index.md
-  - FAQ: faq.md
   - Games: games.md
-  - Installation: 
-      - Installing the GUI: installation/installing-portmaster.md
+  - Install:
+      - Getting Started: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
       - Supported Handhelds: installation/supported-handhelds.md
       - Runtimes: installation/runtimes.md
-  - News: 
-      - Posts: news/index.md
-  - Tools:
-      - Markdown Generator: tools/markdown-generator.md
+  - News: news/index.md
+  - Community: 
+        - Porters: porters.md
   - Contribute: 
       - Porting:
           - What can be ported?: contribute/porting/what-can-be-ported.md
           - Engines:
-              - Love2D : contribute/porting/engines/love2d.md
-              - Gamemaker Studio : contribute/porting/engines/gamemaker-studio.md
+              - Love2D: contribute/porting/engines/love2d.md
+              - Gamemaker Studio: contribute/porting/engines/gamemaker-studio.md
           - Build Environments: contribute/porting/build-environments.md
           - Script Templates: contribute/porting/script-templates.md
           - Packaging: contribute/porting/packaging.md
@@ -139,7 +128,7 @@ nav:
       - GUI:
           - Themes: contribute/gui/theme-engine.md
           - Translation: contribute/gui/translation.md
-
-
-
-
+      - Tools:
+          - README Generator: tools/markdown-generator.md
+          - JSON Generator: tools/json-generator.md
+  - FAQ: faq.md

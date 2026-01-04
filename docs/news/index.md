@@ -1,1 +1,2 @@
-# Posts
+# News
+
