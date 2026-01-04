@@ -57,43 +57,26 @@
     margin: 1rem 0 !important;
   }
   
-  /* Scale down text to 50% */
-  h1 {
-    font-size: 1.25rem !important; /* 50% of 2.5rem */
-  }
-  
-  h2 {
-    font-size: 1rem !important;
-  }
-  
-  h3 {
-    font-size: 0.75rem !important; /* 50% of 1.5rem */
-  }
-  
-  p {
-    font-size: 0.625rem !important; /* 50% of 1.25rem */
-  }
-  
   /* Key Features - 50% */
   div[style*="grid-template-columns: repeat(4, 1fr)"] h3 {
-    font-size: 0.55rem !important; /* 50% of 1.1rem */
+    font-size: 0.55rem !important;
   }
   
   div[style*="grid-template-columns: repeat(4, 1fr)"] p {
-    font-size: 0.45rem !important; /* 50% of 0.9rem */
+    font-size: 0.45rem !important;
   }
   
   div[style*="grid-template-columns: repeat(4, 1fr)"] i {
-    font-size: 1rem !important; /* 50% of 2rem */
+    font-size: 1rem !important;
   }
   
-  /* How It Works - bigger fonts, same icons */
+  /* How It Works - bigger fonts */
   div[style*="grid-template-columns: repeat(3, 1fr)"] h3 {
-    font-size: 0.85rem !important; /* bigger than 50% */
+    font-size: 0.85rem !important;
   }
   
   div[style*="grid-template-columns: repeat(3, 1fr)"] p {
-    font-size: 0.7rem !important; /* bigger than 50% */
+    font-size: 0.7rem !important;
   }
   
   div[style*="grid-template-columns: repeat(3, 1fr)"] div[style*="width: 50px"] {

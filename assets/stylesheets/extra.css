@@ -3,6 +3,25 @@
    Main stylesheet for PortMaster Wiki
    =============================================== */
 
+/* ===== MOBILE FONT SIZE FIX ===== */
+
+/* Prevent mobile browsers from auto-scaling text */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Normalize list font sizes on mobile to match body text */
+@media (max-width: 768px) {
+  .md-typeset ul,
+  .md-typeset ol,
+  .md-typeset li {
+    font-size: 0.8rem;
+  }
+}
+
 /* ===== COLORS - LIGHT & DARK THEME ===== */
 
 [data-md-color-scheme="light"] {
