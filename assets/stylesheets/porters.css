@@ -3,11 +3,7 @@
    Porter Cards, Modals, and Badges
    =============================================== */
 
-#portersCounter {
-  color: var(--md-default-fg-color--light);
-  font-size: 0.9rem;
-  margin: 0;
-}
+/* Counter styling is inherited from games.css (portsCounter) */
 
 .porters-grid {
   display: grid;
@@ -417,9 +413,3 @@ img.no-lightbox {
     contain-intrinsic-size: auto;  /* no fake height */
   }
 }
-
-
-
-
-
-
