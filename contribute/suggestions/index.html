@@ -1442,7 +1442,6 @@
 
 
 <p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="../../stylesheets/games.css">
 <link rel="stylesheet" href="../../stylesheets/suggestions.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -1847,12 +1846,12 @@ function createSuggestionCard(suggestion) {
 
   // Image
   const img = document.createElement('img');
-  img.src = suggestion.imageurl || '/assets/images/placeholder.png';
+  img.src = suggestion.imageurl || '../../assets/images/placeholder.png';
   img.alt = suggestion.title;
   img.className = 'no-lightbox';
   img.style.backgroundColor = 'var(--md-default-bg-color)'; // Prevent flash
   img.onerror = function() {
-    this.src = '/assets/images/placeholder.png';
+    this.src = '../../assets/images/placeholder.png';
     this.style.backgroundColor = 'transparent';
   };
   img.onload = function() {
@@ -1939,11 +1938,11 @@ function openModal(suggestion) {
     screenshot.src = suggestion.imageurl;
     screenshot.alt = suggestion.title;
     screenshot.onerror = function() {
-      this.src = '/assets/images/placeholder.png';
+      this.src = '../../assets/images/placeholder.png';
     };
     screenshotContainer.style.display = 'block';
   } else {
-    screenshot.src = '/assets/images/placeholder.png';
+    screenshot.src = '../../assets/images/placeholder.png';
     screenshot.alt = suggestion.title;
     screenshotContainer.style.display = 'block';
   }
