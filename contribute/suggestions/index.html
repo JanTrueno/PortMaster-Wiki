@@ -1442,8 +1442,8 @@
 
 
 <p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="../stylesheets/games.css">
-<link rel="stylesheet" href="../stylesheets/suggestions.css"></p>
+<link rel="stylesheet" href="../../stylesheets/games.css">
+<link rel="stylesheet" href="../../stylesheets/suggestions.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
@@ -1630,7 +1630,7 @@ function getCookie(name) {
 // Load suggestions from JSON
 async function loadSuggestions() {
   try {
-    const response = await fetch('/assets/json/suggestions_new.json');
+    const response = await fetch('../../assets/json/suggestions_new.json');
     suggestionsData = await response.json();
     console.log('Loaded suggestions:', suggestionsData.length);
 
