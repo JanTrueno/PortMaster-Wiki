@@ -1,29 +1,81 @@
+# Installing PortMaster
 
-[:material-download: Download](https://github.com/PortsMaster/PortMaster-GUI/releases) the latest version of PortMaster.
+## Option 1: Already Installed (Check First)
 
-**There are multiple versions of the portmaster installer:**
+Most custom firmware comes with PortMaster pre-installed.
 
+**Check these locations:**
 
-- Install.PortMaster.sh - The base install of PortMaster.
-- Install.Full.PortMaster.sh - The base install + all runtimes.
+| Custom Firmware | Menu                       |
+|-----------------|----------------------------|
+| Majority    	  | Ports Section          	   |
+| ArkOS & ROCKNIX | Tools Section       	   |
+| MuOS	     	  | Application Section        |
 
-!!! info
-    Full installer is highly recommended for offline devices!
+**Found it?** You're done! Skip to [Using PortMaster](#using-portmaster).
 
-### Where do I place the Install.(Full).PortMaster.sh?
+!!! note "KNULLI Users"
+    Go to Ports → "Install PortMaster" and run the script once.
 
-To install PortMaster via a simple Installation Script download either the Install.PortMaster.sh or Install.Full.PortMaster.sh from the link above and place it in the appropriate folder for your CFW. After that simply execute the .sh from your Ports folder.
+---
 
-| CFW          | Location                 |
-|--------------|:------------------------:|
-| AmberElec    | `/roms/ports/`           |
-| ArkOS        | `/roms(2)/ports/`        |
-| ROCKNIX      | `/roms/ports/`           |
-| muOS         | `/mnt/mmc/ROMS/Ports/`   |
-| Knulli       | `/userdata/roms/ports`   |
-| Rocknix      | `/roms/ports/`           |
-| UnofficialOS | `/roms/ports/`           |
+## Option 2: Manual Installation
 
+!!! abstract "What you need"
+    - SD card reader
+    - Access to your device's SD card
 
+[:material-download: Download Install.PortMaster.sh](https://github.com/PortsMaster/PortMaster-GUI/releases){ .md-button .md-button--primary }
 
+### Installation Paths
 
+Place the file in the correct folder:
+
+| Custom Firmware | Folder                     |
+|-----------------|----------------------------|
+| AmberELEC       | `/roms/ports/`             |
+| ArkOS           | `/roms2/ports/`            |
+| ROCKNIX         | `/roms/ports/`             |
+| muOS            | `/mnt/mmc/ROMS/Ports/`     |
+| KNULLI          | `/userdata/roms/ports/`    |
+| UnofficialOS    | `/roms/ports/`             |
+
+### Installation Steps
+
+1. Eject SD card from computer
+2. Insert into device
+3. Navigate to Ports
+4. Run "Install PortMaster"
+
+PortMaster is now in your Ports section.
+
+---
+
+## Using PortMaster
+
+!!! warning "Internet Required"
+    WiFi connection IS needed to download ports.
+
+### Main Menu
+
+Featured Ports
+:   Recommended games from the PortMaster team
+
+All Ports
+:   500+ available ports for your device
+
+Ready to Run
+:   Free games that don't need commercial files
+
+Manage Ports
+:   Reinstall or uninstall existing ports
+
+Options
+:   Settings and runtime manager
+
+---
+
+## Offline Setup
+
+!!! info "No WiFi?"
+    Install runtimes separately using the [Runtimes Guide](runtimes.md).

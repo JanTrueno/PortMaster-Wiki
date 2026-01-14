@@ -76,6 +76,11 @@ markdown_extensions:
       pygments_lang_class: true
 extra_css:
   - assets/stylesheets/extra.css
+  - assets/stylesheets/games.css
+  - assets/stylesheets/porters.css
+  - assets/stylesheets/homepage.css
+  - assets/stylesheets/handhelds.css
+  - assets/stylesheets/porter-tools.css
 plugins:
    - glightbox
    - search
@@ -113,22 +118,25 @@ nav:
       - Supported Handhelds: installation/supported-handhelds.md
       - Runtimes: installation/runtimes.md
   - News: news/index.md
-  - Community: 
-        - Porters: porters.md
-  - Contribute: 
-      - Porting:
-          - What can be ported?: contribute/porting/what-can-be-ported.md
+  - Community:
+      - Porters: porters.md
+  - Contribute:
+      - How to Contribute: contribute/index.md
+      - Porting Games:
+          - What Can Be Ported?: contribute/porting/what-can-be-ported.md
           - Engines:
               - Love2D: contribute/porting/engines/love2d.md
-              - Gamemaker Studio: contribute/porting/engines/gamemaker-studio.md
+              - GameMaker Studio: contribute/porting/engines/gamemaker-studio.md
           - Build Environments: contribute/porting/build-environments.md
           - Script Templates: contribute/porting/script-templates.md
           - Packaging: contribute/porting/packaging.md
           - Developer Details: contribute/porting/developer-details.md
-      - GUI:
+      - GUI Development:
           - Themes: contribute/gui/theme-engine.md
           - Translation: contribute/gui/translation.md
-      - Tools:
+      - Suggestions:
+          - contribute/suggestions.md
+      - Developer Tools:
           - README Generator: tools/markdown-generator.md
           - JSON Generator: tools/json-generator.md
   - FAQ: faq.md

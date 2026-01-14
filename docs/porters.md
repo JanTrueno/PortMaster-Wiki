@@ -1,14 +1,17 @@
-
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<div class="porters-header">
-  <h1>PortMaster Porters</h1>
-  <p class="porters-subtitle">The amazing people who bring games to your handheld devices</p>
-  <div class="porters-search-wrapper">
-    <input type="text" id="porterSearch" placeholder="Search porters..." class="porters-search">
+
+# PortMaster Porters
+The amazing people who bring games to your handheld devices
+
+<div class="filters-container">
+  <div class="search-wrapper">
+    <input type="text" id="porterSearch" class="search-bar" placeholder="Search porters...">
   </div>
-  <p id="portersCounter">Showing: {{ porters | length }} porters</p>
+</div>
+
+<div id="portsCounter">
+  Showing <span id="visible-porter-count">{{ porters | length }}</span> of {{ porters | length }} porters
 </div>
 
 <!-- Porter Detail Modal -->
@@ -119,7 +122,7 @@
       if (matches) visible++;
     });
     
-    document.getElementById('portersCounter').textContent = `Showing: ${visible} porters`;
+    document.getElementById('visible-porter-count').textContent = visible;
   });
   
   // Modal functions

@@ -14,7 +14,7 @@ hide:
 </div>
 
 <div style="text-align: center; margin: 2rem 0;">
-  <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Welcome to PortMaster</h1>
+  <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Welcome to PortMaster!</h1>
   <p style="font-size: 1.25rem; color: var(--md-default-fg-color--light); margin-bottom: 2rem;">Your all-in-one manager for native game ports on Linux-based handhelds</p>
 </div>
 
@@ -24,7 +24,7 @@ hide:
     <div style="font-size: 0.9rem; color: var(--md-default-fg-color--light); text-transform: uppercase; letter-spacing: 0.5px;">Game Ports</div>
   </div>
   <div>
-    <div style="font-size: 2.5rem; font-weight: 700; color: #4DBEEE; margin-bottom: 0.5rem;">50+</div>
+    <div style="font-size: 2.5rem; font-weight: 700; color: #4DBEEE; margin-bottom: 0.5rem;">40+</div>
     <div style="font-size: 0.9rem; color: var(--md-default-fg-color--light); text-transform: uppercase; letter-spacing: 0.5px;">Supported Devices</div>
   </div>
   <div>
@@ -222,7 +222,7 @@ function scrollCarousel(direction) {
 
 <div style="text-align: center; padding: 2rem; background: var(--md-code-bg-color); border-radius: 12px; margin: 2rem 0;">
   <h3 style="font-size: 1.5rem; margin: 0 0 1rem 0;">Compatible Devices</h3>
-  <p style="margin: 0 0 1.5rem 0;">PortMaster works seamlessly with <strong>50+ Linux-based handheld devices</strong>, including popular custom firmware like AmberELEC, ArkOS, and muOS.</p>
+  <p style="margin: 0 0 1.5rem 0;">PortMaster works seamlessly with <strong>40+ Linux-based handheld devices</strong>, including popular custom firmwares like MuOS, ArkOS, AmberELEC, ROCKNIX and Knulli.</p>
   <a href="installation/supported-handhelds/" class="md-button">See All Supported Devices</a>
 </div>
 

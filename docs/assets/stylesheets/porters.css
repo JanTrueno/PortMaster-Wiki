@@ -1,0 +1,415 @@
+/* ===============================================
+   PORTERS.CSS - Porters Page Styles
+   Porter Cards, Modals, and Badges
+   =============================================== */
+
+/* Counter styling is inherited from games.css (portsCounter) */
+
+.porters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+@media (min-width: 600px) {
+  .porters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .porters-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+@media (max-width: 400px) {
+  .porters-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.porter-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: var(--md-shadow-z1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  text-align: center;
+  position: relative;
+  background-color: var(--card-bg);
+}
+
+.porter-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
+  background-color: var(--card-bg-hover);
+}
+
+.porter-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #F49519, #ff6b35);
+  flex-shrink: 0;
+}
+
+.porter-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.porter-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 2.5rem;
+}
+
+.porter-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--md-default-fg-color);
+  word-break: break-word;
+}
+
+.porter-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.porter-stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.porter-stat i {
+  color: #F49519;
+}
+
+.porter-support-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Porter Modal */
+.porter-modal-content {
+  max-width: 1000px;
+}
+
+.porter-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(244, 149, 25, 0.1), rgba(255, 107, 53, 0.1));
+  border-radius: 12px 12px 0 0;
+}
+
+.porter-detail-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F49519, #ff6b35);
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.porter-detail-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.porter-detail-info {
+  flex: 1;
+}
+
+.porter-detail-info h1 {
+  margin: 0 0 0.5rem 0;
+  color: #F49519;
+  font-size: 2rem;
+}
+
+.porter-detail-bio {
+  margin: 0 0 1rem 0;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+
+.porter-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.porter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--md-default-bg-color);
+  border-radius: 6px;
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.porter-link:hover {
+  border-color: #F49519;
+  color: #F49519;
+}
+
+.porter-link.support-link {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  color: #fff;
+  border: none;
+}
+
+.porter-link.support-link:hover {
+  background: linear-gradient(135deg, #ff5252, #e04444);
+  color: #fff;
+}
+
+.no-links {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.9rem;
+}
+
+.porter-detail-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.porter-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.porter-stat-item i {
+  font-size: 1.5rem;
+  color: #F49519;
+}
+
+.porter-stat-item span {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.porter-stat-item label {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.porter-ports-section {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.porter-ports-section h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: var(--md-default-fg-color);
+}
+
+.porter-ports-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+  margin: -0.5rem;
+}
+
+@media (min-width: 600px) {
+  .porter-ports-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Custom scrollbar for porter ports grid */
+.porter-ports-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.porter-ports-grid::-webkit-scrollbar-track {
+  background: var(--md-default-bg-color);
+  border-radius: 4px;
+}
+
+.porter-ports-grid::-webkit-scrollbar-thumb {
+  background: #F49519;
+  border-radius: 4px;
+}
+
+.porter-ports-grid::-webkit-scrollbar-thumb:hover {
+  background: #ff9d2e;
+}
+
+/* Firefox scrollbar */
+.porter-ports-grid {
+  scrollbar-width: thin;
+  scrollbar-color: #F49519 var(--md-default-bg-color);
+}
+
+/* Port cards in porter modal - exact same as game cards */
+.porter-game-card {
+  height: 100%;
+}
+
+.no-ports {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--md-default-fg-color--light);
+  padding: 2rem;
+}
+
+/* Porter link badge in game modal */
+.porter-link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  margin: 0.1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+[data-md-color-scheme="light"] .porter-link-badge {
+  background-color: #e8e8e8;
+  color: #333333;
+}
+
+[data-md-color-scheme="dark"] .porter-link-badge {
+  background-color: #333333;
+  color: #eeeeee;
+}
+
+[data-md-color-scheme="light"] .porter-link-badge:hover {
+  background-color: #F49519;
+  color: #333333;
+}
+
+[data-md-color-scheme="dark"] .porter-link-badge:hover {
+  background-color: #F49519;
+  color: #eeeeee;
+}
+
+.porter-link-badge i {
+  font-size: 0.6rem;
+}
+
+/* Prevent glightbox on images */
+img.no-lightbox {
+  pointer-events: none !important;
+}
+
+.porter-avatar img,
+.porter-detail-avatar img,
+.porter-game-card img,
+.game-card img {
+  pointer-events: none !important;
+}
+
+/* Responsive porter modal */
+@media (max-width: 600px) {
+  .porter-detail-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .porter-detail-avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+  }
+  
+  .porter-detail-info h1 {
+    font-size: 1.5rem;
+  }
+  
+  .porter-detail-links {
+    justify-content: center;
+  }
+  
+  .porter-detail-stats {
+    gap: 2rem;
+  }
+  
+  .porter-stat-item span {
+    font-size: 1.5rem;
+  }
+  
+  .porter-ports-section {
+    padding: 1rem;
+  }
+  
+  .porter-ports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ===== Fix card sizing without mobile freeze ===== */
+
+/* Desktop only: allow intrinsic size hint */
+@media (min-width: 769px) {
+  .game-card {
+    content-visibility: auto;
+    contain: layout style paint;
+    contain-intrinsic-size: 0 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-card {
+    content-visibility: visible;   /* disables freeze */
+    contain: layout;               /* keeps grid sizing stable */
+    contain-intrinsic-size: auto;  /* no fake height */
+  }
+}

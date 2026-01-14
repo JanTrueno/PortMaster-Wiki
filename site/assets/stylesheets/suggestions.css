@@ -1,0 +1,181 @@
+/* ===============================================
+   SUGGESTIONS.CSS - Suggestions Page Styles
+   Uses game card styling from games.css
+   =============================================== */
+
+/* Feasibility badge styling - prominent pill shape in cards */
+.feasibility-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  line-height: 1;
+}
+
+.card-stat .feasibility-badge {
+  padding: 0.25rem 0.6rem;
+}
+
+.feasibility-badge.high {
+  background-color: #4caf50 !important;
+  color: #ffffff !important;
+}
+
+.feasibility-badge.medium {
+  background-color: #ff9800 !important;
+  color: #ffffff !important;
+}
+
+.feasibility-badge.low {
+  background-color: #f44336 !important;
+  color: #ffffff !important;
+}
+
+.feasibility-badge.unknown {
+  background-color: #9e9e9e !important;
+  color: #ffffff !important;
+}
+
+/* Smaller font on mobile */
+@media (max-width: 600px) {
+  .feasibility-badge {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+/* ===== MODAL STYLING ===== */
+
+/* Info items - ensure no text clipping */
+.info-value {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Clickable link badge */
+.info-link {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(244, 149, 25, 0.3);
+}
+
+[data-md-color-scheme="light"] .info-link {
+  background-color: #4DBEEE !important;
+  color: #ffffff !important;
+}
+
+[data-md-color-scheme="dark"] .info-link {
+  background-color: #4DBEEE !important;
+  color: #ffffff !important;
+}
+
+[data-md-color-scheme="light"] .info-link:hover {
+  background-color: #5fcbf5 !important;
+}
+
+[data-md-color-scheme="dark"] .info-link:hover {
+  background-color: #5fcbf5 !important;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.complete {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.status-badge.open {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.status-badge.rejected {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+/* Votes display */
+.votes-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+[data-md-color-scheme="light"] .votes-display {
+  background-color: #f0f0f0;
+}
+
+[data-md-color-scheme="dark"] .votes-display {
+  background-color: #2b2b2b;
+}
+
+.votes-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #F49519;
+}
+
+.votes-label {
+  font-size: 0.9rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Modal description - better text wrapping */
+#modal-description {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 600px) {
+  .votes-display {
+    padding: 0.75rem;
+  }
+  
+  .votes-number {
+    font-size: 1.5rem;
+  }
+  
+  .votes-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* No results message */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.no-results i {
+  font-size: 3rem;
+  color: #F49519;
+  margin-bottom: 1rem;
+  display: block;
+}

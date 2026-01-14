@@ -1,46 +1,85 @@
 # Installing Ports
 
-PortMaster is a simple GUI tool designed to download and install game ports for Linux handheld devices. Here's how you can install ports using PortMaster:
+## Option 1: Online Installation (Recommended)
 
-## Best Experience: Using PortMaster Application
+!!! abstract "What you need"
+    - WiFi connection
 
-For the best experience, you should download and install ports through the PortMaster Application. This ensures that the installed port has the correct permissions and metadata.
+### Steps
 
-### Installation Process
+1. Open PortMaster from Ports section
+2. Browse and select a port
+3. Press Install
+4. Exit PortMaster
 
-1. **Open PortMaster Application**
-2. **Browse the available ports** and select the one you want to install.
-3. **Install the port** – PortMaster handles all the details and ensures everything is set up correctly for your device.
+The port appears in your Ports section. If not, restart your device.
 
-## Offline Installation
+---
 
-If your device doesn’t have Wi-Fi or you can’t use the PortMaster app, follow these steps for offline installation:
+## Option 2: Offline Installation
 
-### 1. Download the Port
+!!! abstract "What you need"
+    - Computer with internet
+    - SD card reader
 
-Go to the [PortMaster repository](https://portmaster.games/games.html) and find the port you want to install. Download the `.zip` file for the desired port.
+### Step 1: Download Port
 
-### 2. Place the Port in the Autoinstall Folder
+1. Go to [portmaster.games/games.html](https://portmaster.games/games.html)
+2. Find your port and download the `.zip` file
+3. **Don't extract it**
 
-Copy the downloaded `.zip` file into the appropriate autoinstall folder for your device:
+### Step 2: Copy to Autoinstall Folder
 
-- **AmberELEC, ROCKNIX, uOS, Jelos:** `/roms/ports/PortMaster/autoinstall/`
-- **muOS:** `/mmc/MUOS/PortMaster/autoinstall/`
-- **ArkOS:** `/roms/tools/PortMaster/autoinstall/`
-- **Knulli:** `/userdata/system/.local/share/PortMaster/autoinstall/`
+| Custom Firmware | Autoinstall Folder                      |
+|-----------------|-----------------------------------------|
+| AmberELEC       | `/roms/ports/autoinstall/`              |
+| ArkOS           | `/roms/ports/autoinstall/`              |
+| ROCKNIX         | `/roms/ports/autoinstall/`              |
+| muOS            | `/mnt/mmc/ports/autoinstall/` or `/mnt/sdcard/ports/autoinstall/` |
+| KNULLI          | `/userdata/roms/ports/autoinstall/`     |
 
-### 3. Run the PortMaster Application
+### Step 3: Install
 
-Launch the PortMaster Application. The port will be installed automatically.
+1. Eject SD card from computer
+2. Insert into device
+3. Launch PortMaster
 
-## Alternative: Manual Installation (Not Recommended)
+The port installs automatically.
 
-If the autoinstall folder method doesn't work, you can unzip the contents of the port into the corresponding ports folder for each custom firmware (CFW). However, this may break the port, and it may no longer start properly.
+!!! info "Offline Devices"
+    Pre-install runtimes using the [Runtimes Guide](runtimes.md).
 
-Here are the port folder locations for manual installation:
+---
 
-- **AmberELEC, ROCKNIX, uOS, Jelos:** `/roms/ports/`
-- **muOS:** `/mmc/ports/` (for the folders) or `/mnt/mmc/ROMS/Ports/` (for the `.sh` files)
-- **ArkOS:** `/roms/tools/PortMaster/autoinstall/`
-- **Knulli:** `/userdata/system/.local/share/PortMaster/autoinstall/`
+## Port Types
 
+Ready to Run
+:   Free ports that work immediately. No extra files needed.
+
+Commercial Ports
+:   Require you to own the game. Additional setup needed after installation.
+
+### Adding Commercial Game Files
+
+After installing a commercial port:
+
+1. Go to the [Games Page](/games).
+2. Find your game → Details
+3. Follow file placement instructions
+
+---
+## Troubleshooting
+
+**Port doesn't appear:**
+
+- Restart device or refresh games list
+
+**Port doesn't run:**
+
+- Check Details page for correct file placement
+- Install runtimes via Options → Runtime Manager
+- Check the log.txt file for more info
+
+**Autoinstall failedL:**
+
+- Verify `.zip` is not extracted and is in correct folder

@@ -1,9 +1,55 @@
 import json
 from pathlib import Path
 from datetime import datetime
+import urllib.request
+import urllib.error
+
+def download_github_json(url, local_path):
+    """Download a JSON file from GitHub to local path"""
+    try:
+        print(f"Downloading {url}...")
+        with urllib.request.urlopen(url) as response:
+            data = response.read()
+            local_path.parent.mkdir(parents=True, exist_ok=True)
+            with local_path.open('wb') as f:
+                f.write(data)
+        print(f"✓ Downloaded to {local_path}")
+        return True
+    except urllib.error.URLError as e:
+        print(f"✗ Failed to download {url}: {e}")
+        return False
+
+def download_portmaster_jsons(base_path):
+    """Download all PortMaster JSON files from GitHub"""
+    # Use latest releases
+    github_release = "https://github.com/PortsMaster/PortMaster-New/releases/latest/download"
+    github_mv_release = "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/latest/download"
+    github_info = "https://raw.githubusercontent.com/PortsMaster/PortMaster-Info/refs/heads/main"
+    
+    files_to_download = {
+        "ports.json": f"{github_release}/ports.json",
+        "ports-MV.json": f"{github_mv_release}/ports.json",
+        "port_stats.json": f"{github_info}/port_stats.json",
+        "device_info.json": f"{github_info}/device_info.json",
+        "porters.json": f"{github_info}/porters.json",
+        "runtimes_zips.json": f"{github_release}/runtimes_zips.json",
+    }
+    
+    success_count = 0
+    for filename, url in files_to_download.items():
+        local_path = base_path / filename
+        if download_github_json(url, local_path):
+            success_count += 1
+    
+    print(f"\nDownloaded {success_count}/{len(files_to_download)} files successfully")
+    return success_count > 0
 
 def define_env(env):
     base_path = Path(__file__).parent / "docs" / "assets" / "json"
+    
+    # Download JSONs from GitHub (comment out if you want to use local files only)
+    download_portmaster_jsons(base_path)
+    
     ports_files = [
         base_path / "ports.json",
         base_path / "ports-MV.json",
@@ -152,3 +198,52 @@ def define_env(env):
     }
     
     env.variables["sorted_orders"] = sorted_orders
+    
+    # Process device info for handhelds page
+    processed_devices = {}
+    for device_name, cfw_data in device_info.items():
+        if device_name not in processed_devices:
+            # Get manufacturer and resolution from first CFW entry
+            first_cfw = next(iter(cfw_data.values()))
+            manufacturer = first_cfw.get("manufacturer", "Unknown")
+            resolution = first_cfw.get("resolution", [0, 0])
+            cpu = first_cfw.get("cpu", "Unknown")
+            ram = first_cfw.get("ram", 0)
+            analogsticks = first_cfw.get("analogsticks", 0)
+            
+            # Determine aspect ratio from capabilities
+            aspect_ratio = "4:3"  # default
+            for cap in first_cfw.get("capabilities", []):
+                if ":" in cap and any(c.isdigit() for c in cap):
+                    aspect_ratio = cap
+                    break
+            
+            # Check if device has unusual aspect ratio
+            has_aspect_note = aspect_ratio not in ["4:3", "16:9"]
+            
+            processed_devices[device_name] = {
+                "name": device_name,
+                "manufacturer": manufacturer,
+                "resolution": f"{resolution[0]}x{resolution[1]}",
+                "aspect_ratio": aspect_ratio,
+                "cpu": cpu,
+                "ram_mb": ram,
+                "ram_gb": round(ram / 1024, 1) if ram >= 1024 else None,
+                "analogsticks": analogsticks,
+                "cfw_list": sorted(cfw_data.keys()),
+                "has_aspect_note": has_aspect_note,
+                "cfw_count": len(cfw_data)
+            }
+    
+    # Sort devices by manufacturer, then by name
+    sorted_devices = dict(sorted(processed_devices.items(), 
+                                 key=lambda x: (x[1]["manufacturer"], x[1]["name"])))
+    
+    env.variables["devices"] = sorted_devices
+    
+    # Get unique manufacturers and CFW for filtering
+    manufacturers = sorted(set(d["manufacturer"] for d in sorted_devices.values()))
+    all_cfw = sorted(set(cfw for d in sorted_devices.values() for cfw in d["cfw_list"]))
+    
+    env.variables["manufacturers"] = manufacturers
+    env.variables["all_cfw"] = all_cfw

@@ -50,6 +50,14 @@
     
       <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../../assets/stylesheets/games.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/porters.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/homepage.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/handhelds.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -83,6 +91,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#installing-portmaster" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -326,15 +339,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../contribute/porting/what-can-be-ported/" class="md-tabs__link">
+        <a href="../../contribute/" class="md-tabs__link">
           
   
   
@@ -344,9 +350,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -537,6 +540,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -549,6 +567,61 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-already-installed-check-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 1: Already Installed (Check First)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-manual-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Manual Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-portmaster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using PortMaster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#offline-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Offline Setup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -744,6 +817,12 @@
     
       
         
+          
+        
+      
+        
+      
+        
       
         
       
@@ -767,8 +846,9 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../contribute/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -777,8 +857,14 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
@@ -786,6 +872,8 @@
             Contribute
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
             
               
                 
@@ -823,15 +911,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_1" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Porting
+    Porting Games
     
   </span>
   
@@ -839,10 +927,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
             <span class="md-nav__icon md-icon"></span>
-            Porting
+            Porting Games
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -858,7 +946,7 @@
   
   
   <span class="md-ellipsis">
-    What can be ported?
+    What Can Be Ported?
     
   </span>
   
@@ -897,10 +985,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_1_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_2_2" id="__nav_6_2_2_label" tabindex="0">
             
   
   
@@ -913,8 +1001,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2_2">
             <span class="md-nav__icon md-icon"></span>
             Engines
           </label>
@@ -955,7 +1043,7 @@
   
   
   <span class="md-ellipsis">
-    Gamemaker Studio
+    GameMaker Studio
     
   </span>
   
@@ -1102,15 +1190,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
         
           
-          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    GUI
+    GUI Development
     
   </span>
   
@@ -1118,10 +1206,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
             <span class="md-nav__icon md-icon"></span>
-            GUI
+            GUI Development
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1190,6 +1278,86 @@
       
         
       
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Suggestions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Suggestions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribute/suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Suggestions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
         
       
     
@@ -1207,15 +1375,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
         
           
-          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Tools
+    Developer Tools
     
   </span>
   
@@ -1223,10 +1391,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
             <span class="md-nav__icon md-icon"></span>
-            Tools
+            Developer Tools
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1332,58 +1500,114 @@
   
 
 
-  <h1>Getting Started</h1>
-
-<p><a href="https://github.com/PortsMaster/PortMaster-GUI/releases"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z"/></svg></span> Download</a> the latest version of PortMaster.</p>
-<p><strong>There are multiple versions of the portmaster installer:</strong></p>
-<ul>
-<li>Install.PortMaster.sh - The base install of PortMaster.</li>
-<li>Install.Full.PortMaster.sh - The base install + all runtimes.</li>
-</ul>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Full installer is highly recommended for offline devices!</p>
-</div>
-<h3 id="where-do-i-place-the-installfullportmastersh">Where do I place the Install.(Full).PortMaster.sh?<a class="headerlink" href="#where-do-i-place-the-installfullportmastersh" title="Permanent link">¶</a></h3>
-<p>To install PortMaster via a simple Installation Script download either the Install.PortMaster.sh or Install.Full.PortMaster.sh from the link above and place it in the appropriate folder for your CFW. After that simply execute the .sh from your Ports folder.</p>
+<h1 id="installing-portmaster">Installing PortMaster<a class="headerlink" href="#installing-portmaster" title="Permanent link">¶</a></h1>
+<h2 id="option-1-already-installed-check-first">Option 1: Already Installed (Check First)<a class="headerlink" href="#option-1-already-installed-check-first" title="Permanent link">¶</a></h2>
+<p>Most custom firmware comes with PortMaster pre-installed.</p>
+<p><strong>Check these locations:</strong></p>
 <table>
 <thead>
 <tr>
-<th>CFW</th>
-<th style="text-align: center;">Location</th>
+<th>Custom Firmware</th>
+<th>Menu</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AmberElec</td>
-<td style="text-align: center;"><code>/roms/ports/</code></td>
+<td>Majority</td>
+<td>Ports Section</td>
 </tr>
 <tr>
-<td>ArkOS</td>
-<td style="text-align: center;"><code>/roms(2)/ports/</code></td>
+<td>ArkOS &amp; ROCKNIX</td>
+<td>Tools Section</td>
 </tr>
 <tr>
-<td>ROCKNIX</td>
-<td style="text-align: center;"><code>/roms/ports/</code></td>
-</tr>
-<tr>
-<td>muOS</td>
-<td style="text-align: center;"><code>/mnt/mmc/ROMS/Ports/</code></td>
-</tr>
-<tr>
-<td>Knulli</td>
-<td style="text-align: center;"><code>/userdata/roms/ports</code></td>
-</tr>
-<tr>
-<td>Rocknix</td>
-<td style="text-align: center;"><code>/roms/ports/</code></td>
-</tr>
-<tr>
-<td>UnofficialOS</td>
-<td style="text-align: center;"><code>/roms/ports/</code></td>
+<td>MuOS</td>
+<td>Application Section</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Found it?</strong> You're done! Skip to <a href="#using-portmaster">Using PortMaster</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">KNULLI Users</p>
+<p>Go to Ports → "Install PortMaster" and run the script once.</p>
+</div>
+<hr />
+<h2 id="option-2-manual-installation">Option 2: Manual Installation<a class="headerlink" href="#option-2-manual-installation" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">What you need</p>
+<ul>
+<li>SD card reader</li>
+<li>Access to your device's SD card</li>
+</ul>
+</div>
+<p><a class="md-button md-button--primary" href="https://github.com/PortsMaster/PortMaster-GUI/releases"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z"/></svg></span> Download Install.PortMaster.sh</a></p>
+<h3 id="installation-paths">Installation Paths<a class="headerlink" href="#installation-paths" title="Permanent link">¶</a></h3>
+<p>Place the file in the correct folder:</p>
+<table>
+<thead>
+<tr>
+<th>Custom Firmware</th>
+<th>Folder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AmberELEC</td>
+<td><code>/roms/ports/</code></td>
+</tr>
+<tr>
+<td>ArkOS</td>
+<td><code>/roms2/ports/</code></td>
+</tr>
+<tr>
+<td>ROCKNIX</td>
+<td><code>/roms/ports/</code></td>
+</tr>
+<tr>
+<td>muOS</td>
+<td><code>/mnt/mmc/ROMS/Ports/</code></td>
+</tr>
+<tr>
+<td>KNULLI</td>
+<td><code>/userdata/roms/ports/</code></td>
+</tr>
+<tr>
+<td>UnofficialOS</td>
+<td><code>/roms/ports/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="installation-steps">Installation Steps<a class="headerlink" href="#installation-steps" title="Permanent link">¶</a></h3>
+<ol>
+<li>Eject SD card from computer</li>
+<li>Insert into device</li>
+<li>Navigate to Ports</li>
+<li>Run "Install PortMaster"</li>
+</ol>
+<p>PortMaster is now in your Ports section.</p>
+<hr />
+<h2 id="using-portmaster">Using PortMaster<a class="headerlink" href="#using-portmaster" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Internet Required</p>
+<p>WiFi connection IS needed to download ports.</p>
+</div>
+<h3 id="main-menu">Main Menu<a class="headerlink" href="#main-menu" title="Permanent link">¶</a></h3>
+<p>Featured Ports
+:   Recommended games from the PortMaster team</p>
+<p>All Ports
+:   500+ available ports for your device</p>
+<p>Ready to Run
+:   Free games that don't need commercial files</p>
+<p>Manage Ports
+:   Reinstall or uninstall existing ports</p>
+<p>Options
+:   Settings and runtime manager</p>
+<hr />
+<h2 id="offline-setup">Offline Setup<a class="headerlink" href="#offline-setup" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">No WiFi?</p>
+<p>Install runtimes separately using the <a href="../runtimes/">Runtimes Guide</a>.</p>
+</div>
 
 
 

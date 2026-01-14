@@ -50,6 +50,14 @@
     
       <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../../assets/stylesheets/games.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/porters.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/homepage.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/handhelds.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -331,15 +339,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../contribute/porting/what-can-be-ported/" class="md-tabs__link">
+        <a href="../../contribute/" class="md-tabs__link">
           
   
   
@@ -349,9 +350,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -609,27 +607,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#best-experience-using-portmaster-application" class="md-nav__link">
+  <a href="#option-1-online-installation-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Experience: Using PortMaster Application
+      Option 1: Online Installation (Recommended)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#offline-installation" class="md-nav__link">
+  <a href="#option-2-offline-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Offline Installation
+      Option 2: Offline Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#alternative-manual-installation-not-recommended" class="md-nav__link">
+  <a href="#port-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Alternative: Manual Installation (Not Recommended)
+      Port Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
     </span>
   </a>
   
@@ -810,6 +817,12 @@
     
       
         
+          
+        
+      
+        
+      
+        
       
         
       
@@ -833,8 +846,9 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../contribute/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -843,8 +857,14 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
@@ -852,6 +872,8 @@
             Contribute
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
             
               
                 
@@ -889,15 +911,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_1" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Porting
+    Porting Games
     
   </span>
   
@@ -905,10 +927,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
             <span class="md-nav__icon md-icon"></span>
-            Porting
+            Porting Games
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -924,7 +946,7 @@
   
   
   <span class="md-ellipsis">
-    What can be ported?
+    What Can Be Ported?
     
   </span>
   
@@ -963,10 +985,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_1_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_2_2" id="__nav_6_2_2_label" tabindex="0">
             
   
   
@@ -979,8 +1001,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2_2">
             <span class="md-nav__icon md-icon"></span>
             Engines
           </label>
@@ -1021,7 +1043,7 @@
   
   
   <span class="md-ellipsis">
-    Gamemaker Studio
+    GameMaker Studio
     
   </span>
   
@@ -1168,15 +1190,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
         
           
-          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    GUI
+    GUI Development
     
   </span>
   
@@ -1184,10 +1206,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
             <span class="md-nav__icon md-icon"></span>
-            GUI
+            GUI Development
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1256,6 +1278,86 @@
       
         
       
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Suggestions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Suggestions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribute/suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Suggestions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
         
       
     
@@ -1273,15 +1375,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
         
           
-          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Tools
+    Developer Tools
     
   </span>
   
@@ -1289,10 +1391,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
             <span class="md-nav__icon md-icon"></span>
-            Tools
+            Developer Tools
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1399,37 +1501,106 @@
 
 
 <h1 id="installing-ports">Installing Ports<a class="headerlink" href="#installing-ports" title="Permanent link">¶</a></h1>
-<p>PortMaster is a simple GUI tool designed to download and install game ports for Linux handheld devices. Here's how you can install ports using PortMaster:</p>
-<h2 id="best-experience-using-portmaster-application">Best Experience: Using PortMaster Application<a class="headerlink" href="#best-experience-using-portmaster-application" title="Permanent link">¶</a></h2>
-<p>For the best experience, you should download and install ports through the PortMaster Application. This ensures that the installed port has the correct permissions and metadata.</p>
-<h3 id="installation-process">Installation Process<a class="headerlink" href="#installation-process" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Open PortMaster Application</strong></li>
-<li><strong>Browse the available ports</strong> and select the one you want to install.</li>
-<li><strong>Install the port</strong> – PortMaster handles all the details and ensures everything is set up correctly for your device.</li>
-</ol>
-<h2 id="offline-installation">Offline Installation<a class="headerlink" href="#offline-installation" title="Permanent link">¶</a></h2>
-<p>If your device doesn’t have Wi-Fi or you can’t use the PortMaster app, follow these steps for offline installation:</p>
-<h3 id="1-download-the-port">1. Download the Port<a class="headerlink" href="#1-download-the-port" title="Permanent link">¶</a></h3>
-<p>Go to the <a href="https://portmaster.games/games.html">PortMaster repository</a> and find the port you want to install. Download the <code>.zip</code> file for the desired port.</p>
-<h3 id="2-place-the-port-in-the-autoinstall-folder">2. Place the Port in the Autoinstall Folder<a class="headerlink" href="#2-place-the-port-in-the-autoinstall-folder" title="Permanent link">¶</a></h3>
-<p>Copy the downloaded <code>.zip</code> file into the appropriate autoinstall folder for your device:</p>
+<h2 id="option-1-online-installation-recommended">Option 1: Online Installation (Recommended)<a class="headerlink" href="#option-1-online-installation-recommended" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">What you need</p>
 <ul>
-<li><strong>AmberELEC, ROCKNIX, uOS, Jelos:</strong> <code>/roms/ports/PortMaster/autoinstall/</code></li>
-<li><strong>muOS:</strong> <code>/mmc/MUOS/PortMaster/autoinstall/</code></li>
-<li><strong>ArkOS:</strong> <code>/roms/tools/PortMaster/autoinstall/</code></li>
-<li><strong>Knulli:</strong> <code>/userdata/system/.local/share/PortMaster/autoinstall/</code></li>
+<li>WiFi connection</li>
 </ul>
-<h3 id="3-run-the-portmaster-application">3. Run the PortMaster Application<a class="headerlink" href="#3-run-the-portmaster-application" title="Permanent link">¶</a></h3>
-<p>Launch the PortMaster Application. The port will be installed automatically.</p>
-<h2 id="alternative-manual-installation-not-recommended">Alternative: Manual Installation (Not Recommended)<a class="headerlink" href="#alternative-manual-installation-not-recommended" title="Permanent link">¶</a></h2>
-<p>If the autoinstall folder method doesn't work, you can unzip the contents of the port into the corresponding ports folder for each custom firmware (CFW). However, this may break the port, and it may no longer start properly.</p>
-<p>Here are the port folder locations for manual installation:</p>
+</div>
+<h3 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">¶</a></h3>
+<ol>
+<li>Open PortMaster from Ports section</li>
+<li>Browse and select a port</li>
+<li>Press Install</li>
+<li>Exit PortMaster</li>
+</ol>
+<p>The port appears in your Ports section. If not, restart your device.</p>
+<hr />
+<h2 id="option-2-offline-installation">Option 2: Offline Installation<a class="headerlink" href="#option-2-offline-installation" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">What you need</p>
 <ul>
-<li><strong>AmberELEC, ROCKNIX, uOS, Jelos:</strong> <code>/roms/ports/</code></li>
-<li><strong>muOS:</strong> <code>/mmc/ports/</code> (for the folders) or <code>/mnt/mmc/ROMS/Ports/</code> (for the <code>.sh</code> files)</li>
-<li><strong>ArkOS:</strong> <code>/roms/tools/PortMaster/autoinstall/</code></li>
-<li><strong>Knulli:</strong> <code>/userdata/system/.local/share/PortMaster/autoinstall/</code></li>
+<li>Computer with internet</li>
+<li>SD card reader</li>
+</ul>
+</div>
+<h3 id="step-1-download-port">Step 1: Download Port<a class="headerlink" href="#step-1-download-port" title="Permanent link">¶</a></h3>
+<ol>
+<li>Go to <a href="https://portmaster.games/games.html">portmaster.games/games.html</a></li>
+<li>Find your port and download the <code>.zip</code> file</li>
+<li><strong>Don't extract it</strong></li>
+</ol>
+<h3 id="step-2-copy-to-autoinstall-folder">Step 2: Copy to Autoinstall Folder<a class="headerlink" href="#step-2-copy-to-autoinstall-folder" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Custom Firmware</th>
+<th>Autoinstall Folder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AmberELEC</td>
+<td><code>/roms/ports/autoinstall/</code></td>
+</tr>
+<tr>
+<td>ArkOS</td>
+<td><code>/roms/ports/autoinstall/</code></td>
+</tr>
+<tr>
+<td>ROCKNIX</td>
+<td><code>/roms/ports/autoinstall/</code></td>
+</tr>
+<tr>
+<td>muOS</td>
+<td><code>/mnt/mmc/ports/autoinstall/</code> or <code>/mnt/sdcard/ports/autoinstall/</code></td>
+</tr>
+<tr>
+<td>KNULLI</td>
+<td><code>/userdata/roms/ports/autoinstall/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-install">Step 3: Install<a class="headerlink" href="#step-3-install" title="Permanent link">¶</a></h3>
+<ol>
+<li>Eject SD card from computer</li>
+<li>Insert into device</li>
+<li>Launch PortMaster</li>
+</ol>
+<p>The port installs automatically.</p>
+<div class="admonition info">
+<p class="admonition-title">Offline Devices</p>
+<p>Pre-install runtimes using the <a href="../runtimes/">Runtimes Guide</a>.</p>
+</div>
+<hr />
+<h2 id="port-types">Port Types<a class="headerlink" href="#port-types" title="Permanent link">¶</a></h2>
+<p>Ready to Run
+:   Free ports that work immediately. No extra files needed.</p>
+<p>Commercial Ports
+:   Require you to own the game. Additional setup needed after installation.</p>
+<h3 id="adding-commercial-game-files">Adding Commercial Game Files<a class="headerlink" href="#adding-commercial-game-files" title="Permanent link">¶</a></h3>
+<p>After installing a commercial port:</p>
+<ol>
+<li>Go to the <a href="/games">Games Page</a>.</li>
+<li>Find your game → Details</li>
+<li>Follow file placement instructions</li>
+</ol>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<p><strong>Port doesn't appear:</strong></p>
+<ul>
+<li>Restart device or refresh games list</li>
+</ul>
+<p><strong>Port doesn't run:</strong></p>
+<ul>
+<li>Check Details page for correct file placement</li>
+<li>Install runtimes via Options → Runtime Manager</li>
+<li>Check the log.txt file for more info</li>
+</ul>
+<p><strong>Autoinstall failedL:</strong></p>
+<ul>
+<li>Verify <code>.zip</code> is not extracted and is in correct folder</li>
 </ul>
 
 
