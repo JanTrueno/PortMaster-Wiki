@@ -211,6 +211,58 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-22_1131/6feetunder.zip"
       }
     },
+    "8bitbuccaneer.zip": {
+      "version": 4,
+      "name": "8bitbuccaneer.zip",
+      "items": [
+        "8-BIT BUCCANEER.sh",
+        "8bitbuccaneer"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "8-BIT BUCCANEER",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "A pirate-themed roguelike game, in which you sail around, buy treasure maps, dig up treasure, and fight enemy ships and monsters.",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "adventure"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://xenological.itch.io/8bitbuccaneer",
+            "developerurl": "https://xenological.itch.io/"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-12",
+        "date_updated": "2026-01-12",
+        "md5": "d04d22a880c3b58cd906c6e087332d46",
+        "size": 13074697,
+        "release_id": "2026-01-12_1145",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/8bitbuccaneer.zip"
+      }
+    },
     "akeyspath.zip": {
       "version": 4,
       "name": "akeyspath.zip",
@@ -4488,6 +4540,58 @@
         "release_id": "2024-10-17_0726",
         "size": 38993091,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-10-17_0726/biomassgrowth.zip"
+      }
+    },
+    "biplanesrevival.zip": {
+      "version": 4,
+      "name": "biplanesrevival.zip",
+      "items": [
+        "Biplanes Revival.sh",
+        "biplanesrevival"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Biplanes Revival",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "An old cellphone arcade \\\"BlueTooth BiPlanes\\\" recreated for PC",
+        "desc_md": null,
+        "inst": "Ready to run!",
+        "inst_md": null,
+        "genres": [
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://regular-dev.itch.io/biplanes-revival",
+            "developerurl": "https://regular-dev.itch.io/"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-12",
+        "date_updated": "2026-01-12",
+        "md5": "e196fc39aac2a9918d7d02edbfedf545",
+        "size": 506226,
+        "release_id": "2026-01-12_1145",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/biplanesrevival.zip"
       }
     },
     "bittriprunner2.zip": {
@@ -15026,8 +15130,8 @@
         "date_added": "2026-01-07",
         "date_updated": "2026-01-07",
         "md5": "567143959db1e5110b805fa43e10a22f",
-        "size": 4022714,
         "release_id": "2026-01-07_1231",
+        "size": 4022714,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/dragondragonfirefire.zip"
       }
     },
@@ -20561,6 +20665,58 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-14_1207/geometrystrike.zip"
       }
     },
+    "ghosttrap.zip": {
+      "version": 4,
+      "name": "ghosttrap.zip",
+      "items": [
+        "Ghost Trap.sh",
+        "ghosttrap"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Ghost Trap",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "You've died and landed in purgatory, your options? Unending suffering or finding a way back to your world. GHOST TRAP is a free-to-play indie platformer created by a solo student developer.",
+        "desc_md": null,
+        "inst": "Download the game for free from Steam and copy all game files into the assets folder.",
+        "inst_md": "Download the game for free from [Steam](https://store.steampowered.com/app/2006090/Ghost_Trap/) and copy all game files into the `assets` folder.",
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2006090/Ghost_Trap/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "free",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-12",
+        "date_updated": "2026-01-12",
+        "md5": "6eff02971f756a96b8aeff42b81d25fe",
+        "size": 7084106,
+        "release_id": "2026-01-12_1145",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/ghosttrap.zip"
+      }
+    },
     "ghostris.zip": {
       "version": 4,
       "name": "ghostris.zip",
@@ -23217,8 +23373,8 @@
         "date_added": "2026-01-07",
         "date_updated": "2026-01-07",
         "md5": "8e6fa21941cbf18b1b92add17cd51365",
-        "size": 3182713,
         "release_id": "2026-01-07_1231",
+        "size": 3182713,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/harmonist.zip"
       }
     },
@@ -30492,8 +30648,8 @@
         "date_added": "2026-01-07",
         "date_updated": "2026-01-07",
         "md5": "0b98dd0fca8b0958fc18b0f86760cc8e",
-        "size": 211548850,
         "release_id": "2026-01-07_1231",
+        "size": 211548850,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/marcotreasurequest.zip"
       }
     },
@@ -43785,11 +43941,11 @@
       },
       "source": {
         "date_added": "2023-10-11",
-        "date_updated": "2025-09-23",
-        "md5": "4d3474d347576d648fe3ccf1c9498820",
-        "release_id": "2025-09-23_1014",
+        "date_updated": "2026-01-12",
+        "md5": "b5ed7863d0a9c035d3f5d422ca5dfb15",
+        "release_id": "2026-01-12_1145",
         "size": 9807564,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-09-23_1014/roguelight.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/roguelight.zip"
       }
     },
     "romm.zip": {
@@ -46267,8 +46423,8 @@
         "date_added": "2026-01-07",
         "date_updated": "2026-01-07",
         "md5": "beaf89610e14c1e7ba6fdcba9391e182",
-        "size": 5268843,
         "release_id": "2026-01-07_1231",
+        "size": 5268843,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/skautfoldinsanity.zip"
       }
     },
@@ -55157,8 +55313,8 @@
         "date_added": "2026-01-07",
         "date_updated": "2026-01-07",
         "md5": "6ed9fc6e69590fc909c297e7f196c675",
-        "size": 7220314,
         "release_id": "2026-01-07_1231",
+        "size": 7220314,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/tripleswaptower.zip"
       }
     },
@@ -59065,6 +59221,55 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-04_1325/xanthiom.zip"
       }
     },
+    "xargon.zip": {
+      "version": 4,
+      "name": "xargon.zip",
+      "items": [
+        "Xargon 1 - Beyond Reality.sh",
+        "Xargon 2 - The Secret Chamber.sh",
+        "Xargon 3 - Xargon's Fury.sh",
+        "xargon"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Xargon",
+        "porter": [
+          "Slayer366"
+        ],
+        "desc": "An archaeologist named Malvineous Havershim was studying strange ruins in Madagascar, remnants of buildings constructed during the age of a long-forgotten civilization of the mysterious Blue Builders. One day Malvineous spotted glyphs on one of the structures. As he attempted to translate them, Malvineous was hit by a wave of gas and fainted. In his dream, a talking eagle named Silvertongue tried to warn him of upcoming dangers. The archaeologist awoke in a strange and hostile world, unable to understand anything. With Silvertongue's guidance, Malvineous will have to overcome all dangers and eventually confront Xargon, the tyrannical ruler of that world.",
+        "desc_md": null,
+        "inst": "Everything is included and ready to run.",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "x86_64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-12",
+        "date_updated": "2026-01-12",
+        "md5": "9089a2be0d7ad4e7267c6f505597e752",
+        "size": 2789649,
+        "release_id": "2026-01-12_1145",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/xargon.zip"
+      }
+    },
     "xenofightersr.zip": {
       "version": 4,
       "name": "xenofightersr.zip",
@@ -59638,6 +59843,65 @@
         "release_id": "2025-10-04_1030",
         "size": 15862711,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/yatka.zip"
+      }
+    },
+    "yknytt.zip": {
+      "version": 4,
+      "name": "yknytt.zip",
+      "items": [
+        "YKnytt.sh",
+        "yknytt"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "YKnytt",
+        "porter": [
+          "clichev2",
+          "inaya",
+          "0xAda.3",
+          "youkaicountry",
+          "up-left"
+        ],
+        "desc": "A remake of the atmospheric platformer Knytt Stories, originally developed by Nifflas. With over 1200 community levels!",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "adventure",
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "mono-6.12.0.122-aarch64.squashfs"
+        ],
+        "store": [
+          {
+            "name": "itch.io",
+            "gameurl": "https://youkaicountry.itch.io/yknytt",
+            "developerurl": "https://github.com/youkaicountry/yknytt"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-12",
+        "date_updated": "2026-01-12",
+        "md5": "71116697ba3bda887e2b801e66f8d8a0",
+        "size": 83336446,
+        "release_id": "2026-01-12_1145",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/yknytt.zip"
       }
     },
     "yolkheroes.zip": {
@@ -60232,9 +60496,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "eefb59440e314f6fc31ed14080f0ea82",
-      "size": 154153845,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/gameinfo.zip"
+      "md5": "251a1a692abb01f9d3e34a332e6d2270",
+      "size": 154197863,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -61545,17 +61809,20 @@
     },
     "images.012.zip": {
       "name": "images.012.zip",
-      "md5": "05e2c869c102307ef23b44bcd1d7a505",
-      "size": 1561980,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/images.012.zip",
+      "md5": "f1130f87b39d7dfff551338e4d684ea7",
+      "size": 1603567,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/images.012.zip",
       "images": [
+        "8bitbuccaneer.screenshot.png",
         "amoebax.screenshot.png",
         "asteroludi.screenshot.png",
         "azimuth.screenshot.png",
         "badendtheater.screenshot.png",
         "binkystrashservice.screenshot.png",
+        "biplanesrevival.screenshot.png",
         "dragondragonfirefire.screenshot.png",
         "drivenout.screenshot.png",
+        "ghosttrap.screenshot.png",
         "gungodz.screenshot.png",
         "harmonist.screenshot.png",
         "marcotreasurequest.screenshot.png",
@@ -61579,14 +61846,16 @@
         "unwin.screenshot.png",
         "upaon.screenshot.png",
         "voidbeat.screenshot.png",
-        "wargus.screenshot.png"
+        "wargus.screenshot.png",
+        "xargon.screenshot.png",
+        "yknytt.screenshot.png"
       ]
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "fad8e5ab579524b03c3c0aed4011dfb0",
-      "size": 82954009,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/images.zip"
+      "md5": "6485a78e898bc19883ed36382a894d9d",
+      "size": 82995596,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
