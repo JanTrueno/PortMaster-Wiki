@@ -1,0 +1,216 @@
+/* ===============================================
+   HANDHELDS.CSS - Handhelds Page Styles
+   Compact device cards with filter system
+   =============================================== */
+
+/* Use the same filters-container from games.css - no need to duplicate */
+
+/* ===== HANDHELDS GRID ===== */
+.handhelds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .handhelds-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .handhelds-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .handhelds-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .handhelds-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+/* ===== HANDHELD CARD ===== */
+.handheld-card {
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--md-shadow-z1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  cursor: default;
+}
+
+.handheld-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
+  background-color: var(--card-bg-hover);
+}
+
+/* Card Header - Fixed Height */
+.handheld-header {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--card-border);
+  min-height: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.handheld-name {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--card-text);
+  text-align: center;
+}
+
+.handheld-brand {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Specs Section - Fixed Height */
+.handheld-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 0.75rem;
+  min-height: 5.5rem;
+}
+
+.spec-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--card-text);
+}
+
+.spec-row i {
+  font-size: 0.75rem;
+  color: #F49519;
+  width: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.spec-row span {
+  font-family: var(--md-code-font-family);
+  font-weight: 500;
+}
+
+/* CFW Pills - Fixed Height */
+.handheld-cfw {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--card-border);
+  min-height: 2.5rem;
+  align-content: flex-start;
+}
+
+.cfw-pill {
+  display: inline-block;
+  padding: 0.15rem 0.35rem;
+  border-radius: 10px;
+  font-size: 0.55rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none;
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+.cfw-pill:hover {
+  background-color: #ff9d2e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(244, 149, 25, 0.3);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .handheld-card {
+    padding: 0.75rem;
+  }
+  
+  .handheld-header {
+    min-height: 3rem;
+    padding-bottom: 0.6rem;
+  }
+  
+  .handheld-name {
+    font-size: 0.9rem;
+  }
+  
+  .handheld-brand {
+    font-size: 0.65rem;
+  }
+  
+  .handheld-specs {
+    padding-top: 0.6rem;
+    min-height: 5rem;
+  }
+  
+  .spec-row {
+    font-size: 0.7rem;
+  }
+  
+  .spec-row i {
+    font-size: 0.7rem;
+  }
+  
+  .handheld-cfw {
+    padding-top: 0.6rem;
+  }
+  
+  .cfw-pill {
+    font-size: 0.5rem;
+    padding: 0.12rem 0.3rem;
+  }
+}
+
+/* ===== FILTER SECTION STYLING ===== */
+/* These match the games page filter panel */
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: var(--md-default-fg-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Filter pills are already styled in games.css */
+/* We're reusing those styles */
+
+/* No results styling - reuse from games.css */
