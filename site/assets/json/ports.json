@@ -258,8 +258,8 @@
         "date_added": "2026-01-12",
         "date_updated": "2026-01-12",
         "md5": "d04d22a880c3b58cd906c6e087332d46",
-        "size": 13074697,
         "release_id": "2026-01-12_1145",
+        "size": 13074697,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/8bitbuccaneer.zip"
       }
     },
@@ -447,11 +447,11 @@
       },
       "source": {
         "date_added": "2025-07-09",
-        "date_updated": "2025-07-09",
-        "md5": "5624e10f496c8b23977219fa6d783920",
-        "release_id": "2025-07-09_0745",
-        "size": 180638,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-09_0745/astoryaboutbirds.zip"
+        "date_updated": "2026-02-07",
+        "md5": "455d33c094798165e9e2bdf714ec9f05",
+        "release_id": "2026-02-07_0859",
+        "size": 181807,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/astoryaboutbirds.zip"
       }
     },
     "thanksgiving.zip": {
@@ -990,11 +990,11 @@
       },
       "source": {
         "date_added": "2025-09-08",
-        "date_updated": "2025-11-04",
-        "md5": "59a9bb3db4fd637ad7fb98cc05304599",
-        "release_id": "2025-11-04_0946",
-        "size": 9139903,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-04_0946/aestheta.zip"
+        "date_updated": "2026-02-07",
+        "md5": "3439bf8a16161c254e63e8d39519b3f9",
+        "release_id": "2026-02-07_0859",
+        "size": 9139982,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/aestheta.zip"
       }
     },
     "afternoonstalker.zip": {
@@ -2455,6 +2455,63 @@
         "release_id": "2025-04-28_0944",
         "size": 5824978,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-04-28_0944/aquaria.zip"
+      }
+    },
+    "arco.zip": {
+      "version": 4,
+      "name": "arco.zip",
+      "items": [
+        "Arco.sh",
+        "arco"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Arco",
+        "porter": [
+          "Fraxinus88",
+          "JanTrueno"
+        ],
+        "desc": "A Mesoamerican fantasy RPG that blends turn-based and real-time combat. Explore the world through three handcrafted stories forged in bloodshed, laced with magic, and united by revenge. This port does not work with the demo files!",
+        "desc_md": "A Mesoamerican fantasy RPG that blends turn-based and real-time combat. Explore the world through three handcrafted stories forged in bloodshed, laced with magic, and united by revenge. This port does not work with the demo files!.\n\n**Note: If the L2 toggle patch is applied, use L1/R1 to select combat actions.**",
+        "inst": "Copy arco.exe from your Steam download to ports/arco. A D-pad/L-stick toggle patch is available during installation.",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/2366970/Arco/). Copy `arco.exe` to `ports/arco`. On first startup, you can apply a D-pad/L-stick L2 toggle patch (Recommended for D-pad only devices).",
+        "genres": [
+          "action",
+          "adventure",
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2366970/Arco/",
+            "developerurl": "https://arco.game/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "7158068284e272d4d5c4c3370610d652",
+        "release_id": "2026-01-25_1827",
+        "size": 29586862,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/arco.zip"
       }
     },
     "area2048.zip": {
@@ -4555,7 +4612,7 @@
         "porter": [
           "Cebion"
         ],
-        "desc": "An old cellphone arcade \\\"BlueTooth BiPlanes\\\" recreated for PC",
+        "desc": "An old cellphone arcade *BlueTooth BiPlanes* recreated for PC",
         "desc_md": null,
         "inst": "Ready to run!",
         "inst_md": null,
@@ -4587,11 +4644,11 @@
       },
       "source": {
         "date_added": "2026-01-12",
-        "date_updated": "2026-01-12",
-        "md5": "e196fc39aac2a9918d7d02edbfedf545",
-        "size": 506226,
-        "release_id": "2026-01-12_1145",
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/biplanesrevival.zip"
+        "date_updated": "2026-02-07",
+        "md5": "451533893adf7219c57fcb56dd765ece",
+        "release_id": "2026-02-07_0859",
+        "size": 506224,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/biplanesrevival.zip"
       }
     },
     "bittriprunner2.zip": {
@@ -9616,6 +9673,7 @@
       "attr": {
         "title": "Chromium BSU",
         "porter": [
+          "NEMESIS",
           "BenJuan26"
         ],
         "desc": "fast paced, arcade-style, top-scrolling space shooter",
@@ -9647,17 +9705,17 @@
         "arch": [
           "aarch64"
         ],
-        "min_glibc": "",
         "desc_md": null,
-        "inst_md": null
+        "inst_md": null,
+        "min_glibc": ""
       },
       "source": {
         "date_added": "2025-08-31",
-        "date_updated": "2025-08-31",
-        "md5": "14c52799a922c7de46891af4a1e19925",
-        "release_id": "2025-08-31_0235",
-        "size": 3838593,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-31_0235/chromium_bsu.zip"
+        "date_updated": "2026-01-25",
+        "md5": "61234cc72f7f690bed9e9b3a7a3f1d04",
+        "release_id": "2026-01-25_1827",
+        "size": 2699348,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/chromium_bsu.zip"
       }
     },
     "circainfinity.zip": {
@@ -14409,11 +14467,11 @@
       },
       "source": {
         "date_added": "2025-03-28",
-        "date_updated": "2025-05-08",
-        "md5": "54c0370da45e603c8411dda9bcdb7ccc",
-        "release_id": "2025-05-08_2151",
-        "size": 58474292,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-08_2151/dokimon.zip"
+        "date_updated": "2026-02-07",
+        "md5": "8264799a9863842865344645b50abf93",
+        "release_id": "2026-02-07_0859",
+        "size": 58465187,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/dokimon.zip"
       }
     },
     "domeromantik.zip": {
@@ -15624,11 +15682,11 @@
       },
       "source": {
         "date_added": "2025-02-27",
-        "date_updated": "2025-02-27",
-        "md5": "c88b0faa64a4410f9f0d4c3c48bccc41",
-        "release_id": "2025-02-27_2241",
-        "size": 15487778,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-02-27_2241/duelingdragons.zip"
+        "date_updated": "2026-02-07",
+        "md5": "bfdf624718bd5f6733dfa7b150e43de2",
+        "release_id": "2026-02-07_0859",
+        "size": 15487763,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/duelingdragons.zip"
       }
     },
     "duke.nukem.3d.zip": {
@@ -17780,6 +17838,59 @@
         "release_id": "2025-08-21_0915",
         "size": 12243669,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-21_0915/fares.zip"
+      }
+    },
+    "farmkeeper.zip": {
+      "version": 4,
+      "name": "farmkeeper.zip",
+      "items": [
+        "Farm Keeper.sh",
+        "farmkeeper"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Farm Keeper",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "A tile-based farming game where success means maximizing yields to survive the rent, expanding your farm through random tile choices.",
+        "desc_md": null,
+        "inst": "Purchase the game on Steam and copy the FarmKeeper.pck into gamedata folder. You can also use the free demo version.",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/2458940/Farm_Keeper/) and copy the `FarmKeeper.pck` into `gamedata` folder. You can also use the free `demo` version.",
+        "genres": [
+          "simulation",
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "frt_3.5.2.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2458940/Farm_Keeper/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "c968b9dab78641ebd2c6a6f17d3bf9f1",
+        "release_id": "2026-01-25_1827",
+        "size": 919772,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/farmkeeper.zip"
       }
     },
     "farmner.zip": {
@@ -20712,8 +20823,8 @@
         "date_added": "2026-01-12",
         "date_updated": "2026-01-12",
         "md5": "6eff02971f756a96b8aeff42b81d25fe",
-        "size": 7084106,
         "release_id": "2026-01-12_1145",
+        "size": 7084106,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/ghosttrap.zip"
       }
     },
@@ -21426,11 +21537,11 @@
       },
       "source": {
         "date_added": "2025-07-24",
-        "date_updated": "2025-07-24",
-        "md5": "e92d0fba19654f496283a90cabb82758",
-        "release_id": "2025-07-24_0745",
-        "size": 8992366,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-24_0745/goldenwarden.zip"
+        "date_updated": "2026-02-07",
+        "md5": "1bea8b7247772c35174f6cfa5f81f33a",
+        "release_id": "2026-02-07_0859",
+        "size": 8992310,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/goldenwarden.zip"
       }
     },
     "goliathdepot.zip": {
@@ -23701,6 +23812,65 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/heboris-sdl.zip"
       }
     },
+    "heirloom.zip": {
+      "version": 4,
+      "name": "heirloom.zip",
+      "items": [
+        "Heirloom.sh",
+        "heirloom"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Heirloom",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "A small 2D platformer. Run, jump and avoid obstacles through 4 challenging levels. Explore a beautiful, hand-crafted pixel world. Meet captivating NPCs and reach the Old Summit to retrieve the family Heirloom.",
+        "desc_md": null,
+        "inst": "Purchase the game on Steam or Itch.io and copy all files into the assets folder. You can also download the free demo from Steam.",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/2315570/Heirloom/) or [Itch.io](https://atticusfinn.itch.io/heirloom) and copy all files into the `assets` folder. You can also download the free demo from Steam.",
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://atticusfinn.itch.io/heirloom",
+            "developerurl": ""
+          },
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2315570/Heirloom/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "f240ec0ba223e0a85c32121380eb92e3",
+        "release_id": "2026-01-25_1827",
+        "size": 10523951,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/heirloom.zip"
+      }
+    },
     "hellfire.zip": {
       "version": 4,
       "name": "hellfire.zip",
@@ -25334,11 +25504,11 @@
       },
       "source": {
         "date_added": "2021-11-16",
-        "date_updated": "2025-05-04",
-        "md5": "f1d3e3897167701f8bdb5119cc9be7e2",
-        "release_id": "2025-05-04_0401",
-        "size": 4533434,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-04_0401/iconoclasts.zip"
+        "date_updated": "2026-01-25",
+        "md5": "0bc91259a8de3633fecb52f9a94e9135",
+        "release_id": "2026-01-25_1827",
+        "size": 4533413,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/iconoclasts.zip"
       }
     },
     "icytower.zip": {
@@ -27647,6 +27817,64 @@
         "release_id": "2025-04-24_1015",
         "size": 29779489,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-04-24_1015/koboldkastilla.zip"
+      }
+    },
+    "koboo.zip": {
+      "version": 4,
+      "name": "koboo.zip",
+      "items": [
+        "Koboo - The Tree Spirit.sh",
+        "koboo"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Koboo: The Tree Spirit",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Koboo is a fast paced action rogue-lite platformer where you battle against towering hunters as a small tree spirit by attacking their weak points. Forge powerful synergies, explore the Ancient Forest's branching paths, fish, catch bugs and garden to rebuild your home!",
+        "desc_md": null,
+        "inst": "Purchase the game on Steam and copy all game files into the assets folder. This game requires a device with 2GB RAM.",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/718190/Koboo_The_Tree_Spirit/) and copy all game files into the `assets` folder. This game requires a device with `2GB` RAM.",
+        "genres": [
+          "action",
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/718190/Koboo_The_Tree_Spirit/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "2gb",
+          "power"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-27",
+        "date_updated": "2026-01-27",
+        "md5": "dd8fc505ee200e06c0f368b189df305d",
+        "release_id": "2026-01-27_2358",
+        "size": 6350289,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-27_2358/koboo.zip"
       }
     },
     "koreader.zip": {
@@ -30263,6 +30491,58 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-24_1333/madhouse.zip"
       }
     },
+    "magerecall.zip": {
+      "version": 4,
+      "name": "magerecall.zip",
+      "items": [
+        "Mage Recall.sh",
+        "magerecall"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Mage Recall",
+        "porter": [
+          "TheLaggyPyro"
+        ],
+        "desc": "A short (1 - 2 Hour) experimental Gameboy-styled adventure inspired by the likes of Golden Sun. Vrin is a mage down on her luck as she finds herself in a small town on the brink of rebellion.",
+        "desc_md": null,
+        "inst": "Thank you to Nion for allowing PortMaster to make this game Ready to Run.",
+        "inst_md": "Thank you to Nion for allowing PortMaster to make this game Ready to Run.",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "itch.io",
+            "gameurl": "https://nion-ne.itch.io/mage-recall",
+            "developerurl": "https://nion.moe"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-27",
+        "date_updated": "2026-01-27",
+        "md5": "bf9bdbf98de77f75efc0b092368f318d",
+        "release_id": "2026-01-27_2358",
+        "size": 40645905,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-27_2358/magerecall.zip"
+      }
+    },
     "magicvigilante.zip": {
       "version": 2,
       "name": "magicvigilante.zip",
@@ -31254,6 +31534,60 @@
         "release_id": "2025-07-02_2314",
         "size": 12080470,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-02_2314/megawitter.zip"
+      }
+    },
+    "megaserval.zip": {
+      "version": 4,
+      "name": "megaserval.zip",
+      "items": [
+        "Mega Serval.sh",
+        "megaserval"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Mega Serval",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Serval's friends are in danger and it's up to her to save the day! Progress through 12 action-packed platforming stages in this \"Kemono Friends Project\" derivative work!",
+        "desc_md": null,
+        "inst": "Ready to run!",
+        "inst_md": null,
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2009720/Mega_Serval",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-02-07",
+        "date_updated": "2026-02-07",
+        "md5": "16f769081c98b1f83b3113228f9c3958",
+        "size": 27445245,
+        "release_id": "2026-02-07_0859",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/megaserval.zip"
       }
     },
     "megaball.zip": {
@@ -34374,11 +34708,11 @@
       },
       "source": {
         "date_added": "2024-11-02",
-        "date_updated": "2024-11-03",
-        "md5": "1503f974e2026feaf18544bf7fdf865e",
-        "release_id": "2024-11-03_1903",
-        "size": 12174052,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-11-03_1903/nextdoor.zip"
+        "date_updated": "2026-02-07",
+        "md5": "794fc02c7c2ae2e12d3b6eb3934f1e1f",
+        "release_id": "2026-02-07_0859",
+        "size": 12174190,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/nextdoor.zip"
       }
     },
     "nezumidash.zip": {
@@ -36014,11 +36348,11 @@
       }
     },
     "openggs.zip": {
-      "version": 2,
+      "version": 4,
       "name": "openggs.zip",
       "items": [
         "Open Great Giana Sisters.sh",
-        "openggs/"
+        "openggs"
       ],
       "items_opt": null,
       "attr": {
@@ -36027,7 +36361,9 @@
           "Bamboozler"
         ],
         "desc": "Open Great Giana Sisters is a Free Software/Open Source implementation/remake of The Great Giana Sisters.",
+        "desc_md": null,
         "inst": "All files are included and game is ready to play.",
+        "inst_md": null,
         "genres": [
           "platformer"
         ],
@@ -36038,23 +36374,24 @@
           "video": null
         },
         "rtr": true,
+        "exp": false,
         "runtime": [],
+        "store": [],
+        "availability": "full",
         "reqs": [],
         "arch": [
-          "aarch64"
+          "aarch64",
+          "x86_64"
         ],
-        "desc_md": null,
-        "inst_md": null,
-        "exp": false,
         "min_glibc": ""
       },
       "source": {
         "date_added": "2023-05-14",
-        "date_updated": "2025-10-04",
-        "md5": "1c456973d96bd02234a5a66664478c83",
-        "release_id": "2025-10-04_1030",
-        "size": 1524756,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/openggs.zip"
+        "date_updated": "2026-02-07",
+        "md5": "9311872fda459ee7785cf83f60f8808d",
+        "release_id": "2026-02-07_0859",
+        "size": 1601628,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/openggs.zip"
       }
     },
     "openhexagon.zip": {
@@ -39304,11 +39641,11 @@
       },
       "source": {
         "date_added": "2025-11-04",
-        "date_updated": "2025-11-04",
-        "md5": "9088991c704d25a122a1af8077c1921d",
-        "release_id": "2025-11-04_0946",
-        "size": 37435685,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-04_0946/pixelwheels.zip"
+        "date_updated": "2026-01-27",
+        "md5": "c566fbadca586f68cc24f8b9c1ac54a0",
+        "release_id": "2026-01-27_2358",
+        "size": 37435684,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-27_2358/pixelwheels.zip"
       }
     },
     "pizzatower.zip": {
@@ -42690,6 +43027,65 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-11-12_1249/restore.portmaster.zip"
       }
     },
+    "retrohighway.zip": {
+      "version": 4,
+      "name": "retrohighway.zip",
+      "items": [
+        "Retro Highway.sh",
+        "retrohighway"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Retro Highway",
+        "porter": [
+          "Fraxinus88"
+        ],
+        "desc": "Return to the days of pure arcade fun!  \nRetro Highway is a throwback racing game aiming to combine the accessibility of modern titles with the high-skill challenge and charming aesthetics of old.",
+        "desc_md": null,
+        "inst": "Purchase the game from Itch.io.\nDownload the Windows version and place RetroHighway.zip in ports/retrohighway/assets",
+        "inst_md": "Purchase the game from [Itch.io](https://nicolaigd.itch.io/retro-highway).\nDownload the Windows version and place RetroHighway.zip in ports/retrohighway/assets.",
+        "genres": [
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "dotnet-8.0.12.squashfs",
+          "gmtoolkit.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://nicolaigd.itch.io/retro-highway",
+            "developerurl": "https://nicolaigd.itch.io/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "power"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-02-07",
+        "date_updated": "2026-02-07",
+        "md5": "e5dfbef1ecc5678d2e8bebe324a4dbd8",
+        "size": 9177719,
+        "release_id": "2026-02-07_0859",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/retrohighway.zip"
+      }
+    },
     "retrotime.zip": {
       "version": 2,
       "name": "retrotime.zip",
@@ -43065,7 +43461,7 @@
           "strategy"
         ],
         "image": {
-          "screenshot": "screenshot.jpg",
+          "screenshot": "screenshot.png",
           "covers": [
             "cover.jpg"
           ],
@@ -43090,11 +43486,11 @@
       },
       "source": {
         "date_added": "2025-04-11",
-        "date_updated": "2025-04-11",
-        "md5": "d14997052167b9c3346961812280f32b",
-        "release_id": "2025-04-11_0650",
-        "size": 6539548,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-04-11_0650/riddledcorpses.zip"
+        "date_updated": "2026-02-07",
+        "md5": "3af082017c646705e962d44272edd024",
+        "release_id": "2026-02-07_0859",
+        "size": 6459153,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/riddledcorpses.zip"
       }
     },
     "rigelengine.zip": {
@@ -44807,6 +45203,53 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-09-08_0351/scaletheskulltower.zip"
       }
     },
+    "scavenger.zip": {
+      "version": 4,
+      "name": "scavenger.zip",
+      "items": [
+        "Scavenger.sh",
+        "scavenger"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Scavenger",
+        "porter": [
+          "monkeyx-net"
+        ],
+        "desc": "SDL Scavenger A fun 2-D game like Lode Runner. With 196 very good puzzle screens to solve.",
+        "desc_md": null,
+        "inst": "Ready to play",
+        "inst_md": null,
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "x86_64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "e96a2a5d4e3acb743037a6a0798e524f",
+        "release_id": "2026-01-25_1827",
+        "size": 877813,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/scavenger.zip"
+      }
+    },
     "sdlbomber.zip": {
       "version": 4,
       "name": "sdlbomber.zip",
@@ -46209,19 +46652,22 @@
         "rtr": true,
         "exp": false,
         "runtime": [],
+        "store": [],
+        "availability": "full",
         "reqs": [],
         "arch": [
-          "aarch64"
+          "aarch64",
+          "x86_64"
         ],
         "min_glibc": ""
       },
       "source": {
         "date_added": "2025-02-13",
-        "date_updated": "2025-02-19",
-        "md5": "4dea418f73118bbe555beab10cd89ef4",
-        "release_id": "2025-02-19_1252",
-        "size": 707841683,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-02-19_1252/signus.zip"
+        "date_updated": "2026-02-07",
+        "md5": "234d4688cc8ecd24c10481f1fded8965",
+        "release_id": "2026-02-07_0859",
+        "size": 709451499,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/signus.zip"
       }
     },
     "simplesokoban.zip": {
@@ -47162,7 +47608,7 @@
         "runtime": [],
         "reqs": [],
         "arch": [
-          "armhf"
+          "aarch64"
         ],
         "desc_md": null,
         "inst_md": null,
@@ -47170,11 +47616,11 @@
       },
       "source": {
         "date_added": "2024-03-15",
-        "date_updated": "2024-07-18",
-        "md5": "769ac6a01f4706aa2a1a2d848e20e031",
-        "release_id": "2024-07-18_2225",
-        "size": 42110548,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-07-18_2225/snout.zip"
+        "date_updated": "2026-01-25",
+        "md5": "0c12d1e75399d5d096ebb53427e81e7a",
+        "release_id": "2026-01-25_1827",
+        "size": 29709304,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/snout.zip"
       }
     },
     "snowmanstack.zip": {
@@ -47521,6 +47967,54 @@
         "release_id": "2024-10-22_1301",
         "size": 20529264,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-10-22_1301/somnokid.zip"
+      }
+    },
+    "songo5.zip": {
+      "version": 4,
+      "name": "songo5.zip",
+      "items": [
+        "Songo5.sh",
+        "songo5"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Songo #5",
+        "porter": [
+          "Riley"
+        ],
+        "desc": "A music player app focused on a clean and fast UI/UX. Currently supporting Mp3, Flac, and Ogg.",
+        "desc_md": null,
+        "inst": "After installation just ensure you have your music somewhere on your device. Start up the app and go to settings to tell Songo where your music is stored. After this it will scan that directory for new music on startup.",
+        "inst_md": null,
+        "genres": [
+          "other"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "845af3bfde4b041b4c86cfb975eb9c63",
+        "release_id": "2026-01-25_1827",
+        "size": 31891345,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/songo5.zip"
       }
     },
     "sonic.1.zip": {
@@ -48878,11 +49372,11 @@
       },
       "source": {
         "date_added": "2024-10-07",
-        "date_updated": "2025-10-22",
-        "md5": "9464a1180faa4022173a6cddbbb9fc0c",
-        "release_id": "2025-10-22_1131",
-        "size": 8287793,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-22_1131/librespot.zip"
+        "date_updated": "2026-01-25",
+        "md5": "89bc0488cde203423a12b6c47dc4f1a5",
+        "release_id": "2026-01-25_1827",
+        "size": 8297842,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/librespot.zip"
       }
     },
     "springhell.zip": {
@@ -49966,6 +50460,56 @@
         "release_id": "2025-08-14_1207",
         "size": 20593206,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-14_1207/strikeysisters.zip"
+      }
+    },
+    "stuntcarracer.zip": {
+      "version": 4,
+      "name": "stuntcarracer.zip",
+      "items": [
+        "Stunt Car Racer.sh",
+        "stuntcarracer"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Stunt Car Racer",
+        "porter": [
+          "tekkenfede",
+          "monkeyx-net"
+        ],
+        "desc": "This is a port to Linux and OpenPandora of Stunt Car Racer Remake, a windows remake of the old Stunt Car Racer from the AtariST/Amiga time.",
+        "desc_md": null,
+        "inst": "Ready to play",
+        "inst_md": null,
+        "genres": [
+          "racing"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "x86_64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "7eb3ed4b3c198c9f99e9495783fcbae4",
+        "release_id": "2026-01-25_1827",
+        "size": 1939860,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/stuntcarracer.zip"
       }
     },
     "submachinelegacy.zip": {
@@ -52213,7 +52757,8 @@
       "attr": {
         "title": "Tenjutsu",
         "porter": [
-          "Jeod"
+          "Jeod",
+          "bmdhacks"
         ],
         "desc": "Your dojo has been attacked by mysterious armed men in black. You have to take it back! Fight enemies, collect DEATH MARKS (ie. skulls) and tag enemies with these marks. Every 10 seconds, marked enemies will die. Some stronger enemies will require more marks to get rid of.",
         "desc_md": null,
@@ -52235,10 +52780,7 @@
         "runtime": [],
         "store": [],
         "availability": "full",
-        "reqs": [
-          "opengl",
-          "ultra"
-        ],
+        "reqs": [],
         "arch": [
           "aarch64"
         ],
@@ -52246,11 +52788,11 @@
       },
       "source": {
         "date_added": "2025-06-09",
-        "date_updated": "2025-06-09",
-        "md5": "60139b04ffae97d2b9e363a0d2f830b2",
-        "release_id": "2025-06-09_2012",
-        "size": 26215969,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-06-09_2012/tenjutsu48h.zip"
+        "date_updated": "2026-01-27",
+        "md5": "695acaf562ddaecb1bb616926f2a5be1",
+        "release_id": "2026-01-27_2358",
+        "size": 12514934,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-27_2358/tenjutsu48h.zip"
       }
     },
     "terminus.zip": {
@@ -53139,8 +53681,8 @@
         ],
         "desc": "Traverse the dungeon in this awesome action / bullet-hell roguelite where every choice could make or break your run. Stack over 130 different items and create powerful synergies to become truly overpowered with 13 unique characters!",
         "desc_md": null,
-        "inst": "Purchase the game on Steam and copy TheLastGame.pck into the gamedata folder. You can also use the free demo. Devices with rk3326 cpu are not recommended because of low performance",
-        "inst_md": "Purchase the game on [Steam](store.steampowered.com/app/2563800/The_Last_Game/) and copy `TheLastGame.pck` into the `gamedata` folder. You can also use the free demo. Devices with rk3326 cpu are not recommended because of low performance",
+        "inst": "Purchase the game on Steam, open the Steam console and paste the folowing text to download a compatible version: download_depot 2563800 2563801 879463373856549854 and copy TheLastGame.pck into the gamedata folder. You can also use the free demo, add it into your Steam library and use this Steam console command to download a compatible version: download_depot download_depot 2964420 2964421 3185082754256006513. Devices with rk3326 cpu are not recommended because of low performance",
+        "inst_md": "Purchase the game on [Steam](store.steampowered.com/app/2563800/The_Last_Game/), open the Steam console and paste the folowing text to download a compatible version: `download_depot 2563800 2563801 879463373856549854` and copy `TheLastGame.pck` into the `gamedata` folder. You can also use the free demo, add it into your Steam library and use this Steam console command to download a compatible version: `download_depot download_depot 2964420 2964421 3185082754256006513`. Devices with rk3326 cpu are not recommended because of low performance",
         "genres": [
           "action"
         ],
@@ -53172,11 +53714,11 @@
       },
       "source": {
         "date_added": "2025-12-29",
-        "date_updated": "2025-12-29",
-        "md5": "f644d8cc88c839fab6db30644829628c",
-        "release_id": "2025-12-29_0521",
-        "size": 184131,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-12-29_0521/thelastgame.zip"
+        "date_updated": "2026-02-07",
+        "md5": "a187ae9760beacfaab4173017050f62f",
+        "release_id": "2026-02-07_0859",
+        "size": 184287,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/thelastgame.zip"
       }
     },
     "spacefighter.zip": {
@@ -55036,6 +55578,75 @@
         "release_id": "2025-10-04_1030",
         "size": 2219422,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/towerfall.zip"
+      }
+    },
+    "toziuha2.zip": {
+      "version": 4,
+      "name": "toziuha2.zip",
+      "items": [
+        "Toziuha Night - Order of the Alchemists.sh",
+        "toziuha2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Toziuha Night - Order of the Alchemists",
+        "porter": [
+          "Danny Garay",
+          "Ganimoth"
+        ],
+        "desc": "This is the story of Xandria, an iron alchemist. She seeks revenge regardless of the consequences. To achieve it, Xandria fights with a powerful whip and the power of chemical elements. Find out more about her in this modern metroidvania adventure",
+        "desc_md": null,
+        "inst": "Purchase the game on Itch.io, GOG or Steam, download and extract the tn_oota.pck into the gamedata folder. You can also use the demo from Itch.io. This game requires a device with 2GB RAM.",
+        "inst_md": "Purchase the game on [Itch.io](https://dannygaray60.itch.io/toziuha-night-order-of-the-alchemists), [GOG](https://www.gog.com/en/game/toziuha_night_order_of_the_alchemists) or [Steam](https://store.steampowered.com/app/2112750/Toziuha_Night_Order_of_the_Alchemists/), download and extract the `tn_oota.pck` into the `gamedata` folder. You can also use the demo from `Itch.io`. This game requires a device with 2GB RAM.",
+        "genres": [
+          "action",
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "frt_3.6.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://dannygaray60.itch.io/toziuha-night-order-of-the-alchemists",
+            "developerurl": ""
+          },
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2112750/Toziuha_Night_Order_of_the_Alchemists/",
+            "developerurl": ""
+          },
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/en/game/toziuha_night_order_of_the_alchemists",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "2gb",
+          "power"
+        ],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "3b1ba8e243ce19fdd8efe659597d017d",
+        "release_id": "2026-01-25_1827",
+        "size": 240359,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/toziuha2.zip"
       }
     },
     "toziuha.zip": {
@@ -57510,11 +58121,11 @@
       },
       "source": {
         "date_added": "2024-09-24",
-        "date_updated": "2025-05-12",
-        "md5": "0be47f79fc1f9c8d3e24ea1c11b90e2a",
-        "release_id": "2025-05-12_1413",
-        "size": 17793346,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-12_1413/vitasnake.zip"
+        "date_updated": "2026-02-07",
+        "md5": "bb7297b40cae1ce760964c475ea603bf",
+        "release_id": "2026-02-07_0859",
+        "size": 17793128,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/vitasnake.zip"
       }
     },
     "vnds-love.zip": {
@@ -59265,8 +59876,8 @@
         "date_added": "2026-01-12",
         "date_updated": "2026-01-12",
         "md5": "9089a2be0d7ad4e7267c6f505597e752",
-        "size": 2789649,
         "release_id": "2026-01-12_1145",
+        "size": 2789649,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/xargon.zip"
       }
     },
@@ -59358,6 +59969,61 @@
         "release_id": "2025-10-04_1030",
         "size": 16614252,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/xenonvalkyrie.zip"
+      }
+    },
+    "xenosensory.zip": {
+      "version": 4,
+      "name": "xenosensory.zip",
+      "items": [
+        "Xenosensory.sh",
+        "xenosensory"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Xenosensory",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Xenosensory is a short incremental casual game with horror themes. Use your cursor to bust Xenos and save convicts, then spend your research points on skill tree upgrades, actions, gadgets, and uncover the true horrifying nature of this space station nightmare.",
+        "desc_md": null,
+        "inst": "Purchase the game on Steam and copy all game files into the assets folder. Devices with RK3326 cpu are not recommended for performance reasons.",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/4037830/Xenosensory/) and copy all game files into the `assets` folder. Devices with `RK3326` cpu are `not recommended` for performance reasons.",
+        "genres": [
+          "arcade",
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/4037830/Xenosensory/",
+            "developerurl": "http://caiysware.com/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "power"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-25",
+        "date_updated": "2026-01-25",
+        "md5": "161993e9022918a45694168bebb54f87",
+        "release_id": "2026-01-25_1827",
+        "size": 7149219,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/xenosensory.zip"
       }
     },
     "xess.zip": {
@@ -59899,8 +60565,8 @@
         "date_added": "2026-01-12",
         "date_updated": "2026-01-12",
         "md5": "71116697ba3bda887e2b801e66f8d8a0",
-        "size": 83336446,
         "release_id": "2026-01-12_1145",
+        "size": 83336446,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/yknytt.zip"
       }
     },
@@ -60095,6 +60761,61 @@
         "release_id": "2025-09-24_1120",
         "size": 10240646,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-09-24_1120/yomihd.zip"
+      }
+    },
+    "yugioh2.zip": {
+      "version": 4,
+      "name": "yugioh2.zip",
+      "items": [
+        "Yugioh 2.sh",
+        "yugioh2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Yugioh 2",
+        "porter": [
+          "TheLaggyPyro"
+        ],
+        "desc": "Yugioh 2 is a roguelike SRPG based on the Yugioh card game. Before each duel, you spend SOULS to summon monsters to your team, and if you win the match, you either get more monsters or more souls (so you can summon more monsters). Also, more powerful monsters COST more souls to summon, so you need to decide if you want MORE guys or STRONGER guys. The game ends if you win 15 duels (good) or lose 3 duels (bad). Along these duels, you will also face 4 randomly selected bosses from your favorite children's card game.",
+        "desc_md": null,
+        "inst": "Download YGO2.zip from itch.io (https://jab-lao.itch.io/yu-gi-oh-2) and extract the contents to this port's gamedata folder.",
+        "inst_md": "Download YGO2.zip from [itch.io](https://jab-lao.itch.io/yu-gi-oh-2) and extract the contents to this port's `gamedata` folder.",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "weston_pkg_0.2.squashfs",
+          "godot_4.2.2.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://jab-lao.itch.io/yu-gi-oh-2",
+            "developerurl": "https://jab-lao.itch.io/"
+          }
+        ],
+        "availability": "free",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-01-27",
+        "date_updated": "2026-01-27",
+        "md5": "2073b3df0ba3898908b2bbc796a18075",
+        "release_id": "2026-01-27_2358",
+        "size": 96297,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-27_2358/yugioh2.zip"
       }
     },
     "z-warp.zip": {
@@ -60496,9 +61217,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "251a1a692abb01f9d3e34a332e6d2270",
-      "size": 154197863,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/gameinfo.zip"
+      "md5": "c59a8c496e9c2176d2886da981ef12f7",
+      "size": 155891707,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -61148,9 +61869,9 @@
     },
     "images.006.zip": {
       "name": "images.006.zip",
-      "md5": "2498d12ce1c433b9521d2e2a937b98e7",
-      "size": 6164266,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-09-23_1014/images.006.zip",
+      "md5": "2dc5b9c35660b004309064121b6f6dee",
+      "size": 6164048,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.006.zip",
       "images": [
         "akeyspath.screenshot.png",
         "arengius.screenshot.png",
@@ -61369,9 +62090,9 @@
     },
     "images.008.zip": {
       "name": "images.008.zip",
-      "md5": "ca1b8e482c8e604aa4b246feafda0768",
-      "size": 7937565,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-09_0618/images.008.zip",
+      "md5": "1cc2f7432b04ea7452f290f17e9289ec",
+      "size": 7937550,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.008.zip",
       "images": [
         "aerofoil.screenshot.png",
         "ametadatagame.screenshot.png",
@@ -61480,9 +62201,9 @@
     },
     "images.009.zip": {
       "name": "images.009.zip",
-      "md5": "853c7e3d6e3ec936c0c978319ae855b2",
-      "size": 7907407,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-07_1437/images.009.zip",
+      "md5": "f8c8322ce08a54ceef90b3fd61979e6f",
+      "size": 7827012,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.009.zip",
       "images": [
         "alicecliche.screenshot.png",
         "alphaman.screenshot.png",
@@ -61563,7 +62284,7 @@
         "redronin.screenshot.png",
         "redstrings.screenshot.png",
         "revengeofthetitans.screenshot.jpg",
-        "riddledcorpses.screenshot.jpg",
+        "riddledcorpses.screenshot.png",
         "romm.screenshot.png",
         "shackle.screenshot.png",
         "shardsofgod.screenshot.png",
@@ -61594,9 +62315,9 @@
     },
     "images.010.zip": {
       "name": "images.010.zip",
-      "md5": "d51533d3e73422de480e424985278321",
-      "size": 7053118,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-18_1011/images.010.zip",
+      "md5": "9c4aa567ca7f12c6e5f6b972df97b134",
+      "size": 7054310,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.010.zip",
       "images": [
         "aestheta.screenshot.png",
         "aliendeathmob.screenshot.png",
@@ -61809,12 +62530,13 @@
     },
     "images.012.zip": {
       "name": "images.012.zip",
-      "md5": "f1130f87b39d7dfff551338e4d684ea7",
-      "size": 1603567,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/images.012.zip",
+      "md5": "9e4f7fe785b8a7b42cb1e4d8a92b8248",
+      "size": 2716883,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.012.zip",
       "images": [
         "8bitbuccaneer.screenshot.png",
         "amoebax.screenshot.png",
+        "arco.screenshot.png",
         "asteroludi.screenshot.png",
         "azimuth.screenshot.png",
         "badendtheater.screenshot.png",
@@ -61822,25 +62544,35 @@
         "biplanesrevival.screenshot.png",
         "dragondragonfirefire.screenshot.png",
         "drivenout.screenshot.png",
+        "farmkeeper.screenshot.png",
         "ghosttrap.screenshot.png",
         "gungodz.screenshot.png",
         "harmonist.screenshot.png",
+        "heirloom.screenshot.png",
+        "koboo.screenshot.png",
+        "magerecall.screenshot.png",
         "marcotreasurequest.screenshot.png",
+        "megaserval.screenshot.png",
         "merpinmerpworld.screenshot.png",
         "miceamaze.screenshot.png",
         "mybigsister.screenshot.png",
         "nightmareframes.screenshot.png",
         "oilwar.screenshot.jpg",
+        "retrohighway.screenshot.png",
         "riseofthepenguinsgb.screenshot.png",
+        "scavenger.screenshot.png",
         "self.screenshot.png",
         "sft.screenshot.png",
         "shamogu.screenshot.png",
         "sidescape.screenshot.png",
         "skautfoldinsanity.screenshot.png",
+        "songo5.screenshot.png",
+        "stuntcarracer.screenshot.png",
         "superpentagon.screenshot.png",
         "swordwitchsapprentice.screenshot.png",
         "talesfromtheotherside.screenshot.png",
         "thelastgame.screenshot.png",
+        "toziuha2.screenshot.png",
         "tripleswaptower.screenshot.png",
         "ultracoredive.screenshot.png",
         "unwin.screenshot.png",
@@ -61848,14 +62580,16 @@
         "voidbeat.screenshot.png",
         "wargus.screenshot.png",
         "xargon.screenshot.png",
-        "yknytt.screenshot.png"
+        "xenosensory.screenshot.png",
+        "yknytt.screenshot.png",
+        "yugioh2.screenshot.png"
       ]
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "6485a78e898bc19883ed36382a894d9d",
-      "size": 82995596,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-12_1145/images.zip"
+      "md5": "b4ff3b8aab130bd5ad464b5cb255224e",
+      "size": 84029476,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
