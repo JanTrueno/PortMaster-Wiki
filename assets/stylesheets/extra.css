@@ -1,0 +1,287 @@
+/* ===============================================
+   EXTRA.CSS - Core Theme & Colors
+   Main stylesheet for PortMaster Wiki
+   =============================================== */
+
+/* ===== MOBILE FONT SIZE FIX ===== */
+
+/* Prevent mobile browsers from auto-scaling text */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Normalize list font sizes on mobile to match body text */
+@media (max-width: 768px) {
+  .md-typeset ul,
+  .md-typeset ol,
+  .md-typeset li {
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== COLORS - LIGHT & DARK THEME ===== */
+
+[data-md-color-scheme="light"] {
+  /* Primary color shades */
+  --md-primary-fg-color:               #111111;
+  --md-primary-fg-color--dark:         #F49519;
+  --md-primary-bg-color:               #eeeeee;
+  --md-primary-bg-color--light:        #bbbbbb;
+  
+  /* Accent color shades */
+  --md-accent-fg-color:                #F49519;
+  --md-accent-fg-color--transparent:   #F49519;
+
+  /* Default color shades */
+  --md-default-fg-color:               #111111;
+  --md-default-fg-color--light:        #222222;
+  --md-default-fg-color--lighter:      #cccccc;
+  --md-default-fg-color--lightest:     #cccccc;
+  --md-default-bg-color:               #dddddd;
+  --md-default-bg-color--light:        #dddddd;
+  --md-default-bg-color--lighter:      #dddddd;
+  --md-default-bg-color--lightest:     #dddddd;
+  
+  /* Card colors */
+  --card-bg:                           #ffffff;
+  --card-bg-hover:                     #f0f8ff;
+  --card-text:                         #111111;
+  --card-border:                       #e0e0e0;
+  --card-stat-color:                   #555555;
+
+  /* Typeset color shades */
+  --md-typeset-color:                  #111111;
+  --md-typeset-a-color:                #4DBEEE;
+  --md-typeset-table-color:            #cccccc;
+  --md-typeset-table-color--light:     #eeeeee;
+
+  /* Footer color shades */
+  --md-footer-bg-color:                #111111;
+
+  /* Typeset `kbd` color shades */
+  --md-typeset-kbd-color:              #eeeeee;
+  --md-typeset-kbd-accent-color:       #dddddd;
+  --md-typeset-kbd-border-color:       #bbbbbb;
+
+  /* Code color shades */
+  --md-code-bg-color:                  #eee;
+  --md-code-fg-color:                  #111;
+  --md-code-hl-operator-color:         #111;
+  --md-code-hl-variable-color:         #111;
+  --md-code-hl-comment-color:          #999;
+  --md-code-hl-punctuation-color:      #111;
+}
+
+[data-md-color-scheme="dark"] {
+  /* Primary color shades */
+  --md-primary-fg-color:               #111111;
+  --md-primary-fg-color--dark:         #F49519;
+  --md-primary-bg-color:               #eeeeee;
+  --md-primary-bg-color--light:        #bbbbbb;
+
+  /* Accent color shades */
+  --md-accent-fg-color:                #F49519;
+  --md-accent-fg-color--transparent:   #F49519;
+
+  /* Default color shades */
+  --md-default-fg-color:               #eeeeee;
+  --md-default-fg-color--light:        #eeeeee;
+  --md-default-fg-color--lighter:      #888888;
+  --md-default-fg-color--lightest:     #444444;
+  --md-default-bg-color:               #222222;
+  --md-default-bg-color--light:        #222222;
+  --md-default-bg-color--lighter:      #222222;
+  --md-default-bg-color--lightest:     #222222;
+
+  /* Card colors */
+  --card-bg:                           #2b2b2b;
+  --card-bg-hover:                     #3a3a3a;
+  --card-text:                         #eeeeee;
+  --card-border:                       #444444;
+  --card-stat-color:                   #aaaaaa;
+
+  /* Typeset color shades */
+  --md-typeset-color:                  #eeeeee;
+  --md-typeset-a-color:                #4DBEEE;
+  --md-typeset-table-color:            #333333;
+  --md-typeset-table-color--light:     #444444;
+
+  /* Footer color shades */
+  --md-footer-bg-color:                #111111;
+
+  /* Typeset `kbd` color shades */
+  --md-typeset-kbd-color:              #555;
+  --md-typeset-kbd-accent-color:       #444;
+  --md-typeset-kbd-border-color:       #222;
+
+  /* Code color shades */
+  --md-code-bg-color:                  #111;
+  --md-code-fg-color:                  #fff;
+  --md-code-hl-operator-color:         #fff;
+  --md-code-hl-variable-color:         #fff;
+  --md-code-hl-comment-color:          #999;
+  --md-code-hl-punctuation-color:      #fff;
+}
+
+/* ===== TYPOGRAPHY ===== */
+
+.md-typeset h1, .md-typeset h2, .md-typeset h3 {
+    font-weight: 700;
+}
+
+.md-typeset h1 {
+    margin: 0 0 0.64em;
+}
+
+.md-typeset h2 {
+    margin: 1em 0 0.64em;
+}
+
+.md-typeset h3 {
+    margin: 0.64em 0 0.8em;
+}
+
+/* ===== BUTTONS ===== */
+
+.md-button {
+  background-color: var(--md-accent-fg-color) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-button:hover {
+  background-color: #d67f0f !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3) !important;
+}
+
+.md-button:active {
+  transform: translateY(0) !important;
+}
+
+/* ===== TABLES ===== */
+
+.md-typeset__table {
+   min-width: 100%;
+}
+
+.md-typeset table:not([class]) {
+    display: table;
+}
+
+/* ===== ADMONITIONS ===== */
+
+[data-md-color-scheme="light"] .md-typeset .admonition {
+  background-color: var(--md-default-bg-color--light);
+  color: var(--md-default-fg-color--dark);
+}
+
+[data-md-color-scheme="light"] .md-typeset .admonition-title {
+  color: var(--md-default-fg-color--dark);
+}
+
+[data-md-color-scheme="dark"] .md-typeset .admonition {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light);
+}
+
+[data-md-color-scheme="dark"] .md-typeset .admonition-title {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .admonition-title {
+  font-weight: bold;
+}
+
+/* ===== DETAILS & COLLAPSIBLE SECTIONS ===== */
+
+/* Enhanced styling for collapsible details */
+.md-typeset details {
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+[data-md-color-scheme="light"] .md-typeset details {
+  background-color: #f5f5f5;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .md-typeset details {
+  background-color: #2b2b2b;
+  color: #eeeeee;
+}
+
+.md-typeset details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+[data-md-color-scheme="light"] .md-typeset details summary {
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .md-typeset details summary {
+  color: #eeeeee;
+}
+
+.md-typeset details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+/* ===== PREVIEW CONTAINER ===== */
+
+.preview-container {
+  position: relative;
+  display: inline-block;
+}
+
+.off-glb {
+  width: 100%;
+  display: block;
+}
+
+.overlay-video {
+  position: absolute;
+  top: 8.8%;
+  left: 19.25%;
+  width: 62.5%;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+/* ===== GLIGHTBOX DISABLE ===== */
+
+/* Disable glightbox on certain images */
+.game-card img,
+.porter-card img,
+.porter-avatar img,
+.porter-detail-avatar img,
+.porter-game-card img,
+.modal img:not(.modal-screenshot) {
+  pointer-events: none !important;
+}
+
+.game-card a.glightbox,
+.porter-card a.glightbox,
+.porter-game-card a.glightbox {
+  pointer-events: none !important;
+}
+
+img.no-lightbox {
+  pointer-events: none !important;
+}
+
+.porter-avatar img,
+.porter-detail-avatar img,
+.porter-game-card img,
+.game-card img {
+  pointer-events: none !important;
+}
