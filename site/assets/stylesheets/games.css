@@ -8,12 +8,26 @@
 /* Search Bar Container */
 .filters-container {
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto 1rem;
   padding: 1rem;
   background-color: var(--md-default-bg-color);
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-sizing: border-box;
+}
+
+/* --card-border is too light (#e0e0e0) against the light-mode page
+   background to read as a real edge, so these controls get an explicit,
+   slightly darker neutral border in light mode instead. */
+[data-md-color-scheme="light"] .filters-container,
+[data-md-color-scheme="light"] .filter-toggle-btn,
+[data-md-color-scheme="light"] .sort-toggle-btn,
+[data-md-color-scheme="light"] .sort-dropdown,
+[data-md-color-scheme="light"] .view-toggle-wrapper,
+[data-md-color-scheme="light"] .clear-all-filters-btn,
+[data-md-color-scheme="light"] #portsCounter {
+  border-color: #c4c4c4;
 }
 
 /* Hide old filter rows */
@@ -35,28 +49,28 @@
   flex: 1;
   min-width: 0; /* Allow input to shrink */
   padding: 0.875rem 1.25rem;
-  border-radius: 50px;
-  border: 2px solid transparent;
+  border-radius: 12px;
+  border: 1px solid transparent;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   outline: none;
 }
 
 [data-md-color-scheme="light"] .search-bar {
   background-color: #ffffff;
   color: #111111;
-  border-color: #cccccc;
+  border-color: #c4c4c4;
 }
 
 [data-md-color-scheme="dark"] .search-bar {
   background-color: #2b2b2b;
   color: #eeeeee;
-  border-color: #444444;
+  border-color: #3a3a3a;
 }
 
 .search-bar:focus {
   border-color: #F49519;
-  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.1);
+  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.12);
 }
 
 .search-bar::placeholder {
@@ -70,31 +84,40 @@
   justify-content: space-around;
   width: 48px;
   height: 48px;
-  background-color: #F49519;
-  border: none;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
   border-radius: 12px;
   cursor: pointer;
-  padding: 12px;
-  transition: all 0.3s ease;
+  padding: 14px;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
 .filter-toggle-btn:hover {
-  background-color: #ff9d2e;
-  transform: scale(1.05);
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
 }
 
 .filter-toggle-btn span {
   display: block;
   width: 100%;
-  height: 3px;
-  background-color: #ffffff;
+  height: 2px;
+  background-color: var(--card-text, #555555);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
+.filter-toggle-btn.active {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.filter-toggle-btn.active span {
+  background-color: #F49519;
+}
+
 .filter-toggle-btn.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 
 .filter-toggle-btn.active span:nth-child(2) {
@@ -102,7 +125,7 @@
 }
 
 .filter-toggle-btn.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* Sort Dropdown */
@@ -117,22 +140,22 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: #F49519;
-  border: none;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
 .sort-toggle-btn:hover {
-  background-color: #ff9d2e;
-  transform: scale(1.05);
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
 }
 
 .sort-toggle-btn i {
-  font-size: 1.4rem;
-  color: #ffffff;
+  font-size: 1.3rem;
+  color: var(--card-text, #555555);
 }
 
 .sort-dropdown {
@@ -141,23 +164,23 @@
   right: 0;
   min-width: 180px;
   border-radius: 12px;
-  border: 2px solid #F49519;
+  border: 1px solid var(--card-border, #cccccc);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   z-index: 100;
   overflow: hidden;
 }
 
 [data-md-color-scheme="light"] .sort-dropdown {
   background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 [data-md-color-scheme="dark"] .sort-dropdown {
   background-color: #2b2b2b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
 
 .sort-dropdown.open {
@@ -247,15 +270,15 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid;
+  border-bottom: 1px solid;
 }
 
 [data-md-color-scheme="light"] .filter-panel-header {
-  border-bottom-color: #cccccc;
+  border-bottom-color: #e0e0e0;
 }
 
 [data-md-color-scheme="dark"] .filter-panel-header {
-  border-bottom-color: #444444;
+  border-bottom-color: #333333;
 }
 
 .filter-panel-header h2 {
@@ -267,16 +290,17 @@
 .close-panel-btn {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 1.75rem;
   cursor: pointer;
-  color: #F49519;
-  transition: transform 0.2s ease;
+  color: var(--card-stat-color, #888888);
+  transition: color 0.2s ease, transform 0.2s ease;
   padding: 0;
   line-height: 1;
 }
 
 .close-panel-btn:hover {
-  transform: scale(1.2);
+  color: var(--card-text, #111111);
+  transform: scale(1.1);
 }
 
 /* Filter Group */
@@ -289,10 +313,10 @@
   display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #F49519;
+  color: var(--card-stat-color, #888888);
 }
 
 /* Hide native select but keep it functional */
@@ -314,27 +338,27 @@
   width: 100%;
   padding: 0.875rem 1rem;
   border-radius: 12px;
-  border: 2px solid;
+  border: 1px solid;
   font-size: 1rem;
   cursor: pointer;
   outline: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   user-select: none;
 }
 
 [data-md-color-scheme="light"] .custom-select-trigger {
   background-color: #ffffff;
   color: #111111;
-  border-color: #cccccc;
+  border-color: #c4c4c4;
 }
 
 [data-md-color-scheme="dark"] .custom-select-trigger {
   background-color: #2b2b2b;
   color: #eeeeee;
-  border-color: #444444;
+  border-color: #3a3a3a;
 }
 
 .custom-select-trigger:hover:not(.disabled) {
@@ -343,7 +367,6 @@
 
 .custom-select-wrapper.open .custom-select-trigger {
   border-color: #F49519;
-  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.1);
   border-radius: 12px 12px 0 0;
 }
 
@@ -363,11 +386,15 @@
 .custom-select-arrow svg {
   width: 100%;
   height: 100%;
-  stroke: #F49519;
+  stroke: var(--card-stat-color, #888888);
 }
 
 .custom-select-wrapper.open .custom-select-arrow {
   transform: rotate(180deg);
+}
+
+.custom-select-wrapper.open .custom-select-arrow svg {
+  stroke: #F49519;
 }
 
 /* Custom Options List */
@@ -379,23 +406,23 @@
   max-height: 300px;
   overflow-y: auto;
   border-radius: 0 0 12px 12px;
-  border: 2px solid #F49519;
+  border: 1px solid #F49519;
   border-top: none;
   z-index: 100;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 [data-md-color-scheme="light"] .custom-select-options {
   background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 [data-md-color-scheme="dark"] .custom-select-options {
   background-color: #2b2b2b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
 
 .custom-select-wrapper.open .custom-select-options {
@@ -441,12 +468,12 @@
 }
 
 .custom-select-options::-webkit-scrollbar-thumb {
-  background: #F49519;
+  background: var(--card-border, #cccccc);
   border-radius: 4px;
 }
 
 .custom-select-options::-webkit-scrollbar-thumb:hover {
-  background: #ff9d2e;
+  background: var(--card-stat-color, #999999);
 }
 
 /* Toggle Switches */
@@ -527,21 +554,21 @@
 /* Counter */
 #portsCounter {
   text-align: center;
-  margin: 1.5rem 0 0 0;
-  padding: 0.75rem;
+  margin: 1rem 0 0 0;
+  padding: 0.65rem;
   border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--card-stat-color, #888888);
 }
 
 [data-md-color-scheme="light"] #portsCounter {
-  background-color: #ffffff;
-  color: #111111;
+  background-color: #fafafa;
 }
 
 [data-md-color-scheme="dark"] #portsCounter {
-  background-color: #2b2b2b;
-  color: #eeeeee;
+  background-color: #232323;
 }
 
 /* ===== Advanced Filters ===== */
@@ -624,7 +651,7 @@
 }
 
 .filter-pill:hover {
-  background-color: rgba(244, 149, 25, 0.3);
+  background-color: rgba(244, 149, 25, 0.15);
   color: #F49519;
 }
 
@@ -643,7 +670,7 @@
   padding: 0.5rem 0.75rem;
   margin-top: 1rem;
   border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
   color: var(--md-default-fg-color--light);
   font-size: 0.8rem;
@@ -654,8 +681,8 @@
 
 .clear-filters-btn:hover {
   border-color: #dc3545;
-  background-color: #dc3545;
-  color: #ffffff;
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
 }
 
 /* Clear All Filters Button (main) */
@@ -667,10 +694,10 @@
   width: 100%;
   padding: 0.75rem 1rem;
   margin-top: 0.5rem;
-  border: 2px solid #F49519;
-  border-radius: 8px;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 10px;
   background: transparent;
-  color: #F49519;
+  color: var(--card-stat-color, #888888);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -678,8 +705,9 @@
 }
 
 .clear-all-filters-btn:hover {
-  background-color: #F49519;
-  color: #ffffff;
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
 }
 
 /* Mobile Responsive */
@@ -777,6 +805,7 @@
 }
 
 .game-card {
+  position: relative;
   padding: 0.6em;
   border-radius: 12px;
   box-shadow: var(--md-shadow-z1);
@@ -800,6 +829,15 @@
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
   background-color: var(--card-bg-hover);
+}
+
+/* Hide everything past the default page size (100) before JS runs, so the
+   first paint only ever shows one page's worth of cards instead of all
+   ~1300+ ports briefly flashing before the pagination script hides them.
+   JS sets an explicit inline display on every card once it runs, which
+   overrides this regardless of nth-child position. */
+.game-grid .game-card:nth-child(n+101) {
+  display: none;
 }
 
 .game-card img {
@@ -1404,6 +1442,55 @@
 .modal-header-section .modal-description .desc-md * {
   text-align: center !important;
 }
+
+/* ===== STANDALONE PORT PAGE (/port/#<id>) ===== */
+/* Reuses the same .modal-* classes the port modal on /all-games/ uses, just
+   rendered as a normal page instead of inside a fixed overlay, so the two
+   always look identical without duplicating styles. */
+.port-page {
+  max-width: 900px;
+  margin: 1.5rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.port-page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--card-stat-color, #757575);
+  text-decoration: none !important;
+}
+
+.port-page-back:hover {
+  color: #F49519;
+}
+
+.port-page-content {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="light"] .port-page-content {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .port-page-content {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+.port-page-loading,
+.port-page-not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--md-default-fg-color--light);
+}
+
 /* ===== DOWNLOAD WARNING ===== */
 .download-warning {
   display: flex;
@@ -1588,23 +1675,20 @@
 /* ===== NEW PORTS CAROUSEL ===== */
 .carousel-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1.5rem 0 2rem;
-  padding: 0 0.5rem;
+  margin: 1.5rem -1.75rem 0.75rem;
 }
 
 .carousel-track {
   display: flex;
   gap: 1rem;
+  max-width: calc(1200px + 1rem);
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 0.5rem;
-  margin: -0.5rem;
-  flex: 1;
+  margin: -0.5rem auto;
+  box-sizing: border-box;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -1614,14 +1698,15 @@
 .carousel-track .carousel-card,
 div.carousel-card {
   flex: 0 0 180px;
-  padding: 0.75rem;
+  min-width: 0;
+  padding: 0.5rem;
   border-radius: 12px;
   box-shadow: var(--md-shadow-z1);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   text-decoration: none !important;
   color: var(--card-text) !important;
   background-color: var(--card-bg);
@@ -1647,17 +1732,19 @@ div.carousel-card:hover {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   pointer-events: none;
 }
 
 .carousel-card h3 {
   margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.3;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+  width: 100%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--card-text);
 }
 
@@ -1666,9 +1753,7 @@ div.carousel-card:hover {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--card-border);
+  margin-top: 0.3rem;
   gap: 0.25rem;
 }
 
@@ -1676,72 +1761,130 @@ div.carousel-card:hover {
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  font-size: 0.55rem;
+  font-size: 0.45rem;
   color: var(--card-stat-color);
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .carousel-card .card-stat i {
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   color: #F49519;
 }
 
 .carousel-btn {
-  flex-shrink: 0;
-  width: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.75rem;
   height: 40px;
-  border-radius: 50%;
   border: none;
-  background-color: #F49519;
-  color: #ffffff;
+  background: none;
+  padding: 0;
+  color: var(--md-default-fg-color--lighter, #9e9e9e);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.carousel-btn-left {
+  left: 0;
+}
+
+.carousel-btn-right {
+  right: 0;
 }
 
 .carousel-btn:hover {
-  background-color: #ff9d2e;
-  transform: scale(1.1);
+  color: var(--md-default-fg-color--light, #757575);
 }
 
 .carousel-btn i {
   line-height: 1;
 }
 
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--md-default-fg-color--lighter, rgba(128, 128, 128, 0.4));
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-dot:hover {
+  background-color: #ff9d2e;
+}
+
+.carousel-dot.active {
+  background-color: #F49519;
+  transform: scale(1.3);
+}
+
 @media (max-width: 768px) {
+  .featured-category {
+    padding: 0 1.25rem;
+  }
+
+  .carousel-container {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+
   .carousel-card {
     flex: 0 0 150px;
   }
-  
+
   .carousel-card h3 {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
-  
+
   .carousel-btn {
-    width: 35px;
+    width: 1.25rem;
     height: 35px;
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
+  .featured-category {
+    padding: 0 1rem;
+  }
+
+  .carousel-container {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+
   .carousel-card {
     flex: 0 0 130px;
-    padding: 0.5rem;
+    padding: 0.4rem;
   }
-  
+
   .carousel-card h3 {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
-  
+
   .carousel-btn {
-    width: 30px;
+    width: 1rem;
     height: 30px;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+  }
+
+  .carousel-dots {
+    margin: 0 0 1rem;
   }
 }
 
@@ -1783,5 +1926,320 @@ div.carousel-card:hover {
 .porters-search:focus {
   outline: none;
   border-color: #F49519;
+}
+
+/* ===== VIEW TOGGLE (Grid / List) ===== */
+.view-toggle-wrapper {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, #cccccc);
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  color: var(--card-stat-color, #888888);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn i {
+  font-size: 1.1rem;
+}
+
+.view-toggle-btn:hover {
+  background-color: rgba(244, 149, 25, 0.08);
+  color: #F49519;
+}
+
+.view-toggle-btn.active {
+  background-color: rgba(244, 149, 25, 0.12);
+  color: #F49519;
+}
+
+@media (max-width: 480px) {
+  .view-toggle-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ===== LIST VIEW ===== */
+.game-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+  gap: 0.6rem;
+}
+
+.game-grid.list-view .game-card {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  gap: 1rem;
+}
+
+.game-grid.list-view .game-card img {
+  width: 110px;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0;
+}
+
+.game-grid.list-view .game-card h3 {
+  font-size: 0.95rem;
+  flex-grow: 1;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.game-grid.list-view .card-stats {
+  width: auto;
+  flex-shrink: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  gap: 0.75rem;
+}
+
+.game-grid.list-view .card-stat {
+  font-size: 0.75rem;
+}
+
+.game-grid.list-view .card-stat i {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .game-grid.list-view .game-card {
+    padding: 0.5rem 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .game-grid.list-view .game-card img {
+    width: 72px;
+  }
+
+  .game-grid.list-view .game-card h3 {
+    font-size: 0.75rem;
+  }
+
+  .game-grid.list-view .card-stats {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+}
+
+/* ===== PAGINATION ===== */
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 1rem auto 2rem;
+  padding: 1rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pagination-info {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.pagination-nav-btn,
+.pagination-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.5rem;
+  background-color: transparent;
+  color: var(--md-default-fg-color);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.pagination-nav-btn {
+  color: #F49519;
+}
+
+.pagination-nav-btn:hover:not(:disabled),
+.pagination-page-btn:hover:not(.active) {
+  background-color: rgba(244, 149, 25, 0.15);
+}
+
+.pagination-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pagination-page-btn.active {
+  background-color: #F49519;
+  border-color: #F49519;
+  color: #ffffff;
+}
+
+.pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  color: var(--md-default-fg-color--light);
+}
+
+.page-size-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.page-size-select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 2px solid #F49519;
+  font-size: 0.85rem;
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .pagination-container {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .pagination-info {
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ===== FEATURED CAROUSEL SECTIONS (games.md) ===== */
+.featured-category {
+  margin: 2.5rem auto;
+  padding: 0 1.75rem;
+}
+
+.featured-category--first {
+  margin-top: 0;
+}
+
+.featured-category-header {
+  max-width: 1200px;
+  margin: 0 auto 0.5rem;
+}
+
+.featured-category-header h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.25rem 0;
+  color: #F49519;
+}
+
+.featured-category-header p {
+  margin: 0;
+  color: var(--md-default-fg-color--light);
+}
+
+.featured-group {
+  margin: 1.75rem 0;
+}
+
+.featured-group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 0.75rem;
+}
+
+.featured-group-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.featured-group-header p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.carousel-see-all {
+  max-width: calc(1200px + 1rem);
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  text-align: right;
+}
+
+.carousel-see-all .see-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--card-stat-color, #757575);
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.carousel-see-all .see-all-link:hover {
+  color: #F49519;
+  text-decoration: none !important;
+}
+
+.carousel-see-all .see-all-link i {
+  font-size: 0.6rem;
+  transition: transform 0.2s ease;
+}
+
+.carousel-see-all .see-all-link:hover i {
+  transform: translateX(2px);
 }
 

@@ -24,7 +24,7 @@ The port appears in your Ports section. If not, restart your device.
 
 ### Step 1: Download Port
 
-1. Go to [portmaster.games/games.html](https://portmaster.games/games.html)
+1. Go to [portmaster.games/all-games.html](https://portmaster.games/all-games.html)
 2. Find your port and download the `.zip` file
 3. **Don't extract it**
 
@@ -63,7 +63,7 @@ Commercial Ports
 
 After installing a commercial port:
 
-1. Go to the [Games Page](/games).
+1. Go to the [All Games Page](/all-games).
 2. Find your game → Details
 3. Follow file placement instructions
 

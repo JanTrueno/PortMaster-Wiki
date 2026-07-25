@@ -111,7 +111,9 @@ extra_javascript:
   - javascripts/tablesort.js
 nav:
   - Home: index.md
-  - Games: games.md
+  - Games:
+      - Games: games.md
+      - All Games: all-games.md
   - Install:
       - Getting Started: installation/installing-portmaster.md
       - Installing Ports: installation/installing-ports.md
