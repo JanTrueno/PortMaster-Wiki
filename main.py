@@ -72,6 +72,31 @@ def define_env(env):
     
     env.variables["ports"] = merged_ports
     
+    # Build a lookup of description/instruction markdown text, keyed by port_id.
+    # This is deliberately NOT embedded as HTML attributes on the card divs:
+    # values can contain code fences, newlines, brackets and quotes, and
+    # Python-Markdown's fenced-code preprocessor will mangle those if they sit
+    # inside a raw HTML tag's attributes (it runs before/independently of raw
+    # HTML block detection). Instead we ship one JSON blob in a <script> tag
+    # and let JS look values up by port_id.
+    port_text = {}
+    for key, port in merged_ports["ports"].items():
+        port_id = key.replace(".zip", "")
+        attr = port.get("attr") or {}
+        port_text[port_id] = {
+            "desc": attr.get("desc") or "",
+            "descMd": attr.get("desc_md") or "",
+            "inst": attr.get("inst") or "",
+            "instMd": attr.get("inst_md") or "",
+        }
+    
+    # ensure_ascii keeps the output plain-ASCII (safe inside a <script> tag
+    # regardless of the page's declared encoding), and escaping "</" prevents
+    # a description containing the literal text "</script>" from closing the
+    # tag early.
+    ports_text_json = json.dumps(port_text, ensure_ascii=True).replace("</", "<\\/")
+    env.variables["ports_text_json"] = ports_text_json
+    
     # Add now() function for templates
     env.variables["now"] = datetime.now
     

@@ -6,7 +6,7 @@ readtime: 5
    
 ---
 
-# January 2025 Port of the Month: Bar Hop
+# January 2026 Port of the Month: Bar Hop
 
 Start the new year with rhythm, hops, and retro vibes—January's Port of the Month is **Bar Hop**!
 

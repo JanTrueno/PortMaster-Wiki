@@ -291,11 +291,11 @@ search:
        data-date-updated="{{ port.source.date_updated if port.source and port.source.date_updated else '' }}"
        data-porter="{{ port.attr.porter | default([]) | join(',') if port.attr and port.attr.porter else '' }}"
        data-screenshot="{{ port.attr.image.screenshot | default('') if port.attr and port.attr.image else '' }}"
-       data-url="{{ port.source.url | default('') if port.source else '' }}"
-       data-desc="{{ port.attr.desc | default('') if port.attr and port.attr.desc else '' }}"
-       data-desc-md="{{ port.attr.desc_md | default('') if port.attr and port.attr.desc_md else '' }}"
-       data-inst="{{ port.attr.inst | default('') if port.attr and port.attr.inst else '' }}"
-       data-inst-md="{{ port.attr.inst_md | default('') if port.attr and port.attr.inst_md else '' }}">
+       data-url="{{ port.source.url | default('') if port.source else '' }}">
+    <!-- desc/inst markdown text is intentionally NOT put here as data-*
+         attributes: it can contain code fences and blank lines, which
+         Python-Markdown's fenced-code preprocessor will mangle when they sit
+         inside raw HTML attributes. See PORT_TEXT below instead. -->
     
     {% if port.attr and port.attr.image and port.attr.image.screenshot %}
     <img src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ port.attr.image.screenshot }}" 
@@ -320,6 +320,13 @@ search:
 {% endfor %}
 
 </div>
+
+<script>
+  // Description/instruction markdown text, keyed by port_id. Built server-side
+  // in main.py and shipped as JSON (never as HTML attributes) so that code
+  // fences, links and newlines survive Python-Markdown untouched.
+  const PORT_TEXT = {{ ports_text_json | safe }};
+</script>
 
 <script>
   // ===== Cookie Helper Functions =====
@@ -966,10 +973,11 @@ search:
     const dateAdded = card.dataset.dateAdded || '';
     const dateUpdated = card.dataset.dateUpdated || '';
     const url = card.dataset.url || '';
-    const desc = card.dataset.desc || '';
-    const descMd = card.dataset.descMd || '';
-    const inst = card.dataset.inst || '';
-    const instMd = card.dataset.instMd || '';
+    const portText = PORT_TEXT[portId] || {};
+    const desc = portText.desc || '';
+    const descMd = portText.descMd || '';
+    const inst = portText.inst || '';
+    const instMd = portText.instMd || '';
     
     // Populate modal
     document.getElementById('modal-title').textContent = title;
@@ -1094,10 +1102,11 @@ search:
     const dateAdded = card.dataset.dateAdded || '';
     const dateUpdated = card.dataset.dateUpdated || '';
     const url = card.dataset.url || '';
-    const desc = card.dataset.desc || '';
-    const descMd = card.dataset.descMd || '';
-    const inst = card.dataset.inst || '';
-    const instMd = card.dataset.instMd || '';
+    const portText = PORT_TEXT[portId] || {};
+    const desc = portText.desc || '';
+    const descMd = portText.descMd || '';
+    const inst = portText.inst || '';
+    const instMd = portText.instMd || '';
     
     document.getElementById('modal-title').textContent = title;
     

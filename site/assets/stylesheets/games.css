@@ -777,7 +777,7 @@
 }
 
 .game-card {
-  padding: 1rem;
+  padding: 0.6em;
   border-radius: 12px;
   box-shadow: var(--md-shadow-z1);
   display: flex;
@@ -807,16 +807,16 @@
   aspect-ratio: 4 / 3; /* Consistent image aspect ratio */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .game-card h3 {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.3;
+  font-size: 0.75rem;
+  line-height: 1;
   flex-grow: 1; /* Push stats to bottom */
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 /* Card Stats (Downloads & Date Added) */
@@ -825,8 +825,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
   border-top: 1px solid var(--card-border);
   gap: 0.25rem;
   flex-shrink: 0;
@@ -836,8 +836,7 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  font-size: 0.65rem;
-  opacity: 0.8;
+  font-size: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -846,7 +845,7 @@
 
 .card-stat i {
   font-size: 0.7rem;
-  color: #F49519;
+  color: #f49519;
   flex-shrink: 0;
 }
 

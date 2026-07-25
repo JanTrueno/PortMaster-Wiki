@@ -12753,6 +12753,55 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-04-01_0052/deep_sleep.zip"
       }
     },
+    "defendguin.zip": {
+      "version": 4,
+      "name": "defendguin.zip",
+      "items": [
+        "Defendguin.sh",
+        "defendguin"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Defendguin",
+        "porter": [
+          "monkeyx-net"
+        ],
+        "desc": "Defendguin is a clone of the arcade game 'Defender,' but with a Linux theme. Your mission is to defend little penguinoids from being captured and mutated.",
+        "desc_md": null,
+        "inst": "Ready to play",
+        "inst_md": null,
+        "genres": [
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "x86_64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-02-14",
+        "date_updated": "2026-02-14",
+        "md5": "86699ba7c38a475511503154a7e65406",
+        "size": 13027636,
+        "release_id": "2026-02-14_0306",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/defendguin.zip"
+      }
+    },
     "defshot.zip": {
       "version": 2,
       "name": "defshot.zip",
@@ -31585,8 +31634,8 @@
         "date_added": "2026-02-07",
         "date_updated": "2026-02-07",
         "md5": "16f769081c98b1f83b3113228f9c3958",
-        "size": 27445245,
         "release_id": "2026-02-07_0859",
+        "size": 27445245,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/megaserval.zip"
       }
     },
@@ -35571,6 +35620,63 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-24_0745/nova_pinball.zip"
       }
     },
+    "nox-decomp.zip": {
+      "version": 4,
+      "name": "nox-decomp.zip",
+      "items": [
+        "Nox-Decomp.sh",
+        "nox-decomp"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Nox-Decomp",
+        "porter": [
+          "sookyboo"
+        ],
+        "desc": "It may be the most fun action RPG you've never played and supports multiplayer. An excellent action/RPG hybrid with very unique gameplay. Your name is Jack Mower, a 20th century dude who just happened to be sucked into the world of Nox via his TV set. The world is in danger and you have to save it! But before you embark on your epic journey you must choose your path: warrior, wizard, or conjurer. Nox-Decomp is a source port of Westwood Studios Nox from https://github.com/sookyboo/nox-decomp",
+        "desc_md": null,
+        "inst": "Copy the GOG version of nox \"setup_nox_*.exe\" into the gamefiles directory. This will be extracted on first start.",
+        "inst_md": null,
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/en/game/nox",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "!retrodeck"
+        ],
+        "arch": [
+          "armhf",
+          "x86_64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-02-14",
+        "date_updated": "2026-02-14",
+        "md5": "4ad08288b55447fd3008b36dabdd1628",
+        "size": 45400677,
+        "release_id": "2026-02-14_0306",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/nox-decomp.zip"
+      }
+    },
     "npuzzle.zip": {
       "version": 2,
       "name": "npuzzle.zip",
@@ -36743,11 +36849,11 @@
       }
     },
     "openmrac.zip": {
-      "version": 2,
+      "version": 4,
       "name": "openmrac.zip",
       "items": [
         "Openmrac.sh",
-        "openmrac/"
+        "openmrac"
       ],
       "items_opt": null,
       "attr": {
@@ -36756,7 +36862,9 @@
           "Cebion"
         ],
         "desc": "OpenMRac is a split-screen racing game. It is a tweaked source release of MultiRacer.",
+        "desc_md": null,
         "inst": "Ready to run.",
+        "inst_md": null,
         "genres": [
           "racing"
         ],
@@ -36767,23 +36875,24 @@
           "video": null
         },
         "rtr": true,
+        "exp": false,
         "runtime": [],
+        "store": [],
+        "availability": "full",
         "reqs": [],
         "arch": [
-          "aarch64"
+          "aarch64",
+          "x86_64"
         ],
-        "desc_md": null,
-        "inst_md": null,
-        "exp": false,
         "min_glibc": ""
       },
       "source": {
         "date_added": "2023-07-24",
-        "date_updated": "2025-10-04",
-        "md5": "14a3b5a615b3b0c14c54026b08fc9832",
-        "release_id": "2025-10-04_1030",
-        "size": 5288452,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/openmrac.zip"
+        "date_updated": "2026-02-14",
+        "md5": "4970081e4a5a9e2b9508ab6a2326b11f",
+        "release_id": "2026-02-14_0306",
+        "size": 5665537,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/openmrac.zip"
       }
     },
     "opennotrium.zip": {
@@ -43081,8 +43190,8 @@
         "date_added": "2026-02-07",
         "date_updated": "2026-02-07",
         "md5": "e5dfbef1ecc5678d2e8bebe324a4dbd8",
-        "size": 9177719,
         "release_id": "2026-02-07_0859",
+        "size": 9177719,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/retrohighway.zip"
       }
     },
@@ -47982,7 +48091,7 @@
         "porter": [
           "Riley"
         ],
-        "desc": "A music player app focused on a clean and fast UI/UX. Currently supporting Mp3, Flac, and Ogg.",
+        "desc": "A music player app focused on a clean and fast UI/UX. Now supporting all major audio formats.",
         "desc_md": null,
         "inst": "After installation just ensure you have your music somewhere on your device. Start up the app and go to settings to tell Songo where your music is stored. After this it will scan that directory for new music on startup.",
         "inst_md": null,
@@ -48010,11 +48119,11 @@
       },
       "source": {
         "date_added": "2026-01-25",
-        "date_updated": "2026-01-25",
-        "md5": "845af3bfde4b041b4c86cfb975eb9c63",
-        "release_id": "2026-01-25_1827",
-        "size": 31891345,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-25_1827/songo5.zip"
+        "date_updated": "2026-02-14",
+        "md5": "7f66dfc00a79cf309cd1b3fa2a993ce6",
+        "release_id": "2026-02-14_0306",
+        "size": 59224072,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/songo5.zip"
       }
     },
     "sonic.1.zip": {
@@ -60093,7 +60202,7 @@
         ],
         "desc": "This is a Metroidvania aiming to continue Metroid Fusion's focus on horror and the SA-X. Explore a huge, interconnected space station, fighting various monsters, upgrades and boss battles. Avoid XGA as getting caught means certain death....",
         "desc_md": null,
-        "inst": "Download 'XGA'(102MB) from: https://dinar87.itch.io/xga\nExtract the contents from the zip you downloaded and copy all game files to the ports/xga/assets folder.",
+        "inst": "Ready To Run.",
         "inst_md": null,
         "genres": [
           "action",
@@ -60107,7 +60216,7 @@
           "thumbnail": null,
           "video": null
         },
-        "rtr": false,
+        "rtr": true,
         "exp": false,
         "runtime": [],
         "store": [
@@ -60126,11 +60235,11 @@
       },
       "source": {
         "date_added": "2025-05-14",
-        "date_updated": "2025-07-07",
-        "md5": "02bb7c0169240d08a5f1958d5dc2f6c7",
-        "release_id": "2025-07-07_1120",
-        "size": 22799152,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-07_1120/xga.zip"
+        "date_updated": "2026-02-14",
+        "md5": "7a2fbaf898618e14ab10d08a543b38e8",
+        "release_id": "2026-02-14_0306",
+        "size": 127678963,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/xga.zip"
       }
     },
     "hoverboard.zip": {
@@ -61217,9 +61326,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "c59a8c496e9c2176d2886da981ef12f7",
-      "size": 155891707,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/gameinfo.zip"
+      "md5": "ff95d5857b8df91ab2d643c7677e444b",
+      "size": 156568675,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -62530,9 +62639,9 @@
     },
     "images.012.zip": {
       "name": "images.012.zip",
-      "md5": "9e4f7fe785b8a7b42cb1e4d8a92b8248",
-      "size": 2716883,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.012.zip",
+      "md5": "93e5da58bdb449eef1f6adc31d8ef2b3",
+      "size": 3020415,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/images.012.zip",
       "images": [
         "8bitbuccaneer.screenshot.png",
         "amoebax.screenshot.png",
@@ -62542,6 +62651,7 @@
         "badendtheater.screenshot.png",
         "binkystrashservice.screenshot.png",
         "biplanesrevival.screenshot.png",
+        "defendguin.screenshot.png",
         "dragondragonfirefire.screenshot.png",
         "drivenout.screenshot.png",
         "farmkeeper.screenshot.png",
@@ -62557,6 +62667,7 @@
         "miceamaze.screenshot.png",
         "mybigsister.screenshot.png",
         "nightmareframes.screenshot.png",
+        "nox-decomp.screenshot.png",
         "oilwar.screenshot.jpg",
         "retrohighway.screenshot.png",
         "riseofthepenguinsgb.screenshot.png",
@@ -62587,9 +62698,9 @@
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "b4ff3b8aab130bd5ad464b5cb255224e",
-      "size": 84029476,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-07_0859/images.zip"
+      "md5": "7875f3c73b4a0f010d02f84093971af7",
+      "size": 84333008,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-14_0306/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
