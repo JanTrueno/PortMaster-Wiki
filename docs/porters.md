@@ -193,7 +193,7 @@ The amazing people who bring games to your handheld devices
             : '';
           
           portsHTML += `
-            <div class="game-card porter-game-card" onclick="window.location.href='../all-games/#modal-${portId}'">
+            <div class="pm-card porter-game-card" onclick="window.location.href='../games/#modal-${portId}'">
               ${screenshot ? `<img src="${screenshot}" alt="${title}" data-glightbox="false" loading="lazy" onerror="this.style.display='none'">` : ''}
               <h3>${title}</h3>
               <div class="card-stats">

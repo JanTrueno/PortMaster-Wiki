@@ -20,12 +20,12 @@ search:
 
   <div id="port-page-notfound" class="port-page-not-found" style="display:none">
     <p>We couldn't find that port.</p>
-    <a href="../all-games/" class="md-button">Browse All Games</a>
+    <a href="../games/#browse" class="md-button">Browse All Games</a>
   </div>
 
   <div class="port-page-content" id="port-page-content" style="display:none">
     <div class="port-hero">
-      <a href="../all-games/" class="port-hero-back" title="Back to All Games"><i class="bi bi-arrow-left"></i></a>
+      <a href="../games/#browse" class="port-hero-back" title="Back to Games"><i class="bi bi-arrow-left"></i></a>
       <img src="" alt="" class="port-hero-img off-glb" id="port-screenshot">
     </div>
 

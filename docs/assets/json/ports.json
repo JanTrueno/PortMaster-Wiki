@@ -7192,8 +7192,8 @@
         "date_added": "2026-07-22",
         "date_updated": "2026-07-22",
         "md5": "c5f337c22017dbde5a9d30398a3e7997",
-        "size": 15543758,
         "release_id": "2026-07-22_0950",
+        "size": 15543758,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-22_0950/breakhack.zip"
       }
     },
@@ -7574,61 +7574,6 @@
         "release_id": "2026-05-30_1707",
         "size": 7302314,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-30_1707/bulletbeat.zip"
-      }
-    },
-    "bully.zip": {
-      "version": 4,
-      "name": "bully.zip",
-      "items": [
-        "Bully.sh",
-        "bully"
-      ],
-      "items_opt": null,
-      "attr": {
-        "title": "Bully: Anniversary Edition",
-        "porter": [
-          "NextOS"
-        ],
-        "desc": "Bully: Anniversary Edition for AArch64 Linux handhelds through the NextOS native Android so-loader. Includes automatic low-memory and GLES2/GLES3 profiles, native SDL controls, item switching and optional native ES3 shadows.",
-        "desc_md": null,
-        "inst": "Requires a complete, legally owned ARM64 Android copy of Bully: Anniversary Edition 1.4.311. Copy a merged APK, all APK splits from the same installation, or a complete APKS/APKM/XAPK bundle into ports/bully/gamedata and launch once. Game files are not included.",
-        "inst_md": null,
-        "genres": [
-          "action",
-          "adventure"
-        ],
-        "image": {
-          "screenshot": "screenshot.png",
-          "covers": [
-            "cover.png"
-          ],
-          "thumbnail": null,
-          "video": null
-        },
-        "rtr": false,
-        "exp": false,
-        "runtime": [],
-        "store": [
-          {
-            "name": "Google Play Store",
-            "gameurl": "https://play.google.com/store/apps/details?id=com.rockstargames.bully",
-            "developerurl": "https://www.rockstargames.com/games/bully"
-          }
-        ],
-        "availability": "paid",
-        "reqs": [],
-        "arch": [
-          "aarch64"
-        ],
-        "min_glibc": ""
-      },
-      "source": {
-        "date_added": "2026-07-15",
-        "date_updated": "2026-07-15",
-        "md5": "8975cab45f8f2ead299564350ddeebed",
-        "release_id": "2026-07-15_0750",
-        "size": 2235750,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-15_0750/bully.zip"
       }
     },
     "bumpersbroadswords.zip": {
@@ -8589,6 +8534,52 @@
         "release_id": "2024-11-04_1645",
         "size": 1500909,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-11-04_1645/candybag.zip"
+      }
+    },
+    "candycrisis.zip": {
+      "version": 4,
+      "name": "candycrisis.zip",
+      "items": [
+        "Candy Crisis.sh",
+        "candycrisis"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Candy Crisis",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A candy-colored falling-block puzzle game in the style of Kirby's Avalanche. Match candies to clear the board and send junk candy to your opponent.",
+        "desc_md": "",
+        "inst": "Ready to run.",
+        "inst_md": "",
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-07-26",
+        "date_updated": "2026-07-26",
+        "md5": "adbfe59c61616e08e2120314fd8fe517",
+        "size": 5772246,
+        "release_id": "2026-07-26_1858",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/candycrisis.zip"
       }
     },
     "cannonball-lr.zip": {
@@ -13384,9 +13375,55 @@
         "date_added": "2026-07-22",
         "date_updated": "2026-07-22",
         "md5": "0ff168a8d296cdbfe4c8a3cf4cc94d11",
-        "size": 16136858,
         "release_id": "2026-07-22_0950",
+        "size": 16136858,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-22_0950/daserbe.zip"
+      }
+    },
+    "daserbe2.zip": {
+      "version": 4,
+      "name": "daserbe2.zip",
+      "items": [
+        "Das Erbe 2.sh",
+        "daserbe2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Das Erbe 2",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A C#/.NET reimplementation of Das Schmutzige Erbe (Das Erbe 2), the German environmental-advertising point-and-click adventure sequel to Das Erbe, built on raylib.",
+        "desc_md": "A C#/.NET reimplementation of *Das Schmutzige Erbe* (*Das Erbe 2*), the 1993 sequel to *Das Erbe*. Reverse-engineered from the original Amiga release, recreating its presentation, interaction flow, scene progression, save/load behavior, and TFMX music playback, built on [raylib](https://www.raylib.com/) instead of the original Amiga hardware.",
+        "inst": "Install via PortMaster and run. The original game files are bundled with the port; Das Erbe 2 was freeware. The bundled pictures, font, music, and samples are original game assets, not covered by this port's GPL license; all rights remain with their respective owners.",
+        "inst_md": null,
+        "genres": [
+          "adventure"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-07-26",
+        "date_updated": "2026-07-26",
+        "md5": "341ba582566e5eecc82318024c614480",
+        "size": 2388813,
+        "release_id": "2026-07-26_1858",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/daserbe2.zip"
       }
     },
     "davedavedave.zip": {
@@ -65697,9 +65734,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "aa89e6b26fe32bcf64c9243c6d4c21d3",
-      "size": 165424010,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-22_0950/gameinfo.zip"
+      "md5": "350f29ddb6766fa07bda702fdc74f9c7",
+      "size": 163813987,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -67094,9 +67131,9 @@
     },
     "images.013.zip": {
       "name": "images.013.zip",
-      "md5": "01845bb690b6550407832bbec566848b",
-      "size": 4949652,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-22_0950/images.013.zip",
+      "md5": "6aa7b0b28518c4c3e70d065f79fcfb6f",
+      "size": 3911613,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/images.013.zip",
       "images": [
         "2048plus.screenshot.png",
         "antecrypt.screenshot.png",
@@ -67105,12 +67142,13 @@
         "blupimania.screenshot.png",
         "breakhack.screenshot.png",
         "bulletbeat.screenshot.png",
-        "bully.screenshot.png",
+        "candycrisis.screenshot.jpg",
         "caveblazers.screenshot.png",
         "crimsonland.screenshot.png",
         "cropandclaw2.screenshot.png",
         "crystalien.screenshot.jpg",
         "daserbe.screenshot.png",
+        "daserbe2.screenshot.png",
         "disccreatures.screenshot.png",
         "dungeonantiqua2.screenshot.png",
         "environmentalstationalpha.screenshot.png",
@@ -67151,9 +67189,9 @@
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "8791ce35a0cf979cfae2fe444e15fc3c",
-      "size": 88510694,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-22_0950/images.zip"
+      "md5": "204e2a62f1fff059ee0dba0afa82e36e",
+      "size": 87472655,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",

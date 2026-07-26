@@ -1,12 +1,28 @@
 import json
 import markdown
+import random
 import time
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 import urllib.request
 import urllib.error
 
 MARKDOWN_EXTENSIONS = ["tables", "fenced_code"]
+
+# The current community challenge port, manually updated each month (also
+# shown on the homepage). Kept as one shared constant so index.md and the
+# games.md hero banner never drift out of sync with each other.
+PORT_OF_THE_MONTH_KEY = "dragondragonfirefire.zip"
+
+# Hero banner override: some ports are a near-duplicate of another slide
+# already in the rotation (plain "2048" next to "2048 Plus" adds no
+# variety), so they're excluded from hero candidacy entirely.
+HERO_EXCLUDE_KEYS = {"2048.zip"}
+
+# Set at the end of define_env(), read by on_post_build() to measure how
+# long the actual mkdocs build phase (markdown->HTML, theme templating,
+# search indexing) takes on top of define_env's own work.
+_config_done_time = None
 
 # markdown.markdown() rebuilds the whole parser/extension pipeline from
 # scratch on every call, which is wasteful when called thousands of times
@@ -59,7 +75,10 @@ def download_portmaster_jsons(base_path):
         "device_info.json": f"{github_info}/device_info.json",
         "porters.json": f"{github_info}/porters.json",
         "runtimes_zips.json": f"{github_release}/runtimes_zips.json",
-        "featured_ports.json": f"{github_info}/featured_ports.json",
+        # featured_ports.json is NOT downloaded here anymore - it's now a
+        # manually curated file (see docs/assets/json/featured_ports.json)
+        # and re-downloading it on every build would overwrite that curation
+        # with upstream's version.
     }
 
     success_count = 0
@@ -98,6 +117,7 @@ def define_env(env):
                     merged_ports["utils"][key] = value
 
     env.variables["ports"] = merged_ports
+    env.variables["port_of_the_month_key"] = PORT_OF_THE_MONTH_KEY
 
     # Build a lookup of description/instruction markdown text, keyed by port_id.
     # This is deliberately NOT embedded as HTML attributes on the card divs:
@@ -299,6 +319,9 @@ def define_env(env):
         if node.get("deprecated"):
             continue
 
+        if node.get("type") == "hero":
+            continue  # handled separately, below, not shown as a carousel category
+
         if node.get("type") == "category":
             groups = []
             for child in node.get("children", []):
@@ -308,6 +331,14 @@ def define_env(env):
                 if group["ports"]:
                     groups.append(group)
             if groups:
+                # A category like "Premium Games" can have 10+ sub-genre
+                # groups, which makes Discover feel like an endless wall of
+                # identical carousels. Cap how many show at once and rotate
+                # a random subset each build so it varies site rebuilds
+                # (hourly, per the CI cron) instead of always the same 4.
+                MAX_GROUPS_PER_CATEGORY = 4
+                if len(groups) > MAX_GROUPS_PER_CATEGORY:
+                    groups = random.sample(groups, MAX_GROUPS_PER_CATEGORY)
                 featured_categories.append({
                     "name": node.get("name", ""),
                     "description": node.get("description", ""),
@@ -355,6 +386,105 @@ def define_env(env):
     }
 
     env.variables["sorted_orders"] = sorted_orders
+
+    # ===== Discover hero banner =====
+    # Preferred: a manually curated list (featured_ports.json's "hero" node),
+    # each with a hand-supplied 21:9 image dropped in
+    # docs/assets/images/hero/<port_id>.{jpg,png,webp} - screenshots/cover
+    # art don't crop well into a wide hero card. Falls back to an
+    # auto-computed set (still true if no hero node/images exist yet) so
+    # the banner never just breaks.
+    HERO_DESC_MAX_LEN = 110
+    HERO_IMAGE_DIR = base_path.parent / "images" / "hero"
+    HERO_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"]
+    today = datetime.now()
+    ninety_days_ago_str = (today - timedelta(days=90)).strftime("%Y-%m-%d")
+
+    def is_rtr_key(key):
+        attr = merged_ports["ports"].get(key, {}).get("attr") or {}
+        return bool(attr.get("rtr"))
+
+    def find_hero_custom_image(port_id):
+        for ext in HERO_IMAGE_EXTENSIONS:
+            if (HERO_IMAGE_DIR / f"{port_id}{ext}").exists():
+                return f"../assets/images/hero/{port_id}{ext}"
+        return None
+
+    def build_hero_slide(label, key):
+        port = merged_ports["ports"][key]
+        attr = port.get("attr") or {}
+        source = port.get("source") or {}
+        source_url = source.get("url") or ""
+        is_mv = "PortMaster-MV" in source_url or "MV-New" in source_url
+        repo = "PortsMaster-MV/PortMaster-MV-New" if is_mv else "PortsMaster/PortMaster-New"
+        port_id = key.replace(".zip", "")
+        desc = (attr.get("desc_md") or attr.get("desc") or "").replace("\\n", " ").strip()
+        if len(desc) > HERO_DESC_MAX_LEN:
+            desc = desc[:HERO_DESC_MAX_LEN].rsplit(" ", 1)[0].rstrip(",.;:") + "…"
+        image = attr.get("image") or {}
+        return {
+            "label": label,
+            "port_id": port_id,
+            "title": attr.get("title") or port_id,
+            "repo": repo,
+            "screenshot": image.get("screenshot") or "",
+            "custom_image_url": find_hero_custom_image(port_id),
+            "desc": desc,
+            "downloads": port_stats.get("ports", {}).get(key, 0),
+            "rtr": bool(attr.get("rtr")),
+            "url": source_url,
+        }
+
+    hero_used = set(HERO_EXCLUDE_KEYS)
+    hero_slides = []
+
+    hero_node = next(
+        (n for n in featured_ports_raw if n.get("type") == "hero" and not n.get("deprecated")),
+        None,
+    )
+    if hero_node:
+        for entry in hero_node.get("ports", []):
+            key = entry.get("key") if isinstance(entry, dict) else entry
+            label = entry.get("label", "") if isinstance(entry, dict) else ""
+            if not key or key not in merged_ports["ports"] or key in hero_used:
+                continue
+            hero_used.add(key)
+            hero_slides.append(build_hero_slide(label, key))
+
+    if not hero_slides:
+        def pick_top_excluding(candidate_keys):
+            for key in candidate_keys:
+                if key not in hero_used:
+                    hero_used.add(key)
+                    return key
+            return None
+
+        recent_90_keys = sorted(
+            (k for k in port_keys if get_date_added(k) >= ninety_days_ago_str),
+            key=get_downloads, reverse=True,
+        )
+        rtr_all_keys = sorted((k for k in port_keys if is_rtr_key(k)), key=get_downloads, reverse=True)
+        rtr_recent_90_keys = [k for k in rtr_all_keys if get_date_added(k) >= ninety_days_ago_str]
+
+        # Slide 1 is the same manually-set community-challenge port shown on
+        # the homepage, not an auto-computed pick - the other four are.
+        if PORT_OF_THE_MONTH_KEY in merged_ports["ports"]:
+            hero_used.add(PORT_OF_THE_MONTH_KEY)
+            hero_slides.append(build_hero_slide("Port of the Month", PORT_OF_THE_MONTH_KEY))
+
+        hero_slide_defs = [
+            ("Most Downloaded", sorted_orders["downloads"]),
+            ("Trending Now", recent_90_keys),
+            ("Top Ready to Run", rtr_all_keys),
+            ("Trending Ready to Run", rtr_recent_90_keys),
+        ]
+
+        for label, candidates in hero_slide_defs:
+            key = pick_top_excluding(candidates)
+            if key:
+                hero_slides.append(build_hero_slide(label, key))
+
+    env.variables["hero_slides"] = hero_slides
 
     # Process device info for handhelds page
     processed_devices = {}
@@ -405,6 +535,10 @@ def define_env(env):
     env.variables["manufacturers"] = manufacturers
     env.variables["all_cfw"] = all_cfw
 
+    global _config_done_time
+    _config_done_time = time.time()
+    print("define_env finished, handing off to mkdocs for page rendering...", flush=True)
+
 
 # mkdocs-macros calls these two around every single page's Jinja render.
 # The main build phase after define_env gives zero console output by
@@ -426,3 +560,8 @@ def on_post_page_macros(env):
         elapsed = time.time() - start
         if elapsed > 0.5:
             print(f"    -> {env.page.file.src_path} took {elapsed:.1f}s", flush=True)
+
+
+def on_post_build(env):
+    if _config_done_time is not None:
+        print(f"on_post_build reached {time.time() - _config_done_time:.1f}s after define_env finished (covers markdown->HTML + theme templating + search indexing for every page)", flush=True)

@@ -27,7 +27,7 @@
     See our [Installing Ports](installation/installing-ports.md) guide for complete instructions.
 
 ??? question "Where do I get game files for commercial ports?"
-    You must purchase games from legitimate sources like Steam, GOG, Epic Games Store, or Itch.io. After installing a port from PortMaster, visit the [All Games](all-games.md) page, find your game, and click Details for file placement instructions.
+    You must purchase games from legitimate sources like Steam, GOG, Epic Games Store, or Itch.io. After installing a port from PortMaster, visit the [Browse Games](games.md#browse) page, find your game, and click Details for file placement instructions.
 
 ??? question "Can I install ports without WiFi?"
     Yes! Download the port's `.zip` file on a computer and place it in the autoinstall folder. See [Installing Ports - Option 2](installation/installing-ports.md#option-2-offline-installation).

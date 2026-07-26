@@ -257,7 +257,7 @@
 
   // ===== Device compatibility chip =====
   // Reads/writes the same "selectedDevice"/"selectedOS" cookies that
-  // /all-games/ uses, so picking a device on either page carries over.
+  // /games/ (Browse view) uses, so picking a device on either page carries over.
   function getCookie(name) {
     const nameEQ = name + '=';
     const parts = document.cookie.split(';');

@@ -91,10 +91,10 @@ html {
   --md-default-fg-color--light:        #eeeeee;
   --md-default-fg-color--lighter:      #888888;
   --md-default-fg-color--lightest:     #444444;
-  --md-default-bg-color:               #222222;
-  --md-default-bg-color--light:        #222222;
-  --md-default-bg-color--lighter:      #222222;
-  --md-default-bg-color--lightest:     #222222;
+  --md-default-bg-color:               #1a1a1a;
+  --md-default-bg-color--light:        #1a1a1a;
+  --md-default-bg-color--lighter:      #1a1a1a;
+  --md-default-bg-color--lightest:     #1a1a1a;
 
   /* Card colors */
   --card-bg:                           #2b2b2b;

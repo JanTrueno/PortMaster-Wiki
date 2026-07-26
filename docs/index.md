@@ -96,7 +96,7 @@ hide:
         {% set repo_owner = 'PortsMaster-MV' if is_mv else 'PortsMaster' %}
         {% set repo_name = 'PortMaster-MV-New' if is_mv else 'PortMaster-New' %}
         
-        <div class="carousel-card" onclick="window.location.href='all-games/#modal-{{ port_id }}'">
+        <div class="pm-card" onclick="window.location.href='games/#modal-{{ port_id }}'">
           {% if screenshot %}
           <img src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}" 
                alt="{{ title }}" 
@@ -126,7 +126,7 @@ hide:
 <script>
 function scrollCarousel(direction) {
   const track = document.getElementById('newPortsCarousel');
-  const cards = track.querySelectorAll('.carousel-card');
+  const cards = track.querySelectorAll('.pm-card');
   if (cards.length > 0) {
     const cardWidth = cards[0].offsetWidth + 16; 
     track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
@@ -205,7 +205,7 @@ function scrollCarousel(direction) {
       <h3 style="font-size: 1.5rem; margin: 0 0 1rem 0;">Game Showcase</h3>
       <p>From beloved indie titles to retro classics, PortMaster brings an incredible variety of games to your handheld device.</p>
       <p>Every port is optimized for performance and playability. Our community of dedicated porters brings new games every week.</p>
-      <p><a href="all-games/" class="md-button">Explore All Games</a></p>
+      <p><a href="games/#browse" class="md-button">Explore All Games</a></p>
     </div>
     <div style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden;">
       <iframe src="https://player.vimeo.com/video/1083313795?badge=0&autopause=0&player_id=0&app_id=58479" 
@@ -245,7 +245,7 @@ function scrollCarousel(direction) {
       </a></p>
     </div>
     <div>
-      {% set port_key = 'dragondragonfirefire.zip' %}
+      {% set port_key = port_of_the_month_key %}
       {% set port = ports['ports'][port_key] %}
       {% set port_id = port_key.replace('.zip', '') %}
       {% set attr = port.attr or {} %}
@@ -258,7 +258,7 @@ function scrollCarousel(direction) {
       {% set repo_owner = 'PortsMaster-MV' if is_mv else 'PortsMaster' %}
       {% set repo_name = 'PortMaster-MV-New' if is_mv else 'PortMaster-New' %}
       
-      <div class="carousel-card" onclick="window.location.href='all-games/#modal-{{ port_id }}'" style="cursor: pointer; max-width: 400px; margin: 0 auto;">
+      <div class="pm-card" onclick="window.location.href='games/#modal-{{ port_id }}'" style="cursor: pointer; max-width: 400px; margin: 0 auto;">
         {% if screenshot %}
         <img src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}" 
              alt="{{ title }}" 

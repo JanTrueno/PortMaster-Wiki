@@ -768,7 +768,11 @@
   }
 }
 
-/* ===== GAME CARDS ===== */
+/* ===== SHARED CARD COMPONENT (Discover carousels + Browse grid) =====
+   One card style used everywhere a port is shown as a tile: full-bleed
+   rounded image, single-line ellipsis title, small stats row below.
+   Layout context (flex-basis in a carousel track vs. auto width in the
+   CSS grid) is applied separately further down / in .game-grid. */
 .game-grid {
   display: grid;
   gap: 1rem;
@@ -804,31 +808,31 @@
   }
 }
 
-.game-card {
+/* Cardless, image-forward tile (Steam/Epic style): no box/shadow behind
+   the card - just the screenshot and title sitting directly on the page,
+   with the image brightening on hover instead of the whole tile scaling
+   up. Title text is unaffected on hover. */
+.pm-card {
   position: relative;
-  padding: 0.6em;
-  border-radius: 12px;
-  box-shadow: var(--md-shadow-z1);
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  text-align: center;
+  text-align: left;
+  text-decoration: none !important;
+  color: var(--card-text) !important;
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
-  content-visibility: visible;
-  contain-intrinsic-size: 0 280px;
-  contain: none;
-  background-color: var(--card-bg);
-  color: var(--card-text);
 }
 
-.game-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
-  background-color: var(--card-bg-hover);
+.pm-card:hover {
+  text-decoration: none !important;
+  color: var(--card-text) !important;
 }
 
 /* Hide everything past the default page size (100) before JS runs, so the
@@ -836,25 +840,60 @@
    ~1300+ ports briefly flashing before the pagination script hides them.
    JS sets an explicit inline display on every card once it runs, which
    overrides this regardless of nth-child position. */
-.game-grid .game-card:nth-child(n+101) {
+.game-grid .pm-card:nth-child(n+101) {
   display: none;
 }
 
-.game-card img {
+.pm-card img {
   width: 100%;
   aspect-ratio: 4 / 3; /* Consistent image aspect ratio */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+  background-color: var(--card-bg);
 }
 
-.game-card h3 {
+.pm-card:hover img {
+  filter: brightness(1.35);
+}
+
+.pm-card h3 {
   margin: 0;
-  font-size: 0.75rem;
-  line-height: 1;
-  flex-grow: 1; /* Push stats to bottom */
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-text);
+  transition: color 0.2s ease;
+}
+
+/* Ready-to-Run badge overlay (top-left corner of the card image) */
+.pm-rtr-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
   display: flex;
-  align-items: left;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.12rem 0.35rem;
+  border-radius: 5px;
+  background-color: #F49519;
+  color: #ffffff;
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.pm-rtr-badge i {
+  font-size: 0.55rem;
 }
 
 /* Card Stats (Downloads & Date Added) */
@@ -863,18 +902,16 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: 0.4rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--card-border);
+  margin-top: 0.3rem;
   gap: 0.25rem;
-  flex-shrink: 0;
 }
 
 .card-stat {
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  font-size: 0.5rem;
+  min-width: 0;
+  font-size: 0.65rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -899,12 +936,12 @@
 }
 
 /* Incompatible cards - greyed out */
-.game-card.incompatible {
+.pm-card.incompatible {
   opacity: 0.4;
   filter: grayscale(70%);
 }
 
-.game-card.incompatible:hover {
+.pm-card.incompatible:hover {
   opacity: 0.6;
   filter: grayscale(50%);
 }
@@ -2045,23 +2082,26 @@
   }
 }
 
-/* ===== PORTERS PAGE ===== */
-/* ===== NEW PORTS CAROUSEL ===== */
+/* ===== PORTS CAROUSEL =====
+   Nav arrows live in the section header (top-right), the "See All" link is
+   an inline chevron right next to the title, and the row fills the full
+   available content width - matches the Steam/Epic store reference. No
+   dot pagination; the header arrows are the only navigation. */
 .carousel-container {
   position: relative;
-  margin: 1.5rem -1.75rem 0.75rem;
+  margin: 0.5rem 0 0.5rem;
 }
 
 .carousel-track {
   display: flex;
-  gap: 1rem;
-  max-width: calc(1200px + 1rem);
+  gap: 0.85rem;
+  width: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 0.5rem;
-  margin: -0.5rem auto;
+  padding: 0.25rem 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -2069,196 +2109,91 @@
   display: none;
 }
 
-.carousel-track .carousel-card,
-div.carousel-card {
-  flex: 0 0 180px;
-  min-width: 0;
-  padding: 0.5rem;
-  border-radius: 12px;
-  box-shadow: var(--md-shadow-z1);
+/* Carousel-only sizing: the shared .pm-card look (image, title, badge,
+   stats) is defined once, above, and applies here unchanged - only the
+   flex-basis differs from the grid context. */
+.carousel-track .pm-card {
+  flex: 0 0 195px;
+}
+
+.carousel-nav {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  cursor: pointer;
-  text-align: left;
-  text-decoration: none !important;
-  color: var(--card-text) !important;
-  background-color: var(--card-bg);
-  transition-property: transform, box-shadow, background-color !important;
-  transition-duration: 0.2s !important;
-  transition-timing-function: ease !important;
-}
-
-.carousel-track .carousel-card:hover,
-div.carousel-card:hover {
-  -webkit-transform: scale(1.05) !important;
-  -moz-transform: scale(1.05) !important;
-  -o-transform: scale(1.05) !important;
-  transform: scale(1.05) !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1) !important;
-  background-color: var(--card-bg-hover) !important;
-  text-decoration: none !important;
-  color: var(--card-text) !important;
-}
-
-.carousel-card img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 0.4rem;
-  pointer-events: none;
-}
-
-.carousel-card h3 {
-  margin: 0;
-  width: 100%;
-  font-size: 0.7rem;
-  font-weight: 600;
-  line-height: 1.25;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--card-text);
-}
-
-.carousel-card .card-stats {
-  display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 0.3rem;
-  gap: 0.25rem;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
 }
 
-.carousel-card .card-stat {
+.carousel-btn-group {
   display: flex;
   align-items: center;
-  gap: 0.2rem;
-  font-size: 0.45rem;
-  color: var(--card-stat-color);
-  opacity: 0.75;
-}
-
-.carousel-card .card-stat i {
-  font-size: 0.5rem;
-  color: #F49519;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.75rem;
-  height: 40px;
+  position: static;
+  width: 34px;
+  height: 34px;
   border: none;
-  background: none;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.16);
   padding: 0;
-  color: var(--md-default-fg-color--lighter, #9e9e9e);
+  color: var(--card-text);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.carousel-btn-left {
-  left: 0;
-}
-
-.carousel-btn-right {
-  right: 0;
+[data-md-color-scheme="dark"] .carousel-btn {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .carousel-btn:hover {
-  color: var(--md-default-fg-color--light, #757575);
+  background-color: #F49519;
+  color: #ffffff;
 }
 
 .carousel-btn i {
   line-height: 1;
 }
 
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 0 1.5rem;
-}
-
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--md-default-fg-color--lighter, rgba(128, 128, 128, 0.4));
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.carousel-dot:hover {
-  background-color: #ff9d2e;
-}
-
-.carousel-dot.active {
-  background-color: #F49519;
-  transform: scale(1.3);
-}
-
 @media (max-width: 768px) {
   .featured-category {
-    padding: 0 1.25rem;
+    padding: 0 0.5rem;
   }
 
-  .carousel-container {
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
+  .carousel-track .pm-card {
+    flex: 0 0 145px;
   }
 
-  .carousel-card {
-    flex: 0 0 150px;
-  }
-
-  .carousel-card h3 {
-    font-size: 0.65rem;
-  }
-
-  .carousel-btn {
-    width: 1.25rem;
-    height: 35px;
-    font-size: 1.25rem;
+  .carousel-track .pm-card h3 {
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .featured-category {
-    padding: 0 1rem;
+    padding: 0 0.35rem;
   }
 
-  .carousel-container {
-    margin-left: -1rem;
-    margin-right: -1rem;
-  }
-
-  .carousel-card {
-    flex: 0 0 130px;
+  .carousel-track .pm-card {
+    flex: 0 0 125px;
     padding: 0.4rem;
   }
 
-  .carousel-card h3 {
-    font-size: 0.6rem;
+  .carousel-track .pm-card h3 {
+    font-size: 0.68rem;
   }
 
   .carousel-btn {
-    width: 1rem;
-    height: 30px;
-    font-size: 1.1rem;
-  }
-
-  .carousel-dots {
-    margin: 0 0 1rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
   }
 }
 
@@ -2353,7 +2288,7 @@ div.carousel-card:hover {
   gap: 0.6rem;
 }
 
-.game-grid.list-view .game-card {
+.game-grid.list-view .pm-card {
   flex-direction: row;
   align-items: center;
   text-align: left;
@@ -2361,14 +2296,14 @@ div.carousel-card:hover {
   gap: 1rem;
 }
 
-.game-grid.list-view .game-card img {
+.game-grid.list-view .pm-card img {
   width: 110px;
   flex-shrink: 0;
   aspect-ratio: 4 / 3;
   margin-bottom: 0;
 }
 
-.game-grid.list-view .game-card h3 {
+.game-grid.list-view .pm-card h3 {
   font-size: 0.95rem;
   flex-grow: 1;
   align-items: center;
@@ -2396,16 +2331,16 @@ div.carousel-card:hover {
 }
 
 @media (max-width: 600px) {
-  .game-grid.list-view .game-card {
+  .game-grid.list-view .pm-card {
     padding: 0.5rem 0.75rem;
     gap: 0.6rem;
   }
 
-  .game-grid.list-view .game-card img {
+  .game-grid.list-view .pm-card img {
     width: 72px;
   }
 
-  .game-grid.list-view .game-card h3 {
+  .game-grid.list-view .pm-card h3 {
     font-size: 0.75rem;
   }
 
@@ -2535,85 +2470,653 @@ div.carousel-card:hover {
 
 /* ===== FEATURED CAROUSEL SECTIONS (games.md) ===== */
 .featured-category {
-  margin: 2.5rem auto;
-  padding: 0 1.75rem;
+  margin: 1.5rem auto;
+  padding: 0 0.5rem;
 }
 
 .featured-category--first {
   margin-top: 0;
 }
 
+/* Intro-only header (no carousel of its own) used by multi-group
+   categories like "Ready to Run" / "Premium Games". */
 .featured-category-header {
-  max-width: 1200px;
-  margin: 0 auto 0.5rem;
+  margin: 0 0 0.35rem;
 }
 
 .featured-category-header h1 {
-  font-size: 1.75rem;
-  margin: 0 0 0.25rem 0;
+  font-size: 1.15rem;
+  margin: 0 0 0.15rem 0;
+  color: var(--card-text);
+}
+
+.featured-category-header h1 i {
   color: #F49519;
 }
 
 .featured-category-header p {
   margin: 0;
+  font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
 }
 
 .featured-group {
-  margin: 1.75rem 0;
+  margin: 1rem 0;
 }
 
-.featured-group-header {
+/* Unified header row for every carousel (standalone or nested group):
+   title + inline "See All" chevron on the left, prev/next arrows on the
+   right - matches the Steam/Epic store reference layout. */
+.carousel-section-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto 0.75rem;
+  margin: 0 0 0.4rem;
 }
 
-.featured-group-header h2 {
+.carousel-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.carousel-section-title h1,
+.carousel-section-title h2 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.featured-group-header p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
+.carousel-section-title h1,
+.carousel-section-title h2 {
+  color: var(--card-text);
 }
 
-.carousel-see-all {
-  max-width: calc(1200px + 1rem);
-  margin: 0 auto;
-  padding: 0 0.5rem;
-  box-sizing: border-box;
-  text-align: right;
+.carousel-section-title h2 {
+  font-size: 0.95rem;
 }
 
-.carousel-see-all .see-all-link {
+/* "See All" sits at the start of the flexible nav area, right after the
+   title column - visually reads as part of the heading, like Epic's
+   "Top New Releases >" link, without nesting an anchor inside the <h1>.
+   !important is needed here: the theme's own ".md-typeset a" link-color
+   rule outranks a single class selector, which is why this was rendering
+   theme-blue instead of white/grey. */
+.carousel-nav .see-all-inline {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--card-stat-color, #757575);
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--card-text) !important;
   text-decoration: none !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.carousel-nav .see-all-inline:hover {
+  color: #F49519 !important;
+  transform: translateX(2px);
+}
+
+.see-all-inline i {
+  font-size: 0.85rem;
+}
+
+/* The "See All" label stays in the markup (a bare icon-only link, with no
+   other text, previously sent mkdocs's md_in_html markdown extension into
+   a multi-minute pathological parse - see games.md) but is hidden
+   visually here, leaving just the arrow. */
+.see-all-inline .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== GAMES PAGE: TOP BAR (search + Discover/Browse tabs) =====
+   Modeled on the Steam/Epic store header: a modest-width search box with
+   plain text tabs immediately beside it, left-aligned - not a full-width
+   search bar with a separate pill switcher off to the side. */
+.games-topbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  margin: 0 auto 20px;
+  box-sizing: border-box;
+}
+
+.games-search-wrapper {
+  position: relative;
+  flex: 0 1 200px;
+  min-width: 0;
+}
+
+.games-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--card-stat-color, #888888);
+  pointer-events: none;
+}
+
+.games-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 10px 7px 30px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  outline: none;
+}
+
+[data-md-color-scheme="light"] .games-search-input {
+  background-color: #ebebeb;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .games-search-input {
+  background-color: #2b2e33;
+  color: #eeeeee;
+}
+
+.games-search-input::placeholder {
+  color: var(--card-stat-color, #888888);
+}
+
+.games-view-switcher {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.games-view-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--card-stat-color, #888888);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
   white-space: nowrap;
   transition: color 0.2s ease;
 }
 
-.carousel-see-all .see-all-link:hover {
-  color: #F49519;
+.games-view-btn:hover {
+  color: var(--card-text);
+}
+
+.games-view-btn.active {
+  color: var(--card-text);
+  font-weight: 700;
+}
+
+.games-view {
+  display: none;
+}
+
+.games-view.active {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .games-topbar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .games-search-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .games-view-switcher {
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+/* ===== DISCOVER VIEW: Ready to Run spotlight =====
+   A neutral grey card (like Epic's "Free Games" box). ".rtr-spotlight" is
+   applied to the SAME element as ".featured-category" (not a child of
+   it), so its outer edges already align with every other carousel
+   section for free. It adds a little extra side padding of its own on
+   top of that (content ends up very slightly narrower than the plain
+   sections) purely for card breathing room - the outer box position is
+   unaffected either way. */
+.rtr-spotlight {
+  box-sizing: border-box;
+  padding-top: 1.1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+[data-md-color-scheme="dark"] .rtr-spotlight {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+  .rtr-spotlight {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rtr-spotlight {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    border-radius: 14px;
+  }
+}
+
+/* ===== BROWSE VIEW: Genre tiles ===== */
+.genre-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .genre-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .genre-tiles {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.genre-tile {
+  position: relative;
+  height: 90px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.genre-tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.genre-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72), rgba(0,0,0,0.15));
+}
+
+.genre-tile span {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.55rem;
+  z-index: 1;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.genre-tile.active {
+  outline: 3px solid #F49519;
+  outline-offset: -3px;
+}
+
+@media (max-width: 400px) {
+  .genre-tile {
+    height: 72px;
+  }
+
+  .genre-tile span {
+    font-size: 0.7rem;
+  }
+}
+
+/* ===== BROWSE VIEW: sidebar (desktop) / drawer (mobile) filter layout =====
+   Same .filter-panel markup and JS everywhere - only its CSS positioning
+   changes by breakpoint. Below ~900px it keeps the original fixed
+   slide-out drawer behavior (defined earlier in this file) unchanged. */
+.games-layout {
+  display: block;
+  width: 100%;
+}
+
+.games-main {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .games-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .games-main {
+    order: 1;
+  }
+
+  /* Promote the drawer into a static sidebar column */
+  .games-layout .filter-panel {
+    position: static;
+    order: 2;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    right: auto;
+    box-shadow: none;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: none;
+  }
+
+  [data-md-color-scheme="light"] .games-layout .filter-panel {
+    border: 1px solid #c4c4c4;
+  }
+
+  [data-md-color-scheme="dark"] .games-layout .filter-panel {
+    border: 1px solid #333333;
+  }
+
+  .games-layout .filter-overlay {
+    display: none;
+  }
+
+  .games-layout .close-panel-btn {
+    display: none;
+  }
+
+  /* No slide-out to trigger once the panel is a permanent sidebar column */
+  .games-layout .filter-toggle-btn {
+    display: none;
+  }
+}
+
+/* ===== DISCOVER VIEW: Hero banner =====
+   Auto-rotating spotlight (Port of the Month / Most Downloaded / etc.) with
+   a big image+text card on the left and a 5-item pill list on the right;
+   the active pill fills with a timed progress bar and auto-advances. */
+.hero-banner {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: stretch;
+}
+
+.hero-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 2 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+/* Back to the original approach: the screenshot is a plain CSS background
+   (background-size:cover), which always fills the box's full height and
+   width by definition - no separate <img> sizing/specificity fight needed. */
+/* Quick slide-in-from-the-left + fade (not a slow crossfade) each time a
+   new slide becomes active. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-40px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+}
+
+.hero-slide.active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Bottom scrim fading to grey (the same --card-bg tone as every other
+   card), not pure black, so text sits on a readable panel at the bottom
+   of the image. */
+/* No background scrim - text sits directly on the image, readable via
+   text-shadow instead of a fade panel. */
+.hero-slide-overlay {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2rem 2rem 1.75rem;
+}
+
+.hero-slide-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.18);
+  color: var(--card-text);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.hero-slide-status--rtr {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+.hero-slide-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.hero-slide-desc {
+  margin: 0 0 0.85rem;
+  max-width: 33%;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #e2e2e2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+.hero-slide-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.hero-download-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.25rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111111 !important;
+  font-weight: 700;
+  font-size: 0.8rem;
   text-decoration: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.carousel-see-all .see-all-link i {
-  font-size: 0.6rem;
-  transition: transform 0.2s ease;
+.hero-download-btn:hover {
+  background-color: #eeeeee;
+  transform: translateY(-1px);
 }
 
-.carousel-see-all .see-all-link:hover i {
-  transform: translateX(2px);
+.hero-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffffff !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hero-details-link:hover {
+  color: #F49519 !important;
+}
+
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 0 0 260px;
+}
+
+/* Only the active pill gets a box at all - the rest sit as plain text so
+   the grey highlight (filled in over time by .hero-pill-progress) is the
+   one clear "this is current" signal, no orange involved. */
+.hero-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--card-text);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1;
+}
+
+.hero-pill-thumb {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 52px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.hero-pill.active {
+  background-color: rgba(128, 128, 128, 0.14);
+}
+
+[data-md-color-scheme="dark"] .hero-pill.active {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.hero-pill-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background-color: rgba(128, 128, 128, 0.22);
+  z-index: 0;
+}
+
+[data-md-color-scheme="dark"] .hero-pill-progress {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-pill-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.hero-pill-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes heroPillFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .hero-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  /* No min-height override here - let aspect-ratio:2/1 size the box off
+     the (now much narrower) mobile width instead of forcing a tall fixed
+     floor that made the whole banner dominate the screen. */
+  .hero-slide-status {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-slide-title {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-slide-desc {
+    display: none;
+  }
+
+  .hero-slide-actions {
+    gap: 0.6rem;
+  }
+
+  .hero-download-btn {
+    padding: 0.35rem 0.9rem;
+    font-size: 0.65rem;
+  }
+
+  .hero-details-link {
+    font-size: 0.6rem;
+  }
+
+  .hero-slide-overlay {
+    padding: 0.9rem 0.75rem 0.75rem;
+  }
 }
 

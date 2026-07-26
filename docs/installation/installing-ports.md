@@ -63,7 +63,7 @@ Commercial Ports
 
 After installing a commercial port:
 
-1. Go to the [All Games Page](/all-games).
+1. Go to the [Browse Games page](../games.md#browse).
 2. Find your game → Details
 3. Follow file placement instructions
 
