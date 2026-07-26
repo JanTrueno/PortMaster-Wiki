@@ -1,11 +1,18 @@
 import json
 import markdown
+import time
 from pathlib import Path
 from datetime import datetime
 import urllib.request
 import urllib.error
 
 MARKDOWN_EXTENSIONS = ["tables", "fenced_code"]
+
+# markdown.markdown() rebuilds the whole parser/extension pipeline from
+# scratch on every call, which is wasteful when called thousands of times
+# (desc + inst for every port). Reuse one Markdown instance instead and
+# .reset() it between conversions.
+_markdown_renderer = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS)
 
 
 def render_markdown_field(content):
@@ -15,21 +22,27 @@ def render_markdown_field(content):
     content = (content or "").strip()
     if not content or content == "None":
         return ""
-    return markdown.markdown(content, extensions=MARKDOWN_EXTENSIONS)
+    # Some ports' desc_md/inst_md in the upstream ports.json mix real
+    # newlines with literal backslash-n sequences (e.g. "Das Erbe"), which
+    # Python-Markdown won't treat as line breaks. Normalize them to real
+    # newlines first so lists/paragraphs render instead of showing "\n".
+    content = content.replace("\\n", "\n")
+    _markdown_renderer.reset()
+    return _markdown_renderer.convert(content)
 
 def download_github_json(url, local_path):
     """Download a JSON file from GitHub to local path"""
     try:
-        print(f"Downloading {url}...")
+        print(f"Downloading {url}...", flush=True)
         with urllib.request.urlopen(url) as response:
             data = response.read()
             local_path.parent.mkdir(parents=True, exist_ok=True)
             with local_path.open('wb') as f:
                 f.write(data)
-        print(f"✓ Downloaded to {local_path}")
+        print(f"✓ Downloaded to {local_path}", flush=True)
         return True
     except urllib.error.URLError as e:
-        print(f"✗ Failed to download {url}: {e}")
+        print(f"✗ Failed to download {url}: {e}", flush=True)
         return False
 
 def download_portmaster_jsons(base_path):
@@ -55,7 +68,7 @@ def download_portmaster_jsons(base_path):
         if download_github_json(url, local_path):
             success_count += 1
 
-    print(f"\nDownloaded {success_count}/{len(files_to_download)} files successfully")
+    print(f"\nDownloaded {success_count}/{len(files_to_download)} files successfully", flush=True)
     return success_count > 0
 
 def define_env(env):
@@ -129,6 +142,12 @@ def define_env(env):
 
     env.variables["runtime_archs"] = runtime_archs
 
+    # Also ship it as a static file so the standalone port page can do the
+    # same device-compatibility check as /all-games/ without re-embedding
+    # this data inline on every single port page.
+    with (base_path / "runtime_archs.json").open("w", encoding="utf-8") as f:
+        json.dump(runtime_archs, f, ensure_ascii=True, separators=(",", ":"))
+
     # Load port stats (download counts)
     port_stats_path = base_path / "port_stats.json"
     port_stats = {"ports": {}, "total_downloads": 0}
@@ -147,13 +166,23 @@ def define_env(env):
     # markdown is pre-rendered to HTML here too, so the client only needs a
     # markdown parser for the live-fetched README, not for this data.
     port_details = {}
-    for key, port in merged_ports["ports"].items():
+    total_ports = len(merged_ports["ports"])
+    print(f"Rendering port_details.json for {total_ports} ports (this involves a markdown render per port, and can take a couple of minutes)...", flush=True)
+    for i, (key, port) in enumerate(merged_ports["ports"].items(), start=1):
+        if i % 200 == 0 or i == total_ports:
+            print(f"  ...{i}/{total_ports} ports rendered", flush=True)
         port_id = key.replace(".zip", "")
         attr = port.get("attr") or {}
         source = port.get("source") or {}
         source_url = source.get("url") or ""
         is_mv = "PortMaster-MV" in source_url or "MV-New" in source_url
         repo = "PortsMaster-MV/PortMaster-MV-New" if is_mv else "PortsMaster/PortMaster-New"
+
+        store = [
+            {"name": s.get("name") or "", "url": s.get("gameurl") or ""}
+            for s in (attr.get("store") or [])
+            if s.get("gameurl")
+        ]
 
         port_details[port_id] = {
             "title": attr.get("title") or port_id,
@@ -171,6 +200,7 @@ def define_env(env):
             "dateAdded": source.get("date_added") or "",
             "dateUpdated": source.get("date_updated") or "",
             "url": source_url,
+            "store": store,
         }
 
     port_details_path = base_path / "port_details.json"
@@ -374,3 +404,25 @@ def define_env(env):
 
     env.variables["manufacturers"] = manufacturers
     env.variables["all_cfw"] = all_cfw
+
+
+# mkdocs-macros calls these two around every single page's Jinja render.
+# The main build phase after define_env gives zero console output by
+# default, which is indistinguishable from a hang on a large site - this
+# prints which page is being rendered and flags any that take a while,
+# so a slow page (e.g. all-games.md's 1372-card loop) is visible instead
+# of a silent multi-minute wait.
+_page_render_start = {}
+
+
+def on_pre_page_macros(env):
+    _page_render_start[env.page.file.src_path] = time.time()
+    print(f"  Rendering {env.page.file.src_path}...", flush=True)
+
+
+def on_post_page_macros(env):
+    start = _page_render_start.pop(env.page.file.src_path, None)
+    if start is not None:
+        elapsed = time.time() - start
+        if elapsed > 0.5:
+            print(f"    -> {env.page.file.src_path} took {elapsed:.1f}s", flush=True)

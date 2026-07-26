@@ -2,12 +2,15 @@
 hide:
   - navigation
   - toc
+  - path
 
 search:
   exclude: true
 ---
 
+<div style="display:none">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</div>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>.md-path { display: none; }</style>
@@ -144,7 +147,7 @@ search:
       <h1 class="modal-main-title" id="modal-title"></h1>
       
       <div class="modal-screenshot-container" id="modal-screenshot-container">
-        <img src="" alt="" class="modal-screenshot" id="modal-screenshot">
+        <img src="" alt="" class="modal-screenshot off-glb" id="modal-screenshot">
       </div>
 
       <div class="modal-description">

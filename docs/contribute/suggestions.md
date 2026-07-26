@@ -135,7 +135,7 @@ search:
       <h1 class="modal-main-title" id="modal-title"></h1>
       
       <div class="modal-screenshot-container" id="modal-screenshot-container">
-        <img src="" alt="" class="modal-screenshot no-lightbox" id="modal-screenshot">
+        <img src="" alt="" class="modal-screenshot no-lightbox off-glb" id="modal-screenshot">
       </div>
 
       <div class="modal-description" id="modal-description"></div>

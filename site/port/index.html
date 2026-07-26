@@ -1499,12 +1499,13 @@
   
 
 
-<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></p>
+<div style="display:none">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>.md-path { display: none; }</style>
 
 <div class="port-page" id="port-page-root">
-  <a href="../all-games/" class="port-page-back"><i class="bi bi-arrow-left"></i> All Games</a>
-
   <div id="port-page-loading" class="port-page-loading">Loading...</div>
 
   <div id="port-page-notfound" class="port-page-not-found" style="display:none">
@@ -1513,24 +1514,75 @@
   </div>
 
   <div class="port-page-content" id="port-page-content" style="display:none">
-    <div class="modal-header-section">
-      <h1 class="modal-main-title" id="port-title"></h1>
+    <div class="port-hero">
+      <a href="../all-games/" class="port-hero-back" title="Back to All Games"><i class="bi bi-arrow-left"></i></a>
+      <img src="" alt="" class="port-hero-img off-glb" id="port-screenshot">
+    </div>
 
-      <div class="modal-screenshot-container" id="port-screenshot-container">
-        <img src="" alt="" class="modal-screenshot" id="port-screenshot">
-      </div>
+    <div class="port-body">
+      <h1 class="port-title" id="port-title"></h1>
 
-      <div class="modal-description">
-        <div class="desc-md" id="port-desc"></div>
-      </div>
-
-      <div class="modal-button-container">
-        <div class="download-actions">
-          <a href="#" class="modal-download-btn" id="port-download-btn">Download</a>
-          <button class="share-btn" id="port-share-btn" title="Share port" type="button">
-            <i class="bi bi-share"></i>
-          </button>
+      <div class="port-stat-pills" id="port-stat-pills">
+        <div class="port-stat-pill">
+          <i class="bi bi-download"></i>
+          <div>
+            <span class="port-stat-value" id="port-stat-downloads">—</span>
+            <span class="port-stat-label">Downloads</span>
+          </div>
         </div>
+        <div class="port-stat-pill">
+          <i class="bi bi-person-workspace"></i>
+          <div>
+            <span class="port-stat-value" id="port-stat-porter">—</span>
+            <span class="port-stat-label">Porter</span>
+          </div>
+        </div>
+        <div class="port-stat-pill" id="port-stat-rtr-pill">
+          <i class="bi bi-lightning-charge-fill" id="port-stat-rtr-icon"></i>
+          <div>
+            <span class="port-stat-value" id="port-stat-rtr">—</span>
+            <span class="port-stat-label">Status</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="port-description" id="port-desc"></div>
+
+      <div class="port-actions">
+        <a href="#" class="modal-download-btn" id="port-download-btn">Download</a>
+        <div class="port-store-links" id="port-store-links" style="display:none"></div>
+        <div class="device-chip-wrapper">
+          <button type="button" class="device-filter-btn" id="device-chip-btn" title="Check compatibility with your device">
+            <span class="device-chip-dot" id="device-chip-dot"></span>
+            <i class="bi bi-controller"></i>
+          </button>
+          <div class="device-chip-popover" id="device-chip-popover" style="display:none">
+            <label for="device-chip-device">Device</label>
+            <select id="device-chip-device">
+              <option value="">Select your device...</option>
+            </select>
+            <label for="device-chip-os">Operating System</label>
+            <select id="device-chip-os" disabled>
+              <option value="">Select OS...</option>
+            </select>
+            <p class="device-chip-hint" id="device-chip-hint"></p>
+          </div>
+        </div>
+        <button class="share-btn" id="port-share-btn" title="Share port" type="button">
+          <i class="bi bi-share"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-text-section" id="port-inst-section" style="display:none">
+      <h2 class="modal-section-title">Instructions</h2>
+      <div class="modal-text-content" id="port-inst"></div>
+    </div>
+
+    <div class="modal-text-section">
+      <h2 class="modal-section-title">Additional Information</h2>
+      <div class="modal-text-content" id="port-readme">
+        <div class="loading-spinner">Loading...</div>
       </div>
     </div>
 
@@ -1558,7 +1610,7 @@
           <i class="info-icon bi bi-person-workspace"></i>
           <div class="info-content">
             <h3 class="info-heading">Porter</h3>
-            <div class="info-value" id="port-porter">—</div>
+            <div class="info-value" id="port-porter-full">—</div>
           </div>
         </div>
 
@@ -1609,18 +1661,6 @@
             <div class="info-value" id="port-misc">—</div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="modal-text-section" id="port-inst-section" style="display:none">
-      <h2 class="modal-section-title">Instructions</h2>
-      <div class="modal-text-content" id="port-inst"></div>
-    </div>
-
-    <div class="modal-text-section">
-      <h2 class="modal-section-title">Additional Information</h2>
-      <div class="modal-text-content" id="port-readme">
-        <div class="loading-spinner">Loading...</div>
       </div>
     </div>
   </div>

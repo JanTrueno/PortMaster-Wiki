@@ -1052,7 +1052,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease !important;
@@ -1253,18 +1253,22 @@
 
 .modal-text-content pre {
   text-align: left !important;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
   overflow-x: auto;
   margin: 0 0 1rem 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 [data-md-color-scheme="light"] .modal-text-content pre {
-  background-color: #e8e8e8;
+  background-color: #f0f0f0;
+  border: 1px solid #dddddd;
 }
 
 [data-md-color-scheme="dark"] .modal-text-content pre {
-  background-color: #111111;
+  background-color: #1c1c1c;
+  border: 1px solid #333333;
 }
 
 .modal-text-content code {
@@ -1284,6 +1288,8 @@
 
 .modal-text-content pre code {
   padding: 0;
+  font-size: 0.85em;
+  line-height: 1.5;
   background: none;
 }
 
@@ -1318,12 +1324,24 @@
   background-color: #444444;
 }
 
-/* ===== TABLES IN MODAL - Full Width ===== */
+/* ===== TABLES IN MODAL - card-style, no grid lines ===== */
+/* border-radius/overflow:hidden on <table> itself doesn't reliably clip
+   cell backgrounds across browsers, so JS wraps every table in a
+   .table-wrap div (see wrapTables() in port-page.js / all-games.md) and
+   the rounding + outer border live on that div instead. */
+.table-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, #cccccc);
+  margin: 1rem 0;
+}
+
 .modal-text-content table {
   width: 100% !important;
   max-width: 100% !important;
-  border-collapse: collapse;
-  margin: 1rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
   display: table !important;
   table-layout: auto;
 }
@@ -1336,29 +1354,21 @@
 .modal-text-content td {
   text-align: left !important;
   padding: 0.75rem 1rem;
-  border: 1px solid;
+  border: none;
+  border-bottom: 1px solid var(--card-border, #cccccc);
 }
 
-[data-md-color-scheme="light"] .modal-text-content th {
-  background-color: #e8e8e8;
-  border-color: #d0d0d0;
-}
-
-[data-md-color-scheme="light"] .modal-text-content td {
-  border-color: #d0d0d0;
-}
-
-[data-md-color-scheme="dark"] .modal-text-content th {
-  background-color: #333333;
-  border-color: #444444;
-}
-
-[data-md-color-scheme="dark"] .modal-text-content td {
-  border-color: #444444;
+.modal-text-content tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .modal-text-content th {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background-color: rgba(244, 149, 25, 0.08);
+  color: #F49519;
 }
 
 .modal-text-content tbody tr:hover {
@@ -1444,32 +1454,17 @@
 }
 
 /* ===== STANDALONE PORT PAGE (/port/#<id>) ===== */
-/* Reuses the same .modal-* classes the port modal on /all-games/ uses, just
-   rendered as a normal page instead of inside a fixed overlay, so the two
-   always look identical without duplicating styles. */
+/* The .port-hero / .port-body / .port-stat-pills / etc. classes below are
+   also reused inside the #portModal on /all-games/, so the quick modal
+   preview and the full standalone page always look identical. */
 .port-page {
   max-width: 900px;
-  margin: 1.5rem auto 4rem;
+  margin: 0.75rem auto 4rem;
   padding: 0 1rem;
 }
 
-.port-page-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--card-stat-color, #757575);
-  text-decoration: none !important;
-}
-
-.port-page-back:hover {
-  color: #F49519;
-}
-
 .port-page-content {
-  border-radius: 16px;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
@@ -1482,6 +1477,372 @@
 [data-md-color-scheme="dark"] .port-page-content {
   background-color: #1a1a1a;
   color: #eeeeee;
+}
+
+/* ===== Shared hero/body layout (port page + modal) ===== */
+.port-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.port-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.port-hero-back {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+  z-index: 2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.port-hero-back:hover {
+  background-color: rgba(244, 149, 25, 0.9);
+  transform: scale(1.08);
+}
+
+.port-body {
+  padding: 1.75rem 2rem 0.5rem;
+}
+
+.port-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--card-text);
+}
+
+.port-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.port-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 14px;
+  background-color: rgba(244, 149, 25, 0.1);
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+
+.port-stat-pill i {
+  font-size: 1.1rem;
+  color: #F49519;
+  flex-shrink: 0;
+}
+
+.port-stat-pill--warn {
+  background-color: rgba(136, 136, 136, 0.12);
+}
+
+.port-stat-pill--warn i {
+  color: var(--card-stat-color, #888888);
+}
+
+.port-stat-pill div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.port-stat-value {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.port-stat-label {
+  font-size: 0.7rem;
+  color: var(--card-stat-color, #888888);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ===== Device compatibility button (port page + modal) ===== */
+.device-chip-wrapper {
+  position: relative;
+}
+
+.device-chip-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--card-stat-color, #888888);
+  border: 2px solid var(--card-bg);
+  opacity: 0;
+}
+
+.device-chip-dot.is-compatible,
+.device-chip-dot.is-incompatible {
+  opacity: 1;
+}
+
+.device-chip-dot.is-compatible {
+  background-color: #2fb344;
+}
+
+.device-chip-dot.is-incompatible {
+  background-color: #dc3545;
+}
+
+.device-chip-popover {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  min-width: 260px;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--card-border, #cccccc);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+[data-md-color-scheme="light"] .device-chip-popover {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .device-chip-popover {
+  background-color: #232323;
+}
+
+.device-chip-popover label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--card-stat-color, #888888);
+  margin-top: 0.4rem;
+}
+
+.device-chip-popover label:first-child {
+  margin-top: 0;
+}
+
+.device-chip-popover select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  font-size: 0.85rem;
+}
+
+.device-chip-popover select:disabled {
+  opacity: 0.5;
+}
+
+.device-chip-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.device-chip-hint.is-incompatible {
+  color: #dc3545;
+}
+
+.device-chip-hint.is-compatible {
+  color: #2fb344;
+}
+
+.port-description {
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--card-text);
+  margin-bottom: 1.25rem;
+}
+
+.port-description p {
+  margin: 0 0 0.75rem 0;
+}
+
+.port-description:empty {
+  display: none;
+  margin: 0;
+}
+
+.port-store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.port-store-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 70px;
+  padding: 0 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: transparent;
+  color: var(--card-text) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.port-store-link i {
+  font-size: 1.1rem;
+}
+
+.port-store-link:hover {
+  border-color: #F49519;
+  color: #F49519 !important;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.port-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 1.75rem;
+}
+
+/* Full-bleed "no box" treatment - covers phones AND tablets (iPad
+   portrait is ~768-834px, well above the old 600px cutoff, which is why
+   it still looked boxed there). This is purely about shape/edges, so it's
+   split from the phone-only typography tweaks below. */
+@media (max-width: 900px) {
+  /* The theme's own .md-content__inner keeps a small reading-column gutter
+     (margin: 0 .8rem 1.2rem, padding-top: .6rem) no matter what our own
+     page does, so we cancel that out here to actually reach the true
+     screen edges instead of floating a smaller box inside it. */
+  .port-page {
+    margin: 0 -0.8rem -1.2rem;
+    padding: 0;
+    max-width: none;
+  }
+
+  .md-content__inner:has(.port-page) {
+    padding-top: 0;
+  }
+
+  /* .md-main__inner carries the theme's standard 1.5rem gap between the
+     header and the content area site-wide - that's the bulk of the "grey
+     bar" gap above the hero image. Cancel it only when a port-page is
+     the content being shown. */
+  .md-main__inner:has(.port-page) {
+    margin-top: 0;
+  }
+
+  .port-page-content {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: calc(100vh - 112px);
+  }
+}
+
+@media (max-width: 600px) {
+  .port-body {
+    padding: 1.25rem 1.25rem 0.25rem;
+  }
+
+  .port-title {
+    font-size: 1.5rem;
+  }
+
+  .port-stat-pills {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+  }
+
+  .port-stat-pill {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0.4rem 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .port-stat-pill i {
+    font-size: 0.95rem;
+  }
+
+  .port-stat-value {
+    font-size: 0.78rem;
+  }
+
+  .port-stat-label {
+    font-size: 0.6rem;
+  }
+
+  .port-actions {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+  }
+
+  .modal-download-btn {
+    padding: 0 1rem;
+    min-width: 0;
+    height: 52px;
+    font-size: 0.95rem;
+  }
+
+  .share-btn,
+  .device-filter-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .share-btn i,
+  .device-filter-btn i {
+    font-size: 1.2rem;
+  }
+
+  .port-store-link {
+    height: 52px;
+    padding: 0 0.6rem;
+  }
+
+  .port-store-link .port-store-label {
+    display: none;
+  }
+
+  .device-chip-popover {
+    left: auto;
+    right: 0;
+    transform: none;
+    min-width: 240px;
+    max-width: calc(100vw - 2.5rem);
+  }
 }
 
 .port-page-loading,
@@ -1555,30 +1916,37 @@
   align-items: center;
 }
 
-/* Device Filter Button */
+/* Device Filter Button - matches .share-btn's neutral ghost style */
 .device-filter-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 70px;
   height: 70px;
-  background-color: #F49519;
-  border: none;
-  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  will-change: transform, background-color;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
   flex-shrink: 0;
 }
 
 .device-filter-btn:hover {
-  background-color: #ff9d2e;
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
   transform: scale(1.05);
 }
 
 .device-filter-btn i {
-  font-size: 1.5rem;
-  color: #ffffff;
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.device-filter-btn:hover i {
+  color: #F49519;
 }
 
 /* Share Button */
@@ -1588,23 +1956,29 @@
   justify-content: center;
   width: 70px;
   height: 70px;
-  background-color: #4DBEEE;
-  border: none;
-  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  will-change: transform, background-color;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
   flex-shrink: 0;
 }
 
 .share-btn:hover {
-  background-color: #5fcbf5;
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
   transform: scale(1.05);
 }
 
 .share-btn i {
-  font-size: 1.5rem;
-  color: #ffffff;
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.share-btn:hover i {
+  color: #F49519;
 }
 
 @media (max-width: 480px) {
