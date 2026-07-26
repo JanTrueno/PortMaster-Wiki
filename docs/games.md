@@ -10,6 +10,7 @@ search:
 <div style="display:none">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </div>
+<style>.md-path { display: none; }</style>
 
 {% macro port_card(port_key) %}
 {% set port = ports.ports[port_key] %}
