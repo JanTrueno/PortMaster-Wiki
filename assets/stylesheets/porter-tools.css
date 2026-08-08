@@ -1,0 +1,433 @@
+/* ===============================================
+   PORTER-TOOLS.CSS - Unified Porter Tool Styles
+   Markdown Generator, JSON Generator, Metadata Editor
+   =============================================== */
+
+/* ===== CONTAINER ===== */
+.porter-tool {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.porter-tool h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--md-default-fg-color);
+}
+
+.porter-tool .subtitle {
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* ===== SECTIONS ===== */
+.porter-tool .section {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.porter-tool .section:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.porter-tool .section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.porter-tool .section-number {
+  background: var(--md-accent-fg-color);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.porter-tool .section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--md-default-fg-color);
+}
+
+/* ===== FORM ELEMENTS ===== */
+.porter-tool textarea,
+.porter-tool input[type="text"],
+.porter-tool input[type="url"],
+.porter-tool input[type="email"],
+.porter-tool input[type="number"],
+.porter-tool select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.porter-tool textarea {
+  min-height: 140px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.porter-tool textarea:focus,
+.porter-tool input[type="text"]:focus,
+.porter-tool input[type="url"]:focus,
+.porter-tool input[type="email"]:focus,
+.porter-tool input[type="number"]:focus,
+.porter-tool select:focus {
+  outline: none;
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0 3px rgba(244,149,25,0.15);
+}
+
+.porter-tool label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  font-size: 0.95rem;
+}
+
+.porter-tool .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.porter-tool .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.porter-tool .help-text {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.25rem;
+}
+
+/* ===== TABLES ===== */
+.porter-tool .controls-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+.porter-tool .controls-table thead {
+  background: var(--md-typeset-table-color);
+}
+
+.porter-tool .controls-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  border-bottom: 2px solid var(--card-border);
+}
+
+.porter-tool .controls-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--md-typeset-table-color--light);
+}
+
+.porter-tool .controls-table tr:last-child td {
+  border-bottom: none;
+}
+
+.porter-tool .controls-table input {
+  margin: 0;
+}
+
+.porter-tool .table-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+}
+
+.porter-tool .btn-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+.porter-tool .primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--md-accent-fg-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.porter-tool .primary-btn:hover {
+  background: #d67f0f;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3);
+}
+
+.porter-tool .primary-btn:active {
+  transform: translateY(0);
+}
+
+.porter-tool .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.porter-tool .secondary-btn:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--md-default-fg-color--lighter);
+}
+
+.porter-tool .add-row-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--md-accent-fg-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.porter-tool .add-row-btn:hover {
+  background: #d67f0f;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3);
+}
+
+.porter-tool .add-row-btn:active {
+  transform: translateY(0);
+}
+
+.porter-tool .clear-btn,
+.porter-tool .remove-btn {
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.porter-tool .clear-btn:hover,
+.porter-tool .remove-btn:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--md-default-fg-color--lighter);
+}
+
+.porter-tool .action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===== OUTPUT AREAS ===== */
+.porter-tool .output-container {
+  position: relative;
+}
+
+.porter-tool pre {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-family: 'Roboto Mono', monospace;
+  border: 1px solid var(--card-border);
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.porter-tool .output-placeholder {
+  color: var(--md-default-fg-color--lighter);
+  font-style: italic;
+  text-align: center;
+  padding: 3rem;
+}
+
+.porter-tool .icon {
+  font-size: 1.2rem;
+}
+
+/* ===== CHECKBOXES & RADIO ===== */
+.porter-tool .checkbox-group,
+.porter-tool .radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.porter-tool .checkbox-item,
+.porter-tool .radio-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.porter-tool input[type="checkbox"],
+.porter-tool input[type="radio"] {
+  width: auto;
+  cursor: pointer;
+}
+
+/* ===== ALERTS ===== */
+.porter-tool .alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid;
+}
+
+.porter-tool .alert-info {
+  background: rgba(77, 190, 238, 0.1);
+  border-color: rgba(77, 190, 238, 0.3);
+  color: var(--md-default-fg-color);
+}
+
+.porter-tool .alert-warning {
+  background: rgba(255, 152, 0, 0.1);
+  border-color: rgba(255, 152, 0, 0.3);
+  color: var(--md-default-fg-color);
+}
+
+.porter-tool .alert-success {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.3);
+  color: var(--md-default-fg-color);
+}
+
+/* ===== TABS ===== */
+.porter-tool .tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--card-border);
+}
+
+.porter-tool .tab {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+}
+
+.porter-tool .tab:hover {
+  color: var(--md-accent-fg-color);
+}
+
+.porter-tool .tab.active {
+  color: var(--md-accent-fg-color);
+  border-bottom-color: var(--md-accent-fg-color);
+}
+
+.porter-tool .tab-content {
+  display: none;
+}
+
+.porter-tool .tab-content.active {
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .porter-tool {
+    padding: 0 0.5rem;
+  }
+  
+  .porter-tool h1 {
+    font-size: 2rem;
+  }
+  
+  .porter-tool .action-buttons {
+    flex-direction: column;
+  }
+  
+  .porter-tool .primary-btn,
+  .porter-tool .secondary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .porter-tool .table-actions {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .porter-tool .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode specific adjustments */
+[data-md-color-scheme="dark"] .porter-tool .section {
+  background: var(--card-bg);
+}
+
+[data-md-color-scheme="dark"] .porter-tool .controls-table {
+  border-color: var(--card-border);
+}

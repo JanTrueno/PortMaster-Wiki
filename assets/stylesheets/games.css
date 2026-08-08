@@ -1,0 +1,3200 @@
+/* ===============================================
+   GAMES.CSS - Games Page Styles
+   Filters, Cards, Modals, and Search
+   =============================================== */
+
+/* ===== NEW FILTER SYSTEM ===== */
+
+/* Search Bar Container */
+.filters-container {
+  width: 100%;
+  margin: 0 auto 1rem;
+  padding: 1rem;
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-sizing: border-box;
+}
+
+/* --card-border is too light (#e0e0e0) against the light-mode page
+   background to read as a real edge, so these controls get an explicit,
+   slightly darker neutral border in light mode instead. */
+[data-md-color-scheme="light"] .filters-container,
+[data-md-color-scheme="light"] .filter-toggle-btn,
+[data-md-color-scheme="light"] .sort-toggle-btn,
+[data-md-color-scheme="light"] .sort-dropdown,
+[data-md-color-scheme="light"] .view-toggle-wrapper,
+[data-md-color-scheme="light"] .clear-all-filters-btn,
+[data-md-color-scheme="light"] #portsCounter {
+  border-color: #c4c4c4;
+}
+
+/* Hide old filter rows */
+.filters-row.fixed-row {
+  display: none;
+}
+
+/* Search Bar Wrapper */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0; /* Allow flex items to shrink below content size */
+}
+
+/* Search Input */
+.search-bar {
+  flex: 1;
+  min-width: 0; /* Allow input to shrink */
+  padding: 0.875rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+[data-md-color-scheme="light"] .search-bar {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #c4c4c4;
+}
+
+[data-md-color-scheme="dark"] .search-bar {
+  background-color: #2b2b2b;
+  color: #eeeeee;
+  border-color: #3a3a3a;
+}
+
+.search-bar:focus {
+  border-color: #F49519;
+  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.12);
+}
+
+.search-bar::placeholder {
+  color: #888888;
+}
+
+/* Filter Toggle Button */
+.filter-toggle-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 14px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.filter-toggle-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.filter-toggle-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--card-text, #555555);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.filter-toggle-btn.active {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.filter-toggle-btn.active span {
+  background-color: #F49519;
+}
+
+.filter-toggle-btn.active span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.filter-toggle-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.filter-toggle-btn.active span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Sort Dropdown */
+.sort-dropdown-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sort-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sort-toggle-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.sort-toggle-btn i {
+  font-size: 1.3rem;
+  color: var(--card-text, #555555);
+}
+
+.sort-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border, #cccccc);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 100;
+  overflow: hidden;
+}
+
+[data-md-color-scheme="light"] .sort-dropdown {
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+[data-md-color-scheme="dark"] .sort-dropdown {
+  background-color: #2b2b2b;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+.sort-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sort-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+[data-md-color-scheme="light"] .sort-option {
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .sort-option {
+  color: #eeeeee;
+}
+
+.sort-option:hover {
+  background-color: rgba(244, 149, 25, 0.1);
+  color: #F49519;
+}
+
+.sort-option.selected {
+  background-color: rgba(244, 149, 25, 0.2);
+  color: #F49519;
+  font-weight: 600;
+}
+
+/* Filter Panel */
+.filter-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  z-index: 1100;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  padding: 2rem 1.5rem;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+}
+
+[data-md-color-scheme="light"] .filter-panel {
+  background-color: #f5f5f5;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .filter-panel {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+.filter-panel.open {
+  right: 0;
+}
+
+/* Filter Panel Overlay */
+.filter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1099;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.filter-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel Header */
+.filter-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid;
+}
+
+[data-md-color-scheme="light"] .filter-panel-header {
+  border-bottom-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .filter-panel-header {
+  border-bottom-color: #333333;
+}
+
+.filter-panel-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.close-panel-btn {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: var(--card-stat-color, #888888);
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-panel-btn:hover {
+  color: var(--card-text, #111111);
+  transform: scale(1.1);
+}
+
+/* Filter Group */
+.filter-group {
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--card-stat-color, #888888);
+}
+
+/* Hide native select but keep it functional */
+.filter-dropdown {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom Dropdown Container */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  border: 1px solid;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+[data-md-color-scheme="light"] .custom-select-trigger {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #c4c4c4;
+}
+
+[data-md-color-scheme="dark"] .custom-select-trigger {
+  background-color: #2b2b2b;
+  color: #eeeeee;
+  border-color: #3a3a3a;
+}
+
+.custom-select-trigger:hover:not(.disabled) {
+  border-color: #F49519;
+}
+
+.custom-select-wrapper.open .custom-select-trigger {
+  border-color: #F49519;
+  border-radius: 12px 12px 0 0;
+}
+
+.custom-select-trigger.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.custom-select-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.custom-select-arrow svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--card-stat-color, #888888);
+}
+
+.custom-select-wrapper.open .custom-select-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-select-wrapper.open .custom-select-arrow svg {
+  stroke: #F49519;
+}
+
+/* Custom Options List */
+.custom-select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid #F49519;
+  border-top: none;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+[data-md-color-scheme="light"] .custom-select-options {
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+[data-md-color-scheme="dark"] .custom-select-options {
+  background-color: #2b2b2b;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+.custom-select-wrapper.open .custom-select-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-select-option {
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+[data-md-color-scheme="light"] .custom-select-option {
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .custom-select-option {
+  color: #eeeeee;
+}
+
+.custom-select-option:hover {
+  background-color: rgba(244, 149, 25, 0.1);
+  color: #F49519;
+}
+
+.custom-select-option.selected {
+  background-color: rgba(244, 149, 25, 0.2);
+  color: #F49519;
+  font-weight: 600;
+}
+
+/* Custom scrollbar */
+.custom-select-options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-select-options::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 0 0 12px 0;
+}
+
+.custom-select-options::-webkit-scrollbar-thumb {
+  background: var(--card-border, #cccccc);
+  border-radius: 4px;
+}
+
+.custom-select-options::-webkit-scrollbar-thumb:hover {
+  background: var(--card-stat-color, #999999);
+}
+
+/* Toggle Switches */
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.toggle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+[data-md-color-scheme="light"] .toggle-item {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .toggle-item {
+  background-color: #2b2b2b;
+}
+
+.toggle-item span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Custom Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 70px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #F49519;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+/* Counter */
+#portsCounter {
+  text-align: center;
+  margin: 1rem 0 0 0;
+  padding: 0.65rem;
+  border-radius: 12px;
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--card-stat-color, #888888);
+}
+
+[data-md-color-scheme="light"] #portsCounter {
+  background-color: #fafafa;
+}
+
+[data-md-color-scheme="dark"] #portsCounter {
+  background-color: #232323;
+}
+
+/* ===== Advanced Filters ===== */
+.advanced-filters {
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.advanced-label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.advanced-label i {
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.advanced-label i.open {
+  transform: rotate(180deg);
+}
+
+.advanced-filters-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0;
+}
+
+.advanced-filters-content.open {
+  max-height: 1500px;
+  padding-top: 1rem;
+  overflow: visible;
+}
+
+.filter-subgroup {
+  margin-bottom: 1rem;
+}
+
+.filter-subgroup label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Filter Pills */
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.filter-pill {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  border-radius: 12px;
+  font-size: 0.55rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+[data-md-color-scheme="light"] .filter-pill {
+  background-color: #e0e0e0;
+  color: #555555;
+}
+
+[data-md-color-scheme="dark"] .filter-pill {
+  background-color: #3a3a3a;
+  color: #aaaaaa;
+}
+
+.filter-pill:hover {
+  background-color: rgba(244, 149, 25, 0.15);
+  color: #F49519;
+}
+
+.filter-pill.selected {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+/* Clear Filters Button (inside advanced) */
+.clear-filters-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-top: 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+/* Clear All Filters Button (main) */
+.clear-all-filters-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--card-stat-color, #888888);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-all-filters-btn:hover {
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .filter-panel {
+    max-width: 100%;
+    right: -100%;
+  }
+  
+  .filters-container {
+    padding: 0.75rem;
+  }
+  
+  .search-bar {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .filter-toggle-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .sort-toggle-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .sort-dropdown {
+    min-width: 160px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .filters-container {
+    padding: 0.5rem;
+  }
+  
+  .search-wrapper {
+    gap: 0.35rem;
+  }
+  
+  .search-bar {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .filter-toggle-btn,
+  .sort-toggle-btn {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+  }
+  
+  .sort-toggle-btn i {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== SHARED CARD COMPONENT (Discover carousels + Browse grid) =====
+   One card style used everywhere a port is shown as a tile: full-bleed
+   rounded image, single-line ellipsis title, small stats row below.
+   Layout context (flex-basis in a carousel track vs. auto width in the
+   CSS grid) is applied separately further down / in .game-grid. */
+.game-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .game-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .game-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-grid {
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Cardless, image-forward tile (Steam/Epic style): no box/shadow behind
+   the card - just the screenshot and title sitting directly on the page,
+   with the image brightening on hover instead of the whole tile scaling
+   up. Title text is unaffected on hover. */
+.pm-card {
+  position: relative;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none !important;
+  color: var(--card-text) !important;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-card:hover {
+  text-decoration: none !important;
+  color: var(--card-text) !important;
+}
+
+/* Hide everything past the default page size (100) before JS runs, so the
+   first paint only ever shows one page's worth of cards instead of all
+   ~1300+ ports briefly flashing before the pagination script hides them.
+   JS sets an explicit inline display on every card once it runs, which
+   overrides this regardless of nth-child position. */
+.game-grid .pm-card:nth-child(n+101) {
+  display: none;
+}
+
+.pm-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Consistent image aspect ratio */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+  background-color: var(--card-bg);
+}
+
+.pm-card:hover img {
+  filter: brightness(1.35);
+}
+
+.pm-card h3 {
+  margin: 0;
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-text);
+  transition: color 0.2s ease;
+}
+
+/* Ready-to-Run badge overlay (top-left corner of the card image) */
+.pm-rtr-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.12rem 0.35rem;
+  border-radius: 5px;
+  background-color: #F49519;
+  color: #ffffff;
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.pm-rtr-badge i {
+  font-size: 0.55rem;
+}
+
+/* Card Stats (Downloads & Date Added) */
+.card-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.3rem;
+  gap: 0.25rem;
+}
+
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-stat-color);
+}
+
+.card-stat i {
+  font-size: 0.7rem;
+  color: #f49519;
+  flex-shrink: 0;
+}
+
+/* Smaller font on mobile - and the date-added stat is dropped entirely
+   (downloads only) to save space; it's always the second/last stat. */
+@media (max-width: 600px) {
+  .card-stat:last-child {
+    display: none;
+  }
+
+  .card-stat {
+    font-size: 0.55rem;
+    gap: 0.15rem;
+  }
+  .card-stat i {
+    font-size: 0.6rem;
+  }
+}
+
+/* Incompatible cards - greyed out */
+.pm-card.incompatible {
+  opacity: 0.4;
+  filter: grayscale(70%);
+}
+
+.pm-card.incompatible:hover {
+  opacity: 0.6;
+  filter: grayscale(50%);
+}
+
+
+/* ===== MODAL - REDESIGNED ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.modal.show {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Porter modal content - same animation */
+.porter-modal-content {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.show .porter-modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+[data-md-color-scheme="light"] .modal-content {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .modal-content {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: #ffffff;
+  z-index: 10;
+  transition: transform 0.2s ease, color 0.2s ease;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  line-height: 1;
+}
+
+.close:hover {
+  transform: scale(1.2);
+  color: #F49519;
+}
+
+/* ===== MODAL HEADER SECTION ===== */
+.modal-header-section {
+  text-align: center;
+  padding: 2rem 2rem 1.5rem;
+}
+
+.modal-main-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #F49519;
+}
+
+.modal-screenshot-container {
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+}
+
+.modal-screenshot {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Description */
+.modal-description {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.modal-description .desc-md {
+  text-align: center;
+  display: block;
+}
+
+.modal-description .desc-md p {
+  margin: 0 0 0.75rem 0;
+}
+
+.modal-description .desc-md:empty {
+  display: none;
+}
+
+/* Download Button */
+.modal-button-container {
+  margin-top: 1rem;
+}
+
+.modal-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  height: 70px;
+  background-color: #F49519;
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  will-change: transform, background-color;
+  flex: 1;
+  min-width: 200px;
+  flex-shrink: 1;
+}
+
+.modal-download-btn:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.05);
+}
+
+/* ===== MODAL DETAILS SECTION ===== */
+.modal-details-section {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid;
+}
+
+[data-md-color-scheme="light"] .modal-details-section {
+  background-color: #f5f5f5;
+  border-top-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-details-section {
+  background-color: #252525;
+  border-top-color: #333333;
+}
+
+.modal-section-title {
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #F49519;
+  color: #F49519;
+}
+
+/* ===== INFO GRID - Icons Layout ===== */
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .modal-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Info Item - Each grid cell */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.6rem 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+[data-md-color-scheme="light"] .info-item {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .info-item {
+  background-color: #1a1a1a;
+}
+
+.info-item:hover {
+  background-color: rgba(244, 149, 25, 0.1);
+}
+
+/* Icon */
+.info-icon {
+  font-size: 1.25rem;
+  color: #F49519;
+  margin-bottom: -0.5rem;
+}
+
+/* Info Content */
+.info-content {
+  width: 100%;
+}
+
+.info-heading {
+  font-size: 0.8rem !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 0 0.1rem 0;
+  opacity: 0.7;
+}
+
+.info-value {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Info Badge */
+.info-badge {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  margin: 0.1rem;
+}
+
+[data-md-color-scheme="light"] .info-badge {
+  background-color: #e8e8e8;
+  color: #333333;
+}
+
+[data-md-color-scheme="dark"] .info-badge {
+  background-color: #333333;
+  color: #eeeeee;
+}
+
+/* ===== MODAL TEXT SECTIONS (Instructions, README) ===== */
+.modal-text-section {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid;
+  text-align: left;
+}
+
+[data-md-color-scheme="light"] .modal-text-section {
+  border-top-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-text-section {
+  border-top-color: #333333;
+}
+
+/* Alternate backgrounds for visual separation */
+.modal-text-section:nth-child(even) {
+  /* Keep same background */
+}
+
+[data-md-color-scheme="light"] .modal-text-section:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+[data-md-color-scheme="dark"] .modal-text-section:nth-child(odd) {
+  background-color: #252525;
+}
+
+/* Modal Text Content - The markdown rendered area */
+.modal-text-content {
+  text-align: left !important;
+  line-height: 1.7;
+}
+
+.modal-text-content * {
+  text-align: left !important;
+}
+
+.modal-text-content h1,
+.modal-text-content h2,
+.modal-text-content h3,
+.modal-text-content h4,
+.modal-text-content h5,
+.modal-text-content h6 {
+  text-align: left !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.modal-text-content h1:first-child,
+.modal-text-content h2:first-child,
+.modal-text-content h3:first-child {
+  margin-top: 0;
+}
+
+.modal-text-content p {
+  margin: 0 0 1rem 0;
+  text-align: left !important;
+}
+
+.modal-text-content ul,
+.modal-text-content ol {
+  text-align: left !important;
+  padding-left: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.modal-text-content li {
+  text-align: left !important;
+  margin-bottom: 0.5rem;
+}
+
+.modal-text-content pre {
+  text-align: left !important;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 0 0 1rem 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+[data-md-color-scheme="light"] .modal-text-content pre {
+  background-color: #f0f0f0;
+  border: 1px solid #dddddd;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content pre {
+  background-color: #1c1c1c;
+  border: 1px solid #333333;
+}
+
+.modal-text-content code {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+[data-md-color-scheme="light"] .modal-text-content code {
+  background-color: #e8e8e8;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content code {
+  background-color: #333333;
+}
+
+.modal-text-content pre code {
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.5;
+  background: none;
+}
+
+.modal-text-content a {
+  color: #4DBEEE;
+  text-decoration: none;
+}
+
+.modal-text-content a:hover {
+  text-decoration: underline;
+}
+
+.modal-text-content blockquote {
+  border-left: 4px solid #F49519;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.modal-text-content hr {
+  border: none;
+  height: 1px;
+  margin: 1.5rem 0;
+}
+
+[data-md-color-scheme="light"] .modal-text-content hr {
+  background-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content hr {
+  background-color: #444444;
+}
+
+/* ===== TABLES IN MODAL - card-style, no grid lines ===== */
+/* border-radius/overflow:hidden on <table> itself doesn't reliably clip
+   cell backgrounds across browsers, so JS wraps every table in a
+   .table-wrap div (see wrapTables() in port-page.js / all-games.md) and
+   the rounding + outer border live on that div instead. */
+.table-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, #cccccc);
+  margin: 1rem 0;
+}
+
+.modal-text-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  display: table !important;
+  table-layout: auto;
+}
+
+.modal-text-content thead {
+  text-align: left !important;
+}
+
+.modal-text-content th,
+.modal-text-content td {
+  text-align: left !important;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--card-border, #cccccc);
+}
+
+.modal-text-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.modal-text-content th {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background-color: rgba(244, 149, 25, 0.08);
+  color: #F49519;
+}
+
+.modal-text-content tbody tr:hover {
+  background-color: rgba(244, 149, 25, 0.05);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 600px) {
+  .modal {
+    padding: 1rem 0.5rem;
+  }
+  
+  .modal-content {
+    border-radius: 12px;
+  }
+  
+  .modal-header-section {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .modal-main-title {
+    font-size: 1.5rem;
+  }
+  
+  .modal-details-section,
+  .modal-text-section {
+    padding: 1rem;
+  }
+  
+  .modal-section-title {
+    font-size: 1.1rem;
+  }
+  
+  .close {
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 2rem;
+  }
+  
+  .modal-download-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* ===== REMOVE OLD CONFLICTING STYLES ===== */
+/* These ensure the new modal styles take precedence */
+.modal-content img:not(.modal-screenshot) {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.markdown-content {
+  text-align: left !important;
+}
+
+/* Ensure desc-md and inst-md are left aligned */
+.desc-md,
+.inst-md,
+.readme-content {
+  text-align: left !important;
+}
+
+/* Override any center alignment from parent */
+.modal-text-content,
+.modal-text-content * {
+  text-align: left !important;
+}
+
+/* Exception for the description in header which should stay centered */
+.modal-header-section .modal-description,
+.modal-header-section .modal-description .desc-md,
+.modal-header-section .modal-description .desc-md * {
+  text-align: center !important;
+}
+
+/* ===== STANDALONE PORT PAGE (/port/#<id>) ===== */
+/* The .port-hero / .port-body / .port-stat-pills / etc. classes below are
+   also reused inside the #portModal on /all-games/, so the quick modal
+   preview and the full standalone page always look identical. */
+.port-page {
+  max-width: 900px;
+  margin: 0.75rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.port-page-content {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="light"] .port-page-content {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .port-page-content {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+/* ===== Shared hero/body layout (port page + modal) ===== */
+.port-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.port-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.port-hero-back {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+  z-index: 2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.port-hero-back:hover {
+  background-color: rgba(244, 149, 25, 0.9);
+  transform: scale(1.08);
+}
+
+.port-body {
+  padding: 1.75rem 2rem 0.5rem;
+}
+
+.port-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--card-text);
+}
+
+.port-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.port-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 14px;
+  background-color: rgba(244, 149, 25, 0.1);
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+
+.port-stat-pill i {
+  font-size: 1.1rem;
+  color: #F49519;
+  flex-shrink: 0;
+}
+
+.port-stat-pill--warn {
+  background-color: rgba(136, 136, 136, 0.12);
+}
+
+.port-stat-pill--warn i {
+  color: var(--card-stat-color, #888888);
+}
+
+.port-stat-pill div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.port-stat-value {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.port-stat-label {
+  font-size: 0.7rem;
+  color: var(--card-stat-color, #888888);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ===== Device compatibility button (port page + modal) ===== */
+.device-chip-wrapper {
+  position: relative;
+}
+
+.device-chip-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--card-stat-color, #888888);
+  border: 2px solid var(--card-bg);
+  opacity: 0;
+}
+
+.device-chip-dot.is-compatible,
+.device-chip-dot.is-incompatible {
+  opacity: 1;
+}
+
+.device-chip-dot.is-compatible {
+  background-color: #2fb344;
+}
+
+.device-chip-dot.is-incompatible {
+  background-color: #dc3545;
+}
+
+.device-chip-popover {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  min-width: 260px;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--card-border, #cccccc);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+[data-md-color-scheme="light"] .device-chip-popover {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .device-chip-popover {
+  background-color: #232323;
+}
+
+.device-chip-popover label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--card-stat-color, #888888);
+  margin-top: 0.4rem;
+}
+
+.device-chip-popover label:first-child {
+  margin-top: 0;
+}
+
+.device-chip-popover select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  font-size: 0.85rem;
+}
+
+.device-chip-popover select:disabled {
+  opacity: 0.5;
+}
+
+.device-chip-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.device-chip-hint.is-incompatible {
+  color: #dc3545;
+}
+
+.device-chip-hint.is-compatible {
+  color: #2fb344;
+}
+
+.port-description {
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--card-text);
+  margin-bottom: 1.25rem;
+}
+
+.port-description p {
+  margin: 0 0 0.75rem 0;
+}
+
+.port-description:empty {
+  display: none;
+  margin: 0;
+}
+
+.port-store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.port-store-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 70px;
+  padding: 0 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: transparent;
+  color: var(--card-text) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.port-store-link i {
+  font-size: 1.1rem;
+}
+
+.port-store-link:hover {
+  border-color: #F49519;
+  color: #F49519 !important;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+.port-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 1.75rem;
+}
+
+/* Full-bleed "no box" treatment - covers phones AND tablets (iPad
+   portrait is ~768-834px, well above the old 600px cutoff, which is why
+   it still looked boxed there). This is purely about shape/edges, so it's
+   split from the phone-only typography tweaks below. */
+@media (max-width: 900px) {
+  /* The theme's own .md-content__inner keeps a small reading-column gutter
+     (margin: 0 .8rem 1.2rem, padding-top: .6rem) no matter what our own
+     page does, so we cancel that out here to actually reach the true
+     screen edges instead of floating a smaller box inside it. */
+  .port-page {
+    margin: 0 -0.8rem -1.2rem;
+    padding: 0;
+    max-width: none;
+  }
+
+  .md-content__inner:has(.port-page) {
+    padding-top: 0;
+  }
+
+  /* .md-main__inner carries the theme's standard 1.5rem gap between the
+     header and the content area site-wide - that's the bulk of the "grey
+     bar" gap above the hero image. Cancel it only when a port-page is
+     the content being shown. */
+  .md-main__inner:has(.port-page) {
+    margin-top: 0;
+  }
+
+  .port-page-content {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: calc(100vh - 112px);
+  }
+}
+
+@media (max-width: 600px) {
+  .port-body {
+    padding: 1.25rem 1.25rem 0.25rem;
+  }
+
+  .port-title {
+    font-size: 1.5rem;
+  }
+
+  .port-stat-pills {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+  }
+
+  .port-stat-pill {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0.4rem 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .port-stat-pill i {
+    font-size: 0.95rem;
+  }
+
+  .port-stat-value {
+    font-size: 0.78rem;
+  }
+
+  .port-stat-label {
+    font-size: 0.6rem;
+  }
+
+  .port-actions {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+  }
+
+  .modal-download-btn {
+    padding: 0 1rem;
+    min-width: 0;
+    height: 52px;
+    font-size: 0.95rem;
+  }
+
+  .share-btn,
+  .device-filter-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .share-btn i,
+  .device-filter-btn i {
+    font-size: 1.2rem;
+  }
+
+  .port-store-link {
+    height: 52px;
+    padding: 0 0.6rem;
+  }
+
+  .port-store-link .port-store-label {
+    display: none;
+  }
+
+  .device-chip-popover {
+    left: auto;
+    right: 0;
+    transform: none;
+    min-width: 240px;
+    max-width: calc(100vw - 2.5rem);
+  }
+}
+
+.port-page-loading,
+.port-page-not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ===== DOWNLOAD WARNING ===== */
+.download-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+  background-color: rgba(244, 149, 25, 0.15);
+  color: #F49519;
+  border: 2px solid #F49519;
+}
+
+/* Error state for incompatible downloads */
+.download-warning.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.download-warning.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.download-warning i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+
+/* ===== DOWNLOAD ACTIONS (Button Group) ===== */
+.download-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Device Filter Button - matches .share-btn's neutral ghost style */
+.device-filter-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex-shrink: 0;
+}
+
+.device-filter-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.device-filter-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.device-filter-btn:hover i {
+  color: #F49519;
+}
+
+/* Share Button */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex-shrink: 0;
+}
+
+.share-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.share-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.share-btn:hover i {
+  color: #F49519;
+}
+
+@media (max-width: 480px) {
+  .download-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .modal-download-btn {
+    width: 100%;
+  }
+  
+  .device-filter-btn,
+  .share-btn {
+    width: 100%;
+  }
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #F49519;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.1);
+}
+
+.back-to-top.visible:hover {
+  transform: translateY(0) scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ===== PORTS CAROUSEL =====
+   Nav arrows live in the section header (top-right), the "See All" link is
+   an inline chevron right next to the title, and the row fills the full
+   available content width - matches the Steam/Epic store reference. No
+   dot pagination; the header arrows are the only navigation. */
+.carousel-container {
+  position: relative;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 0.85rem;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.25rem 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Carousel-only sizing: the shared .pm-card look (image, title, badge,
+   stats) is defined once, above, and applies here unchanged - only the
+   flex-basis differs from the grid context. */
+.carousel-track .pm-card {
+  flex: 0 0 195px;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.carousel-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.carousel-btn {
+  position: static;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.16);
+  padding: 0;
+  color: var(--card-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-md-color-scheme="dark"] .carousel-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.carousel-btn:hover {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+.carousel-btn i {
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .featured-category {
+    padding: 0 0.5rem;
+  }
+
+  .carousel-track {
+    gap: 0.5rem;
+  }
+
+  .carousel-track .pm-card {
+    flex: 0 0 145px;
+  }
+
+  .carousel-track .pm-card h3 {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-category {
+    padding: 0 0.35rem;
+  }
+
+  .carousel-track {
+    gap: 0.4rem;
+  }
+
+  .carousel-track .pm-card {
+    flex: 0 0 125px;
+  }
+
+  .carousel-track .pm-card h3 {
+    font-size: 0.68rem;
+  }
+
+  .carousel-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== PORTERS PAGE ===== */
+.porters-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.porters-header h1 {
+  color: #F49519;
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+}
+
+.porters-subtitle {
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+}
+
+.porters-search-wrapper {
+  max-width: 400px;
+  margin: 0 auto 1rem;
+}
+
+.porters-search {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  transition: border-color 0.2s ease;
+}
+
+.porters-search:focus {
+  outline: none;
+  border-color: #F49519;
+}
+
+/* ===== VIEW TOGGLE (Grid / List) ===== */
+.view-toggle-wrapper {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, #cccccc);
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  color: var(--card-stat-color, #888888);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn i {
+  font-size: 1.1rem;
+}
+
+.view-toggle-btn:hover {
+  background-color: rgba(244, 149, 25, 0.08);
+  color: #F49519;
+}
+
+.view-toggle-btn.active {
+  background-color: rgba(244, 149, 25, 0.12);
+  color: #F49519;
+}
+
+@media (max-width: 480px) {
+  .view-toggle-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ===== LIST VIEW ===== */
+.game-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+  gap: 0.6rem;
+}
+
+.game-grid.list-view .pm-card {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  gap: 1rem;
+}
+
+.game-grid.list-view .pm-card img {
+  width: 110px;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0;
+}
+
+.game-grid.list-view .pm-card h3 {
+  font-size: 0.95rem;
+  flex-grow: 1;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.game-grid.list-view .card-stats {
+  width: auto;
+  flex-shrink: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  gap: 0.75rem;
+}
+
+.game-grid.list-view .card-stat {
+  font-size: 0.75rem;
+}
+
+.game-grid.list-view .card-stat i {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .game-grid.list-view .pm-card {
+    padding: 0.5rem 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .game-grid.list-view .pm-card img {
+    width: 72px;
+  }
+
+  .game-grid.list-view .pm-card h3 {
+    font-size: 0.75rem;
+  }
+
+  .game-grid.list-view .card-stats {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+}
+
+/* ===== PAGINATION ===== */
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 1rem auto 2rem;
+  padding: 1rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pagination-info {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.pagination-nav-btn,
+.pagination-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.5rem;
+  background-color: transparent;
+  color: var(--md-default-fg-color);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.pagination-nav-btn {
+  color: #F49519;
+}
+
+.pagination-nav-btn:hover:not(:disabled),
+.pagination-page-btn:hover:not(.active) {
+  background-color: rgba(244, 149, 25, 0.15);
+}
+
+.pagination-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pagination-page-btn.active {
+  background-color: #F49519;
+  border-color: #F49519;
+  color: #ffffff;
+}
+
+.pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  color: var(--md-default-fg-color--light);
+}
+
+.page-size-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.page-size-select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 2px solid #F49519;
+  font-size: 0.85rem;
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .pagination-container {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .pagination-info {
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ===== FEATURED CAROUSEL SECTIONS (games.md) ===== */
+.featured-category {
+  margin: 1.5rem auto;
+  padding: 0 0.5rem;
+}
+
+.featured-category--first {
+  margin-top: 0;
+}
+
+/* Intro-only header (no carousel of its own) used by multi-group
+   categories like "Ready to Run" / "Premium Games". */
+.featured-category-header {
+  margin: 0 0 0.35rem;
+}
+
+.featured-category-header h1 {
+  font-size: 1.15rem;
+  margin: 0 0 0.15rem 0;
+  color: var(--card-text);
+}
+
+.featured-category-header h1 i {
+  color: #F49519;
+}
+
+.featured-category-header p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.featured-group {
+  margin: 1rem 0;
+}
+
+/* Unified header row for every carousel (standalone or nested group):
+   title + inline "See All" chevron on the left, prev/next arrows on the
+   right - matches the Steam/Epic store reference layout. */
+.carousel-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.4rem;
+}
+
+.carousel-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.carousel-section-title h1,
+.carousel-section-title h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carousel-section-title h1,
+.carousel-section-title h2 {
+  color: var(--card-text);
+}
+
+.carousel-section-title h2 {
+  font-size: 0.95rem;
+}
+
+/* "See All" sits at the start of the flexible nav area (or right next to
+   a plain section title, e.g. "Browse by Genre"), reading as part of the
+   heading, like Epic's "Top New Releases >" link. !important is needed:
+   the theme's own ".md-typeset a" link-color rule outranks a single class
+   selector, which is why this was rendering theme-blue instead of
+   white/grey - a plain ".see-all-inline" selector (not scoped to
+   ".carousel-nav") so it's fixed everywhere the class is used, not just
+   inside carousel headers. */
+.see-all-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--card-text) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.see-all-inline:hover {
+  color: #F49519 !important;
+  transform: translateX(2px);
+}
+
+.see-all-inline i {
+  font-size: 0.85rem;
+}
+
+/* The "See All" label stays in the markup (a bare icon-only link, with no
+   other text, previously sent mkdocs's md_in_html markdown extension into
+   a multi-minute pathological parse - see games.md) but is hidden
+   visually here, leaving just the arrow. */
+.see-all-inline .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== GAMES PAGE: TOP BAR (search + Discover/Browse tabs) =====
+   Modeled on the Steam/Epic store header: a modest-width search box with
+   plain text tabs immediately beside it, left-aligned - not a full-width
+   search bar with a separate pill switcher off to the side. */
+.games-topbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  margin: 0 auto 20px;
+  box-sizing: border-box;
+}
+
+.games-search-wrapper {
+  position: relative;
+  flex: 0 1 200px;
+  min-width: 0;
+}
+
+.games-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--card-stat-color, #888888);
+  pointer-events: none;
+}
+
+.games-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 10px 7px 30px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  outline: none;
+}
+
+[data-md-color-scheme="light"] .games-search-input {
+  background-color: #ebebeb;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .games-search-input {
+  background-color: #2b2e33;
+  color: #eeeeee;
+}
+
+.games-search-input::placeholder {
+  color: var(--card-stat-color, #888888);
+}
+
+.games-view-switcher {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.games-view-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--card-stat-color, #888888);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.games-view-btn:hover {
+  color: var(--card-text);
+}
+
+.games-view-btn.active {
+  color: var(--card-text);
+  font-weight: 700;
+}
+
+.games-view {
+  display: none;
+}
+
+.games-view.active {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .games-topbar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .games-search-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .games-view-switcher {
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+/* ===== DISCOVER VIEW: Ready to Run spotlight =====
+   A neutral grey card (like Epic's "Free Games" box). ".rtr-spotlight" is
+   applied to the SAME element as ".featured-category" (not a child of
+   it), so its outer edges already align with every other carousel
+   section for free. It adds a little extra side padding of its own on
+   top of that (content ends up very slightly narrower than the plain
+   sections) purely for card breathing room - the outer box position is
+   unaffected either way. */
+.rtr-spotlight {
+  box-sizing: border-box;
+  padding-top: 1.1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+[data-md-color-scheme="dark"] .rtr-spotlight {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+  .rtr-spotlight {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rtr-spotlight {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    border-radius: 14px;
+  }
+}
+
+/* ===== BROWSE VIEW: Genre tiles ===== */
+.genre-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .genre-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .genre-tiles {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Below 600px: a horizontally-swipeable, 3-row-tall grid instead of a
+   long wrapping list - swipe left/right to see the rest of the genres.
+   grid-template-columns must be explicitly cleared here: left at the
+   base rule's "repeat(2, 1fr)", the first two auto-flow columns would
+   still use that (splitting the container 50/50) while the rest used
+   grid-auto-columns, producing wildly inconsistent tile widths - some
+   near 0. .genre-tile's height also needs !important since the base,
+   unconditional "height: 90px" rule below this in the file otherwise
+   wins on equal specificity (source order), overflowing the 72px row
+   track and making tiles overlap/scroll vertically. */
+@media (max-width: 600px) {
+  .genre-tiles {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, 72px);
+    grid-auto-columns: 130px;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .genre-tiles::-webkit-scrollbar {
+    display: none;
+  }
+
+  .genre-tile {
+    height: 100% !important;
+  }
+}
+
+.genre-tile {
+  position: relative;
+  height: 90px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.genre-tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.genre-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72), rgba(0,0,0,0.15));
+}
+
+.genre-tile span {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.55rem;
+  z-index: 1;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.genre-tile.active {
+  outline: 3px solid #F49519;
+  outline-offset: -3px;
+}
+
+@media (max-width: 400px) {
+  .genre-tile span {
+    font-size: 0.7rem;
+  }
+}
+
+/* ===== BROWSE VIEW: sidebar (desktop) / drawer (mobile) filter layout =====
+   Same .filter-panel markup and JS everywhere - only its CSS positioning
+   changes by breakpoint. Below ~900px it keeps the original fixed
+   slide-out drawer behavior (defined earlier in this file) unchanged. */
+.games-layout {
+  display: block;
+  width: 100%;
+}
+
+.games-main {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .games-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .games-main {
+    order: 1;
+  }
+
+  /* Promote the drawer into a static sidebar column */
+  .games-layout .filter-panel {
+    position: static;
+    order: 2;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    right: auto;
+    box-shadow: none;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: none;
+  }
+
+  [data-md-color-scheme="light"] .games-layout .filter-panel {
+    border: 1px solid #c4c4c4;
+  }
+
+  [data-md-color-scheme="dark"] .games-layout .filter-panel {
+    border: 1px solid #333333;
+  }
+
+  .games-layout .filter-overlay {
+    display: none;
+  }
+
+  .games-layout .close-panel-btn {
+    display: none;
+  }
+
+  /* No slide-out to trigger once the panel is a permanent sidebar column */
+  .games-layout .filter-toggle-btn {
+    display: none;
+  }
+}
+
+/* ===== DISCOVER VIEW: Hero banner =====
+   Auto-rotating spotlight (Port of the Month / Most Downloaded / etc.) with
+   a big image+text card on the left and a 5-item pill list on the right;
+   the active pill fills with a timed progress bar and auto-advances. */
+.hero-banner {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: stretch;
+}
+
+.hero-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 2 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+/* Back to the original approach: the screenshot is a plain CSS background
+   (background-size:cover), which always fills the box's full height and
+   width by definition - no separate <img> sizing/specificity fight needed. */
+/* Quick slide-in-from-the-left + fade (not a slow crossfade) each time a
+   new slide becomes active. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-40px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+}
+
+.hero-slide.active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Bottom scrim fading to grey (the same --card-bg tone as every other
+   card), not pure black, so text sits on a readable panel at the bottom
+   of the image. */
+/* No background scrim - text sits directly on the image, readable via
+   text-shadow instead of a fade panel. */
+.hero-slide-overlay {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2rem 2rem 1.75rem;
+}
+
+.hero-slide-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.18);
+  color: var(--card-text);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.hero-slide-status--rtr {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+.hero-slide-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.hero-slide-desc {
+  margin: 0 0 0.85rem;
+  max-width: 33%;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #e2e2e2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+.hero-slide-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.hero-download-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.25rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111111 !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-download-btn:hover {
+  background-color: #eeeeee;
+  transform: translateY(-1px);
+}
+
+.hero-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffffff !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hero-details-link:hover {
+  color: #F49519 !important;
+}
+
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 0 0 260px;
+}
+
+/* Only the active pill gets a box at all - the rest sit as plain text so
+   the grey highlight (filled in over time by .hero-pill-progress) is the
+   one clear "this is current" signal, no orange involved. */
+.hero-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--card-text);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1;
+}
+
+.hero-pill-thumb {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 52px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.hero-pill.active {
+  background-color: rgba(128, 128, 128, 0.14);
+}
+
+[data-md-color-scheme="dark"] .hero-pill.active {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.hero-pill-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background-color: rgba(128, 128, 128, 0.22);
+  z-index: 0;
+}
+
+[data-md-color-scheme="dark"] .hero-pill-progress {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-pill-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.hero-pill-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes heroPillFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .hero-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Full-bleed to the true screen edges instead of sitting inside
+     .featured-category's side padding - on a narrow phone that padding
+     was eating enough width to make the (still 2:1) box look narrow and
+     small rather than wide. Aspect ratio itself is unchanged so it still
+     matches the hand-supplied 2:1 hero art exactly. */
+  .hero-banner {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  /* No min-height override here - let aspect-ratio:2/1 size the box off
+     the (now much wider, edge-to-edge) mobile width instead of forcing a
+     tall fixed floor that made the whole banner dominate the screen. */
+  .hero-slide-status {
+    font-size: 0.45rem;
+    padding: 0.1rem 0.35rem;
+    margin-bottom: 0.3rem;
+    gap: 0.2rem;
+  }
+
+  .hero-slide-status i {
+    font-size: 0.6rem;
+  }
+
+  .hero-slide-title {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .hero-slide-desc {
+    display: none;
+  }
+
+  .hero-slide-actions {
+    gap: 0.5rem;
+  }
+
+  .hero-download-btn {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.55rem;
+  }
+
+  .hero-details-link {
+    font-size: 0.5rem;
+  }
+
+  .hero-details-link i {
+    font-size: 0.5rem;
+  }
+
+  .hero-slide-overlay {
+    padding: 0.7rem 0.6rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner {
+    margin-left: -0.35rem;
+    margin-right: -0.35rem;
+  }
+}
+
