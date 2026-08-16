@@ -388,12 +388,13 @@ def define_env(env):
     env.variables["sorted_orders"] = sorted_orders
 
     # ===== Discover hero banner =====
-    # Preferred: a manually curated list (featured_ports.json's "hero" node),
-    # each with a hand-supplied 21:9 image dropped in
+    # Preferred: whichever ports have a hand-supplied 21:9 image dropped in
     # docs/assets/images/hero/<port_id>.{jpg,png,webp} - screenshots/cover
-    # art don't crop well into a wide hero card. Falls back to an
-    # auto-computed set (still true if no hero node/images exist yet) so
-    # the banner never just breaks.
+    # art don't crop well into a wide hero card. The image filename (minus
+    # extension) is the port id, so dropping/removing a file is all that's
+    # needed to add/remove a hero slide - no JSON list to keep in sync.
+    # Falls back to an auto-computed set (still true if no hero images exist
+    # yet) so the banner never just breaks.
     HERO_DESC_MAX_LEN = 110
     HERO_IMAGE_DIR = base_path.parent / "images" / "hero"
     HERO_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"]
@@ -438,18 +439,32 @@ def define_env(env):
     hero_used = set(HERO_EXCLUDE_KEYS)
     hero_slides = []
 
+    # Optional labels (e.g. "Community Favorite") still come from
+    # featured_ports.json's "hero" node, keyed by port id, but the node no
+    # longer decides *which* ports show up - the image directory does.
     hero_node = next(
         (n for n in featured_ports_raw if n.get("type") == "hero" and not n.get("deprecated")),
         None,
     )
+    hero_labels = {}
     if hero_node:
         for entry in hero_node.get("ports", []):
             key = entry.get("key") if isinstance(entry, dict) else entry
             label = entry.get("label", "") if isinstance(entry, dict) else ""
-            if not key or key not in merged_ports["ports"] or key in hero_used:
+            if key:
+                hero_labels[key.replace(".zip", "")] = label
+
+    if HERO_IMAGE_DIR.exists():
+        image_port_ids = sorted({
+            f.stem for f in HERO_IMAGE_DIR.iterdir()
+            if f.is_file() and f.suffix.lower() in HERO_IMAGE_EXTENSIONS
+        })
+        for port_id in image_port_ids:
+            key = f"{port_id}.zip"
+            if key not in merged_ports["ports"] or key in hero_used:
                 continue
             hero_used.add(key)
-            hero_slides.append(build_hero_slide(label, key))
+            hero_slides.append(build_hero_slide(hero_labels.get(port_id, ""), key))
 
     if not hero_slides:
         def pick_top_excluding(candidate_keys):

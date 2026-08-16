@@ -2,18 +2,18 @@
     {
         "name": "Hero Spotlight",
         "type": "hero",
-        "description": "Hand-picked spotlight slides for the /games/ hero banner, with hand-supplied 21:9 art (see docs/assets/images/hero/<port_id>.jpg) instead of the port screenshot.",
+        "description": "Optional labels for the /games/ hero banner. Which ports actually show up is auto-detected from docs/assets/images/hero/<port_id>.{jpg,png,webp} - drop or remove an image there to add or remove a slide.",
         "ports": [
             {
-                "key": "half-life.zip",
-                "label": "Community Favorite"
+                "key": "balatro.zip",
+                "label": "Featured Pick"
             },
             {
                 "key": "stardewvalley.zip",
                 "label": "Most Downloaded"
             },
             {
-                "key": "apotris.zip",
+                "key": "limbo.zip",
                 "label": "Top Ready to Run"
             },
             {
@@ -22,7 +22,7 @@
             },
             {
                 "key": "celeste.zip",
-                "label": "Featured Pick"
+                "label": "Community Favorite"
             }
         ]
     },

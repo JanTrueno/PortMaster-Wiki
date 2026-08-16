@@ -56,11 +56,8 @@ search:
         </div>
       </div>
 
-      <div class="port-description" id="port-desc"></div>
-
-      <div class="port-actions">
+      <div class="port-actions-primary">
         <a href="#" class="modal-download-btn" id="port-download-btn">Download</a>
-        <div class="port-store-links" id="port-store-links" style="display:none"></div>
         <div class="device-chip-wrapper">
           <button type="button" class="device-filter-btn" id="device-chip-btn" title="Check compatibility with your device">
             <span class="device-chip-dot" id="device-chip-dot"></span>
@@ -78,6 +75,12 @@ search:
             <p class="device-chip-hint" id="device-chip-hint"></p>
           </div>
         </div>
+      </div>
+
+      <div class="port-description" id="port-desc"></div>
+
+      <div class="port-actions-secondary">
+        <div class="port-store-links" id="port-store-links" style="display:none"></div>
         <button class="share-btn" id="port-share-btn" title="Share port" type="button">
           <i class="bi bi-share"></i>
         </button>

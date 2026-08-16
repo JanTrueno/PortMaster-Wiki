@@ -755,7 +755,7 @@
       "attr": {
         "title": "Absolute Reflex",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Absolute Reflex is a Classic Bullet Hell showdown, but you can STOP TIME at any point and TELEPORT to safety! Though if you want to try for the score, refrain yourself.",
         "inst": "Download the game from https://jukio.itch.io/absolute-reflex and copy the exe file into the port folder.",
@@ -781,11 +781,11 @@
       },
       "source": {
         "date_added": "2024-05-29",
-        "date_updated": "2025-10-04",
-        "md5": "5d53324206475f4f0b4c94a7d21d7340",
-        "release_id": "2025-10-04_1030",
-        "size": 2902991,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/absolutereflex.zip"
+        "date_updated": "2026-08-13",
+        "md5": "ba163a3d0d5a6693e16735ad7817e1b7",
+        "release_id": "2026-08-13_2211",
+        "size": 2902992,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/absolutereflex.zip"
       }
     },
     "profadeluxe.zip": {
@@ -1322,6 +1322,102 @@
         "release_id": "2024-12-16_1130",
         "size": 100131846,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-12-16_1130/alephone-marathoninfinity.zip"
+      }
+    },
+    "alex1.zip": {
+      "version": 4,
+      "name": "alex1.zip",
+      "items": [
+        "Alex the Allegator 1.sh",
+        "alex1"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Alex the Allegator 1",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A very short Allegro-powered platform game for one or two players. Jump around the short level and try to find your dreamgirl Lola.",
+        "desc_md": "A very short platform game by Johan Peitz, made for the 1999 \"Allegro Speedhack\" jam. Jump around the level as Alex and try to find your dreamgirl Lola. Unfinished by the author's own admission, but playable start to finish.",
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "weston_pkg_0.2"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-13",
+        "date_updated": "2026-08-13",
+        "md5": "f5883fb93a44c35a31c2badaf113c79d",
+        "size": 26831934,
+        "release_id": "2026-08-13_2211",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/alex1.zip"
+      }
+    },
+    "alex2.zip": {
+      "version": 4,
+      "name": "alex2.zip",
+      "items": [
+        "Alex the Allegator 2.sh",
+        "alex2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Alex the Allegator 2",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A mouse-driven puzzle game for one or two players. Place and slide tokens on the board to clear your own color, but watch your score - you need the higher one to win.",
+        "desc_md": "A mouse-driven puzzle game by [Johan Peitz](http://allegator.sourceforge.net/), made for the 2001 \"Allegro Speedhack\" jam. Place your tokens on the board or slide a row/column in turn, trying to wipe the board of your own color while keeping the higher score. Watch out for the gray stone tokens, and use the yellow multi-tokens wisely.",
+        "inst": "Ready to run. Entirely mouse-driven - the left stick moves a cursor and A clicks. Two-player works fine on one controller since both players share the same cursor in turn.",
+        "inst_md": null,
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "weston_pkg_0.2"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-13",
+        "date_updated": "2026-08-13",
+        "md5": "8ae7ff6ab953a121487565ebfb0ba570",
+        "size": 26885704,
+        "release_id": "2026-08-13_2211",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/alex2.zip"
       }
     },
     "alicecliche.zip": {
@@ -1987,7 +2083,7 @@
         "title": "Angband",
         "porter": [
           "Cebion",
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Angband is a free, single-player dungeon exploration game.\nYou play an adventurer seeking riches, fighting monsters, and preparing for a final battle with Morgoth, the Lord of Darkness.",
         "inst": "Game files are already included. Controls are rather complex, make sure to read the control sheet on our website carefully.",
@@ -2015,11 +2111,11 @@
       },
       "source": {
         "date_added": "2024-03-18",
-        "date_updated": "2025-05-21",
-        "md5": "b038926e8cab4dc185e3790514af0f80",
-        "release_id": "2025-05-21_0130",
+        "date_updated": "2026-08-13",
+        "md5": "116c39c717012f6790fced6c8aa0d1ef",
+        "release_id": "2026-08-13_2211",
         "size": 24285825,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-21_0130/angband.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/angband.zip"
       }
     },
     "annalynn.zip": {
@@ -2837,7 +2933,7 @@
       "attr": {
         "title": "Arkovs Tower",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "This roguelike puts you in the shoes of an unnamed adventurer who just woke up on the top level of Arkov's Tower. Try to fight your way down and escape it - or die trying. Move your player trough numerous procedural generated levels. Fight numerous enemies including some unique bosses. The turn based combat system allows you to take your time and plan every move carefully. Upgrade your character with all sorts of items found in chests or dropped by enemies. This game is highly customizable for people with pixel art and/or programming experience.",
         "inst": "Includes the Arkovs Tower Prologue version.  If you enjoy the game, please consider adding the full version to your steam wishlist: https://store.steampowered.com/app/2876720/Descent_from_Arkovs_Tower/",
@@ -2865,11 +2961,11 @@
       },
       "source": {
         "date_added": "2024-04-25",
-        "date_updated": "2025-10-04",
-        "md5": "91c6571b86197514fd0aa9757bdec751",
-        "release_id": "2025-10-04_1030",
-        "size": 20436533,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/arkovstower.zip"
+        "date_updated": "2026-08-13",
+        "md5": "03ca0bce20254a9889ee79afb70a557a",
+        "release_id": "2026-08-13_2211",
+        "size": 20436534,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/arkovstower.zip"
       }
     },
     "armagetronad.zip": {
@@ -3692,10 +3788,11 @@
       "attr": {
         "title": "Balatro",
         "porter": [
-          "nkahoang"
+          "nkahoang",
+          "Guandor"
         ],
         "desc": "Balatro is a poker-inspired roguelike deck builder all about creating powerful synergies and winning big.",
-        "inst": "Purchase the game from Steam: https://store.steampowered.com/app/2379780/Balatro/. On macOS, grab this Balatro.love file (~/Library/Application Support/Steam/steamapps/common/Balatro/Balatro.app/Contents/Resources/Balatro.love) and put into the balatro folder. On Windows, simply copy Balatro.exe to the balatro folder.",
+        "inst": "Purchase the game from Steam: https://store.steampowered.com/app/2379780/Balatro/. On macOS, copy Balatro.love from Balatro.app/Contents/Resources into the balatro folder. On Windows, copy Balatro.exe into the balatro folder.",
         "genres": [
           "casino/card",
           "puzzle"
@@ -3722,11 +3819,11 @@
       },
       "source": {
         "date_added": "2024-04-01",
-        "date_updated": "2025-04-03",
-        "md5": "cef01c4cc7a9083c175f22303be9da58",
-        "release_id": "2025-04-03_1456",
-        "size": 6005067,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-04-03_1456/balatro.zip"
+        "date_updated": "2026-08-05",
+        "md5": "5f3020decc11fe0b95eef33b74d3d4da",
+        "release_id": "2026-08-05_0732",
+        "size": 1495043,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/balatro.zip"
       }
     },
     "banana.duck.zip": {
@@ -6184,7 +6281,7 @@
       "attr": {
         "title": "BLUE REVOLVER",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "BLUE REVOLVER is a fresh new shoot-em-up built for newcomers and psychos alike. An adaptive difficulty system tailors the game to your skill level as you fight and flourish to evade the maniac environmental force, Blue Revolver!",
         "inst": "Download the game from https://store.steampowered.com/app/439490/BLUE_REVOLVER/ and copy the .exe or .love file into the port (bluerevolver) folder. Switch to the [1.12 - Old pre-DA version] in steam betas, as that is the only version supported for now. First run will take a few minutes to patch the game. Also you will need to have around 1.5 gb of free space for patching (additional space is needed only for patching on first run).",
@@ -6212,11 +6309,11 @@
       },
       "source": {
         "date_added": "2024-06-11",
-        "date_updated": "2025-10-04",
-        "md5": "c9a96f8668179c65ab61f84134e4fb71",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "33043bced83c95fc237eb7577d5e943e",
+        "release_id": "2026-08-13_2211",
         "size": 164801734,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/bluerevolver.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/bluerevolver.zip"
       }
     },
     "blues.brothers.zip": {
@@ -7252,7 +7349,7 @@
       "attr": {
         "title": "Brogue",
         "porter": [
-          "Troidem",
+          "mxmgorin",
           "Cebion"
         ],
         "desc": "Brogue is a single-player strategy game set in the halls of a mysterious and randomly-generated dungeon. The objective is simple enough -- retrieve the fabled Amulet of Yendor from the 26th level -- but the dungeon is riddled with danger.",
@@ -7279,11 +7376,11 @@
       },
       "source": {
         "date_added": "2023-10-14",
-        "date_updated": "2025-10-04",
-        "md5": "da47aece61a8e4c3174b1dcdd21fd63b",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "db7fe05f4867e9048b9a202e1889fe05",
+        "release_id": "2026-08-13_2211",
         "size": 966881,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/brogue.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/brogue.zip"
       }
     },
     "brokenpipes.zip": {
@@ -7959,7 +8056,7 @@
       "attr": {
         "title": "BYTEPATH",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "BYTEPATH is a retro-inspired arcade game that combines fast-paced action with strategic skill-building. Players navigate through procedurally generated levels, battling waves of enemies while upgrading their ship and unlocking powerful abilities. With its pixel art aesthetics and challenging gameplay, BYTEPATH offers a nostalgic yet fresh experience for fans of classic arcade shooters.",
         "inst": "All files are included. If you like the game, consider supporting the developer by purchasing it from https://store.steampowered.com/app/760330/BYTEPATH.",
@@ -7986,11 +8083,11 @@
       },
       "source": {
         "date_added": "2024-05-20",
-        "date_updated": "2025-08-14",
-        "md5": "1f25354cbd06c9f472b75f54cb2d1b0a",
-        "release_id": "2025-08-14_1207",
-        "size": 56749561,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-14_1207/bytepath.zip"
+        "date_updated": "2026-08-13",
+        "md5": "99d7f14f7d6988d5a610aa38c0c72c82",
+        "release_id": "2026-08-13_2211",
+        "size": 56749563,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/bytepath.zip"
       }
     },
     "bzflag.zip": {
@@ -8577,8 +8674,8 @@
         "date_added": "2026-07-26",
         "date_updated": "2026-07-26",
         "md5": "adbfe59c61616e08e2120314fd8fe517",
-        "size": 5772246,
         "release_id": "2026-07-26_1858",
+        "size": 5772246,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/candycrisis.zip"
       }
     },
@@ -8734,7 +8831,7 @@
       "attr": {
         "title": "Cards with Personalities",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Single-player deck-building game full of charm! This deck-building game is trying to be accessible for both newcomers and veterans to the genre, with simple controls and clear rules. Still, each turn needs to be thought-out to beat the charming bosses!",
         "inst": "Purchase and download the game https://store.steampowered.com/app/2147020/Cards_with_Personalities/ and copy the exe file into the port folder.",
@@ -8760,11 +8857,11 @@
       },
       "source": {
         "date_added": "2024-04-26",
-        "date_updated": "2025-10-04",
-        "md5": "0990ae9ca6fcfb45bbdd3ef6818ca7e7",
-        "release_id": "2025-10-04_1030",
-        "size": 2871659,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/cardswithpersonalities.zip"
+        "date_updated": "2026-08-13",
+        "md5": "a28e83d013ccd6dc41450fcab3025649",
+        "release_id": "2026-08-13_2211",
+        "size": 2871660,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/cardswithpersonalities.zip"
       }
     },
     "carmageddon.zip": {
@@ -9117,7 +9214,7 @@
       "attr": {
         "title": "Cataclysm: Dark Days Ahead",
         "porter": [
-          "Troidem",
+          "mxmgorin",
           "Cebion"
         ],
         "desc": "Cataclysm: Dark Days Ahead is a turn-based survival game set in a post-apocalyptic world. Struggle to survive in a harsh, persistent, procedurally generated world. Scavenge the remnants of a dead civilization for food, equipment, or, if you are lucky, a vehicle with a full tank of gas to get you the hell out of Dodge. Fight to defeat or escape from a wide variety of powerful monstrosities, from zombies to giant insects to killer robots and things far stranger and deadlier, and against the others like yourself, that want what you have\u2026",
@@ -9144,11 +9241,11 @@
       },
       "source": {
         "date_added": "2023-11-03",
-        "date_updated": "2025-10-04",
-        "md5": "a0fa90849f849f1cd942d73d05505482",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "dcd843794a99da49b92c6d4caba51af8",
+        "release_id": "2026-08-13_2211",
         "size": 174328021,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/cataclysm-dda.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/cataclysm-dda.zip"
       }
     },
     "catacomb89.zip": {
@@ -10478,34 +10575,44 @@
           "Ganimoth"
         ],
         "desc": "Circa Infinity is a brain-melting circular platformer by Kenny Sun, with a pulse-pounding soundtrack by Jack + Jim Fay.",
-        "desc_md": null,
-        "inst": "Purchase the game on Steam https://store.steampowered.com/app/390610/Circa_Infinity/ and place the CircaInfinity.exe into the gamedata folder.\nIt is also available on Itch.io https://kennysun.itch.io/circa-infinity and it comes with a Steam key.\nYou can also use the free demo, download it from  https://kennysun.itch.io/circa-infinity-demo and place the CircaInfinityDemo.exe into the gamedata folder.",
+        "desc_md": "Purchase the game on Steam and place the CircaInfinity.exe into the assets folder.",
+        "inst": "Purchase the game on [Steam](https://store.steampowered.com/app/390610/Circa_Infinity/) and place the `CircaInfinity.exe` into the `assets` folder.",
         "inst_md": null,
         "genres": [
           "platformer"
         ],
         "image": {
           "screenshot": "screenshot.png",
-          "covers": [],
+          "covers": [
+            "cover.png"
+          ],
           "thumbnail": null,
           "video": null
         },
         "rtr": false,
         "exp": false,
         "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/390610/Circa_Infinity/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
         "reqs": [],
         "arch": [
-          "armhf"
+          "aarch64"
         ],
         "min_glibc": ""
       },
       "source": {
         "date_added": "2024-12-07",
-        "date_updated": "2024-12-07",
-        "md5": "b3ddeb7f65bb783fc11e959a86d78cd9",
-        "release_id": "2024-12-07_0044",
-        "size": 11968653,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-12-07_0044/circainfinity.zip"
+        "date_updated": "2026-08-05",
+        "md5": "7e7b0533f1f040fc05d74c46249ec47b",
+        "release_id": "2026-08-05_0732",
+        "size": 4683361,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/circainfinity.zip"
       }
     },
     "circlebreaker.zip": {
@@ -10571,7 +10678,7 @@
       "attr": {
         "title": "cityglitch",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Cityglitch is an indie puzzle game where you play as a sorcerer saving a glitching city. Navigate fragmented urban landscapes, solve intricate puzzles, and use magic to restore harmony. With a minimalist art style and soothing soundtrack, Cityglitch offers a captivating and thought-provoking experience.",
         "inst": "Download the game from steam https://store.steampowered.com/app/756790/cityglitch/ or from itch https://mindfungus.itch.io/cityglitch and copy the exe or love file into the port folder.",
@@ -10597,11 +10704,11 @@
       },
       "source": {
         "date_added": "2024-05-29",
-        "date_updated": "2025-10-04",
-        "md5": "9976e296829b561abba2b65b4d538a91",
-        "release_id": "2025-10-04_1030",
-        "size": 10133698,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/cityglitch.zip"
+        "date_updated": "2026-08-13",
+        "md5": "5769868f24f91d065f20681a87ec58cb",
+        "release_id": "2026-08-13_2211",
+        "size": 10133697,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/cityglitch.zip"
       }
     },
     "clannad.zip": {
@@ -13053,7 +13160,7 @@
       "attr": {
         "title": "D-FENCER VS THE ORB",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "D-FENCER VS THE ORB is a short, experimental STG (shmup)",
         "inst": "Download the game from https://danbo.itch.io/d-fencer-vs-the-orb and copy the exe file into the port folder.",
@@ -13079,11 +13186,11 @@
       },
       "source": {
         "date_added": "2024-05-29",
-        "date_updated": "2025-10-04",
-        "md5": "8a54873ebb767803ece34cfa2a0eefdf",
-        "release_id": "2025-10-04_1030",
-        "size": 2853547,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/dfencervstheorb.zip"
+        "date_updated": "2026-08-13",
+        "md5": "c07d58f54d9c88c9cf1b7897843fb7fa",
+        "release_id": "2026-08-13_2211",
+        "size": 2853548,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/dfencervstheorb.zip"
       }
     },
     "daikatana.zip": {
@@ -13421,8 +13528,8 @@
         "date_added": "2026-07-26",
         "date_updated": "2026-07-26",
         "md5": "341ba582566e5eecc82318024c614480",
-        "size": 2388813,
         "release_id": "2026-07-26_1858",
+        "size": 2388813,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/daserbe2.zip"
       }
     },
@@ -14340,11 +14447,11 @@
       },
       "source": {
         "date_added": "2024-10-31",
-        "date_updated": "2026-07-15",
-        "md5": "f0ef6dad8b7db58dd8fcbbcbf8e77097",
-        "release_id": "2026-07-15_0750",
-        "size": 17089430,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-15_0750/deltarune.zip"
+        "date_updated": "2026-08-10",
+        "md5": "fefb0a16680578341a314fd1cc028832",
+        "release_id": "2026-08-10_1619",
+        "size": 25240238,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-10_1619/deltarune.zip"
       }
     },
     "demodome.zip": {
@@ -14402,7 +14509,7 @@
       "attr": {
         "title": "Demon Keep",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Demon Keep is a minimalistic, classic roguelike with a dice rolling twist that is a kin to a mix between Porklike and Dicey Dungeons.",
         "inst": "Download the game https://youdoyoubuddy.itch.io/demon-keep and copy the exe or love file into the port folder.",
@@ -14428,11 +14535,11 @@
       },
       "source": {
         "date_added": "2024-05-06",
-        "date_updated": "2025-10-04",
-        "md5": "b4b479eddb507ee0098ddff600fa3066",
-        "release_id": "2025-10-04_1030",
-        "size": 2797027,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/demonkeep.zip"
+        "date_updated": "2026-08-13",
+        "md5": "505d81054b735f8623e331bbfef05424",
+        "release_id": "2026-08-13_2211",
+        "size": 2797026,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/demonkeep.zip"
       }
     },
     "demonofsakurapass.zip": {
@@ -14630,7 +14737,7 @@
       "attr": {
         "title": "Depths of Limbo",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Depths of Limbo is a action roguelike with a dark theme. The fast-paced combat is spiced up with a variety of unique items and weapons found throughout the procedurally generated world. It has elements of the Binding of Isaac's room by room then floor by floor style, and with Nuclear Throne's twin stick controls and focus on weapons and ammo.",
         "inst": "Download the game from https://store.steampowered.com/app/568400/Depths_of_Limbo/ and copy the .exe or .love file into the port folder.",
@@ -14658,11 +14765,11 @@
       },
       "source": {
         "date_added": "2024-06-05",
-        "date_updated": "2025-10-04",
-        "md5": "e33defd3a64e5a2adfdfbeb2c17d8ed9",
-        "release_id": "2025-10-04_1030",
-        "size": 3206039,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/depthsoflimbo.zip"
+        "date_updated": "2026-08-13",
+        "md5": "d73cc4f30afc72dd2faf18662f04058e",
+        "release_id": "2026-08-13_2211",
+        "size": 3206040,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/depthsoflimbo.zip"
       }
     },
     "derclou.zip": {
@@ -17420,6 +17527,61 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-03-26_2027/dunelegacy.zip"
       }
     },
+    "dungeonantiqua.zip": {
+      "version": 4,
+      "name": "dungeonantiqua.zip",
+      "items": [
+        "Dungeon Antiqua.sh",
+        "dungeonantiqua"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Dungeon Antiqua",
+        "porter": [
+          "kotzebuedog",
+          "takeshich"
+        ],
+        "desc": "Dungeon Antiqua is a simple RPG inspired by the Wizardry and Final Fantasy games of the 1980s and 1990s, in which players traverse dungeons by repeatedly exploring and developing their characters.",
+        "desc_md": "Dungeon Antiqua is a simple RPG inspired by the Wizardry and Final Fantasy games of the 1980s and 1990s, in which players traverse dungeons by repeatedly exploring and developing their characters.",
+        "inst": "Buy the game on https://store.steampowered.com/app/3198540/Dungeon_Antiqua/ , install it and copy dungeon-antiqua.pyxapp in the dungeonantiqua/gamedata directory.",
+        "inst_md": "Buy the game on [Steam](https://store.steampowered.com/app/3198540/Dungeon_Antiqua/), install it and copy `dungeon-antiqua.pyxapp` in the `dungeonantiqua/gamedata` directory.",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "pyxel_2.9.5_python_3.11.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/3198540/Dungeon_Antiqua/",
+            "developerurl": "https://dungeon-antiqua.com/da1.html"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "6f2c677370bd3b7180f40d5eb6fae074",
+        "release_id": "2026-08-05_0732",
+        "size": 93561,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/dungeonantiqua.zip"
+      }
+    },
     "dungeonantiqua2.zip": {
       "version": 4,
       "name": "dungeonantiqua2.zip",
@@ -17472,11 +17634,11 @@
       },
       "source": {
         "date_added": "2026-06-22",
-        "date_updated": "2026-06-22",
-        "md5": "ab70474add92b710ae488c25cc26b9b9",
-        "release_id": "2026-06-22_1100",
-        "size": 15595058,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-06-22_1100/dungeonantiqua2.zip"
+        "date_updated": "2026-08-05",
+        "md5": "fe3f3107f5f08835609f962fe30599f9",
+        "release_id": "2026-08-05_0732",
+        "size": 15595470,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/dungeonantiqua2.zip"
       }
     },
     "dungeoncrawlstonesoup.zip": {
@@ -17591,7 +17753,7 @@
           "mattyj513"
         ],
         "desc": "Dungeon Souls is an action-adventure roguelike dungeon crawler which draws heavy inspiration from Nuclear Throne, Risk of Rain, and Overture. Explore vast procedurally generated dungeons, collect loot, and slay hordes of challenging enemies!",
-        "inst": "Download game from https://store.steampowered.com/app/383230/Dungeon_Souls/ or Humble, GOG files do not work at this time. Rename DungeonSouls.exe to DungeonSouls.zip, extract. Copy data.win and all .ogg files to /ports/dungeonsouls/gamedata . If controls are incorrectly mapped, from the title screen select options, enable gamepad, then select back and quit from the main menu. Controls should be good to go on subsequent launches.",
+        "inst": "Download game from https://store.steampowered.com/app/383230/Dungeon_Souls/ or Humble, GOG files do not work at this time. Use 7-Zip to extract files from the DungeonSouls.exe and copy data.win and all .ogg files to /ports/dungeonsouls/gamedata . If controls are incorrectly mapped, from the title screen select options, enable gamepad, then select back and quit from the main menu. Controls should be good to go on subsequent launches.",
         "genres": [
           "action"
         ],
@@ -17616,11 +17778,11 @@
       },
       "source": {
         "date_added": "2023-11-02",
-        "date_updated": "2025-10-04",
-        "md5": "a69523649b1b780a1db2fd275f9d8b5d",
-        "release_id": "2025-10-04_1030",
-        "size": 16895556,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/dungeonsouls.zip"
+        "date_updated": "2026-08-05",
+        "md5": "4114f280d4d66a2841dea037b38c403b",
+        "release_id": "2026-08-05_0732",
+        "size": 16895560,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/dungeonsouls.zip"
       }
     },
     "dungeonrush.zip": {
@@ -17866,6 +18028,60 @@
         "release_id": "2024-07-18_2225",
         "size": 4230059,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-07-18_2225/ez.zip"
+      }
+    },
+    "eatgirl.zip": {
+      "version": 4,
+      "name": "eatgirl.zip",
+      "items": [
+        "EAT GIRL.sh",
+        "eatgirl"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "EAT GIRL",
+        "porter": [
+          "mxmgorin",
+          "tabreturn"
+        ],
+        "desc": "EAT GIRL is a surreal top-down action game about moving quickly and efficiently through tight corridors while eating dots. Explore an interconnected world of more than 30 levels, meet creatures who may or may not be docile, and take in an atmosphere that is by turns meditative and unsettling, with every level scored by its own blend of ambient music.",
+        "desc_md": null,
+        "inst": "Buy EAT GIRL on itch (https://tesselode.itch.io/eatgirl), then copy 'eatgirl.love' from the download into ports/eatgirl.",
+        "inst_md": "Buy EAT GIRL [on itch](https://tesselode.itch.io/eatgirl), then copy `eatgirl.love` from the download into `ports/eatgirl`.",
+        "genres": [
+          "action",
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "availability": "paid",
+        "store": [
+          {
+            "name": "itch.io",
+            "gameurl": "https://tesselode.itch.io/eatgirl",
+            "developerurl": "https://tesselode.itch.io/"
+          }
+        ],
+        "runtime": [],
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-10",
+        "date_updated": "2026-08-13",
+        "md5": "ad94c6d740a1bfa00ae4d6d60b20647e",
+        "release_id": "2026-08-13_2211",
+        "size": 19112,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/eatgirl.zip"
       }
     },
     "echo_chamber.zip": {
@@ -18151,7 +18367,7 @@
       "attr": {
         "title": "Emoji Merge",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Suika Game clone about merging emojis.",
         "inst": "All files are included",
@@ -18178,11 +18394,11 @@
       },
       "source": {
         "date_added": "2024-05-08",
-        "date_updated": "2025-07-24",
-        "md5": "56b03961528197f1728fff6df0cda9e7",
-        "release_id": "2025-07-24_0745",
-        "size": 4998754,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-24_0745/emojimerge.zip"
+        "date_updated": "2026-08-13",
+        "md5": "e0a0ae1e2f42ac519d74fe4b3abf8ccb",
+        "release_id": "2026-08-13_2211",
+        "size": 4998755,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/emojimerge.zip"
       }
     },
     "endlessdungeon.zip": {
@@ -18196,7 +18412,7 @@
       "attr": {
         "title": "Endless Dungeon",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Endless Dungeon is a top-down 2D dungeon crawler game with a multitude of different enemies to fight, spells to unlock and weapons and armor to find.",
         "inst": "Download the game https://randomnovice.itch.io/endless-dungeon and place Endless Dungeon.exe or Endless Dungeon.app file to the port folder",
@@ -18224,11 +18440,11 @@
       },
       "source": {
         "date_added": "2024-04-07",
-        "date_updated": "2025-10-04",
-        "md5": "c2e9141a2ecd624cb86ccecefc9ede7f",
-        "release_id": "2025-10-04_1030",
-        "size": 2381611,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/endlessdungeon.zip"
+        "date_updated": "2026-08-13",
+        "md5": "4c195623a5802666ff47f6db5e914fea",
+        "release_id": "2026-08-13_2211",
+        "size": 2381609,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/endlessdungeon.zip"
       }
     },
     "enigma.zip": {
@@ -18419,11 +18635,11 @@
       },
       "source": {
         "date_added": "2026-07-07",
-        "date_updated": "2026-07-15",
-        "md5": "2e01542d3e4a1dd57489da62ee371c9a",
-        "release_id": "2026-07-15_0750",
-        "size": 6492969,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-15_0750/environmentalstationalpha.zip"
+        "date_updated": "2026-08-05",
+        "md5": "2a513740af86cfbcffde6b6320b187c2",
+        "release_id": "2026-08-05_0732",
+        "size": 7291786,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/environmentalstationalpha.zip"
       }
     },
     "erebos.zip": {
@@ -20100,6 +20316,60 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-04-08_0939/finding_paradise.zip"
       }
     },
+    "firebrimstone.zip": {
+      "version": 4,
+      "name": "firebrimstone.zip",
+      "items": [
+        "Fire and Brimstone.sh",
+        "firebrimstone"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Fire & Brimstone",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Delve into the ruins of a temple in the guts of a volcano, in the search for a powerful artefact that may let you have friends.\nA unique and tight roguelike with a randomized skilltree and hand-designed monsters and items.",
+        "desc_md": null,
+        "inst": "Download the MacOS version from Itch.io and extract the game files into gamedata folder.",
+        "inst_md": "Download the `MacOS version`  from [Itch.io](https://punkcake.itch.io/brimstone) and extract the game files into `gamedata` folder.",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://punkcake.itch.io/brimstone",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "af3f9cd63089d579a298a0a2508689e7",
+        "release_id": "2026-08-05_0732",
+        "size": 4563459,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/firebrimstone.zip"
+      }
+    },
     "fire_and_fondness2.zip": {
       "version": 2,
       "name": "fire_and_fondness2.zip",
@@ -21448,6 +21718,60 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-06-24_0854/franken.zip"
       }
     },
+    "franticdimension.zip": {
+      "version": 4,
+      "name": "franticdimension.zip",
+      "items": [
+        "Frantic Dimension.sh",
+        "franticdimension"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Frantic Dimension",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "This game was highly inspired by The world's first twin stick shooter, Space Dungeon.\nYou are a treasure hunter Jason Allen, who had been teleported to the alternative dimension where aliens called 'Yadcians' are living. The aliens are chasing you to eliminate the intruder, now you have to collect alien treasures and escape The yadcian fortress with the stolen powerful prototype weapon 'Million'.",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://hijong-park.itch.io/frantic-dimension",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-10",
+        "date_updated": "2026-08-10",
+        "md5": "356d099020e711bc89ea2685a9cc1a0a",
+        "release_id": "2026-08-10_1619",
+        "size": 10022535,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-10_1619/franticdimension.zip"
+      }
+    },
     "freeciv.zip": {
       "version": 4,
       "name": "freeciv.zip",
@@ -22160,7 +22484,7 @@
       "attr": {
         "title": "Fungus Reaper",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "An 'eerie' turn-based tower defense roguelite! Tons of different mushlings to collect for customizing each run to your playstyle. Turn-based action with a twist! The clock is always ticking ... take too long and the beasts will move before you!",
         "inst": "Download the game https://store.steampowered.com/app/2406640/Fungus_Reaper/ and copy the exe file into the port folder.",
@@ -22186,11 +22510,11 @@
       },
       "source": {
         "date_added": "2024-05-13",
-        "date_updated": "2025-10-04",
-        "md5": "c8127928c9898d6ec11222a42bd44d6b",
-        "release_id": "2025-10-04_1030",
-        "size": 2868167,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/fungusreaper.zip"
+        "date_updated": "2026-08-13",
+        "md5": "94dda9c1750cb3a5da4fd80279f21cab",
+        "release_id": "2026-08-13_2211",
+        "size": 2868168,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/fungusreaper.zip"
       }
     },
     "galaxychampionstv.zip": {
@@ -22687,7 +23011,7 @@
       "attr": {
         "title": "Geometry Strike",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "A roguelite about not letting the invaders cross the bottom of the screen! After a set amount of points, your ship levels up and you get to choose a stat change option. Some of them are good, some aren't. Sometimes you'll have to choose the lesser of two evils.",
         "inst": "All files are included.",
@@ -22714,11 +23038,11 @@
       },
       "source": {
         "date_added": "2024-05-13",
-        "date_updated": "2025-08-14",
-        "md5": "902acbc531e904f2f096b3aababd52ce",
-        "release_id": "2025-08-14_1207",
+        "date_updated": "2026-08-13",
+        "md5": "841bc33d2fec0bdf02690d22630fd3c3",
+        "release_id": "2026-08-13_2211",
         "size": 8881590,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-08-14_1207/geometrystrike.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/geometrystrike.zip"
       }
     },
     "ghosttrap.zip": {
@@ -23311,7 +23635,7 @@
       "attr": {
         "title": "Going Home Revisited",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Going Home Revisited is an atmospheric, narrative-driven game where players explore a beautifully rendered, nostalgic world. As you journey through the protagonist's memories, uncovering personal stories and hidden secrets, you'll be immersed in a poignant tale of reflection and discovery. With its evocative visuals and compelling storytelling, it offers a deeply emotional gaming experience.",
         "inst": "All files are included. Kindly consider supporting the dev by purchasing the game https://flamendless.itch.io/going-home-revisited",
@@ -23338,11 +23662,11 @@
       },
       "source": {
         "date_added": "2024-05-20",
-        "date_updated": "2026-04-28",
-        "md5": "96d7ec84aee140bb0b7ff642e03a9ad5",
-        "release_id": "2026-04-28_1830",
+        "date_updated": "2026-08-13",
+        "md5": "cf7d0b6489e9cd923f2a193229ae8f99",
+        "release_id": "2026-08-13_2211",
         "size": 6235832,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-04-28_1830/goinghomerevisited.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/goinghomerevisited.zip"
       }
     },
     "goldminer.zip": {
@@ -24244,6 +24568,58 @@
         "release_id": "2025-03-14_1451",
         "size": 20478637,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-03-14_1451/grizzland.zip"
+      }
+    },
+    "growseedpinball.zip": {
+      "version": 4,
+      "name": "growseedpinball.zip",
+      "items": [
+        "GrowSeed!Pinball.sh",
+        "growseedpinball"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Grow,Seed!Pinball",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Sid did not want to fall to the bottom. Help our little Sid friend growing up without getting burried! This is a pinball game developed by kNARF for the Ludum Dare 34 competition.",
+        "desc_md": null,
+        "inst": "Ready to run!",
+        "inst_md": null,
+        "genres": [
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://freaknarf.itch.io/grow-seed-pinball",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "d6a204c9e09fb4419ce6ce55923514f1",
+        "release_id": "2026-08-05_0732",
+        "size": 8005723,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/growseedpinball.zip"
       }
     },
     "guacamelee.zip": {
@@ -26657,7 +27033,7 @@
       "attr": {
         "title": "Honey Guardian",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Short score-attack shmup in the caravan style.",
         "inst": "Download the game from https://ioribranford.itch.io/honey-guardian and copy the .exe or .love file into the port (honeyguardian) folder.",
@@ -26683,11 +27059,11 @@
       },
       "source": {
         "date_added": "2024-06-11",
-        "date_updated": "2025-10-04",
-        "md5": "9f1bfa92998167c3dbd8ba2bb57c6e57",
-        "release_id": "2025-10-04_1030",
-        "size": 2838595,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/honeyguardian.zip"
+        "date_updated": "2026-08-13",
+        "md5": "8a65d3a8082a00a36b04160bde2fb9c8",
+        "release_id": "2026-08-13_2211",
+        "size": 2838594,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/honeyguardian.zip"
       }
     },
     "hoopervania.zip": {
@@ -27368,6 +27744,52 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-09-04_1203/hyperprincesspitch.zip"
       }
     },
+    "hypercycles.zip": {
+      "version": 4,
+      "name": "hypercycles.zip",
+      "items": [
+        "Hypercycles.sh",
+        "hypercycles"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Hypercycles",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A raycasting first-person shooter, ported from the 1995 DOS game Hypercycles.",
+        "desc_md": "",
+        "inst": "Ready to run.",
+        "inst_md": "",
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "f3bb823d0195042df414ff492f5dbc99",
+        "release_id": "2026-08-05_0732",
+        "size": 7057569,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/hypercycles.zip"
+      }
+    },
     "hyperfight.zip": {
       "version": 2,
       "name": "hyperfight.zip",
@@ -28033,7 +28455,7 @@
       "attr": {
         "title": "Infra Arcana",
         "porter": [
-          "Troidem",
+          "mxmgorin",
           "Cebion"
         ],
         "desc": "Infra Arcana is a Roguelike set in the early 20th century. The goal is to explore the lair of a dreaded cult called The Church of Starry Wisdom. Buried deep beneath their hallowed grounds lies an artefact called The Shining Trapezohedron - a window to all secrets of the universe. Your ultimate goal is to unearth this artefact.",
@@ -28060,11 +28482,11 @@
       },
       "source": {
         "date_added": "2023-10-14",
-        "date_updated": "2025-10-04",
-        "md5": "a56a6716fe36378f5cbfcda349fb4ac4",
-        "release_id": "2025-10-04_1030",
-        "size": 43806875,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/infra_arcana.zip"
+        "date_updated": "2026-08-13",
+        "md5": "7afb3154ca2f8aa1fcad84117244e074",
+        "release_id": "2026-08-13_2211",
+        "size": 43806876,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/infra_arcana.zip"
       }
     },
     "ink.zip": {
@@ -28995,7 +29417,7 @@
       "attr": {
         "title": "JUGGLRX",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "JUGGLRX and is about juggling as many balls as possible without dying!",
         "inst": "Download the game https://a327ex.itch.io/jugglrx-prototype and place exe file to the port folder.",
@@ -29021,11 +29443,11 @@
       },
       "source": {
         "date_added": "2024-05-08",
-        "date_updated": "2025-10-04",
-        "md5": "e1e21c385c2eebbabe17b04ca05f48cb",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "098384b97675e878c0ec29ca0b0126e9",
+        "release_id": "2026-08-13_2211",
         "size": 2804605,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/jugglrx.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/jugglrx.zip"
       }
     },
     "jumpnbump.zip": {
@@ -30402,7 +30824,7 @@
       "attr": {
         "title": "Labyrinth of Legendary Loot",
         "porter": [
-          "Troidem",
+          "mxmgorin",
           "Kompaan"
         ],
         "desc": "Labyrinth of Legendary Loot is a simple turn-based roguelike dungeon crawler focused on tactical combat. Every room is almost like a puzzle as you try to figure out the best way to defeat all enemies without taking too much damage.",
@@ -30432,11 +30854,11 @@
       },
       "source": {
         "date_added": "2024-04-01",
-        "date_updated": "2025-07-24",
-        "md5": "a068f7c200e56f7493af586f62b91501",
-        "release_id": "2025-07-24_0745",
-        "size": 48010498,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-24_0745/labyrinthoflegendaryloot.zip"
+        "date_updated": "2026-08-13",
+        "md5": "d278c22fdda00bdb50902231f51d688e",
+        "release_id": "2026-08-13_2211",
+        "size": 48010497,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/labyrinthoflegendaryloot.zip"
       }
     },
     "laserkombat.zip": {
@@ -30964,6 +31386,61 @@
         "release_id": "2024-07-18_2225",
         "size": 5960307,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-07-18_2225/liltanks.zip"
+      }
+    },
+    "limbo.zip": {
+      "version": 4,
+      "name": "limbo.zip",
+      "items": [
+        "Limbo.sh",
+        "limbo"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Limbo",
+        "porter": [
+          "JanTrueno"
+        ],
+        "desc": "Monochrome puzzle-platformer from Playdead. A boy wakes alone in a forest and must solve his way through it and a derelict, industrial world beyond, guided by nothing but silhouette, shadow and atmosphere. No dialogue, no HUD, just physics puzzles, traps, and a signature grain-and-fog visual style.",
+        "desc_md": null,
+        "inst": "- Purchase Limbo (Mobile) on the Epic Games Store (store.epicgames.com/p/limbo-mobile-android-300111?lang=en-US) (Play Store version WILL NOT work!)and install it on an Android device.\n- Extract the installed APK (single APK, no split install, any APK extractor or adb pull works).\n- Use 7zip to unzip the .apk file. \n- Copy the whole assets/ and lib/ folders into ports/limbo/.\n- Run Limbo.",
+        "inst_md": "*  Purchase Limbo (Mobile) on the [Epic Games Store](https://store.epicgames.com/p/limbo-mobile-android-300111?lang=en-US) (Play Store version WILL NOT work!) and install it on an Android device.\n* Extract the installed APK (single APK, no split install \u2014 any APK extractor or `adb pull` works).\n* Use 7zip to unzip the .apk file. \n* Copy the whole `assets/` and `lib/` folders into `ports/limbo/`.\n* Run Limbo.",
+        "genres": [
+          "action",
+          "adventure"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Epic Games Store ",
+            "gameurl": "store.epicgames.com/p/limbo-mobile-android-300111?lang=en-US",
+            "developerurl": "https://playdead.com/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-10",
+        "date_updated": "2026-08-10",
+        "md5": "626400653985617330d82cd8a7b6d5ac",
+        "release_id": "2026-08-10_1619",
+        "size": 1487141,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-10_1619/limbo.zip"
       }
     },
     "linegame.zip": {
@@ -33459,7 +33936,7 @@
       "attr": {
         "title": "Max Downforce",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Max Downforce is an arcade racing game. The goal is to finish each of ten laps before the timer reaches zero. A portion of the seconds remaining upon completing a lap is carried over to the next lap.",
         "inst": "All files are included",
@@ -33486,11 +33963,11 @@
       },
       "source": {
         "date_added": "2024-05-06",
-        "date_updated": "2025-09-23",
-        "md5": "5f24de36619a4a7eefd2a524be1c4f25",
-        "release_id": "2025-09-23_1014",
+        "date_updated": "2026-08-13",
+        "md5": "807e170584c8d5d17acbf191e44d74bd",
+        "release_id": "2026-08-13_2211",
         "size": 24252851,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-09-23_1014/maxdownforce.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/maxdownforce.zip"
       }
     },
     "maxpayne.zip": {
@@ -34476,7 +34953,7 @@
       "attr": {
         "title": "Metanet Hunter G4",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Metanet Hunter G4 is an action platformer set in the heart of Cyberspace! Take on the role of a lone Cyberspace Samurai as you navigate through six adrenaline-pumping stages, each filled with intense side-scrolling challenges and epic boss battles. Armed with over 20 sub-weapons. Dive into Time Attack Mode to unlock funky color palettes and discover secrets and cheats scattered throughout the digital landscape. Get ready to experience the thrill of old-school platforming reimagined for the modern era in Metanet Hunter G4!",
         "inst": "Download the game https://nightkawata.itch.io/metanet-hunter-g4 and copy the exe file into the port folder. Demo or full version (v1.2) can be used.",
@@ -34502,11 +34979,11 @@
       },
       "source": {
         "date_added": "2024-05-17",
-        "date_updated": "2025-10-04",
-        "md5": "83e6934d122041ecd10c64311ff5207f",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "b58f3a7da01c2801615e7aa318cd7b1d",
+        "release_id": "2026-08-13_2211",
         "size": 2832543,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/metanethunterg4.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/metanethunterg4.zip"
       }
     },
     "mezzer.zip": {
@@ -37104,7 +37581,7 @@
       "attr": {
         "title": "Ner",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Ner is an atmospheric horror game set in a desolate underground complex where your only option is to descend further and further into the dark unknown.",
         "inst": "Download the game https://youdoyoubuddy.itch.io/ner and copy the Ner.love file into the port folder.",
@@ -37130,11 +37607,11 @@
       },
       "source": {
         "date_added": "2024-05-13",
-        "date_updated": "2025-10-04",
-        "md5": "54bb9f27cc2d412d159bb978b0e08253",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "3b5d7812499f86b8f232d3decee6f4d4",
+        "release_id": "2026-08-13_2211",
         "size": 2806978,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/ner.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/ner.zip"
       }
     },
     "netsurf.zip": {
@@ -37726,7 +38203,7 @@
       "attr": {
         "title": "No Parachute",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "No Parachute is a fast-paced arcade game with a pixel art style, in which you will dodge various obstacles in free fall. The man jumped out of a plane, and his parachute didn\u2019t open. But instead of crashing, he fell into a mysterious hole in the ground. He\u2019ll have to fly through a lot of mines and tunnels and meet unexpected visitors. As the game progresses, the unsuccessful skydiver will have to use all his skill and reaction to survive. You will have very little time to assess the situation and make the right decisions, so be prepared to engage your entire concentration. Try to catch Zen (without burning your ass)!",
         "inst": "Purchase and download the game https://store.steampowered.com/app/1575300/No_Parachute/ and copy the exe file into the port folder.",
@@ -37752,11 +38229,11 @@
       },
       "source": {
         "date_added": "2024-05-02",
-        "date_updated": "2025-10-04",
-        "md5": "2428d1d19630d86067f5a509a029e7a7",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "fecfb5b9f70d72b81b6558ae8c618fa8",
+        "release_id": "2026-08-13_2211",
         "size": 2833139,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/noparachute.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/noparachute.zip"
       }
     },
     "notransmission.zip": {
@@ -41580,6 +42057,60 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-12-19_1739/penguincommand.zip"
       }
     },
+    "pentasma.zip": {
+      "version": 4,
+      "name": "pentasma.zip",
+      "items": [
+        "Pentasma.sh",
+        "pentasma"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Pentasma",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Pentasma is a side-scrolling arcade shooter inspired by Williams Electronics' 1981 classic 'Defender'. Protect The terraforming Humanoids from the deadly Aliens and raid the Alien planets to keep the galaxy peaceful!",
+        "desc_md": null,
+        "inst": "Ready to run!",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/1217350/Pentasma/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "0f6acedabd3dcf5c284b53b228f5f34e",
+        "release_id": "2026-08-05_0732",
+        "size": 15835311,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/pentasma.zip"
+      }
+    },
     "ppengui.zip": {
       "version": 4,
       "name": "ppengui.zip",
@@ -42778,6 +43309,61 @@
         "release_id": "2026-03-22_1256",
         "size": 54081558,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-03-22_1256/plantsvszombiesnd.zip"
+      }
+    },
+    "pvz_portable.zip": {
+      "version": 4,
+      "name": "pvz_portable.zip",
+      "items": [
+        "PvZPortable.sh",
+        "pvz_portable"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Plants Vs Zombies Portable",
+        "porter": [
+          "gama97"
+        ],
+        "desc": "A fan-made port of the classic tower defense game. You must place plants to defend your house from invading zombies. Requires original game assets from Plants vs. Zombies GOTY edition.",
+        "desc_md": "**Features:**\n_ Full controller support\n- Adventure mode fully playable\n- Vasebreaker, Whack a Zombie, and other minigames\n\nFan port (original game by PopCap/EA)\n\nOriginal PvZPortable source code: https://github.com/wszqkzqk/PvZ-Portable",
+        "inst": "Provide the main.pak file and properties/ folder from a legal copy of Plants vs. Zombies GOTY into the pvz_portable folder.",
+        "inst_md": null,
+        "genres": [
+          "strategy",
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/3590/Plants_vs_Zombies_GOTY_Edition/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "power"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "75d4d43f8e34735a68bf328d138d35c4",
+        "release_id": "2026-08-05_0732",
+        "size": 2522075,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/pvz_portable.zip"
       }
     },
     "plaqueattackremake.zip": {
@@ -44107,7 +44693,7 @@
       "attr": {
         "title": "Putrid Shot Ultra",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "A chaotic shoot-em-up roguelite with magic spell casting. Defeat enemies with your gun! Stack tons of passive spells that trigger when you shoot while weaving your unique active spell in between. Blast your enemies with gunfire and magic spells while you dodge through the rubble.",
         "inst": "Download the game (demo or full version) https://store.steampowered.com/app/2053360/PUTRID_SHOT_ULTRA/ and copy the exe file into the port folder.",
@@ -44133,11 +44719,11 @@
       },
       "source": {
         "date_added": "2024-04-20",
-        "date_updated": "2026-01-07",
-        "md5": "331549c933c84526dd83fdfb383fda49",
-        "release_id": "2026-01-07_1231",
-        "size": 3022830,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-01-07_1231/putridshotultra.zip"
+        "date_updated": "2026-08-13",
+        "md5": "39b09bfedb2b280f873d39b5cd71f686",
+        "release_id": "2026-08-13_2211",
+        "size": 3022829,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/putridshotultra.zip"
       }
     },
     "puztrix_playdate.zip": {
@@ -46273,6 +46859,59 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/retrotime.zip"
       }
     },
+    "retsend.zip": {
+      "version": 4,
+      "name": "retsend.zip",
+      "items": [
+        "Retsend.sh",
+        "retsend"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "retsend",
+        "porter": [
+          "mxmgorin"
+        ],
+        "desc": "Transfer files between handhelds or your phone and PC over wifi, using the LocalSend (https://localsend.org) protocol \u2014 no cable, no SSH.",
+        "desc_md": "Transfer files between handhelds or your phone and PC over wifi, using the [LocalSend](https://localsend.org) protocol \u2014 no cable, no SSH.",
+        "inst": "Ready to run. Install LocalSend (localsend.org) on your phone or PC, connect both devices to the same wifi, and they will find each other.",
+        "inst_md": "Ready to run. Install [LocalSend](https://localsend.org) on your phone or PC, connect both devices to the same wifi, and they will find each other.",
+        "genres": [
+          "other"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "GitHub",
+            "gameurl": "https://github.com/mxmgorin/retsend",
+            "developerurl": "https://github.com/mxmgorin"
+          }
+        ],
+        "availability": "free",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "armhf"
+        ],
+        "min_glibc": "2.28"
+      },
+      "source": {
+        "date_added": "2026-08-10",
+        "date_updated": "2026-08-13",
+        "md5": "aa6c0bb56be165b5610dc45f36f3db90",
+        "release_id": "2026-08-13_2211",
+        "size": 8034780,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/retsend.zip"
+      }
+    },
     "return.zip": {
       "version": 4,
       "name": "return.zip",
@@ -47382,6 +48021,77 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-12-27_1725/rocksndiamonds.zip"
       }
     },
+    "roguelegacy.zip": {
+      "version": 4,
+      "name": "roguelegacy.zip",
+      "items": [
+        "Rogue Legacy.sh",
+        "roguelegacy"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Rogue Legacy",
+        "porter": [
+          "Fraxinus88"
+        ],
+        "desc": "Rogue Legacy is a genealogical rogue-\"LITE\" where anyone can be a hero. Each time you die, your child will succeed you. Every child is unique. One child might be colorblind, another might be a dwarf with vertigo. But that's OK, because no one is perfect, and you don't have to be to succeed.",
+        "desc_md": null,
+        "inst": "Purchase the game. Copy the Content folder from your personal copy of the game to ports/roguelegacy/gamedata.",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "mono-6.12.0.122-aarch64.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/241600/Rogue_Legacy/",
+            "developerurl": "https://www.cellardoorgames.com/roguelegacy"
+          },
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/en/game/rogue_legacy",
+            "developerurl": "https://www.cellardoorgames.com/roguelegacy"
+          },
+          {
+            "name": "Humble",
+            "gameurl": "https://www.humblebundle.com/store/rogue-legacy",
+            "developerurl": "https://www.cellardoorgames.com/roguelegacy"
+          },
+          {
+            "name": "Epic Games",
+            "gameurl": "https://store.epicgames.com/p/rogue-legacy",
+            "developerurl": "https://www.cellardoorgames.com/roguelegacy"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "65e0f9c3f56edfc4378887ce21eedf60",
+        "release_id": "2026-08-05_0732",
+        "size": 3403891,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/roguelegacy.zip"
+      }
+    },
     "roguesentry.zip": {
       "version": 4,
       "name": "roguesentry.zip",
@@ -47484,6 +48194,59 @@
         "release_id": "2026-05-30_1707",
         "size": 10175461,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-30_1707/roguelight.zip"
+      }
+    },
+    "rollingbird.zip": {
+      "version": 4,
+      "name": "rollingbird.zip",
+      "items": [
+        "Rolling Bird.sh",
+        "rollingbird"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Rolling Bird",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Rolling Bird is a retro arcade shooter, heavily inspired by Namco's 1986 classic 'Rolling Thunder'.",
+        "desc_md": null,
+        "inst": "Download the Rolling Bird 1.8.6.zip from Itch.io and extract it into assets folder.",
+        "inst_md": "Download the `Rolling Bird 1.8.6.zip` from [Itch.io](https://hijong-park.itch.io/rolling-bird) and extract it into `assets` folder.",
+        "genres": [
+          "action",
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://hijong-park.itch.io/rolling-bird",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "b9cbf5575398cca2624c363db05a3716",
+        "release_id": "2026-08-05_0732",
+        "size": 19599656,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/rollingbird.zip"
       }
     },
     "roswyn.zip": {
@@ -51107,7 +51870,7 @@
       "attr": {
         "title": "SNKRX",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "SNKRX is an arcade shooter roguelite where you control a snake of heroes that automatically attack nearby enemies. Combine different heroes to unlock class bonuses and create unique builds, and steer your unstoppable party as they ravage through endless waves of enemies.",
         "inst": "Download the game https://store.steampowered.com/app/915310/SNKRX/ and place SNKRX.exe file to the port folder",
@@ -51133,11 +51896,11 @@
       },
       "source": {
         "date_added": "2024-04-20",
-        "date_updated": "2025-10-04",
-        "md5": "a56518b070049c44ab6fa44ad24fb900",
-        "release_id": "2025-10-04_1030",
-        "size": 10240614,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/snkrx.zip"
+        "date_updated": "2026-08-13",
+        "md5": "8ac3f921109fc40168457e7d64ed5a32",
+        "release_id": "2026-08-13_2211",
+        "size": 10240615,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/snkrx.zip"
       }
     },
     "snout.zip": {
@@ -52534,7 +53297,7 @@
       "attr": {
         "title": "Spectral Slash",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "A combat-focused deckbuilder where your weapon deals no damage. Slash enemies to gain energy, use energy to play powerful cards. Add creative modifiers to your cards! Build a  powerful deck! Each loadout has unique playstyle. Try out all 6 loadouts and see which one you like most!",
         "inst": "Download the game https://abhimonk.itch.io/spectral-slash and place SpectralSlash.exe file to the port folder",
@@ -52560,11 +53323,11 @@
       },
       "source": {
         "date_added": "2024-04-07",
-        "date_updated": "2025-10-04",
-        "md5": "6c798757a61a94f8f439b951b9b11a9d",
-        "release_id": "2025-10-04_1030",
-        "size": 2402438,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/spectralslash.zip"
+        "date_updated": "2026-08-13",
+        "md5": "452f47f68acc4d0698ddc8ce2773d547",
+        "release_id": "2026-08-13_2211",
+        "size": 2402439,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/spectralslash.zip"
       }
     },
     "spectrumforces.zip": {
@@ -52637,7 +53400,7 @@
       "attr": {
         "title": "Spell Sling",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Spell Sling is a classic first-person roguelike with a focus on consumable spells and dungeon crawling",
         "inst": "Download the game https://youdoyoubuddy.itch.io/spell-sling and copy the exe file into the port folder.",
@@ -52663,11 +53426,11 @@
       },
       "source": {
         "date_added": "2024-05-06",
-        "date_updated": "2025-10-04",
-        "md5": "1a16102b53b17a4925badfeda7a0da6f",
-        "release_id": "2025-10-04_1030",
+        "date_updated": "2026-08-13",
+        "md5": "8ed129c80105c39cfa10fe450cdd42b3",
+        "release_id": "2026-08-13_2211",
         "size": 2815487,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/spellsling.zip"
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/spellsling.zip"
       }
     },
     "spelltower.zip": {
@@ -52681,7 +53444,7 @@
       "attr": {
         "title": "Spell Tower",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Spell Tower is a first person dungeon crawler and deckbuilder hybrid with the usual assortment of interesting card interactions, broken combos and cards with uses you might not have thought of at first.",
         "inst": "Download the game https://youdoyoubuddy.itch.io/spell-tower and copy the exe or love file into the port folder.",
@@ -52708,11 +53471,11 @@
       },
       "source": {
         "date_added": "2024-05-06",
-        "date_updated": "2025-10-04",
-        "md5": "f60c888a502e33716f9de72a3d85df52",
-        "release_id": "2025-10-04_1030",
-        "size": 2837411,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/spelltower.zip"
+        "date_updated": "2026-08-13",
+        "md5": "9422f4f90169a399bb34a787e676b538",
+        "release_id": "2026-08-13_2211",
+        "size": 2837412,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/spelltower.zip"
       }
     },
     "spellworm.zip": {
@@ -55088,6 +55851,59 @@
         "release_id": "2024-10-24_1300",
         "size": 4953768,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-10-24_1300/hydorah.zip"
+      }
+    },
+    "supermazerobo.zip": {
+      "version": 4,
+      "name": "supermazerobo.zip",
+      "items": [
+        "SUPER Maze Robo.sh",
+        "supermazerobo"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "SUPER Maze Robo",
+        "porter": [
+          "DeadPlant09"
+        ],
+        "desc": "A small Mega Man like platformer made for SNES graphics game jam 2. Follow Maze Robo on a quest to save his GREATEST TREASURE after a group called the Shooting Robbers stole it. Travel through giant trees and flying ships to get to their castle to take it back, NO MATTER HOW MANY TIMES IT TAKES.",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "godot_4.5.squashfs",
+          "weston_pkg_0.2.squashfs"
+        ],
+        "store": [
+          {
+            "name": "https://deadplant09.itch.io/",
+            "gameurl": "https://deadplant09.itch.io/super-maze-robo",
+            "developerurl": "https://deadplant09.github.io/"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "e3f367dd5596ffb0713f3da501720ee7",
+        "release_id": "2026-08-05_0732",
+        "size": 11105867,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/supermazerobo.zip"
       }
     },
     "supermeatboy.zip": {
@@ -60776,7 +61592,7 @@
       "attr": {
         "title": "Two Die",
         "porter": [
-          "Troidem"
+          "mxmgorin"
         ],
         "desc": "Two Die is a turn-based, tactical, roguelike RPG where every action is determined by the roll of two six sided dice and every action requires to spend points. You choose a character out of 3 standard classes (warrior, rogue and mage) and embark on a quest where all encounters will be played through dice rolls.  Battle enemies to upgrade your character and discover what hides in your lost memories.",
         "inst": "Purchase and download the game https://store.steampowered.com/app/1466260/Two_Die/ and place exe file to the port folder",
@@ -60802,11 +61618,11 @@
       },
       "source": {
         "date_added": "2024-05-02",
-        "date_updated": "2025-10-04",
-        "md5": "f8e024e401da5c30ef52b3da2c4d068c",
-        "release_id": "2025-10-04_1030",
-        "size": 2834852,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/twodie.zip"
+        "date_updated": "2026-08-13",
+        "md5": "be54bc1c1df5d31a2067a1a148add9b4",
+        "release_id": "2026-08-13_2211",
+        "size": 2834854,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/twodie.zip"
       }
     },
     "urguys.zip": {
@@ -62511,7 +63327,7 @@
       "attr": {
         "title": "Void Call",
         "porter": [
-          "Troidem",
+          "mxmgorin",
           "tabreturn"
         ],
         "desc": "They said, \"This is your last chance.\" I didn't care. The prototype R0-Z -- the first working time machine -- fell to MAGNUM CA, a space paramilitary at odds with my employer. My job is to steal it; my mission is my own. I'm done being their pawn. I won't let them keep it, and I won't use it. I'll let the void take it.",
@@ -62546,11 +63362,11 @@
       },
       "source": {
         "date_added": "2025-11-18",
-        "date_updated": "2025-11-18",
-        "md5": "c41e590ec30afcefc03bf3781398d2ec",
-        "release_id": "2025-11-18_1011",
-        "size": 9131,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-18_1011/voidcall.zip"
+        "date_updated": "2026-08-13",
+        "md5": "eb835d4c91728245c68ce7c6f5e20940",
+        "release_id": "2026-08-13_2211",
+        "size": 9132,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/voidcall.zip"
       }
     },
     "voidpyramid.zip": {
@@ -63735,6 +64551,52 @@
         "release_id": "2026-05-24_0536",
         "size": 7152973,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-24_0536/wolf3d.zip"
+      }
+    },
+    "wolfensteinrpg.zip": {
+      "version": 4,
+      "name": "wolfensteinrpg.zip",
+      "items": [
+        "Wolfenstein RPG.sh",
+        "wolfensteinrpg"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Wolfenstein RPG",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A dungeon-crawler RPG spin-off of Wolfenstein, reverse-engineered from the original iOS release.",
+        "desc_md": "",
+        "inst": "Requires 'Wolfenstein RPG.ipa' placed in /roms/ports/wolfensteinrpg/. This iOS game is in your own Apple ID purchase history if you bought it in 2009-era.",
+        "inst_md": "",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "242ef59a691bb5df930e67cab0191440",
+        "release_id": "2026-08-05_0732",
+        "size": 2882256,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/wolfensteinrpg.zip"
       }
     },
     "wordlesdl.zip": {
@@ -65578,6 +66440,51 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-09-08_0351/ziggurat.zip"
       }
     },
+    "zimlite.zip": {
+      "version": 4,
+      "name": "zimlite.zip",
+      "items": [
+        "Zimlite.sh",
+        "zimlite/"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Zimlite",
+        "desc": "Carry Wikipedia, Wiktionary, Wikibooks and more in your pocket! Zimlite is a fast, lightweight offline ZIM reader with gamepad-friendly browsing, alphabetical article tree, link navigation with history, and instant startup on your handheld \u2014 no internet required.",
+        "inst": "Copy ZIM files into /roms/ports/zimlite/",
+        "genres": [
+          "other"
+        ],
+        "porter": [
+          "dendec"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "availability": "Full",
+        "runtime": [],
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "desc_md": null,
+        "inst_md": null,
+        "exp": false,
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-05",
+        "date_updated": "2026-08-05",
+        "md5": "db55e483b3a8eae1831e38faa27265ec",
+        "release_id": "2026-08-05_0732",
+        "size": 9721334,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/zimlite.zip"
+      }
+    },
     "znax.zip": {
       "version": 2,
       "name": "znax.zip",
@@ -65734,9 +66641,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "350f29ddb6766fa07bda702fdc74f9c7",
-      "size": 163813987,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/gameinfo.zip"
+      "md5": "a2e39803a48fe5477488ac8c0155dc0f",
+      "size": 164589690,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -66058,9 +66965,9 @@
     },
     "images.003.zip": {
       "name": "images.003.zip",
-      "md5": "e581ca888f8fbd16006df9af4c936e9a",
-      "size": 7237504,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-07_1030/images.003.zip",
+      "md5": "215aa6c10e27531afd7cf89a80244a20",
+      "size": 7053165,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/images.003.zip",
       "images": [
         "angband.screenshot.png",
         "apotris.screenshot.png",
@@ -67131,11 +68038,13 @@
     },
     "images.013.zip": {
       "name": "images.013.zip",
-      "md5": "6aa7b0b28518c4c3e70d065f79fcfb6f",
-      "size": 3911613,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/images.013.zip",
+      "md5": "cdd4c964357e74b6895d3ebacd09db82",
+      "size": 4445717,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/images.013.zip",
       "images": [
         "2048plus.screenshot.png",
+        "alex1.screenshot.png",
+        "alex2.screenshot.png",
         "antecrypt.screenshot.png",
         "antonballdeluxe.screenshot.png",
         "bitriot.screenshot.jpg",
@@ -67150,15 +68059,22 @@
         "daserbe.screenshot.png",
         "daserbe2.screenshot.png",
         "disccreatures.screenshot.png",
+        "dungeonantiqua.screenshot.png",
         "dungeonantiqua2.screenshot.png",
+        "eatgirl.screenshot.png",
         "environmentalstationalpha.screenshot.png",
         "exactchinesechess.screenshot.png",
+        "firebrimstone.screenshot.png",
+        "franticdimension.screenshot.png",
         "geminiarms.screenshot.png",
         "grimdungeon.screenshot.png",
+        "growseedpinball.screenshot.png",
         "hellstarsquadron.screenshot.png",
+        "hypercycles.screenshot.png",
         "jimmyslostfruits.screenshot.png",
         "kor.screenshot.png",
         "leadhaul.screenshot.png",
+        "limbo.screenshot.png",
         "makenewfriends.screenshot.png",
         "megamanspace.screenshot.png",
         "megamanspace2.screenshot.png",
@@ -67167,7 +68083,12 @@
         "openchaos.screenshot.png",
         "openjkdf2.screenshot.jpg",
         "orcishskies.screenshot.png",
+        "pentasma.screenshot.png",
         "pullchain.screenshot.png",
+        "pvz_portable.screenshot.png",
+        "retsend.screenshot.png",
+        "roguelegacy.screenshot.png",
+        "rollingbird.screenshot.png",
         "scavengerofdunomini.screenshot.png",
         "sgsquadronext.screenshot.png",
         "skullyardpinball.screenshot.png",
@@ -67175,23 +68096,26 @@
         "spectrumforces.screenshot.png",
         "stardewvalleymainline.screenshot.png",
         "superbloodhockey.screenshot.png",
+        "supermazerobo.screenshot.png",
         "tecnoballz.screenshot.png",
         "theforceengine.screenshot.jpg",
         "theimpossiblegame.screenshot.png",
         "tomomi.screenshot.png",
         "urguys.screenshot.png",
         "wizorb.screenshot.png",
+        "wolfensteinrpg.screenshot.jpg",
         "wratchsden.screenshot.png",
         "yarntown_pm.screenshot.png",
         "zenodeath.screenshot.png",
-        "zenohell.screenshot.png"
+        "zenohell.screenshot.png",
+        "zimlite.screenshot.png"
       ]
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "204e2a62f1fff059ee0dba0afa82e36e",
-      "size": 87472655,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-26_1858/images.zip"
+      "md5": "d5f7562b7b5b996f5ac6b4fc3798764e",
+      "size": 87822420,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
@@ -67680,6 +68604,38 @@
       "md5": "b13ddc8c98d400ba73039de68ec8e5e3",
       "size": 26238976,
       "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-24_0536/godot_4.6.3.x86_64.squashfs"
+    },
+    "godot_4.7.1.squashfs": {
+      "name": "Godot 4.7.1",
+      "runtime_name": "godot_4.7.1.squashfs",
+      "runtime_arch": "aarch64",
+      "md5": "1ece785be5734220a4820675e9ec3c0c",
+      "size": 24739840,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/godot_4.7.1.squashfs"
+    },
+    "godot_4.7.1.mono.squashfs": {
+      "name": "Godot 4.7.1 Mono",
+      "runtime_name": "godot_4.7.1.mono.squashfs",
+      "runtime_arch": "aarch64",
+      "md5": "6992490bd57df2a78ddbbd44bbc48cb2",
+      "size": 24801280,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/godot_4.7.1.mono.squashfs"
+    },
+    "godot_4.7.1.mono.x86_64.squashfs": {
+      "name": "Godot 4.7.1 Mono",
+      "runtime_name": "godot_4.7.1.mono.squashfs",
+      "runtime_arch": "x86_64",
+      "md5": "3cc77af4a86c913f9faa81160e1126e5",
+      "size": 26865664,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/godot_4.7.1.mono.x86_64.squashfs"
+    },
+    "godot_4.7.1.x86_64.squashfs": {
+      "name": "Godot 4.7.1",
+      "runtime_name": "godot_4.7.1.squashfs",
+      "runtime_arch": "x86_64",
+      "md5": "5bd4a00fe76e3bd2dfc07e0616e7ec19",
+      "size": 26796032,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/godot_4.7.1.x86_64.squashfs"
     },
     "mesa_pkg_0.1.squashfs": {
       "name": "Mesapack 0.1",

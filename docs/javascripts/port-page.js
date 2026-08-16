@@ -7,7 +7,14 @@
   const contentEl = document.getElementById('port-page-content');
 
   let portDetails = null;
+  let activePortId = null;
   const readmeCache = {};
+
+  // URL scheme matches the legacy portmaster.games detail page
+  // (detail.html?name=<port_id>) so old bookmarks/shares keep working.
+  function getPortIdFromUrl() {
+    return new URLSearchParams(location.search).get('name');
+  }
 
   function setState(state) {
     loadingEl.style.display = state === 'loading' ? '' : 'none';
@@ -130,6 +137,7 @@
       instSection.style.display = 'none';
     }
 
+    activePortId = portId;
     loadReadme(portId, port.repo);
     currentPort = port;
     updateDeviceChip();
@@ -156,7 +164,7 @@
       .then(md => {
         const html = window.marked ? window.marked.parse(md) : md;
         readmeCache[portId] = html;
-        if (location.hash.slice(1) === portId) {
+        if (activePortId === portId) {
           readmeEl.innerHTML = html;
           wrapTables(readmeEl);
         }
@@ -164,12 +172,12 @@
       .catch(() => {
         const fallback = '<p>No additional information available.</p>';
         readmeCache[portId] = fallback;
-        if (location.hash.slice(1) === portId) readmeEl.innerHTML = fallback;
+        if (activePortId === portId) readmeEl.innerHTML = fallback;
       });
   }
 
   function showPort() {
-    const portId = decodeURIComponent(location.hash.slice(1));
+    const portId = getPortIdFromUrl();
     if (!portId) {
       setState('notfound');
       return;
@@ -200,7 +208,7 @@
       .catch(() => setState('notfound'));
   }
 
-  window.addEventListener('hashchange', showPort);
+  window.addEventListener('popstate', showPort);
   showPort();
 
   // ===== Share button =====

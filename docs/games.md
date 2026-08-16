@@ -28,10 +28,10 @@ search:
 {% set is_mv = 'PortMaster-MV' in (source.url or '') or 'MV-New' in (source.url or '') %}
 {% set repo_owner = 'PortsMaster-MV' if is_mv else 'PortsMaster' %}
 {% set repo_name = 'PortMaster-MV-New' if is_mv else 'PortMaster-New' %}
-  <div class="pm-card" data-port-id="{{ port_id }}" onclick="window.location.href='../port/#{{ port_id }}'">
+  <div class="pm-card" data-port-id="{{ port_id }}" onclick="window.location.href='../port/?name={{ port_id }}'">
     {% if attr.rtr %}<span class="pm-rtr-badge"><i class="bi bi-check-lg"></i> RTR</span>{% endif %}
     {% if screenshot %}
-    <img src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}"
+    <img class="off-glb" src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}"
          alt="{{ title }}"
          loading="lazy"
          onerror="this.style.display='none'">
@@ -146,7 +146,7 @@ search:
         {% if slide.desc %}<p class="hero-slide-desc">{{ slide.desc }}</p>{% endif %}
         <div class="hero-slide-actions">
           <a href="{{ slide.url }}" class="hero-download-btn">Download</a>
-          <a href="../port/#{{ slide.port_id }}" class="hero-details-link">View Details <i class="bi bi-chevron-right"></i></a>
+          <a href="../port/?name={{ slide.port_id }}" class="hero-details-link">View Details <i class="bi bi-chevron-right"></i></a>
         </div>
       </div>
     </div>
@@ -203,10 +203,20 @@ search:
   <div class="carousel-section-header">
     <div class="carousel-section-title">
       <h1>Browse by Genre</h1>
+    </div>
+    <div class="carousel-nav genre-carousel-nav">
       <a href="../games/#browse" class="see-all-inline"><span class="sr-only">See All</span> <i class="bi bi-chevron-right"></i></a>
+      <div class="carousel-btn-group">
+        <button class="carousel-btn carousel-btn-left" onclick="scrollCarousel('genreTilesPreview', -1)">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="carousel-btn carousel-btn-right" onclick="scrollCarousel('genreTilesPreview', 1)">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="genre-tiles genre-tiles--preview">
+  <div class="genre-tiles genre-tiles--preview" id="genreTilesPreview">
     {% for genre in genre_list %}{{ genre_tile(genre) }}{% endfor %}
   </div>
 </div>
@@ -416,7 +426,7 @@ search:
 </button>
 
 <!-- Quick-view modal: reuses the same .port-hero / .port-stat-pills /
-     .port-actions components as the standalone /port/#<id> page so the
+     .port-actions components as the standalone /port/?name=<id> page so the
      preview and the full page look identical. -->
 <div id="portModal" class="modal">
   <div class="modal-content">
@@ -452,19 +462,23 @@ search:
         </div>
       </div>
 
-      <div class="port-description" id="modal-desc"></div>
-
-      <div class="port-actions">
-        <div class="download-warning" id="downloadWarning" style="display: none;">
-          <i class="bi bi-exclamation-triangle"></i>
-          <span>No device selected. This port may not be compatible with your device.</span>
-        </div>
+      <div class="port-actions-primary">
         <a href="#" class="modal-download-btn" id="modal-download-btn" onclick="handleDownload(event)">Download</a>
-        <div class="port-store-links" id="modal-store-links" style="display:none"></div>
         <button type="button" class="device-filter-btn" id="modal-device-chip-btn" title="Check compatibility with your device">
           <span class="device-chip-dot" id="modal-device-chip-dot"></span>
           <i class="bi bi-controller"></i>
         </button>
+      </div>
+
+      <div class="download-warning" id="downloadWarning" style="display: none;">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span>No device selected. This port may not be compatible with your device.</span>
+      </div>
+
+      <div class="port-description" id="modal-desc"></div>
+
+      <div class="port-actions-secondary">
+        <div class="port-store-links" id="modal-store-links" style="display:none"></div>
         <button class="share-btn" id="modal-share-btn" onclick="sharePort(event)" title="Share port">
           <i class="bi bi-share"></i>
         </button>
@@ -1153,7 +1167,7 @@ search:
   function renderCardHtml(port) {
     const rtrBadge = port.rtr ? '<span class="pm-rtr-badge"><i class="bi bi-lightning-charge-fill"></i> RTR</span>' : '';
     const img = port.screenshot
-      ? `<img src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
+      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
       : '';
     const downloadsText = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
     const cls = 'pm-card' + (port.incompatibleFlag ? ' incompatible' : '');
@@ -1243,14 +1257,14 @@ search:
     const card = e.target.closest('.pm-card');
     if (!card) return;
     e.preventDefault();
-    window.location.href = `../port/#${card.dataset.portId}`;
+    window.location.href = `../port/?name=${encodeURIComponent(card.dataset.portId)}`;
   });
   gameGrid.addEventListener('auxclick', (e) => {
     if (e.button !== 1) return;
     const card = e.target.closest('.pm-card');
     if (!card) return;
     e.preventDefault();
-    window.open(`../port/#${card.dataset.portId}`, '_blank');
+    window.open(`../port/?name=${encodeURIComponent(card.dataset.portId)}`, '_blank');
   });
 
   // ===================================================================

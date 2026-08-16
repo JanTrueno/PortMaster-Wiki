@@ -1,6 +1,6 @@
 [
   {
-    "date_updated": "2026-06-22",
+    "date_updated": "2026-08-05",
     "file_name": "runtimes.all.aarch64.zip",
     "included_files": [
       "ags_3.6.squashfs",
@@ -29,6 +29,8 @@
       "godot_4.5.squashfs",
       "godot_4.6.3.mono.squashfs",
       "godot_4.6.3.squashfs",
+      "godot_4.7.1.mono.squashfs",
+      "godot_4.7.1.squashfs",
       "mesa_pkg_0.1.squashfs",
       "mono-6.12.0.122-aarch64.squashfs",
       "python_3.11.squashfs",
@@ -47,10 +49,10 @@
       "zulu23.32.11-ca-jre23.0.2-linux.squashfs",
       "zulu8.86.0.25-ca-jdk8.0.452-linux.squashfs"
     ],
-    "md5": "64f5639bbfebc820b70a113093f270ea",
+    "md5": "7797021d15b5f94a9fe85eb8cc8ccdc8",
     "nice_name": "All Runtimes.zip",
-    "size": 1820619989,
-    "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-06-22_1100/runtimes.all.aarch64.zip"
+    "size": 1870161351,
+    "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/runtimes.all.aarch64.zip"
   },
   {
     "date_updated": "2026-07-15",
@@ -75,7 +77,7 @@
     "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-15_0750/runtimes.popular.aarch64.zip"
   },
   {
-    "date_updated": "2026-06-22",
+    "date_updated": "2026-08-05",
     "file_name": "runtimes.all.x86_64.zip",
     "included_files": [
       "ags_3.6.squashfs",
@@ -96,6 +98,8 @@
       "godot_4.5.squashfs",
       "godot_4.6.3.mono.squashfs",
       "godot_4.6.3.squashfs",
+      "godot_4.7.1.mono.squashfs",
+      "godot_4.7.1.squashfs",
       "pyxel_2.2.8_python_3.11.squashfs",
       "pyxel_2.3.18_python_3.11.squashfs",
       "pyxel_2.4.6_python_3.11.squashfs",
@@ -104,9 +108,9 @@
       "zulu17.48.15-ca-jdk17.0.10-linux.squashfs",
       "zulu17.54.21-ca-jre17.0.13-linux.squashfs"
     ],
-    "md5": "0c7e61d5572150dccd84ef892a5219da",
+    "md5": "322baa27cc525266a45c9015a290208f",
     "nice_name": "All Runtimes (x86_64).zip",
-    "size": 843623466,
-    "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-06-22_1100/runtimes.all.x86_64.zip"
+    "size": 897285404,
+    "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-05_0732/runtimes.all.x86_64.zip"
   }
 ]

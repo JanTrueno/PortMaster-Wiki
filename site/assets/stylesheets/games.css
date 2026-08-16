@@ -1142,49 +1142,31 @@
   color: #F49519;
 }
 
-/* ===== INFO GRID - Icons Layout ===== */
+/* ===== INFO GRID - plain label/value list (store-page spec sheet style),
+   not individual icon-boxed cards - a 2-column grid of stacked
+   label-then-value pairs sitting directly on the section's own background. */
 .modal-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 1.5rem;
   width: 100%;
   max-width: 100%;
-}
-
-@media (max-width: 480px) {
-  .modal-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 /* Info Item - Each grid cell */
 .info-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0.6rem 0.5rem;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  border-radius: 0;
+  background: none !important;
 }
 
-[data-md-color-scheme="light"] .info-item {
-  background-color: #ffffff;
-}
-
-[data-md-color-scheme="dark"] .info-item {
-  background-color: #1a1a1a;
-}
-
-.info-item:hover {
-  background-color: rgba(244, 149, 25, 0.1);
-}
-
-/* Icon */
 .info-icon {
-  font-size: 1.25rem;
-  color: #F49519;
-  margin-bottom: -0.5rem;
+  display: none;
 }
 
 /* Info Content */
@@ -1194,17 +1176,19 @@
 
 .info-heading {
   font-size: 0.8rem !important;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  margin: 0 0 0.1rem 0;
-  opacity: 0.7;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  margin: 0 0 0.3rem 0;
+  opacity: 1;
+  color: var(--card-stat-color, #888888);
 }
 
 .info-value {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1.3;
+  color: var(--card-text);
 }
 
 /* Info Badge */
@@ -1452,22 +1436,17 @@
   
   .modal-details-section,
   .modal-text-section {
-    padding: 1rem;
+    padding: 0.85rem;
   }
-  
+
   .modal-section-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
-  
+
   .close {
     top: 0.5rem;
     right: 1rem;
-    font-size: 2rem;
-  }
-  
-  .modal-download-btn {
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -1569,7 +1548,13 @@
   padding: 1.75rem 2rem 0.5rem;
 }
 
-.port-title {
+/* Scoped under .port-body (not just .port-title) so this beats the
+   theme's ".md-typeset h1 { font-size, color }" rule on specificity - see
+   the identical fix on .hero-slide-title above for why a bare single-class
+   selector loses that fight regardless of source order. Without this the
+   title was silently stuck at the theme's 2rem/default-color h1 instead of
+   ours, on both desktop and the 600px mobile override below. */
+.port-body .port-title {
   margin: 0 0 1rem 0;
   font-size: 1.9rem;
   font-weight: 700;
@@ -1630,6 +1615,9 @@
   color: var(--card-stat-color, #888888);
   text-transform: uppercase;
   letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== Device compatibility button (port page + modal) ===== */
@@ -1748,12 +1736,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  flex-shrink: 0;
+  flex: 1;
 }
 
 .port-store-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   height: 70px;
   padding: 0 1rem;
@@ -1766,6 +1755,7 @@
   white-space: nowrap;
   text-decoration: none !important;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  flex: 1;
 }
 
 .port-store-link i {
@@ -1778,9 +1768,19 @@
   background-color: rgba(244, 149, 25, 0.08);
 }
 
-.port-actions {
+/* Primary row: download (grows to fill the rest) + the square device-
+   compat button. Secondary row: store links + share, all sharing the row
+   evenly (not square) - see .port-store-link/.share-btn flex below. */
+.port-actions-primary {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.port-actions-secondary {
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
   padding-bottom: 1.75rem;
 }
@@ -1821,64 +1821,65 @@
 
 @media (max-width: 600px) {
   .port-body {
-    padding: 1.25rem 1.25rem 0.25rem;
+    padding: 1rem 1rem 0.2rem;
   }
 
-  .port-title {
-    font-size: 1.5rem;
+  .port-body .port-title {
+    font-size: 1.3rem;
   }
 
+  /* Downloads/Porter/Status are already in the restyled Port Details list
+     below - the pills row is dropped on mobile instead of squeezed. */
   .port-stat-pills {
-    flex-wrap: nowrap;
+    display: none;
+  }
+
+  .port-actions-primary,
+  .port-actions-secondary {
     gap: 0.4rem;
   }
 
-  .port-stat-pill {
-    min-width: 0;
-    flex: 1 1 0;
-    padding: 0.4rem 0.5rem;
-    gap: 0.35rem;
+  .port-actions-primary {
+    margin-bottom: 0.8rem;
   }
 
-  .port-stat-pill i {
-    font-size: 0.95rem;
+  .port-actions-secondary {
+    padding-bottom: 1.25rem;
   }
 
-  .port-stat-value {
-    font-size: 0.78rem;
-  }
-
-  .port-stat-label {
-    font-size: 0.6rem;
-  }
-
-  .port-actions {
-    flex-wrap: nowrap;
-    gap: 0.4rem;
+  .port-description {
+    font-size: 0.85rem;
+    margin-bottom: 0.9rem;
   }
 
   .modal-download-btn {
-    padding: 0 1rem;
+    padding: 0 0.8rem;
     min-width: 0;
-    height: 52px;
-    font-size: 0.95rem;
+    height: 42px;
+    font-size: 0.78rem;
+    border-radius: 11px;
   }
 
   .share-btn,
   .device-filter-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
   }
 
   .share-btn i,
   .device-filter-btn i {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .port-store-link {
-    height: 52px;
-    padding: 0 0.6rem;
+    height: 42px;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .port-store-link i {
+    font-size: 0.9rem;
   }
 
   .port-store-link .port-store-label {
@@ -1891,6 +1892,19 @@
     transform: none;
     min-width: 240px;
     max-width: calc(100vw - 2.5rem);
+  }
+
+  .modal-info-grid {
+    column-gap: 1.25rem;
+    row-gap: 1rem;
+  }
+
+  .info-heading {
+    font-size: 0.65rem !important;
+  }
+
+  .info-value {
+    font-size: 0.78rem;
   }
 }
 
@@ -1957,14 +1971,6 @@
 }
 
 
-/* ===== DOWNLOAD ACTIONS (Button Group) ===== */
-.download-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Device Filter Button - matches .share-btn's neutral ghost style */
 .device-filter-btn {
   position: relative;
@@ -1998,12 +2004,13 @@
   color: #F49519;
 }
 
-/* Share Button */
+/* Share Button - lives in .port-actions-secondary alongside the store
+   links now, sized to match/share the row with them rather than being a
+   fixed square (that's .device-filter-btn's job, in the primary row). */
 .share-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
   height: 70px;
   background-color: transparent;
   border: 1px solid var(--card-border, #cccccc);
@@ -2011,7 +2018,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   will-change: transform, background-color, border-color;
-  flex-shrink: 0;
+  flex: 1;
 }
 
 .share-btn:hover {
@@ -2028,22 +2035,6 @@
 
 .share-btn:hover i {
   color: #F49519;
-}
-
-@media (max-width: 480px) {
-  .download-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .modal-download-btn {
-    width: 100%;
-  }
-  
-  .device-filter-btn,
-  .share-btn {
-    width: 100%;
-  }
 }
 
 /* ===== BACK TO TOP BUTTON ===== */
@@ -2144,6 +2135,21 @@
   flex-shrink: 0;
 }
 
+/* Genre carousel is a wrapping grid above 600px (not a horizontal strip),
+   so the scroll arrows have nothing to do there. */
+.genre-carousel-nav .carousel-btn-group {
+  display: none;
+}
+
+/* Prev/next arrows are a mouse affordance - on mobile everything scrolls
+   by swipe instead, so hide them there for every carousel (ports and
+   genres alike). The "See All" chevron stays visible. */
+@media (max-width: 600px) {
+  .carousel-btn-group {
+    display: none;
+  }
+}
+
 .carousel-btn {
   position: static;
   width: 34px;
@@ -2180,15 +2186,28 @@
   }
 
   .carousel-track {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .carousel-track .pm-card {
-    flex: 0 0 145px;
+    flex: 0 0 115px;
   }
 
   .carousel-track .pm-card h3 {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
+  }
+
+  .carousel-section-title h1,
+  .carousel-section-title h2 {
+    font-size: 0.85rem;
+  }
+
+  .featured-category-header h1 {
+    font-size: 0.95rem;
+  }
+
+  .featured-category-header p {
+    font-size: 0.68rem;
   }
 }
 
@@ -2198,21 +2217,57 @@
   }
 
   .carousel-track {
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .carousel-track .pm-card {
-    flex: 0 0 125px;
+    flex: 0 0 96px;
   }
 
   .carousel-track .pm-card h3 {
-    font-size: 0.68rem;
+    font-size: 0.58rem;
   }
 
   .carousel-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 0.8rem;
+    width: 22px;
+    height: 22px;
+    font-size: 0.62rem;
+  }
+
+  .carousel-section-title h1,
+  .carousel-section-title h2 {
+    font-size: 0.78rem;
+  }
+
+  .featured-category-header h1 {
+    font-size: 0.85rem;
+  }
+
+  .featured-category-header p {
+    font-size: 0.62rem;
+  }
+}
+
+/* Below 600px, port carousels go 2 rows tall (grid, column-major) instead
+   of one long single-row strip - twice as many cards visible per "page"
+   of horizontal scroll, same card look/sizing as the single-row version.
+   Placed after the 768/480 blocks above so it wins on source order at
+   every width <=600 regardless of which of those also matched; .pm-card's
+   flex-basis is neutralized (grid-auto-columns drives width instead). */
+@media (max-width: 600px) {
+  .carousel-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-columns: 110px;
+    row-gap: 0.7rem;
+    column-gap: 0.4rem;
+    align-items: start;
+  }
+
+  .carousel-track .pm-card {
+    flex: none;
+    width: 100%;
   }
 }
 
@@ -2769,24 +2824,27 @@
   }
 }
 
-/* Below 600px: a horizontally-swipeable, 3-row-tall grid instead of a
+/* Below 600px: a horizontally-swipeable, 2-row-tall grid instead of a
    long wrapping list - swipe left/right to see the rest of the genres.
-   grid-template-columns must be explicitly cleared here: left at the
-   base rule's "repeat(2, 1fr)", the first two auto-flow columns would
-   still use that (splitting the container 50/50) while the rest used
-   grid-auto-columns, producing wildly inconsistent tile widths - some
-   near 0. .genre-tile's height also needs !important since the base,
-   unconditional "height: 90px" rule below this in the file otherwise
-   wins on equal specificity (source order), overflowing the 72px row
-   track and making tiles overlap/scroll vertically. */
+   Same tile look as desktop (image + rounded corners), just 2 stacked per
+   column instead of wrapping across the full width. grid-template-columns
+   must be explicitly cleared here: left at the base rule's
+   "repeat(2, 1fr)", the first two auto-flow columns would still use that
+   (splitting the container 50/50) while the rest used grid-auto-columns,
+   producing wildly inconsistent tile widths - some near 0. .genre-tile's
+   height also needs !important since the base, unconditional
+   "height: 90px" rule below this in the file otherwise wins on equal
+   specificity (source order), overflowing the row track and making tiles
+   overlap/scroll vertically. */
 @media (max-width: 600px) {
   .genre-tiles {
     display: grid;
     grid-template-columns: none;
     grid-auto-flow: column;
-    grid-template-rows: repeat(3, 72px);
+    grid-template-rows: repeat(2, 84px);
     grid-auto-columns: 130px;
-    gap: 0.5rem;
+    column-gap: 0.5rem;
+    row-gap: 0.4rem;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -2801,6 +2859,26 @@
 
   .genre-tile {
     height: 100% !important;
+  }
+
+  /* A single thin grey line between the two stacked rows (not around
+     every tile) - sits in the row-gap, under the top tile of each pair. */
+  .genre-tiles .genre-tile:nth-child(odd) {
+    position: relative;
+  }
+
+  .genre-tiles .genre-tile:nth-child(odd)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.22rem;
+    height: 1px;
+    background-color: rgba(128, 128, 128, 0.4);
+  }
+
+  .genre-tile span {
+    font-size: 0.68rem;
   }
 }
 
@@ -2848,7 +2926,7 @@
 
 @media (max-width: 400px) {
   .genre-tile span {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
   }
 }
 
@@ -2928,7 +3006,7 @@
   position: relative;
   flex: 1;
   min-width: 0;
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 21 / 9;
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--card-bg);
@@ -2977,7 +3055,7 @@
   padding: 0.2rem 0.55rem;
   border-radius: 5px;
   background-color: rgba(128, 128, 128, 0.18);
-  color: var(--card-text);
+  color: #ffffff;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -2989,7 +3067,10 @@
   color: #ffffff;
 }
 
-.hero-slide-title {
+/* Scoped under .hero-slide-overlay (not just .hero-slide-title) so this
+   beats the theme's ".md-typeset h1 { color }" rule on specificity - a
+   bare single-class selector loses that fight regardless of source order. */
+.hero-slide-overlay .hero-slide-title {
   margin: 0 0 0.4rem;
   font-size: 1.8rem;
   font-weight: 800;
@@ -3002,7 +3083,7 @@
   max-width: 33%;
   font-size: 0.75rem;
   line-height: 1.45;
-  color: #e2e2e2;
+  color: #ffffff;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
 }
 
@@ -3050,8 +3131,8 @@
 .hero-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  flex: 0 0 260px;
+  gap: 0.6rem;
+  flex: 0 0 180px;
 }
 
 /* Only the active pill gets a box at all - the rest sit as plain text so
@@ -3061,9 +3142,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   width: 100%;
-  padding: 0.5rem 0.7rem;
+  padding: 0.4rem 0.5rem;
   border: none;
   border-radius: 8px;
   background-color: transparent;
@@ -3116,7 +3197,7 @@
 }
 
 .hero-pill-title {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--card-text);
   white-space: nowrap;
@@ -3133,14 +3214,43 @@
   .hero-sidebar {
     display: none;
   }
+
+  /* 21:9 leaves a lot less vertical room than the old 2:1 box, and with
+     the sidebar gone .hero-main also gets wider (so shorter still, per
+     the aspect ratio) - the desktop-sized overlay content (title/desc/
+     status/buttons) no longer reliably fits and was clipping against
+     overflow:hidden. Trim padding/type size and clamp the description to
+     2 lines (bounded height regardless of how the text wraps) instead of
+     letting it grow past the box. */
+  .hero-slide-overlay {
+    padding: 1.1rem 1.4rem 1.1rem;
+  }
+
+  .hero-slide-status {
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-slide-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-slide-desc {
+    max-width: 60%;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 600px) {
   /* Full-bleed to the true screen edges instead of sitting inside
      .featured-category's side padding - on a narrow phone that padding
-     was eating enough width to make the (still 2:1) box look narrow and
+     was eating enough width to make the (still 21:9) box look narrow and
      small rather than wide. Aspect ratio itself is unchanged so it still
-     matches the hand-supplied 2:1 hero art exactly. */
+     matches the hand-supplied 21:9 hero art exactly. */
   .hero-banner {
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -3150,19 +3260,19 @@
      the (now much wider, edge-to-edge) mobile width instead of forcing a
      tall fixed floor that made the whole banner dominate the screen. */
   .hero-slide-status {
-    font-size: 0.45rem;
-    padding: 0.1rem 0.35rem;
-    margin-bottom: 0.3rem;
-    gap: 0.2rem;
+    font-size: 0.4rem;
+    padding: 0.08rem 0.3rem;
+    margin-bottom: 0.2rem;
+    gap: 0.15rem;
   }
 
   .hero-slide-status i {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
   }
 
   .hero-slide-title {
-    font-size: 0.75rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.65rem;
+    margin-bottom: 0.15rem;
   }
 
   .hero-slide-desc {
@@ -3170,24 +3280,24 @@
   }
 
   .hero-slide-actions {
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .hero-download-btn {
-    padding: 0.3rem 0.7rem;
-    font-size: 0.55rem;
+    padding: 0.22rem 0.55rem;
+    font-size: 0.48rem;
   }
 
   .hero-details-link {
-    font-size: 0.5rem;
+    font-size: 0.44rem;
   }
 
   .hero-details-link i {
-    font-size: 0.5rem;
+    font-size: 0.44rem;
   }
 
   .hero-slide-overlay {
-    padding: 0.7rem 0.6rem 0.6rem;
+    padding: 0.5rem 0.45rem 0.45rem;
   }
 }
 

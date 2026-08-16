@@ -256,6 +256,56 @@
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2025-05-12_1210/duckdodge.zip"
             }
         },
+        "dusklight.zip": {
+            "version": 4,
+            "name": "dusklight.zip",
+            "items": [
+                "Dusklight.sh",
+                "dusklight"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Dusklight",
+                "porter": [
+                    "jckhng",
+                    "bmdhacks"
+                ],
+                "desc": "Native reimplementation of The Legend of Zelda: Twilight Princess, built on the zeldaret decompilation and rendered through Aurora on OpenGL ES.",
+                "desc_md": "",
+                "inst": "Place your own legally-dumped Twilight Princess GameCube or Wii disc image (.iso or .rvz) in the assets directory.",
+                "inst_md": "",
+                "genres": [
+                    "adventure",
+                    "action"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [],
+                "availability": "paid",
+                "store": [],
+                "reqs": [],
+                "arch": [
+                    "aarch64"
+                ],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-07-29",
+                "date_updated": "2026-07-29",
+                "md5": "985b3356caeeda0d8b00cda86de9b1b5",
+                "release_id": "2026-07-29_1431",
+                "size": 24324846,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-29_1431/dusklight.zip"
+            }
+        },
         "gta3.zip": {
             "version": 2,
             "name": "gta3.zip",
@@ -1282,8 +1332,8 @@
                 "image": {
                     "screenshot": "screenshot.jpg",
                     "covers": [
-                        "cover.smredux.png",
-                        "cover.sm.png"
+                        "cover.sm.png",
+                        "cover.smredux.png"
                     ],
                     "thumbnail": null,
                     "video": null
@@ -1452,6 +1502,58 @@
                 "release_id": "2025-01-22_1900",
                 "size": 3985402,
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2025-01-22_1900/thextech.zip"
+            }
+        },
+        "tunics_pm.zip": {
+            "version": 4,
+            "name": "tunics_pm.zip",
+            "items": [
+                "Tunics!.sh",
+                "tunics_pm"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Tunics!",
+                "porter": [
+                    "Cebion"
+                ],
+                "desc": "A roguelike Zelda-style action RPG built with the Solarus engine, where players fight through randomly generated, increasingly difficult dungeons using classic Zelda-inspired items and skills. It features permadeath",
+                "desc_md": null,
+                "inst": "Get the .solarus file for this port by downloading Tunics! fromhttps://solarus-games.org/games/tunics/, then move it into ports/tunics_pm folder.",
+                "inst_md": null,
+                "genres": [
+                    "action"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [
+                    "solarus-1.6.5.squashfs"
+                ],
+                "store": [
+                    {
+                        "name": "Solarus Site",
+                        "gameurl": "https://solarus-games.org/games/tunics/",
+                        "developerurl": "https://legofarmen.se/"
+                    }
+                ],
+                "availability": "free",
+                "reqs": [],
+                "arch": [],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-07-29",
+                "date_updated": "2026-08-04",
+                "md5": "ad46fea103045da2c1dd389257bbb754",
+                "release_id": "2026-08-04_1814",
+                "size": 287877,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-04_1814/tunics_pm.zip"
             }
         },
         "vdrift.zip": {
@@ -1777,15 +1879,15 @@
     "utils": {
         "gameinfo.zip": {
             "name": "gameinfo.zip",
-            "md5": "aca980446c315753ddf8a9177ca27957",
-            "size": 8349269,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-09_0548/gameinfo.zip"
+            "md5": "0f1a5d25e0c52d3c99668e5a6f6e73ab",
+            "size": 9314991,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-29_1431/gameinfo.zip"
         },
         "images.zip": {
             "name": "images.zip",
-            "md5": "8fc688a3ab7fd2d18d18fa564399d1db",
-            "size": 3668004,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-09_0548/images.zip"
+            "md5": "7212b2f167b8ea342a663da3f7607311",
+            "size": 4237406,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-04_1814/images.zip"
         }
     }
 }

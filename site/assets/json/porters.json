@@ -235,10 +235,10 @@
   },
   "Pridetoons": {
     "name": "Pridetoons",
-    "social": "",
-    "support": "",
-    "webpage": "",
-    "image": ""
+    "social": "https://bsky.app/profile/pridetoons.bsky.social",
+    "support": "https://ko-fi.com/pridetoons",
+    "webpage": "https://github.com/PrideToons",
+    "image": "https://cdn.discordapp.com/avatars/586106984005238785/45ea712b7323f3fafb750a8c531649a3.webp?size=1024"
   },
   "nkahoang": {
     "name": "nkahoang",
@@ -326,5 +326,36 @@
     "support": "",
     "webpage": "",
     "image": "https://postimg.cc/5Xyn83jJ"
+  },
+  "TheLaggyPyro": {
+    "name": "TheLaggyPyro",
+    "bio": "I Love Weird RPGS",
+    "social": "",
+    "support": "https://ko-fi.com/thelaggypyro",
+    "webpage": "",
+    "image": ""
+  },
+  "Producdevity": {
+    "name": "Producdevity",
+    "bio": "",
+    "social": "",
+    "support": "https://ko-fi.com/producdevity",
+    "webpage": "https://github.com/Producdevity",
+    "image": "https://avatars.githubusercontent.com/u/15906337?v=4"
+  },
+  "mxmgorin": {
+    "name": "mxmgorin",
+    "bio": "",
+    "social": "",
+    "support": "https://ko-fi.com/mxmgorin",
+    "webpage": "https://github.com/mxmgorin",
+    "image": "https://avatars.githubusercontent.com/u/102797145?v=4"
+  },
+  "Guandor": {
+    "name": "Guandor",
+    "social": "https://retroexplore.com/u/guandor",
+    "support": "",
+    "webpage": "https://denizalgin.com",
+    "image": ""
   }
 }
