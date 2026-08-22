@@ -515,3 +515,62 @@ img.no-lightbox {
     contain-intrinsic-size: auto;  /* no fake height */
   }
 }
+
+/* ===== Moved from games.css: page header + search bar (was misfiled
+   there - this is entirely porters.md-specific). ===== */
+.porters-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.porters-header h1 {
+  color: #F49519;
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+}
+
+.porters-subtitle {
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+}
+
+.porters-search-wrapper {
+  max-width: 400px;
+  margin: 0 auto 1rem;
+}
+
+.porters-search {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  transition: border-color 0.2s ease;
+}
+
+.porters-search:focus {
+  outline: none;
+  border-color: #F49519;
+}
+
+/* Porter detail page (/porter/?name=X): "Ports by this Porter" heading
+   left, grid/list toggle right - same row, matching the Browse page's
+   toolbar. .view-toggle-wrapper has no width of its own (it's meant to
+   be sized by a flex parent), so without this it falls back to block
+   layout and stretches full-width instead of sitting compactly right. */
+.porter-ports-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.porter-ports-heading {
+  margin: 0;
+}
+

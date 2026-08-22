@@ -1,6 +1,8 @@
 import json
 import markdown
+import os
 import random
+import re
 import time
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -23,6 +25,14 @@ HERO_EXCLUDE_KEYS = {"2048.zip"}
 # long the actual mkdocs build phase (markdown->HTML, theme templating,
 # search indexing) takes on top of define_env's own work.
 _config_done_time = None
+
+# FAST_BUILD=1 mkdocs build - skips the two slowest, data-only steps (the
+# GitHub JSON downloads and the per-port markdown render into
+# port_details.json) and reuses whatever's already on disk instead. Only
+# useful for iterating on templates/CSS/JS, where port data hasn't
+# changed - never use it for a build that's meant to ship, since it can
+# silently serve stale port data.
+FAST_BUILD = os.environ.get("FAST_BUILD") == "1"
 
 # markdown.markdown() rebuilds the whole parser/extension pipeline from
 # scratch on every call, which is wasteful when called thousands of times
@@ -90,11 +100,123 @@ def download_portmaster_jsons(base_path):
     print(f"\nDownloaded {success_count}/{len(files_to_download)} files successfully", flush=True)
     return success_count > 0
 
+MOSAIC_TILE_COUNT = 36
+MOSAIC_CANDIDATE_LIMIT = 90
+
+
+def _has_black_bars(image):
+    """True if the image is letterboxed or pillarboxed.
+
+    Samples the outer 10% of each edge and calls it a bar if nearly every
+    sampled line there is essentially black. Checked as a pair (top AND
+    bottom, or left AND right) so a game that's merely dark along one edge
+    isn't mistaken for a bar.
+    """
+    image = image.convert("RGB")
+    width, height = image.size
+    band_h = max(1, height // 10)
+    band_w = max(1, width // 10)
+
+    def row_is_dark(y):
+        step = max(1, width // 40)
+        pixels = [image.getpixel((x, y)) for x in range(0, width, step)]
+        return sum(sum(p) / 3 for p in pixels) / len(pixels) < 18
+
+    def col_is_dark(x):
+        step = max(1, height // 40)
+        pixels = [image.getpixel((x, y)) for y in range(0, height, step)]
+        return sum(sum(p) / 3 for p in pixels) / len(pixels) < 18
+
+    top = sum(row_is_dark(y) for y in range(band_h))
+    bottom = sum(row_is_dark(height - 1 - y) for y in range(band_h))
+    left = sum(col_is_dark(x) for x in range(band_w))
+    right = sum(col_is_dark(width - 1 - x) for x in range(band_w))
+
+    letterboxed = top > band_h * 0.8 and bottom > band_h * 0.8
+    pillarboxed = left > band_w * 0.8 and right > band_w * 0.8
+    return letterboxed or pillarboxed
+
+
+def build_mosaic_ports(base_path, port_details):
+    """Pick screenshots for the homepage mosaic, skipping barred ones."""
+    cache_path = base_path / "screenshot_bars.json"
+    cache = {}
+    if cache_path.exists():
+        try:
+            with cache_path.open(encoding="utf-8") as f:
+                cache = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            cache = {}
+
+    try:
+        import io
+        from PIL import Image
+    except ImportError:
+        # No Pillow available - fall back to unfiltered, which is only a
+        # cosmetic regression rather than a broken page.
+        print("Pillow not available: mosaic screenshots won't be bar-filtered.", flush=True)
+        Image = None
+
+    candidates = sorted(
+        ((pid, p) for pid, p in port_details.items() if p.get("screenshot")),
+        key=lambda item: item[1].get("downloads", 0),
+        reverse=True,
+    )[:MOSAIC_CANDIDATE_LIMIT]
+
+    chosen = []
+    checked = 0
+    for port_id, port in candidates:
+        if len(chosen) >= MOSAIC_TILE_COUNT:
+            break
+        tile = {"id": port_id, "repo": port["repo"], "screenshot": port["screenshot"]}
+        cache_key = f"{port_id}/{port['screenshot']}"
+
+        if cache_key in cache:
+            if not cache[cache_key]:
+                chosen.append(tile)
+            continue
+
+        if Image is None or FAST_BUILD:
+            chosen.append(tile)
+            continue
+
+        url = (
+            f"https://raw.githubusercontent.com/{port['repo']}"
+            f"/refs/heads/main/ports/{port_id}/{port['screenshot']}"
+        )
+        try:
+            with urllib.request.urlopen(url, timeout=15) as response:
+                image = Image.open(io.BytesIO(response.read()))
+            barred = _has_black_bars(image)
+            checked += 1
+        except Exception:
+            # Unreachable/undecodable - treat as usable rather than dropping
+            # a port from the wall over a transient network blip.
+            barred = False
+
+        cache[cache_key] = barred
+        if not barred:
+            chosen.append(tile)
+
+    if checked:
+        print(f"Checked {checked} new screenshot(s) for black bars.", flush=True)
+        try:
+            with cache_path.open("w", encoding="utf-8") as f:
+                json.dump(cache, f, indent=0, sort_keys=True)
+        except OSError:
+            pass
+
+    return chosen
+
+
 def define_env(env):
     base_path = Path(__file__).parent / "docs" / "assets" / "json"
 
     # Download JSONs from GitHub (comment out if you want to use local files only)
-    download_portmaster_jsons(base_path)
+    if FAST_BUILD:
+        print("FAST_BUILD=1: skipping GitHub JSON downloads, using local files as-is.", flush=True)
+    else:
+        download_portmaster_jsons(base_path)
 
     ports_files = [
         base_path / "ports.json",
@@ -185,47 +307,69 @@ def define_env(env):
     # fetch instead of pulling in the whole /all-games/ dataset. desc/inst
     # markdown is pre-rendered to HTML here too, so the client only needs a
     # markdown parser for the live-fetched README, not for this data.
-    port_details = {}
-    total_ports = len(merged_ports["ports"])
-    print(f"Rendering port_details.json for {total_ports} ports (this involves a markdown render per port, and can take a couple of minutes)...", flush=True)
-    for i, (key, port) in enumerate(merged_ports["ports"].items(), start=1):
-        if i % 200 == 0 or i == total_ports:
-            print(f"  ...{i}/{total_ports} ports rendered", flush=True)
-        port_id = key.replace(".zip", "")
-        attr = port.get("attr") or {}
-        source = port.get("source") or {}
-        source_url = source.get("url") or ""
-        is_mv = "PortMaster-MV" in source_url or "MV-New" in source_url
-        repo = "PortsMaster-MV/PortMaster-MV-New" if is_mv else "PortsMaster/PortMaster-New"
-
-        store = [
-            {"name": s.get("name") or "", "url": s.get("gameurl") or ""}
-            for s in (attr.get("store") or [])
-            if s.get("gameurl")
-        ]
-
-        port_details[port_id] = {
-            "title": attr.get("title") or port_id,
-            "repo": repo,
-            "screenshot": (attr.get("image") or {}).get("screenshot") or "",
-            "descHtml": render_markdown_field(attr.get("desc_md") or attr.get("desc")),
-            "instHtml": render_markdown_field(attr.get("inst_md") or attr.get("inst")),
-            "genres": attr.get("genres") or [],
-            "reqs": attr.get("reqs") or [],
-            "porter": attr.get("porter") or [],
-            "runtime": attr.get("runtime") or [],
-            "arch": attr.get("arch") or [],
-            "rtr": bool(attr.get("rtr")),
-            "downloads": port_stats.get("ports", {}).get(key, 0),
-            "dateAdded": source.get("date_added") or "",
-            "dateUpdated": source.get("date_updated") or "",
-            "url": source_url,
-            "store": store,
-        }
-
     port_details_path = base_path / "port_details.json"
-    with port_details_path.open("w", encoding="utf-8") as f:
-        json.dump(port_details, f, ensure_ascii=True, separators=(",", ":"))
+
+    if FAST_BUILD and port_details_path.exists():
+        print(f"FAST_BUILD=1: reusing existing {port_details_path.name} as-is (skipping the per-port markdown render).", flush=True)
+        with port_details_path.open(encoding="utf-8") as f:
+            port_details = json.load(f)
+    else:
+        port_details = {}
+        total_ports = len(merged_ports["ports"])
+        print(f"Rendering port_details.json for {total_ports} ports (this involves a markdown render per port, and can take a couple of minutes)...", flush=True)
+        for i, (key, port) in enumerate(merged_ports["ports"].items(), start=1):
+            if i % 200 == 0 or i == total_ports:
+                print(f"  ...{i}/{total_ports} ports rendered", flush=True)
+            port_id = key.replace(".zip", "")
+            attr = port.get("attr") or {}
+            source = port.get("source") or {}
+            source_url = source.get("url") or ""
+            is_mv = "PortMaster-MV" in source_url or "MV-New" in source_url
+            repo = "PortsMaster-MV/PortMaster-MV-New" if is_mv else "PortsMaster/PortMaster-New"
+
+            def normalize_store_url(raw_url):
+                # Some upstream ports.json entries have a bare "gameurl" with no
+                # scheme (e.g. "store.epicgames.com/..."), which browsers treat
+                # as a relative link on our own site instead of an absolute one.
+                raw_url = raw_url.strip()
+                if raw_url and not re.match(r"^https?://", raw_url, re.IGNORECASE):
+                    raw_url = f"https://{raw_url}"
+                return raw_url
+
+            store = [
+                {"name": s.get("name") or "", "url": normalize_store_url(s.get("gameurl") or "")}
+                for s in (attr.get("store") or [])
+                if s.get("gameurl")
+            ]
+
+            port_details[port_id] = {
+                "title": attr.get("title") or port_id,
+                "repo": repo,
+                "screenshot": (attr.get("image") or {}).get("screenshot") or "",
+                "descHtml": render_markdown_field(attr.get("desc_md") or attr.get("desc")),
+                "instHtml": render_markdown_field(attr.get("inst_md") or attr.get("inst")),
+                "genres": attr.get("genres") or [],
+                "reqs": attr.get("reqs") or [],
+                "porter": attr.get("porter") or [],
+                "runtime": attr.get("runtime") or [],
+                "arch": attr.get("arch") or [],
+                "rtr": bool(attr.get("rtr")),
+                "downloads": port_stats.get("ports", {}).get(key, 0),
+                "dateAdded": source.get("date_added") or "",
+                "dateUpdated": source.get("date_updated") or "",
+                "url": source_url,
+                "store": store,
+            }
+
+        with port_details_path.open("w", encoding="utf-8") as f:
+            json.dump(port_details, f, ensure_ascii=True, separators=(",", ":"))
+
+    # Homepage screenshot mosaic: the most-downloaded ports whose screenshot
+    # isn't letterboxed/pillarboxed, so the wall reads as game art rather
+    # than a grid of black bars. Verdicts are cached in screenshot_bars.json
+    # (keyed by port id + screenshot filename, so a re-shot screenshot is
+    # re-checked) - only uncached entries hit the network.
+    env.variables["mosaic_ports"] = build_mosaic_ports(base_path, port_details)
 
     # Load device info
     device_info_path = base_path / "device_info.json"
@@ -283,6 +427,43 @@ def define_env(env):
     sorted_porters = dict(sorted(porters.items(), key=lambda x: x[1].get("port_count", 0), reverse=True))
 
     env.variables["porters"] = sorted_porters
+
+    # Build a lean per-porter data file for the standalone porter page
+    # (/porter/?name=<id>), same reasoning as port_details.json above: one
+    # small cacheable fetch instead of embedding every porter's full bio +
+    # port list (with each port's title/repo/screenshot resolved) inline
+    # in porters.md's own HTML, which is what made that page ~2MB.
+    # Reuses port_details (already built above) for each port's display
+    # fields instead of re-deriving them from merged_ports/port_stats again.
+    porter_details = {}
+    for porter_id, porter in sorted_porters.items():
+        porter_ports = []
+        for port_key in porter.get("ports", []):
+            port_id = port_key.replace(".zip", "")
+            pd = port_details.get(port_id)
+            if pd:
+                porter_ports.append({
+                    "id": port_id,
+                    "title": pd["title"],
+                    "repo": pd["repo"],
+                    "screenshot": pd["screenshot"],
+                    "downloads": pd["downloads"],
+                    "dateAdded": pd["dateAdded"],
+                })
+        porter_details[porter_id] = {
+            "name": porter.get("name") or porter_id,
+            "bio": porter.get("bio") or "",
+            "social": porter.get("social") or "",
+            "support": porter.get("support") or "",
+            "webpage": porter.get("webpage") or "",
+            "image": porter.get("image") or "",
+            "portCount": porter.get("port_count", 0),
+            "totalDownloads": porter.get("total_downloads", 0),
+            "ports": porter_ports,
+        }
+
+    with (base_path / "porter_details.json").open("w", encoding="utf-8") as f:
+        json.dump(porter_details, f, ensure_ascii=True, separators=(",", ":"))
 
     # Load packaged runtimes
     runtimes_zips_path = base_path / "runtimes_zips.json"

@@ -6,6 +6,16 @@ hide:
 
 search:
   exclude: true
+
+# Every card image on this page is JS-rendered client-side (not present in
+# the static build-time HTML at all) and every other <img> already carries
+# off-glb, so glightbox has zero images to actually wrap here - but it
+# still regex-scans the entire rendered page including the large embedded
+# ports_text_json data blob to check, which is pathologically slow on a
+# page this size (multiple minutes, dominating the whole site build).
+# Skipping the plugin outright for this page removes that cost with no
+# loss of functionality.
+glightbox: false
 ---
 
 <div style="display:none">
@@ -29,7 +39,7 @@ search:
 {% set repo_owner = 'PortsMaster-MV' if is_mv else 'PortsMaster' %}
 {% set repo_name = 'PortMaster-MV-New' if is_mv else 'PortMaster-New' %}
   <div class="pm-card" data-port-id="{{ port_id }}" onclick="window.location.href='../port/?name={{ port_id }}'">
-    {% if attr.rtr %}<span class="pm-rtr-badge"><i class="bi bi-check-lg"></i> RTR</span>{% endif %}
+    {% if attr.rtr %}<span class="pm-rtr-badge">RTR</span>{% endif %}
     {% if screenshot %}
     <img class="off-glb" src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}"
          alt="{{ title }}"
@@ -269,10 +279,18 @@ search:
   <div class="games-layout">
     <div class="games-main">
       <div class="filters-container">
-        <div class="search-wrapper" style="justify-content: flex-end;">
+        <!-- Left: sort trigger + active-filter chips, Epic-style (chip
+             sits right next to "Show:", not off with the counter). Right:
+             the two things Epic doesn't have - the result counter and the
+             grid/list view toggle - grouped together so they wrap onto a
+             new line as one unit on narrow phones instead of the view
+             icons getting stranded below everything else. -->
+        <div class="filters-left">
+          <span class="sort-label">Show:</span>
           <div class="sort-dropdown-wrapper">
             <button class="sort-toggle-btn" id="sortToggleBtn">
-              <i class="bi bi-sort-down"></i>
+              <span id="sortCurrentLabel">Most Downloads</span>
+              <i class="bi bi-chevron-down"></i>
             </button>
             <div class="sort-dropdown" id="sortDropdown">
               <div class="sort-option" data-sort="az">A-Z</div>
@@ -282,23 +300,28 @@ search:
               <div class="sort-option" data-sort="date-updated">Date Updated (Newest)</div>
             </div>
           </div>
+          <div class="active-filters-row" id="activeFiltersRow" style="display:none"></div>
+        </div>
 
-          <div class="view-toggle-wrapper" id="viewToggleWrapper">
-            <button class="view-toggle-btn active" id="gridViewBtn" title="Grid view" aria-label="Grid view">
-              <i class="bi bi-grid-3x3-gap-fill"></i>
-            </button>
-            <button class="view-toggle-btn" id="listViewBtn" title="List view" aria-label="List view">
-              <i class="bi bi-list-ul"></i>
+        <div class="filters-right">
+          <p id="portsCounter">Showing: {{ total_port_count }} ports</p>
+          <div class="search-wrapper">
+            <div class="view-toggle-wrapper" id="viewToggleWrapper">
+              <button class="view-toggle-btn active" id="gridViewBtn" title="Grid view" aria-label="Grid view">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+              </button>
+              <button class="view-toggle-btn" id="listViewBtn" title="List view" aria-label="List view">
+                <i class="bi bi-list-ul"></i>
+              </button>
+            </div>
+
+            <button class="filter-toggle-btn" id="filterToggleBtn">
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
           </div>
-
-          <button class="filter-toggle-btn" id="filterToggleBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
         </div>
-        <p id="portsCounter">Showing: {{ total_port_count }} ports</p>
       </div>
 
       <div class="filter-overlay" id="filterOverlay"></div>
@@ -339,81 +362,83 @@ search:
     </div>
 
     <!-- Filter Panel: static sidebar on desktop, slide-out drawer on mobile
-         (same markup/JS, CSS-only repositioning - see games.css) -->
+         (same markup/JS, CSS-only repositioning - see games-filters.css) -->
     <div class="filter-panel" id="filterPanel">
       <div class="filter-panel-header">
-        <h2>Filters</h2>
-        <button class="close-panel-btn" id="closePanelBtn">&times;</button>
-      </div>
-
-      <div class="filter-group">
-        <label for="deviceSelect">Device</label>
-        <select id="deviceSelect" class="filter-dropdown">
-          <option value="">Select your device...</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="osSelect">Operating System</label>
-        <select id="osSelect" class="filter-dropdown" disabled>
-          <option value="">Select OS...</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="genreSelect">Genre</label>
-        <select id="genreSelect" class="filter-dropdown">
-          <option value="">All Genres</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label>Options</label>
-        <div class="toggle-group">
-          <div class="toggle-item">
-            <span>Ready to Run Only</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="readyToggle">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="toggle-item">
-            <span>Hide Incompatible</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="hideIncompatibleToggle">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
+        <h2>Filters <span class="filter-count-badge" id="filterActiveCount" style="display:none">(0)</span></h2>
+        <div class="filter-panel-header-actions">
+          <button type="button" class="filter-reset-link" id="filterResetBtn" onclick="clearAllFilters()">Reset</button>
+          <button class="close-panel-btn" id="closePanelBtn">&times;</button>
         </div>
       </div>
 
-      <button class="clear-all-filters-btn" onclick="clearAllFilters()">
-        <i class="bi bi-x-circle"></i> Clear All Filters
-      </button>
+      <div class="filter-accordion open">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Device</span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
+          <div class="filter-radio-list" id="deviceRadioList"></div>
+        </div>
+      </div>
 
-      <div class="filter-group advanced-filters">
-        <label class="advanced-label" onclick="toggleAdvancedFilters()">
-          Advanced <i class="bi bi-chevron-down" id="advancedArrow"></i>
-        </label>
-        <div class="advanced-filters-content" id="advancedFiltersContent">
+      <div class="filter-accordion open">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Operating System</span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
+          <div class="filter-radio-list" id="osRadioList"></div>
+        </div>
+      </div>
+
+      <div class="filter-accordion open">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Genre</span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
+          <div class="filter-checkbox-list" id="genreCheckboxList"></div>
+        </div>
+      </div>
+
+      <div class="filter-accordion open">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Options</span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
+          <label class="filter-checkbox-item">
+            <input type="checkbox" id="readyToggle">
+            <span>Ready to Run Only</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <input type="checkbox" id="hideIncompatibleToggle">
+            <span>Hide Incompatible</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-accordion">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Advanced</span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
           <div class="filter-subgroup">
             <label>Runtime</label>
-            <div class="filter-pills" id="runtimePills"></div>
+            <div class="filter-checkbox-list" id="runtimePills"></div>
           </div>
 
           <div class="filter-subgroup">
             <label>Architecture</label>
-            <div class="filter-pills" id="archPills"></div>
+            <div class="filter-checkbox-list" id="archPills"></div>
           </div>
 
           <div class="filter-subgroup">
             <label>Requirements</label>
-            <div class="filter-pills" id="reqPills"></div>
+            <div class="filter-checkbox-list" id="reqPills"></div>
           </div>
-
-          <button class="clear-filters-btn" onclick="clearAdvancedFilters()">
-            <i class="bi bi-x-circle"></i> Clear All
-          </button>
         </div>
       </div>
     </div>
@@ -424,158 +449,6 @@ search:
 <button class="back-to-top" id="backToTop">
   <i class="bi bi-arrow-up"></i>
 </button>
-
-<!-- Quick-view modal: reuses the same .port-hero / .port-stat-pills /
-     .port-actions components as the standalone /port/?name=<id> page so the
-     preview and the full page look identical. -->
-<div id="portModal" class="modal">
-  <div class="modal-content">
-    <div class="port-hero">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <img src="" alt="" class="port-hero-img off-glb" id="modal-screenshot">
-    </div>
-
-    <div class="port-body">
-      <h1 class="port-title" id="modal-title"></h1>
-
-      <div class="port-stat-pills">
-        <div class="port-stat-pill">
-          <i class="bi bi-download"></i>
-          <div>
-            <span class="port-stat-value" id="modal-stat-downloads">—</span>
-            <span class="port-stat-label">Downloads</span>
-          </div>
-        </div>
-        <div class="port-stat-pill">
-          <i class="bi bi-person-workspace"></i>
-          <div>
-            <span class="port-stat-value" id="modal-stat-porter">—</span>
-            <span class="port-stat-label">Porter</span>
-          </div>
-        </div>
-        <div class="port-stat-pill" id="modal-stat-rtr-pill">
-          <i class="bi bi-lightning-charge-fill" id="modal-stat-rtr-icon"></i>
-          <div>
-            <span class="port-stat-value" id="modal-stat-rtr">—</span>
-            <span class="port-stat-label">Status</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="port-actions-primary">
-        <a href="#" class="modal-download-btn" id="modal-download-btn" onclick="handleDownload(event)">Download</a>
-        <button type="button" class="device-filter-btn" id="modal-device-chip-btn" title="Check compatibility with your device">
-          <span class="device-chip-dot" id="modal-device-chip-dot"></span>
-          <i class="bi bi-controller"></i>
-        </button>
-      </div>
-
-      <div class="download-warning" id="downloadWarning" style="display: none;">
-        <i class="bi bi-exclamation-triangle"></i>
-        <span>No device selected. This port may not be compatible with your device.</span>
-      </div>
-
-      <div class="port-description" id="modal-desc"></div>
-
-      <div class="port-actions-secondary">
-        <div class="port-store-links" id="modal-store-links" style="display:none"></div>
-        <button class="share-btn" id="modal-share-btn" onclick="sharePort(event)" title="Share port">
-          <i class="bi bi-share"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="modal-text-section" id="modal-inst-section" style="display: none;">
-      <h2 class="modal-section-title">Instructions</h2>
-      <div class="modal-text-content" id="modal-inst"></div>
-    </div>
-
-    <div class="modal-text-section">
-      <h2 class="modal-section-title">Additional Information</h2>
-      <div class="modal-text-content" id="modal-readme">
-        <div class="loading-spinner">Loading...</div>
-      </div>
-    </div>
-
-    <div class="modal-details-section">
-      <h2 class="modal-section-title">Port Details</h2>
-
-      <div class="modal-info-grid">
-        <div class="info-item">
-          <i class="info-icon bi bi-dpad"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Genres</h3>
-            <div class="info-value" id="modal-genres">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-card-checklist"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Requirements</h3>
-            <div class="info-value" id="modal-reqs">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-person-workspace"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Porter</h3>
-            <div class="info-value" id="modal-porter">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-download"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Downloads</h3>
-            <div class="info-value" id="modal-downloads">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-cpu"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Runtimes</h3>
-            <div class="info-value" id="modal-runtimes">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-motherboard"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Architecture</h3>
-            <div class="info-value" id="modal-arch">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-calendar-plus"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Date Added</h3>
-            <div class="info-value" id="modal-date-added">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-calendar-check"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Last Updated</h3>
-            <div class="info-value" id="modal-date-updated">—</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <i class="info-icon bi bi-boxes"></i>
-          <div class="info-content">
-            <h3 class="info-heading">Miscellaneous</h3>
-            <div class="info-value" id="modal-misc">—</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
   // ===================================================================
@@ -671,7 +544,7 @@ search:
 
   // border-radius/overflow:hidden on <table> itself doesn't reliably clip
   // cell backgrounds across browsers, so wrap each table in a div and
-  // round that instead (see .table-wrap in games.css).
+  // round that instead (see .table-wrap in shared-modal.css).
   function wrapTables(container) {
     container.querySelectorAll('table').forEach(table => {
       if (table.parentElement.classList.contains('table-wrap')) return;
@@ -682,13 +555,20 @@ search:
     });
   }
 
-  function storeIcon(name) {
+  // Bootstrap Icons ships a real brand glyph for Steam only; GOG/other
+  // storefronts fall back to a generic icon. Epic Games gets its actual
+  // logo too, inlined as SVG (Simple Icons' path, CC0) since Bootstrap
+  // Icons has no Epic glyph at all - falling back to a generic icon there
+  // would leave Epic looking unbranded next to Steam.
+  const EPIC_GAMES_SVG = '<svg class="store-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.537 0C2.165 0 1.66.506 1.66 1.879V18.44a4.262 4.262 0 00.02.433c.031.3.037.59.316.92.027.033.311.245.311.245.153.075.258.13.43.2l8.335 3.491c.433.199.614.276.928.27h.002c.314.006.495-.071.928-.27l8.335-3.492c.172-.07.277-.124.43-.2 0 0 .284-.211.311-.243.28-.33.285-.621.316-.92a4.261 4.261 0 00.02-.434V1.879c0-1.373-.506-1.88-1.878-1.88zm13.366 3.11h.68c1.138 0 1.688.553 1.688 1.696v1.88h-1.374v-1.8c0-.369-.17-.54-.523-.54h-.235c-.367 0-.537.17-.537.539v5.81c0 .369.17.54.537.54h.262c.353 0 .523-.171.523-.54V8.619h1.373v2.143c0 1.144-.562 1.71-1.7 1.71h-.694c-1.138 0-1.7-.566-1.7-1.71V4.82c0-1.144.562-1.709 1.7-1.709zm-12.186.08h3.114v1.274H6.117v2.603h1.648v1.275H6.117v2.774h1.74v1.275h-3.14zm3.816 0h2.198c1.138 0 1.7.564 1.7 1.708v2.445c0 1.144-.562 1.71-1.7 1.71h-.799v3.338h-1.4zm4.53 0h1.4v9.201h-1.4zm-3.13 1.235v3.392h.575c.354 0 .523-.171.523-.54V4.965c0-.368-.17-.54-.523-.54zm-3.74 10.147a1.708 1.708 0 01.591.108 1.745 1.745 0 01.49.299l-.452.546a1.247 1.247 0 00-.308-.195.91.91 0 00-.363-.068.658.658 0 00-.28.06.703.703 0 00-.224.163.783.783 0 00-.151.243.799.799 0 00-.056.299v.008a.852.852 0 00.056.31.7.7 0 00.157.245.736.736 0 00.238.16.774.774 0 00.303.058.79.79 0 00.445-.116v-.339h-.548v-.565H7.37v1.255a2.019 2.019 0 01-.524.307 1.789 1.789 0 01-.683.123 1.642 1.642 0 01-.602-.107 1.46 1.46 0 01-.478-.3 1.371 1.371 0 01-.318-.455 1.438 1.438 0 01-.115-.58v-.008a1.426 1.426 0 01.113-.57 1.449 1.449 0 01.312-.46 1.418 1.418 0 01.474-.309 1.58 1.58 0 01.598-.111 1.708 1.708 0 01.045 0zm11.963.008a2.006 2.006 0 01.612.094 1.61 1.61 0 01.507.277l-.386.546a1.562 1.562 0 00-.39-.205 1.178 1.178 0 00-.388-.07.347.347 0 00-.208.052.154.154 0 00-.07.127v.008a.158.158 0 00.022.084.198.198 0 00.076.066.831.831 0 00.147.06c.062.02.14.04.236.061a3.389 3.389 0 01.43.122 1.292 1.292 0 01.328.17.678.678 0 01.207.24.739.739 0 01.071.337v.008a.865.865 0 01-.081.382.82.82 0 01-.229.285 1.032 1.032 0 01-.353.18 1.606 1.606 0 01-.46.061 2.16 2.16 0 01-.71-.116 1.718 1.718 0 01-.593-.346l.43-.514c.277.223.578.335.9.335a.457.457 0 00.236-.05.157.157 0 00.082-.142v-.008a.15.15 0 00-.02-.077.204.204 0 00-.073-.066.753.753 0 00-.143-.062 2.45 2.45 0 00-.233-.062 5.036 5.036 0 01-.413-.113 1.26 1.26 0 01-.331-.16.72.72 0 01-.222-.243.73.73 0 01-.082-.36v-.008a.863.863 0 01.074-.359.794.794 0 01.214-.283 1.007 1.007 0 01.34-.185 1.423 1.423 0 01.448-.066 2.006 2.006 0 01.025 0zm-9.358.025h.742l1.183 2.81h-.825l-.203-.499H8.623l-.198.498h-.81zm2.197.02h.814l.663 1.08.663-1.08h.814v2.79h-.766v-1.602l-.711 1.091h-.016l-.707-1.083v1.593h-.754zm3.469 0h2.235v.658h-1.473v.422h1.334v.61h-1.334v.442h1.493v.658h-2.255zm-5.3.897l-.315.793h.624zm-1.145 5.19h8.014l-4.09 1.348z"/></svg>';
+
+  function storeIconHtml(name) {
     const n = (name || '').toLowerCase();
-    if (n.includes('steam')) return 'bi-steam';
-    if (n.includes('itch')) return 'bi-joystick';
-    if (n.includes('gog')) return 'bi-shop-window';
-    if (n.includes('epic')) return 'bi-controller';
-    return 'bi-box-arrow-up-right';
+    if (n.includes('steam')) return '<i class="bi bi-steam"></i>';
+    if (n.includes('itch')) return '<i class="bi bi-joystick"></i>';
+    if (n.includes('gog')) return '<i class="bi bi-shop-window"></i>';
+    if (n.includes('epic')) return EPIC_GAMES_SVG;
+    return '<i class="bi bi-box-arrow-up-right"></i>';
   }
 
   function shortStoreName(name) {
@@ -715,6 +595,18 @@ search:
       if (!opts.skipHash) history.replaceState(null, '', '#browse');
       ensureBrowseData().then(() => {
         if (!opts.skipFilter) filterAndSearch();
+        // Restores the scroll position from just before the user clicked
+        // into a port page - saved on the grid click handler above. Only
+        // present right after that specific round trip (it's removed as
+        // soon as it's used), so a normal fresh visit to Browse still
+        // starts at the top. Needs a frame to wait for the grid's cards
+        // (rendered above) to actually paint, since the page is too short
+        // to scroll that far until they do.
+        const savedScrollY = sessionStorage.getItem('browseScrollY');
+        if (savedScrollY !== null) {
+          sessionStorage.removeItem('browseScrollY');
+          requestAnimationFrame(() => window.scrollTo(0, parseInt(savedScrollY, 10)));
+        }
       });
     } else if (!opts.skipHash) {
       history.replaceState(null, '', window.location.pathname);
@@ -741,11 +633,13 @@ search:
       const genre = tile.dataset.genre;
       setView('browse', { skipFilter: true });
       ensureBrowseData().then(() => {
-        genreSelect.value = genre;
-        if (genreSelect.updateCustomOptions) genreSelect.updateCustomOptions();
-        if (genreSelect.customTrigger) genreSelect.customTrigger.textContent = genre;
-        document.querySelectorAll('.genre-tile').forEach(t => t.classList.toggle('active', t === tile));
-        setCookie('selectedGenre', genre);
+        // A tile click is a fresh single-genre jump, not an add-to-selection -
+        // replaces whatever genre checkboxes were already ticked.
+        selectedGenres.clear();
+        selectedGenres.add(genre);
+        document.querySelectorAll('#genreCheckboxList input').forEach(i => { i.checked = i.value === genre; });
+        syncGenreTiles();
+        setCookie('selectedGenres', genre);
         filterAndSearch();
         document.querySelector('.filters-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -786,9 +680,9 @@ search:
   // ===================================================================
   // Browse controls (static markup, present in the DOM from page load)
   // ===================================================================
-  const deviceSelect = document.getElementById('deviceSelect');
-  const osSelect = document.getElementById('osSelect');
-  const genreSelect = document.getElementById('genreSelect');
+  const deviceRadioList = document.getElementById('deviceRadioList');
+  const osRadioList = document.getElementById('osRadioList');
+  const genreCheckboxListEl = document.getElementById('genreCheckboxList');
   const readyToggle = document.getElementById('readyToggle');
   const hideIncompatibleToggle = document.getElementById('hideIncompatibleToggle');
   const gameGrid = document.getElementById('gameGrid');
@@ -813,13 +707,13 @@ search:
 
   let currentDevice = null;
   let currentOS = null;
+  let selectedDeviceName = '';
+  let selectedOSName = '';
   let currentSort = 'downloads';
-  let currentPortId = null;
-  let currentPortData = null;
-  let readmeCache = {};
   let viewMode = 'grid';
   let pageSize = 100;
   let currentPage = 1;
+  let selectedGenres = new Set();
   let selectedRuntimes = new Set();
   let selectedArchs = new Set();
   let selectedReqs = new Set();
@@ -847,81 +741,224 @@ search:
       threshold: 0.4
     });
 
-    // Populate genre dropdown
+    // Populate genre checkbox list
     const allGenres = new Set(allPorts.flatMap(p => p.genres || []));
-    [...allGenres].sort().forEach(g => genreSelect.appendChild(new Option(g, g)));
+    [...allGenres].sort().forEach(g => createFilterCheckbox(g, genreCheckboxListEl, selectedGenres, () => {
+      syncGenreTiles();
+      setCookie('selectedGenres', [...selectedGenres].join('|'));
+    }));
 
-    // Populate advanced filter pills
+    // Populate advanced filter checkboxes
     const runtimePills = document.getElementById('runtimePills');
     const archPills = document.getElementById('archPills');
     const reqPills = document.getElementById('reqPills');
 
-    function createPill(value, container, selectedSet) {
-      const pill = document.createElement('span');
-      pill.className = 'filter-pill';
-      pill.textContent = value;
-      pill.dataset.value = value;
-      pill.addEventListener('click', () => {
-        pill.classList.toggle('selected');
-        if (pill.classList.contains('selected')) selectedSet.add(value);
-        else selectedSet.delete(value);
-        filterAndSearch();
-      });
-      container.appendChild(pill);
-    }
+    [...new Set(allPorts.flatMap(p => p.runtime || []))].sort().forEach(r => createFilterCheckbox(r, runtimePills, selectedRuntimes));
+    [...new Set(allPorts.flatMap(p => p.arch || []))].sort().forEach(a => createFilterCheckbox(a, archPills, selectedArchs));
+    [...new Set(allPorts.flatMap(p => p.reqs || []))].sort().forEach(r => createFilterCheckbox(r, reqPills, selectedReqs));
 
-    [...new Set(allPorts.flatMap(p => p.runtime || []))].sort().forEach(r => createPill(r, runtimePills, selectedRuntimes));
-    [...new Set(allPorts.flatMap(p => p.arch || []))].sort().forEach(a => createPill(a, archPills, selectedArchs));
-    [...new Set(allPorts.flatMap(p => p.reqs || []))].sort().forEach(r => createPill(r, reqPills, selectedReqs));
-
-    // Populate device dropdown
-    Object.keys(devices).forEach(deviceName => deviceSelect.appendChild(new Option(deviceName, deviceName)));
-
-    initializeCustomSelects();
+    renderDeviceList();
+    renderOSList();
     restoreViewAndPaging();
     restoreSavedFilters();
   }
 
-  function toggleAdvancedFilters() {
-    document.getElementById('advancedFiltersContent').classList.toggle('open');
-    document.getElementById('advancedArrow').classList.toggle('open');
+  // Generic checkbox-list filter item (Genre / Runtime / Architecture /
+  // Requirements all use this) - matches the Epic Games Store filter
+  // panel's checkbox style/interaction, backed by the same Set-per-
+  // category pattern for all four.
+  function createFilterCheckbox(value, container, selectedSet, onChange) {
+    const label = document.createElement('label');
+    label.className = 'filter-checkbox-item';
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.value = value;
+    input.checked = selectedSet.has(value);
+    const text = document.createElement('span');
+    text.textContent = value;
+    label.appendChild(input);
+    label.appendChild(text);
+    input.addEventListener('change', () => {
+      if (input.checked) selectedSet.add(value); else selectedSet.delete(value);
+      if (onChange) onChange();
+      filterAndSearch();
+    });
+    container.appendChild(label);
+    return label;
+  }
+
+  function syncGenreTiles() {
+    document.querySelectorAll('.genre-tile').forEach(t => t.classList.toggle('active', selectedGenres.has(t.dataset.genre)));
+  }
+
+  // Device/OS are single-choice (compatibility checking needs exactly one
+  // active device+OS), so radio buttons rather than checkboxes - same
+  // "box" list look as Genre/Options, re-rendered from scratch whenever
+  // the selection changes since the OS list itself depends on the device.
+  function createFilterRadio(value, container, name, isChecked, onSelect) {
+    const label = document.createElement('label');
+    label.className = 'filter-checkbox-item';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = name;
+    input.value = value;
+    input.checked = isChecked;
+    const text = document.createElement('span');
+    text.textContent = value;
+    label.appendChild(input);
+    label.appendChild(text);
+    input.addEventListener('change', () => { if (input.checked) onSelect(value); });
+    container.appendChild(label);
+    return label;
+  }
+
+  function renderDeviceList() {
+    deviceRadioList.innerHTML = '';
+    Object.keys(devices).sort().forEach(name => {
+      createFilterRadio(name, deviceRadioList, 'deviceRadio', name === selectedDeviceName, (value) => {
+        selectDevice(value);
+        setCookie('selectedDevice', value, 365);
+        setCookie('selectedOS', selectedOSName || '', selectedOSName ? 365 : -1);
+        filterAndSearch();
+      });
+    });
+  }
+
+  function renderOSList() {
+    osRadioList.innerHTML = '';
+    const osNames = currentDevice ? Object.keys(currentDevice) : [];
+    osNames.forEach(name => {
+      createFilterRadio(name, osRadioList, 'osRadio', name === selectedOSName, (value) => {
+        selectedOSName = value;
+        currentOS = currentDevice ? currentDevice[value] : null;
+        renderOSList();
+        setCookie('selectedOS', value, 365);
+        filterAndSearch();
+      });
+    });
+  }
+
+  // Sets device + auto-picks its first (or previously saved) OS - shared
+  // by the radio click handler and restoreSavedFilters.
+  function selectDevice(deviceName) {
+    selectedDeviceName = deviceName;
+    currentDevice = devices[deviceName] || null;
+
+    const osNames = currentDevice ? Object.keys(currentDevice) : [];
+    const savedOS = getCookie('selectedOS');
+    selectedOSName = (savedOS && osNames.includes(savedOS)) ? savedOS : (osNames[0] || '');
+    currentOS = (currentDevice && selectedOSName) ? currentDevice[selectedOSName] : null;
+
+    renderDeviceList();
+    renderOSList();
   }
 
   function clearAdvancedFilters() {
     selectedRuntimes.clear();
     selectedArchs.clear();
     selectedReqs.clear();
-    document.querySelectorAll('.filter-pill.selected').forEach(pill => pill.classList.remove('selected'));
+    document.querySelectorAll('#runtimePills input:checked, #archPills input:checked, #reqPills input:checked').forEach(i => { i.checked = false; });
     filterAndSearch();
+  }
+
+  // ===== Per-filter clear helpers - each undoes exactly one active filter,
+  // used by both the "Reset" link (via clearAllFilters) and the individual
+  // removable chips in #activeFiltersRow. =====
+  function clearDeviceFilter() {
+    selectedDeviceName = '';
+    selectedOSName = '';
+    currentDevice = null;
+    currentOS = null;
+    renderDeviceList();
+    renderOSList();
+
+    setCookie('selectedDevice', '', -1);
+    setCookie('selectedOS', '', -1);
+    filterAndSearch();
+  }
+
+  function clearGenreFilter() {
+    selectedGenres.clear();
+    document.querySelectorAll('#genreCheckboxList input:checked').forEach(i => { i.checked = false; });
+    syncGenreTiles();
+    setCookie('selectedGenres', '', -1);
+    filterAndSearch();
+  }
+
+  function clearGenreValue(value) {
+    clearCheckboxFilter(selectedGenres, value, 'genreCheckboxList');
+    syncGenreTiles();
+    setCookie('selectedGenres', [...selectedGenres].join('|'));
+  }
+
+  function clearReadyToggleFilter() {
+    readyToggle.checked = false;
+    setCookie('readyToggle', '', -1);
+    filterAndSearch();
+  }
+
+  function clearHideIncompatibleFilter() {
+    hideIncompatibleToggle.checked = false;
+    setCookie('hideIncompatible', '', -1);
+    filterAndSearch();
+  }
+
+  function clearCheckboxFilter(set, value, containerId) {
+    set.delete(value);
+    const container = document.getElementById(containerId);
+    const input = container.querySelector(`input[value="${CSS.escape(value)}"]`);
+    if (input) input.checked = false;
+    filterAndSearch();
+  }
+
+  // ===== Active filter chips: one removable chip per active filter value,
+  // shown above the game grid, plus the "Filters (N)" count badge in the
+  // panel header - both computed from the same list so they can't drift. =====
+  function getActiveFilters() {
+    const filters = [];
+    if (selectedDeviceName) {
+      const label = selectedOSName ? `${selectedDeviceName} (${selectedOSName})` : selectedDeviceName;
+      filters.push({ label: `Device: ${label}`, clear: clearDeviceFilter });
+    }
+    selectedGenres.forEach(v => filters.push({ label: `Genre: ${v}`, clear: () => clearGenreValue(v) }));
+    if (readyToggle.checked) filters.push({ label: 'Ready to Run Only', clear: clearReadyToggleFilter });
+    if (hideIncompatibleToggle.checked) filters.push({ label: 'Hide Incompatible', clear: clearHideIncompatibleFilter });
+    selectedRuntimes.forEach(v => filters.push({ label: `Runtime: ${v}`, clear: () => clearCheckboxFilter(selectedRuntimes, v, 'runtimePills') }));
+    selectedArchs.forEach(v => filters.push({ label: `Arch: ${v}`, clear: () => clearCheckboxFilter(selectedArchs, v, 'archPills') }));
+    selectedReqs.forEach(v => filters.push({ label: `Requires: ${v}`, clear: () => clearCheckboxFilter(selectedReqs, v, 'reqPills') }));
+    return filters;
+  }
+
+  function updateActiveFilterChips() {
+    const filters = getActiveFilters();
+    const row = document.getElementById('activeFiltersRow');
+    if (filters.length === 0) {
+      row.style.display = 'none';
+      row.innerHTML = '';
+    } else {
+      row.style.display = 'flex';
+      row.innerHTML = filters.map((f, i) => `<button type="button" class="active-filter-chip" data-chip-index="${i}">${escapeHtml(f.label)} <i class="bi bi-x"></i></button>`).join('');
+      row.querySelectorAll('.active-filter-chip').forEach((btn, i) => {
+        btn.addEventListener('click', () => filters[i].clear());
+      });
+    }
+
+    const countEl = document.getElementById('filterActiveCount');
+    if (filters.length > 0) {
+      countEl.textContent = `(${filters.length})`;
+      countEl.style.display = '';
+    } else {
+      countEl.style.display = 'none';
+    }
   }
 
   function clearAllFilters() {
     clearAdvancedFilters();
-
-    deviceSelect.value = '';
-    if (deviceSelect.customTrigger) deviceSelect.customTrigger.textContent = 'Select your device...';
-    currentDevice = null;
-
-    osSelect.innerHTML = '<option value="">Select OS...</option>';
-    osSelect.disabled = true;
-    if (osSelect.customTrigger) osSelect.customTrigger.textContent = 'Select OS...';
-    if (osSelect.customWrapper) osSelect.customWrapper.querySelector('.custom-select-trigger').classList.add('disabled');
-    currentOS = null;
-
-    genreSelect.value = '';
-    if (genreSelect.customTrigger) genreSelect.customTrigger.textContent = 'All Genres';
-    document.querySelectorAll('.genre-tile.active').forEach(t => t.classList.remove('active'));
-
-    readyToggle.checked = false;
-    hideIncompatibleToggle.checked = false;
+    clearDeviceFilter();
+    clearGenreFilter();
+    clearReadyToggleFilter();
+    clearHideIncompatibleFilter();
     gamesSearchInput.value = '';
-
-    setCookie('selectedDevice', '', -1);
-    setCookie('selectedOS', '', -1);
-    setCookie('selectedGenre', '', -1);
-    setCookie('readyToggle', '', -1);
-    setCookie('hideIncompatible', '', -1);
-
     filterAndSearch();
   }
 
@@ -938,11 +975,15 @@ search:
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.sort-dropdown-wrapper')) sortDropdown.classList.remove('open');
   });
+  const sortCurrentLabel = document.getElementById('sortCurrentLabel');
   sortOptions.forEach(option => {
     option.addEventListener('click', () => {
       sortOptions.forEach(opt => opt.classList.remove('selected'));
       option.classList.add('selected');
       currentSort = option.dataset.sort;
+      // The trigger shows the active sort's name (Epic-style "Show: X"),
+      // so it has to track whichever option was just picked.
+      sortCurrentLabel.textContent = option.textContent;
       sortDropdown.classList.remove('open');
       filterAndSearch();
     });
@@ -999,57 +1040,21 @@ search:
     if (e.key === 'Escape' && filterPanel.classList.contains('open')) closeFilterPanel();
   });
 
-  // ===== Device / OS selects =====
-  deviceSelect.addEventListener('change', e => {
-    const deviceName = e.target.value;
-    currentDevice = deviceName ? devices[deviceName] : null;
-    setCookie('selectedDevice', deviceName || '', deviceName ? 365 : -1);
-
-    osSelect.innerHTML = '<option value="">Select OS...</option>';
-    if (currentDevice) {
-      const osNames = Object.keys(currentDevice);
-      osNames.forEach(osName => osSelect.appendChild(new Option(osName, osName)));
-      osSelect.disabled = false;
-
-      const savedOS = getCookie('selectedOS');
-      if (savedOS && osNames.includes(savedOS)) {
-        osSelect.value = savedOS;
-        currentOS = currentDevice[savedOS];
-      } else if (osNames.length > 0) {
-        osSelect.value = osNames[0];
-        currentOS = currentDevice[osNames[0]];
+  // ===== Filter accordion sections (Device/OS/Genre/Options/Advanced) =====
+  // Plain div + class toggle, not native <details>/<summary> - mkdocs-
+  // material applies its own heavy "admonition" styling (colored border,
+  // marker icon) to any <details> inside the content area, which fought
+  // this component's own look.
+  document.querySelectorAll('.filter-accordion-summary').forEach(summary => {
+    summary.addEventListener('click', () => {
+      summary.closest('.filter-accordion').classList.toggle('open');
+    });
+    summary.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        summary.closest('.filter-accordion').classList.toggle('open');
       }
-
-      if (osSelect.updateCustomOptions) {
-        osSelect.updateCustomOptions();
-        osSelect.customTrigger.textContent = osSelect.options[osSelect.selectedIndex].text;
-        osSelect.customWrapper.querySelector('.custom-select-trigger').classList.remove('disabled');
-      }
-    } else {
-      osSelect.disabled = true;
-      currentOS = null;
-      if (osSelect.updateCustomOptions) osSelect.updateCustomOptions();
-      if (osSelect.customWrapper) {
-        osSelect.customWrapper.querySelector('.custom-select-trigger').classList.add('disabled');
-        if (osSelect.customTrigger) osSelect.customTrigger.textContent = 'Select OS...';
-      }
-    }
-    updateModalDeviceChip();
-    filterAndSearch();
-  });
-
-  osSelect.addEventListener('change', e => {
-    const selectedOS = e.target.value;
-    currentOS = selectedOS && currentDevice ? currentDevice[selectedOS] : null;
-    setCookie('selectedOS', selectedOS || '', selectedOS ? 365 : -1);
-    updateModalDeviceChip();
-    filterAndSearch();
-  });
-
-  genreSelect.addEventListener('change', () => {
-    setCookie('selectedGenre', genreSelect.value);
-    document.querySelectorAll('.genre-tile').forEach(t => t.classList.toggle('active', t.dataset.genre === genreSelect.value));
-    filterAndSearch();
+    });
   });
 
   readyToggle.addEventListener('change', () => {
@@ -1062,11 +1067,11 @@ search:
   });
 
   function restoreSavedFilters() {
-    const savedGenre = getCookie('selectedGenre');
-    if (savedGenre) {
-      genreSelect.value = savedGenre;
-      if (genreSelect.customTrigger) genreSelect.customTrigger.textContent = genreSelect.options[genreSelect.selectedIndex]?.text || 'All Genres';
-      document.querySelectorAll('.genre-tile').forEach(t => t.classList.toggle('active', t.dataset.genre === savedGenre));
+    const savedGenres = getCookie('selectedGenres');
+    if (savedGenres) {
+      savedGenres.split('|').filter(Boolean).forEach(g => selectedGenres.add(g));
+      document.querySelectorAll('#genreCheckboxList input').forEach(i => { i.checked = selectedGenres.has(i.value); });
+      syncGenreTiles();
     }
 
     if (getCookie('readyToggle') === 'true') readyToggle.checked = true;
@@ -1074,9 +1079,7 @@ search:
 
     const savedDevice = getCookie('selectedDevice');
     if (savedDevice && devices[savedDevice]) {
-      deviceSelect.value = savedDevice;
-      if (deviceSelect.customTrigger) deviceSelect.customTrigger.textContent = savedDevice;
-      deviceSelect.dispatchEvent(new Event('change'));
+      selectDevice(savedDevice);
     }
   }
 
@@ -1126,7 +1129,6 @@ search:
     if (!allPorts) return;
 
     const query = gamesSearchInput.value.trim();
-    const selectedGenre = genreSelect.value;
     const readyOnly = readyToggle.checked;
     const hideIncompatible = hideIncompatibleToggle.checked;
     const searchMatches = query ? new Set(fuse.search(query).map(r => r.item.id)) : null;
@@ -1140,7 +1142,7 @@ search:
       if (!port) return;
 
       const matchSearch = !searchMatches || searchMatches.has(id);
-      const genreMatch = !selectedGenre || (port.genres || []).includes(selectedGenre);
+      const genreMatch = selectedGenres.size === 0 || (port.genres || []).some(g => selectedGenres.has(g));
       const rtrMatch = !readyOnly || port.rtr;
       const compatible = checkCompatibility(port);
       const runtimeMatch = selectedRuntimes.size === 0 || (port.runtime || []).some(r => selectedRuntimes.has(r));
@@ -1162,10 +1164,11 @@ search:
 
     if (resetPage) currentPage = 1;
     renderPage(matchedIds, supported, unsupported);
+    updateActiveFilterChips();
   }
 
   function renderCardHtml(port) {
-    const rtrBadge = port.rtr ? '<span class="pm-rtr-badge"><i class="bi bi-lightning-charge-fill"></i> RTR</span>' : '';
+    const rtrBadge = port.rtr ? '<span class="pm-rtr-badge">RTR</span>' : '';
     const img = port.screenshot
       ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
       : '';
@@ -1191,7 +1194,7 @@ search:
 
     const counterEl = document.getElementById('portsCounter');
     counterEl.textContent = currentOS
-      ? `Supported: ${supported} | Unsupported: ${unsupported} | Showing: ${total}`
+      ? `Supported: ${supported}/${total} ports`
       : `Showing: ${total} of ${allPorts.length} ports`;
 
     paginationInfo.textContent = total === 0 ? 'No ports match your filters' : `Showing ${startIdx + 1}-${endIdx} of ${total}`;
@@ -1246,17 +1249,13 @@ search:
   pageNextBtn.addEventListener('click', () => goToPage(currentPage + 1));
   pageLastBtn.addEventListener('click', () => goToPage(Number.MAX_SAFE_INTEGER));
 
-  // ===== Grid click delegation: left-click = quick-view modal,
-  // right-click / middle-click = jump to the full /port/ page =====
+  // ===== Grid click delegation: jump straight to the full /port/ page
+  // (no quick-view modal); middle-click still opens it in a new tab, and
+  // right-click is left to the browser's native context menu. =====
   gameGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.pm-card');
     if (!card) return;
-    openModal(card.dataset.portId);
-  });
-  gameGrid.addEventListener('contextmenu', (e) => {
-    const card = e.target.closest('.pm-card');
-    if (!card) return;
-    e.preventDefault();
+    sessionStorage.setItem('browseScrollY', window.scrollY);
     window.location.href = `../port/?name=${encodeURIComponent(card.dataset.portId)}`;
   });
   gameGrid.addEventListener('auxclick', (e) => {
@@ -1267,367 +1266,36 @@ search:
     window.open(`../port/?name=${encodeURIComponent(card.dataset.portId)}`, '_blank');
   });
 
-  // ===================================================================
-  // Quick-view modal
-  // ===================================================================
-  function renderModal(portId) {
-    const port = portsById[portId];
-    if (!port) return;
-
-    currentPortId = portId;
-    currentPortData = port;
-
-    document.getElementById('modal-title').textContent = port.title;
-
-    const screenshotImg = document.getElementById('modal-screenshot');
-    const heroWrap = screenshotImg.closest('.port-hero');
-    if (port.screenshot) {
-      screenshotImg.src = `https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${portId}/${port.screenshot}`;
-      screenshotImg.alt = port.title;
-      heroWrap.style.display = '';
-    } else {
-      heroWrap.style.display = 'none';
-    }
-
-    const descEl = document.getElementById('modal-desc');
-    descEl.innerHTML = port.descHtml || '';
-    wrapTables(descEl);
-
-    document.getElementById('modal-stat-downloads').textContent = port.downloads > 0 ? port.downloads.toLocaleString() : 'N/A';
-    document.getElementById('modal-stat-porter').textContent = port.porter && port.porter.length
-      ? (port.porter.length > 1 ? `${port.porter[0]} +${port.porter.length - 1}` : port.porter[0])
-      : 'Unknown';
-    document.getElementById('modal-stat-rtr').textContent = port.rtr ? 'Ready to Run' : 'Setup Required';
-    const rtrPill = document.getElementById('modal-stat-rtr-pill');
-    const rtrIcon = document.getElementById('modal-stat-rtr-icon');
-    rtrPill.classList.toggle('port-stat-pill--warn', !port.rtr);
-    rtrIcon.className = port.rtr ? 'bi bi-lightning-charge-fill' : 'bi bi-tools';
-
-    const storeWrap = document.getElementById('modal-store-links');
-    if (port.store && port.store.length) {
-      storeWrap.innerHTML = port.store
-        .map(s => `<a href="${s.url}" target="_blank" rel="noopener" class="port-store-link" title="${escapeHtml(shortStoreName(s.name))}"><i class="bi ${storeIcon(s.name)}"></i> <span class="port-store-label">${escapeHtml(shortStoreName(s.name))}</span></a>`)
-        .join('');
-      storeWrap.style.display = '';
-    } else {
-      storeWrap.innerHTML = '';
-      storeWrap.style.display = 'none';
-    }
-
-    const downloadBtn = document.getElementById('modal-download-btn');
-    downloadBtn.href = port.url || '#';
-    updateDownloadButton();
-
-    const makeBadges = arr => arr && arr.length > 0 ? arr.map(v => `<span class="info-badge">${escapeHtml(v)}</span>`).join('') : '—';
-    const makePorterLinks = arr => arr && arr.length > 0
-      ? arr.map(v => `<a href="../porters/#porter-${encodeURIComponent(v)}" class="porter-link-badge" onclick="event.stopPropagation()">${escapeHtml(v)} <i class="bi bi-box-arrow-up-right"></i></a>`).join(' ')
-      : '—';
-
-    document.getElementById('modal-genres').innerHTML = makeBadges(port.genres);
-    document.getElementById('modal-reqs').innerHTML = makeBadges(port.reqs);
-    document.getElementById('modal-porter').innerHTML = makePorterLinks(port.porter);
-    document.getElementById('modal-downloads').textContent = port.downloads > 0 ? port.downloads.toLocaleString() : 'N/A';
-    document.getElementById('modal-runtimes').innerHTML = makeBadges(port.runtime);
-    document.getElementById('modal-arch').innerHTML = makeBadges(port.arch);
-    document.getElementById('modal-date-added').textContent = port.dateAdded || 'N/A';
-    document.getElementById('modal-date-updated').textContent = port.dateUpdated || 'N/A';
-    document.getElementById('modal-misc').innerHTML = port.rtr
-      ? '<span class="info-badge">Ready to Run</span>'
-      : '<span class="info-badge">Setup Required</span>';
-
-    const instSection = document.getElementById('modal-inst-section');
-    const instEl = document.getElementById('modal-inst');
-    if (port.instHtml) {
-      instEl.innerHTML = port.instHtml;
-      wrapTables(instEl);
-      instSection.style.display = '';
-    } else {
-      instSection.style.display = 'none';
-    }
-
-    loadReadme(portId, port.repo);
-    updateModalDeviceChip();
-
-    const modal = document.getElementById('portModal');
-    modal.style.display = 'block';
-    modal.offsetHeight;
-    modal.classList.add('show');
-  }
-
-  function openModal(portId) {
-    renderModal(portId);
-    if (currentPortId) history.pushState({ modal: portId }, '', '#modal-' + portId);
-  }
-
-  function openModalDirect(portId) {
-    renderModal(portId);
-  }
-
-  function closeModal(updateHistory = true) {
-    const modal = document.getElementById('portModal');
-    modal.classList.remove('show');
-    setTimeout(() => { modal.style.display = 'none'; }, 300);
-    currentPortId = null;
-    currentPortData = null;
-
-    if (updateHistory && window.location.hash.startsWith('#modal-')) {
-      history.pushState({ modal: null }, '', '#browse');
-    }
-  }
-
-  window.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) closeModal();
-  });
-
   window.addEventListener('popstate', () => {
     const hash = window.location.hash;
-    if (hash.startsWith('#modal-')) {
-      const portId = decodeURIComponent(hash.replace('#modal-', ''));
-      setView('browse', { skipHash: true, skipFilter: true });
-      ensureBrowseData().then(() => { if (portsById[portId]) openModalDirect(portId); });
-    } else {
-      closeModal(false);
-      setView(hash === '#browse' ? 'browse' : 'discover', { skipHash: true });
-    }
+    setView(hash === '#browse' ? 'browse' : 'discover', { skipHash: true });
   });
-
-  // ===== Download button =====
-  function getSelectedDeviceName() {
-    return deviceSelect.value || null;
-  }
-
-  function updateDownloadButton() {
-    const downloadBtn = document.getElementById('modal-download-btn');
-    const deviceName = getSelectedDeviceName();
-    if (downloadBtn) downloadBtn.textContent = deviceName ? `Download for ${deviceName}` : 'Download';
-  }
-
-  function handleDownload(event) {
-    const deviceName = getSelectedDeviceName();
-    const warningDiv = document.getElementById('downloadWarning');
-    if (!currentPortData) return;
-
-    if (deviceName && currentOS) {
-      const compatible = checkCompatibility(currentPortData);
-      if (!compatible) {
-        event.preventDefault();
-        const warningText = warningDiv.querySelector('span');
-        const warningIcon = warningDiv.querySelector('i');
-        if (warningText) warningText.textContent = `This port is not compatible with ${deviceName}. Download blocked.`;
-        if (warningIcon) warningIcon.className = 'bi bi-x-circle';
-        warningDiv.classList.add('error');
-        warningDiv.classList.remove('fade-out');
-        warningDiv.style.display = 'flex';
-        setTimeout(() => {
-          warningDiv.classList.add('fade-out');
-          setTimeout(() => {
-            warningDiv.style.display = 'none';
-            warningDiv.classList.remove('fade-out', 'error');
-            if (warningText) warningText.textContent = 'No device selected. This port may not be compatible with your device.';
-            if (warningIcon) warningIcon.className = 'bi bi-exclamation-triangle';
-          }, 300);
-        }, 3000);
-        return false;
-      }
-    }
-
-    if (!deviceName && warningDiv) {
-      warningDiv.classList.remove('fade-out', 'error');
-      warningDiv.style.display = 'flex';
-      setTimeout(() => {
-        warningDiv.classList.add('fade-out');
-        setTimeout(() => {
-          warningDiv.style.display = 'none';
-          warningDiv.classList.remove('fade-out');
-        }, 300);
-      }, 2700);
-    }
-  }
-
-  // ===== Modal device-compatibility chip: opens the shared filter panel
-  // (sidebar/drawer) rather than duplicating its own device/OS selects. =====
-  const modalDeviceChipBtn = document.getElementById('modal-device-chip-btn');
-  const modalDeviceChipDot = document.getElementById('modal-device-chip-dot');
-
-  function updateModalDeviceChip() {
-    if (!currentPortData) return;
-    if (!currentDevice || !currentOS) {
-      modalDeviceChipDot.className = 'device-chip-dot';
-      modalDeviceChipBtn.title = 'Check compatibility with your device';
-      return;
-    }
-    const compatible = checkCompatibility(currentPortData);
-    modalDeviceChipDot.className = 'device-chip-dot ' + (compatible ? 'is-compatible' : 'is-incompatible');
-    modalDeviceChipBtn.title = compatible ? 'Compatible with your device' : 'May not be compatible with your device';
-  }
-
-  modalDeviceChipBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openFilterPanel();
-  });
-
-  // ===== Share =====
-  async function sharePort(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!currentPortId || !currentPortData) return;
-
-    const shareUrl = `${window.location.origin}${window.location.pathname}#modal-${currentPortId}`;
-    const shareData = {
-      title: currentPortData.title,
-      text: `Check out ${currentPortData.title} on PortMaster!`,
-      url: shareUrl
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        if (err.name !== 'AbortError') console.error('Share failed:', err);
-      }
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      showShareConfirmation(event.target);
-    } catch (err) {
-      const textArea = document.createElement('textarea');
-      textArea.value = shareUrl;
-      textArea.style.position = 'fixed';
-      textArea.style.left = '-9999px';
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        showShareConfirmation(event.target);
-      } catch (e) {
-        console.error('Copy failed:', e);
-      }
-      document.body.removeChild(textArea);
-    }
-  }
-
-  function showShareConfirmation(buttonElement) {
-    const button = buttonElement.closest('.share-btn');
-    if (!button) return;
-    const originalHTML = button.innerHTML;
-    button.innerHTML = '<i class="bi bi-check2"></i>';
-    button.style.backgroundColor = '#28a745';
-    setTimeout(() => {
-      button.innerHTML = originalHTML;
-      button.style.backgroundColor = '';
-    }, 2000);
-  }
-
-  // ===== README (live-fetched + client-parsed; desc/inst are pre-rendered
-  // server-side already, in port_details.json) =====
-  async function loadReadme(portId, repo) {
-    const readmeEl = document.getElementById('modal-readme');
-    if (readmeCache[portId]) {
-      readmeEl.innerHTML = readmeCache[portId];
-      wrapTables(readmeEl);
-      return;
-    }
-
-    readmeEl.innerHTML = '<div class="loading-spinner">Loading...</div>';
-    const readmeUrl = `https://raw.githubusercontent.com/${repo}/refs/heads/main/ports/${portId}/README.md`;
-
-    try {
-      const res = await fetch(readmeUrl);
-      if (!res.ok) throw new Error('Not found');
-      const md = await res.text();
-      const html = marked.parse(md);
-      readmeCache[portId] = html;
-      if (currentPortId === portId) {
-        readmeEl.innerHTML = html;
-        wrapTables(readmeEl);
-      }
-    } catch (err) {
-      const fallback = '<p>No additional information available.</p>';
-      readmeCache[portId] = fallback;
-      if (currentPortId === portId) readmeEl.innerHTML = fallback;
-    }
-  }
-
-  // ===== Custom select styling (device / OS / genre dropdowns) =====
-  function initializeCustomSelects() {
-    [deviceSelect, osSelect, genreSelect].forEach(select => {
-      if (select.customWrapper) return;
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'custom-select-wrapper';
-      select.parentNode.insertBefore(wrapper, select);
-      wrapper.appendChild(select);
-
-      const trigger = document.createElement('div');
-      trigger.className = 'custom-select-trigger';
-      if (select.disabled) trigger.classList.add('disabled');
-
-      const triggerText = document.createElement('span');
-      triggerText.textContent = select.options[select.selectedIndex].text;
-
-      const arrow = document.createElement('div');
-      arrow.className = 'custom-select-arrow';
-      arrow.innerHTML = '<i class="bi bi-chevron-down"></i>';
-
-      trigger.appendChild(triggerText);
-      trigger.appendChild(arrow);
-      wrapper.appendChild(trigger);
-
-      const optionsContainer = document.createElement('div');
-      optionsContainer.className = 'custom-select-options';
-
-      function updateOptions() {
-        optionsContainer.innerHTML = '';
-        Array.from(select.options).forEach((option, index) => {
-          const customOption = document.createElement('div');
-          customOption.className = 'custom-select-option';
-          if (index === select.selectedIndex) customOption.classList.add('selected');
-          customOption.textContent = option.text;
-          customOption.addEventListener('click', () => {
-            select.selectedIndex = index;
-            select.dispatchEvent(new Event('change'));
-            triggerText.textContent = option.text;
-            wrapper.classList.remove('open');
-            optionsContainer.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
-            customOption.classList.add('selected');
-          });
-          optionsContainer.appendChild(customOption);
-        });
-      }
-      updateOptions();
-      wrapper.appendChild(optionsContainer);
-
-      trigger.addEventListener('click', () => {
-        if (select.disabled) return;
-        document.querySelectorAll('.custom-select-wrapper.open').forEach(w => { if (w !== wrapper) w.classList.remove('open'); });
-        wrapper.classList.toggle('open');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
-      });
-
-      select.customWrapper = wrapper;
-      select.customTrigger = triggerText;
-      select.updateCustomOptions = updateOptions;
-    });
-  }
 
   // ===================================================================
-  // Initial route: #browse -> Browse view, #modal-<id> -> Browse + modal,
-  // anything else -> Discover (default, matches the static HTML classes).
+  // Mobile filter drawer offset: measures the real, current height of
+  // mkdocs-material's own sticky header (title bar, plus its separate
+  // .md-tabs row when that's visible) and exposes it as a CSS variable,
+  // instead of hardcoding an assumed header height in CSS. A fixed guess
+  // in CSS can't track header height changes across breakpoints, browser
+  // font-size settings, or theme config - measuring it directly is the
+  // only way .filter-panel's slide-out drawer reliably starts below the
+  // header instead of covering it.
+  // ===================================================================
+  function updateHeaderHeightVar() {
+    const header = document.querySelector('.md-header');
+    if (!header) return;
+    document.documentElement.style.setProperty('--md-header-actual-height', `${header.getBoundingClientRect().height}px`);
+  }
+  updateHeaderHeightVar();
+  window.addEventListener('resize', updateHeaderHeightVar);
+
+  // ===================================================================
+  // Initial route: #browse -> Browse view, anything else -> Discover
+  // (default, matches the static HTML classes).
   // ===================================================================
   (function initFromHash() {
-    const hash = window.location.hash;
-    if (hash === '#browse') {
+    if (window.location.hash === '#browse') {
       setView('browse', { skipHash: true });
-    } else if (hash.startsWith('#modal-')) {
-      const portId = decodeURIComponent(hash.replace('#modal-', ''));
-      setView('browse', { skipHash: true, skipFilter: true });
-      ensureBrowseData().then(() => { if (portsById[portId]) openModalDirect(portId); });
     }
   })();
 </script>

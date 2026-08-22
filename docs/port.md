@@ -7,6 +7,15 @@ hide:
 
 search:
   exclude: true
+
+# This page's screenshot/store-link images are all injected client-side by
+# JS after load, so there's nothing for glightbox to wrap at build time -
+# but its static markup (multiple <a> action buttons each with a nested
+# <i> icon, no <img> between them) triggers catastrophic backtracking in
+# glightbox's on_page_content regex, which was taking 175+ seconds on this
+# one small page alone and dominating the entire site build. See the same
+# fix on games.md/porters.md.
+glightbox: false
 ---
 
 <div style="display:none">
@@ -20,7 +29,7 @@ search:
 
   <div id="port-page-notfound" class="port-page-not-found" style="display:none">
     <p>We couldn't find that port.</p>
-    <a href="../games/#browse" class="md-button">Browse All Games</a>
+    <a href="../games/#browse" class="hero-btn hero-btn-secondary">Browse All Games</a>
   </div>
 
   <div class="port-page-content" id="port-page-content" style="display:none">

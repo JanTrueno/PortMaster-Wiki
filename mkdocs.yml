@@ -76,7 +76,14 @@ markdown_extensions:
       pygments_lang_class: true
 extra_css:
   - assets/stylesheets/extra.css
-  - assets/stylesheets/games.css
+  # Split out of one 3200-line games.css - order preserves the original
+  # file's cascade (shared/base pieces before games.md-specific ones).
+  - assets/stylesheets/games-filters.css
+  - assets/stylesheets/shared-cards.css
+  - assets/stylesheets/shared-modal.css
+  - assets/stylesheets/port-page.css
+  - assets/stylesheets/shared-toggle-pagination.css
+  - assets/stylesheets/games-discover-browse.css
   - assets/stylesheets/porters.css
   - assets/stylesheets/homepage.css
   - assets/stylesheets/handhelds.css

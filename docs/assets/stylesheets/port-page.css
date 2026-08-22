@@ -1,0 +1,632 @@
+/* ===============================================
+   PORT-PAGE.CSS
+   The standalone port detail page (/port/?name=X):
+   hero/body layout, device-compatibility button,
+   download warning, and the back-to-top button. Some
+   of this layout is also reused by shared-modal.css's
+   markup (same info-grid / text-section classes).
+   =============================================== */
+
+/* ===== STANDALONE PORT PAGE (/port/#<id>) ===== */
+/* The .port-hero / .port-body / .port-stat-pills / etc. classes below are
+   also reused inside the #portModal on /all-games/, so the quick modal
+   preview and the full standalone page always look identical. */
+.port-page {
+  max-width: 900px;
+  margin: 0.75rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.port-page-content {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="light"] .port-page-content {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .port-page-content {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+/* ===== Shared hero/body layout (port page + modal) ===== */
+.port-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.port-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.port-hero-back {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+  z-index: 2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.port-hero-back:hover {
+  background-color: rgba(244, 149, 25, 0.9);
+  transform: scale(1.08);
+}
+
+.port-body {
+  padding: 1.75rem 2rem 0.5rem;
+}
+
+/* Scoped under .port-body (not just .port-title) so this beats the
+   theme's ".md-typeset h1 { font-size, color }" rule on specificity - see
+   the identical fix on .hero-slide-title above for why a bare single-class
+   selector loses that fight regardless of source order. Without this the
+   title was silently stuck at the theme's 2rem/default-color h1 instead of
+   ours, on both desktop and the 600px mobile override below. */
+.port-body .port-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--card-text);
+}
+
+.port-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.port-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 14px;
+  background-color: rgba(244, 149, 25, 0.1);
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+
+.port-stat-pill i {
+  font-size: 1.1rem;
+  color: #F49519;
+  flex-shrink: 0;
+}
+
+.port-stat-pill--warn {
+  background-color: rgba(136, 136, 136, 0.12);
+}
+
+.port-stat-pill--warn i {
+  color: var(--card-stat-color, #888888);
+}
+
+.port-stat-pill div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.port-stat-value {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.port-stat-label {
+  font-size: 0.7rem;
+  color: var(--card-stat-color, #888888);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Device compatibility button (port page + modal) ===== */
+.device-chip-wrapper {
+  position: relative;
+}
+
+.device-chip-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--card-stat-color, #888888);
+  border: 2px solid var(--card-bg);
+  opacity: 0;
+}
+
+.device-chip-dot.is-compatible,
+.device-chip-dot.is-incompatible {
+  opacity: 1;
+}
+
+.device-chip-dot.is-compatible {
+  background-color: #2fb344;
+}
+
+.device-chip-dot.is-incompatible {
+  background-color: #dc3545;
+}
+
+.device-chip-popover {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  min-width: 260px;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--card-border, #cccccc);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+[data-md-color-scheme="light"] .device-chip-popover {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .device-chip-popover {
+  background-color: #232323;
+}
+
+.device-chip-popover label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--card-stat-color, #888888);
+  margin-top: 0.4rem;
+}
+
+.device-chip-popover label:first-child {
+  margin-top: 0;
+}
+
+.device-chip-popover select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  font-size: 0.85rem;
+}
+
+.device-chip-popover select:disabled {
+  opacity: 0.5;
+}
+
+.device-chip-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.device-chip-hint.is-incompatible {
+  color: #dc3545;
+}
+
+.device-chip-hint.is-compatible {
+  color: #2fb344;
+}
+
+.port-description {
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--card-text);
+  margin-bottom: 1.25rem;
+}
+
+.port-description p {
+  margin: 0 0 0.75rem 0;
+}
+
+.port-description:empty {
+  display: none;
+  margin: 0;
+}
+
+.port-store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.port-store-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 70px;
+  padding: 0 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: transparent;
+  color: var(--card-text) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  flex: 1;
+}
+
+.port-store-link i {
+  font-size: 1.1rem;
+}
+
+.store-icon-svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.port-store-link:hover {
+  border-color: #F49519;
+  color: #F49519 !important;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+/* Primary row: download (grows to fill the rest) + the square device-
+   compat button. Secondary row: store links + share, all sharing the row
+   evenly (not square) - see .port-store-link/.share-btn flex below. */
+.port-actions-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.port-actions-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1.75rem;
+}
+
+/* Full-bleed "no box" treatment - covers phones AND tablets (iPad
+   portrait is ~768-834px, well above the old 600px cutoff, which is why
+   it still looked boxed there). This is purely about shape/edges, so it's
+   split from the phone-only typography tweaks below. */
+@media (max-width: 900px) {
+  /* The theme's own .md-content__inner keeps a small reading-column gutter
+     (margin: 0 .8rem 1.2rem, padding-top: .6rem) no matter what our own
+     page does, so we cancel that out here to actually reach the true
+     screen edges instead of floating a smaller box inside it. */
+  .port-page {
+    margin: 0 -0.8rem -1.2rem;
+    padding: 0;
+    max-width: none;
+  }
+
+  .md-content__inner:has(.port-page) {
+    padding-top: 0;
+  }
+
+  /* .md-main__inner carries the theme's standard 1.5rem gap between the
+     header and the content area site-wide - that's the bulk of the "grey
+     bar" gap above the hero image. Cancel it only when a port-page is
+     the content being shown. */
+  .md-main__inner:has(.port-page) {
+    margin-top: 0;
+  }
+
+  .port-page-content {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: calc(100vh - 112px);
+  }
+}
+
+@media (max-width: 600px) {
+  .port-body {
+    padding: 1rem 1rem 0.2rem;
+  }
+
+  .port-body .port-title {
+    font-size: 1.3rem;
+  }
+
+  /* Downloads/Porter/Status are already in the restyled Port Details list
+     below - the pills row is dropped on mobile instead of squeezed. */
+  .port-stat-pills {
+    display: none;
+  }
+
+  .port-actions-primary,
+  .port-actions-secondary {
+    gap: 0.4rem;
+  }
+
+  .port-actions-primary {
+    margin-bottom: 0.8rem;
+  }
+
+  .port-actions-secondary {
+    padding-bottom: 1.25rem;
+  }
+
+  .port-description {
+    font-size: 0.85rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .modal-download-btn {
+    padding: 0 0.8rem;
+    min-width: 0;
+    height: 42px;
+    font-size: 0.78rem;
+    border-radius: 11px;
+  }
+
+  /* Scoped under .port-body (not bare .share-btn/.device-filter-btn) so
+     this wins on specificity over their own base rules further down the
+     file - those are plain single-class selectors positioned *after* this
+     block in source order, so without the extra scope they'd win the
+     cascade on every viewport width, silently ignoring this override
+     (this is exactly how the pills/buttons ended up mismatched heights on
+     mobile - the base 70px rules were quietly winning). */
+  .port-body .share-btn,
+  .port-body .device-filter-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+  }
+
+  .port-body .share-btn i,
+  .port-body .device-filter-btn i {
+    font-size: 1rem;
+  }
+
+  .port-store-link {
+    height: 42px;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .port-store-link i {
+    font-size: 0.9rem;
+  }
+
+  .store-icon-svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .port-store-link .port-store-label {
+    display: none;
+  }
+
+  .device-chip-popover {
+    left: auto;
+    right: 0;
+    transform: none;
+    min-width: 240px;
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .modal-info-grid {
+    column-gap: 1.25rem;
+    row-gap: 1rem;
+  }
+
+  .info-heading {
+    font-size: 0.65rem !important;
+  }
+
+  .info-value {
+    font-size: 0.78rem;
+  }
+}
+
+.port-page-loading,
+.port-page-not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ===== DOWNLOAD WARNING ===== */
+.download-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+  background-color: rgba(244, 149, 25, 0.15);
+  color: #F49519;
+  border: 2px solid #F49519;
+}
+
+/* Error state for incompatible downloads */
+.download-warning.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.download-warning.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.download-warning i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+
+/* Device Filter Button - matches .share-btn's neutral ghost style */
+.device-filter-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex-shrink: 0;
+}
+
+.device-filter-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.device-filter-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.device-filter-btn:hover i {
+  color: #F49519;
+}
+
+/* Share Button - lives in .port-actions-secondary alongside the store
+   links now, sized to match/share the row with them rather than being a
+   fixed square (that's .device-filter-btn's job, in the primary row). */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  background-color: transparent;
+  border: 1px solid var(--card-border, #cccccc);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex: 1;
+}
+
+.share-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.share-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.share-btn:hover i {
+  color: #F49519;
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #F49519;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.1);
+}
+
+.back-to-top.visible:hover {
+  transform: translateY(0) scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
