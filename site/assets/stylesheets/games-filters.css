@@ -628,8 +628,12 @@
     order: 1;
   }
 
+  /* Both shrink a step at this width so the longest sort value ("Date
+     Updated (Newest)") fits on the row whole, instead of ellipsising to
+     make room for the controls beside it. */
   .sort-label {
     flex-shrink: 0;
+    font-size: 0.7rem;
   }
 
   /* flex-basis:0 (not auto) is the load-bearing bit. A flex line wraps
@@ -709,7 +713,7 @@
   .sort-toggle-btn {
     height: 40px;
     padding: 0 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .sort-toggle-btn i {
