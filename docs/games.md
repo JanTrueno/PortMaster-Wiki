@@ -392,6 +392,51 @@ glightbox: false
         </div>
       </div>
 
+      <!-- Steam Library sits with Device/OS because it's the same kind of
+           thing: a detail about the visitor, supplied once, that then
+           filters the catalogue. The badge in the summary shows connection
+           state without expanding, since every accordion starts collapsed. -->
+      <div class="filter-accordion">
+        <div class="filter-accordion-summary" role="button" tabindex="0">
+          <span>Steam Library <span class="steam-status-badge" id="steamStatusBadge">Not connected</span></span>
+          <i class="bi bi-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="filter-accordion-body">
+          <div id="steamConnectBlock">
+            <p class="steam-help">Filter ports by what you already own on Steam. Open your Steam profile and paste the link from the address bar.</p>
+            <div class="steam-input-row">
+              <input type="text" id="steamUserInput" class="steam-input" placeholder="steamcommunity.com/id/..." autocomplete="off" spellcheck="false">
+              <button type="button" class="steam-connect-btn" id="steamConnectBtn">Connect</button>
+            </div>
+            <!-- Steam resolves the custom URL only - there's no public API to
+                 look an account up by display name, and plenty of people have
+                 never set a custom URL at all, so the profile link is the one
+                 input that always works. -->
+            <p class="steam-note">Your display name won't work &mdash; Steam can only match the profile link. <strong>Game details</strong> must also be set to Public.</p>
+          </div>
+
+          <div id="steamOwnedBlock" style="display:none">
+            <div class="filter-radio-list" id="steamOwnedList">
+              <label class="filter-checkbox-item">
+                <input type="radio" name="steamOwned" value="" checked>
+                <span>All ports</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <input type="radio" name="steamOwned" value="owned">
+                <span>I own on Steam</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <input type="radio" name="steamOwned" value="notowned">
+                <span>I don't own yet</span>
+              </label>
+            </div>
+            <button type="button" class="steam-disconnect-btn" id="steamDisconnectBtn">Disconnect</button>
+          </div>
+
+          <p class="steam-status" id="steamStatus" style="display:none"></p>
+        </div>
+      </div>
+
       <div class="filter-accordion">
         <div class="filter-accordion-summary" role="button" tabindex="0">
           <span>Genre</span>
@@ -719,6 +764,11 @@ glightbox: false
   let selectedRuntimes = new Set();
   let selectedArchs = new Set();
   let selectedReqs = new Set();
+  // Set of owned Steam appids as strings, or null when not connected.
+  // Kept as strings so it compares directly against port.steamAppId, which
+  // main.py writes as a string (Steam itself returns them as numbers).
+  let steamAppIds = null;
+  let steamOwnership = ''; // '' | 'owned' | 'notowned'
   let sortedCache = {};
   let browseUIInitialized = false;
 
@@ -737,6 +787,12 @@ glightbox: false
   function initBrowseUI() {
     if (browseUIInitialized) return;
     browseUIInitialized = true;
+
+    // Restore a previously connected library. Has to happen here rather than
+    // at script load: the badge reports how many *ports* are owned, which
+    // needs allPorts to exist.
+    loadSteamLibrary();
+    updateSteamUI();
 
     fuse = new Fuse(allPorts, {
       keys: [{ name: 'title', weight: 0.6 }, { name: 'genres', weight: 0.1 }],
@@ -913,6 +969,157 @@ glightbox: false
     filterAndSearch();
   }
 
+  // ===================================================================
+  // Steam library
+  // A Cloudflare Worker holds the Steam API key and resolves a username to
+  // the appids that account owns; the browser can't call Steam directly
+  // (the key would be public, and Steam sends no CORS headers). Only the
+  // appid list is kept, in localStorage rather than a cookie - a real
+  // library is thousands of ids, far past the ~4KB cookie limit.
+  // ===================================================================
+  const STEAM_WORKER = 'https://steam-api.portmaster.workers.dev';
+  const STEAM_STORAGE_KEY = 'pm_steam_library';
+
+  const steamUserInput = document.getElementById('steamUserInput');
+  const steamConnectBtn = document.getElementById('steamConnectBtn');
+  const steamDisconnectBtn = document.getElementById('steamDisconnectBtn');
+  const steamConnectBlock = document.getElementById('steamConnectBlock');
+  const steamOwnedBlock = document.getElementById('steamOwnedBlock');
+  const steamStatusBadge = document.getElementById('steamStatusBadge');
+  const steamStatusEl = document.getElementById('steamStatus');
+
+  function setSteamStatus(message, kind = '') {
+    steamStatusEl.textContent = message || '';
+    steamStatusEl.className = 'steam-status' + (kind ? ` is-${kind}` : '');
+    steamStatusEl.style.display = message ? '' : 'none';
+  }
+
+  // How many of the ports we actually have a Steam appid for are owned -
+  // the only number worth showing, since ~86% of ports aren't on Steam at
+  // all and would otherwise drown the figure.
+  function steamOwnedPortCount() {
+    if (!steamAppIds || !allPorts) return 0;
+    return allPorts.filter(p => p.steamAppId && steamAppIds.has(p.steamAppId)).length;
+  }
+
+  function updateSteamUI() {
+    const connected = steamAppIds !== null;
+    steamConnectBlock.style.display = connected ? 'none' : '';
+    steamOwnedBlock.style.display = connected ? '' : 'none';
+    steamStatusBadge.textContent = connected
+      ? `${steamOwnedPortCount()} owned`
+      : 'Not connected';
+    steamStatusBadge.classList.toggle('is-connected', connected);
+  }
+
+  function saveSteamLibrary(steamId, appids) {
+    try {
+      localStorage.setItem(STEAM_STORAGE_KEY, JSON.stringify({ steamId, appids }));
+    } catch (e) {
+      // Private-browsing modes can throw on write; the filter still works
+      // for this session, it just won't survive a reload.
+      setSteamStatus("Couldn't save your library for next time.", 'warn');
+    }
+  }
+
+  function loadSteamLibrary() {
+    try {
+      const raw = localStorage.getItem(STEAM_STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (Array.isArray(saved?.appids)) {
+        steamAppIds = new Set(saved.appids.map(String));
+      }
+    } catch (e) {
+      // Deliberately does NOT delete the stored value. Reading it back can
+      // fail for reasons that have nothing to do with the data being bad
+      // (storage blocked mid-session, a partial write), and throwing away
+      // someone's connected library on a transient read error is a far worse
+      // outcome than just starting disconnected for this page load.
+      // Disconnect is the only thing that erases it.
+    }
+  }
+
+  function disconnectSteam() {
+    steamAppIds = null;
+    steamOwnership = '';
+    document.querySelectorAll('#steamOwnedList input').forEach(i => { i.checked = i.value === ''; });
+    try { localStorage.removeItem(STEAM_STORAGE_KEY); } catch (e) { /* nothing to clean up */ }
+    steamUserInput.value = '';
+    setSteamStatus('');
+    updateSteamUI();
+    filterAndSearch();
+  }
+
+  async function connectSteam() {
+    const raw = steamUserInput.value.trim();
+    if (!raw) {
+      setSteamStatus('Paste your Steam profile link.', 'error');
+      return;
+    }
+
+    // A failed attempt leaves any already-connected library alone, so say so
+    // rather than letting a bare error read as "the whole thing is broken".
+    const wasConnected = steamAppIds !== null;
+    const stillConnected = wasConnected ? ' Your saved library is still connected.' : '';
+
+    steamConnectBtn.disabled = true;
+    setSteamStatus('Looking up your library…');
+
+    try {
+      const res = await fetch(`${STEAM_WORKER}/u/${encodeURIComponent(raw)}`);
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || data.error) {
+        // By far the most common failure is typing a display name, which
+        // Steam can't resolve - so say what to do instead of just "not
+        // found", which leaves people retyping the same thing.
+        const notFound = /no steam account/i.test(data.error || '');
+        setSteamStatus(
+          (notFound
+            ? "Not found — that's probably your display name. Open your Steam profile and paste the link from the address bar instead."
+            : (data.error || 'Could not reach Steam. Try again shortly.')) + stillConnected,
+          'error'
+        );
+        return;
+      }
+      // A private profile answers 200 with an empty library, so this has to
+      // be checked separately or it reads as "you own nothing".
+      if (data.private) {
+        setSteamStatus('That profile\'s game details are private. Set them to Public in Steam privacy settings, then try again.' + stillConnected, 'error');
+        return;
+      }
+
+      steamAppIds = new Set((data.appids || []).map(String));
+      saveSteamLibrary(data.steamId, data.appids || []);
+      updateSteamUI();
+      setSteamStatus(`Connected — you own ${steamOwnedPortCount()} of the ports on Steam.`, 'ok');
+      filterAndSearch();
+    } catch (e) {
+      setSteamStatus('Could not reach Steam. Try again shortly.' + stillConnected, 'error');
+    } finally {
+      steamConnectBtn.disabled = false;
+    }
+  }
+
+  steamConnectBtn.addEventListener('click', connectSteam);
+  steamUserInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); connectSteam(); }
+  });
+  steamDisconnectBtn.addEventListener('click', disconnectSteam);
+  document.querySelectorAll('#steamOwnedList input').forEach(input => {
+    input.addEventListener('change', () => {
+      steamOwnership = input.value;
+      filterAndSearch();
+    });
+  });
+
+  function clearSteamOwnershipFilter() {
+    steamOwnership = '';
+    document.querySelectorAll('#steamOwnedList input').forEach(i => { i.checked = i.value === ''; });
+    filterAndSearch();
+  }
+
   // ===== Active filter chips: one removable chip per active filter value,
   // shown above the game grid, plus the "Filters (N)" count badge in the
   // panel header - both computed from the same list so they can't drift. =====
@@ -923,6 +1130,12 @@ glightbox: false
       filters.push({ label: `Device: ${label}`, clear: clearDeviceFilter });
     }
     selectedGenres.forEach(v => filters.push({ label: `Genre: ${v}`, clear: () => clearGenreValue(v) }));
+    if (steamOwnership) {
+      filters.push({
+        label: steamOwnership === 'owned' ? 'Steam: Owned' : "Steam: Don't own",
+        clear: clearSteamOwnershipFilter
+      });
+    }
     if (readyToggle.checked) filters.push({ label: 'Ready to Run Only', clear: clearReadyToggleFilter });
     if (hideIncompatibleToggle.checked) filters.push({ label: 'Hide Incompatible', clear: clearHideIncompatibleFilter });
     selectedRuntimes.forEach(v => filters.push({ label: `Runtime: ${v}`, clear: () => clearCheckboxFilter(selectedRuntimes, v, 'runtimePills') }));
@@ -960,6 +1173,10 @@ glightbox: false
     clearGenreFilter();
     clearReadyToggleFilter();
     clearHideIncompatibleFilter();
+    // Resets the owned/not-owned choice but deliberately stays connected -
+    // Reset clears filters, and re-entering a username is a bigger undo
+    // than anything else on this button. Disconnect does that explicitly.
+    clearSteamOwnershipFilter();
     gamesSearchInput.value = '';
     filterAndSearch();
   }
@@ -1150,12 +1367,20 @@ glightbox: false
       const runtimeMatch = selectedRuntimes.size === 0 || (port.runtime || []).some(r => selectedRuntimes.has(r));
       const archMatch = selectedArchs.size === 0 || (port.arch || []).some(a => selectedArchs.has(a));
       const reqMatch = selectedReqs.size === 0 || (port.reqs || []).some(r => selectedReqs.has(r));
+      // Both Steam options deliberately exclude ports with no Steam appid:
+      // "don't own" is about things you could buy, and the ~1,200 ports that
+      // aren't sold on Steam at all would otherwise swamp that list.
+      let steamMatch = true;
+      if (steamOwnership && steamAppIds) {
+        const owned = !!port.steamAppId && steamAppIds.has(port.steamAppId);
+        steamMatch = steamOwnership === 'owned' ? owned : (!!port.steamAppId && !owned);
+      }
 
       if (currentOS) {
         if (compatible) supported++; else unsupported++;
       }
 
-      let shouldShow = matchSearch && genreMatch && rtrMatch && runtimeMatch && archMatch && reqMatch;
+      let shouldShow = matchSearch && genreMatch && rtrMatch && runtimeMatch && archMatch && reqMatch && steamMatch;
       if (currentOS && hideIncompatible) shouldShow = shouldShow && compatible;
 
       if (shouldShow) {
@@ -1171,12 +1396,17 @@ glightbox: false
 
   function renderCardHtml(port) {
     const rtrBadge = port.rtr ? '<span class="pm-rtr-badge">RTR</span>' : '';
+    // Only meaningful once a library is connected, so it stays off the card
+    // entirely until then rather than showing a permanently empty slot.
+    const ownedBadge = (steamAppIds && port.steamAppId && steamAppIds.has(port.steamAppId))
+      ? '<span class="pm-owned-badge" title="In your Steam library"><i class="bi bi-check-lg"></i></span>'
+      : '';
     const img = port.screenshot
       ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
       : '';
     const downloadsText = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
     const cls = 'pm-card' + (port.incompatibleFlag ? ' incompatible' : '');
-    return `<div class="${cls}" data-port-id="${port.id}">${rtrBadge}${img}<h3>${escapeHtml(port.title)}</h3><div class="card-stats"><span class="card-stat"><i class="bi bi-download"></i> ${downloadsText}</span><span class="card-stat"><i class="bi bi-calendar-plus"></i> ${port.dateAdded || '—'}</span></div></div>`;
+    return `<div class="${cls}" data-port-id="${port.id}">${rtrBadge}${ownedBadge}${img}<h3>${escapeHtml(port.title)}</h3><div class="card-stats"><span class="card-stat"><i class="bi bi-download"></i> ${downloadsText}</span><span class="card-stat"><i class="bi bi-calendar-plus"></i> ${port.dateAdded || '—'}</span></div></div>`;
   }
 
   function renderPage(matchedIds, supported = 0, unsupported = 0) {

@@ -514,6 +514,122 @@
   opacity: 0.7;
 }
 
+/* ===== Steam library section =====
+   Lives in the filter panel next to Device/OS - same class of input (a
+   detail about the visitor that filters the catalogue). */
+.steam-status-badge {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background-color: rgba(128, 128, 128, 0.22);
+  color: var(--card-stat-color, #888888);
+  font-size: 0.62rem;
+  font-weight: 600;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.steam-status-badge.is-connected {
+  background-color: rgba(244, 149, 25, 0.18);
+  color: #F49519;
+}
+
+.steam-help {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--md-default-fg-color--light);
+}
+
+.steam-input-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.steam-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  /* Explicit alpha grey, not --card-border (#e0e0e0): that sits ~1:1
+     against the light-mode panel and disappears. Same reasoning as the
+     outlined controls on the port page. */
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  background-color: var(--md-default-bg-color);
+  color: var(--card-text);
+  font-size: 0.78rem;
+  outline: none;
+}
+
+.steam-input:focus {
+  border-color: #F49519;
+  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.12);
+}
+
+.steam-connect-btn {
+  flex-shrink: 0;
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #F49519;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.steam-connect-btn:hover:not(:disabled) {
+  background-color: #ff9d2e;
+}
+
+.steam-connect-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.steam-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.65rem;
+  line-height: 1.45;
+  color: var(--card-stat-color, #888888);
+}
+
+.steam-status {
+  margin: 0.5rem 0 0;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: var(--card-stat-color, #888888);
+}
+
+.steam-status.is-ok {
+  color: #2fb344;
+}
+
+.steam-status.is-error {
+  color: #dc3545;
+}
+
+.steam-status.is-warn {
+  color: #F49519;
+}
+
+.steam-disconnect-btn {
+  margin-top: 0.6rem;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--card-stat-color, #888888);
+  font-size: 0.7rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.steam-disconnect-btn:hover {
+  color: #dc3545;
+}
+
 .filter-subgroup {
   margin-bottom: 0.6rem;
 }

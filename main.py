@@ -8,6 +8,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import urllib.request
 import urllib.error
+import urllib.parse
 
 MARKDOWN_EXTENSIONS = ["tables", "fenced_code"]
 
@@ -102,6 +103,34 @@ def download_portmaster_jsons(base_path):
 
 MOSAIC_TILE_COUNT = 36
 MOSAIC_CANDIDATE_LIMIT = 90
+
+# Upstream store names are free text and inconsistently cased - the current
+# ports.json carries Steam/steam/STEAM, itch.io/Itch.io/Itch/itch and
+# GOG/GoG, which render as different-looking labels for the same storefront.
+# Canonicalised by host where possible (the URL is reliable, the name isn't),
+# falling back to the declared name for anything unrecognised.
+STORE_NAMES_BY_HOST = {
+    "store.steampowered.com": "Steam",
+    "steampowered.com": "Steam",
+    "itch.io": "itch.io",
+    "gog.com": "GOG",
+    "store.epicgames.com": "Epic Games",
+    "epicgames.com": "Epic Games",
+    "gamejolt.com": "Game Jolt",
+    "github.com": "GitHub",
+}
+
+
+def normalize_store_name(name, url):
+    """Canonical storefront label, preferring the URL host over the name."""
+    host = urllib.parse.urlparse(url).netloc.lower()
+    host = host[4:] if host.startswith("www.") else host
+    if host in STORE_NAMES_BY_HOST:
+        return STORE_NAMES_BY_HOST[host]
+    # itch.io games live on per-user subdomains (<user>.itch.io).
+    if host.endswith(".itch.io"):
+        return "itch.io"
+    return (name or "").strip()
 
 
 def _has_black_bars(image):
@@ -341,6 +370,7 @@ def define_env(env):
             # list of bare URL strings instead - handle both shapes
             # rather than assuming every entry is a dict.
             store = []
+            steam_app_id = ""
             for s in attr.get("store") or []:
                 if isinstance(s, str):
                     url = s
@@ -349,7 +379,18 @@ def define_env(env):
                     url = s.get("gameurl") or ""
                     name = s.get("name") or ""
                 if url:
-                    store.append({"name": name, "url": normalize_store_url(url)})
+                    url = normalize_store_url(url)
+                    store.append({"name": normalize_store_name(name, url), "url": url})
+                    # Join key for the Steam library filter: the appid from
+                    # the storefront URL is matched against the appids the
+                    # Worker returns for a visitor's account. Taken from the
+                    # URL rather than the name field, which is free text.
+                    if not steam_app_id:
+                        match = re.search(
+                            r"store\.steampowered\.com/app/(\d+)", url, re.IGNORECASE
+                        )
+                        if match:
+                            steam_app_id = match.group(1)
 
             port_details[port_id] = {
                 "title": attr.get("title") or port_id,
@@ -368,6 +409,7 @@ def define_env(env):
                 "dateUpdated": source.get("date_updated") or "",
                 "url": source_url,
                 "store": store,
+                "steamAppId": steam_app_id,
             }
 
         with port_details_path.open("w", encoding="utf-8") as f:

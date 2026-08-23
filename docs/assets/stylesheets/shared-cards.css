@@ -134,6 +134,30 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
+/* "In your Steam library" tick - top-right so it never collides with the
+   RTR badge in the opposite corner. Only rendered once a Steam library is
+   connected (see renderCardHtml in games.md). */
+.pm-owned-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #2fb344;
+  color: #ffffff;
+  font-size: 0.6rem;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.pm-owned-badge i {
+  line-height: 1;
+}
+
 /* Card Stats (Downloads & Date Added) */
 .card-stats {
   display: flex;
