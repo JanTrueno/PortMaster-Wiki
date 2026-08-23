@@ -628,12 +628,14 @@
     order: 1;
   }
 
-  /* Both shrink a step at this width so the longest sort value ("Date
-     Updated (Newest)") fits on the row whole, instead of ellipsising to
-     make room for the controls beside it. */
+  /* "Show:" is dropped rather than shrunk. The longest sort value ("Date
+     Updated (Newest)") needs 146px and only ~108px was left beside the
+     controls, so it ellipsised; no font size fixes that gap without going
+     unreadably small (~10px), whereas losing this prefix frees 48px and
+     the label fits at full size. The trigger still reads fine on its own -
+     it shows the current sort value and carries a chevron. */
   .sort-label {
-    flex-shrink: 0;
-    font-size: 0.7rem;
+    display: none;
   }
 
   /* flex-basis:0 (not auto) is the load-bearing bit. A flex line wraps
@@ -713,7 +715,7 @@
   .sort-toggle-btn {
     height: 40px;
     padding: 0 0.5rem;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   .sort-toggle-btn i {
