@@ -1,4 +1,8 @@
 ---
+hide:
+  - navigation
+  - toc
+
 # Porter cards link straight to /porter/?name=<id> now (no quick-view
 # modal), so this page no longer embeds each porter's full bio + resolved
 # port list, or the entire ports.json/port_stats.json blobs, inline in its
@@ -6,6 +10,9 @@
 # and (combined with glightbox's regex bug - see games.md) dominated the
 # site build. glightbox itself is still skipped here since every <img> is
 # already opted out via off-glb.
+# hide: navigation/toc matches games.md - this is a full-width browse
+# grid now, same as the games page, so it shouldn't carry a nav sidebar
+# the other browse-style page doesn't have.
 glightbox: false
 ---
 
@@ -16,8 +23,9 @@ The amazing people who bring games to your handheld devices
 
 <div class="filters-container">
   <div class="filters-left">
-    <div class="search-wrapper">
-      <input type="text" id="porterSearch" class="search-bar" placeholder="Search porters...">
+    <div class="games-search-wrapper">
+      <i class="bi bi-search games-search-icon"></i>
+      <input type="text" id="porterSearch" class="games-search-input" placeholder="Search porters...">
     </div>
   </div>
   <div class="filters-right">
@@ -25,7 +33,7 @@ The amazing people who bring games to your handheld devices
   </div>
 </div>
 
-<div class="porters-grid">
+<div class="game-grid porters-grid">
 {% for porter_id, porter in porters.items() %}
   {% if porter.port_count is defined and porter.port_count > 0 %}
   <div class="porter-card" onclick="window.location.href='../porter/?name={{ porter_id | urlencode }}'" data-name="{{ porter.name | default(porter_id) }}">
@@ -42,24 +50,24 @@ The amazing people who bring games to your handheld devices
       {% endif %}
     </div>
 
+    {% if porter.support %}
+    <div class="porter-support-badge">
+      <i class="bi bi-heart-fill"></i> Support
+    </div>
+    {% endif %}
+
     <h3>{{ porter.name | default(porter_id) }}</h3>
 
     <div class="porter-stats">
       <span class="porter-stat">
         <i class="bi bi-box-seam"></i>
-        {{ porter.port_count | default(0) }} ports
+        {{ porter.port_count | default(0) }}
       </span>
       <span class="porter-stat">
         <i class="bi bi-download"></i>
         {{ "{:,}".format(porter.total_downloads | default(0)) }}
       </span>
     </div>
-
-    {% if porter.support %}
-    <div class="porter-support-badge">
-      <i class="bi bi-heart-fill"></i> Support
-    </div>
-    {% endif %}
   </div>
   {% endif %}
 {% endfor %}

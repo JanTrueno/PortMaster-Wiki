@@ -27,6 +27,23 @@
     return values.map(v => escapeHtml(v)).join(', ');
   }
 
+  // Genres/Requirements render as individual chips (not a comma-joined
+  // string like badges()) in the left column, matching the tag groups a
+  // storefront product page puts under its description.
+  function chips(values) {
+    if (!values || values.length === 0) return '';
+    return values.map(v => `<span class="port-tag">${escapeHtml(v)}</span>`).join('');
+  }
+
+  // Tag groups have a heading of their own, so an empty one has to be
+  // hidden entirely rather than left showing a heading over nothing -
+  // only ~11% of ports carry requirements.
+  function fillTagGroup(groupId, listId, values) {
+    const html = chips(values);
+    document.getElementById(listId).innerHTML = html;
+    document.getElementById(groupId).style.display = html ? '' : 'none';
+  }
+
   function porterLinks(values) {
     if (!values || values.length === 0) return '—';
     return values
@@ -38,6 +55,163 @@
     const div = document.createElement('div');
     div.textContent = value;
     return div.innerHTML;
+  }
+
+  // ===== Similar games =====
+  const SIMILAR_COUNT = 12;
+
+  // How rare each genre is across the whole catalogue (standard IDF). A
+  // plain count of shared genres treats "both are action" - which is true
+  // of hundreds of ports - as strong a signal as "both are visual novel",
+  // which is a real match. Weighting by rarity fixes that. Computed once;
+  // portDetails doesn't change after load.
+  let genreIdf = null;
+
+  function getGenreIdf() {
+    if (genreIdf) return genreIdf;
+    const docFreq = new Map();
+    let total = 0;
+    for (const other of Object.values(portDetails)) {
+      total++;
+      for (const g of new Set(other.genres || [])) {
+        docFreq.set(g, (docFreq.get(g) || 0) + 1);
+      }
+    }
+    genreIdf = new Map();
+    for (const [g, n] of docFreq) {
+      // A genre carried by every port scores 0 - correctly, since it
+      // distinguishes nothing.
+      genreIdf.set(g, Math.log(total / n));
+    }
+    return genreIdf;
+  }
+
+  // Rarity-weighted Jaccard: shared weight over combined weight. Dividing
+  // by the union (rather than just summing the overlap) stops ports that
+  // list a dozen genres from out-scoring a genuine exact match purely by
+  // having more chances to overlap.
+  function genreSimilarity(aSet, bGenres, idf) {
+    const b = new Set(bGenres);
+    let shared = 0;
+    let combined = 0;
+    for (const g of new Set([...aSet, ...b])) {
+      const w = idf.get(g) || 0;
+      combined += w;
+      if (aSet.has(g) && b.has(g)) shared += w;
+    }
+    return combined > 0 ? shared / combined : 0;
+  }
+
+  function renderSimilar(portId, port) {
+    const section = document.getElementById('port-similar');
+    const track = document.getElementById('port-similar-track');
+    const genres = port.genres || [];
+
+    if (!portDetails || genres.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+
+    const idf = getGenreIdf();
+    const wanted = new Set(genres);
+    const scored = [];
+    const fallback = [];
+
+    for (const [id, other] of Object.entries(portDetails)) {
+      if (id === portId) continue;
+      const overlap = (other.genres || []).filter(g => wanted.has(g)).length;
+      if (overlap === 0) continue;
+      const score = genreSimilarity(wanted, other.genres || [], idf);
+      (score > 0 ? scored : fallback).push({ id, port: other, score, overlap });
+    }
+
+    // Everything scoring zero means this port's only genres are ones nearly
+    // every port carries, so rarity can't rank them - fall back to overlap
+    // count and popularity rather than showing an empty row.
+    const matches = scored.length ? scored : fallback;
+    if (matches.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+
+    matches.sort((a, b) =>
+      b.score - a.score ||
+      b.overlap - a.overlap ||
+      (b.port.downloads || 0) - (a.port.downloads || 0)
+    );
+
+    track.innerHTML = matches.slice(0, SIMILAR_COUNT).map(m => similarCardHtml(m.id, m.port)).join('');
+    track.scrollLeft = 0;
+    section.style.display = '';
+  }
+
+  function similarCardHtml(id, port) {
+    const img = port.screenshot
+      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
+      : '';
+    const rtr = port.rtr ? '<span class="pm-rtr-badge">RTR</span>' : '';
+    const downloads = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
+    return `<div class="pm-card" onclick="window.location.href='../port/?name=${encodeURIComponent(id)}'">`
+      + `${rtr}${img}<h3>${escapeHtml(port.title)}</h3>`
+      + `<div class="card-stats"><span class="card-stat"><i class="bi bi-download"></i> ${downloads}</span>`
+      + `<span class="card-stat"><i class="bi bi-calendar-plus"></i> ${port.dateAdded || '—'}</span></div></div>`;
+  }
+
+  // games.md defines its own scrollCarousel() inline; this page doesn't load
+  // that script, so the arrows get their own handler here.
+  (function initSimilarArrows() {
+    const track = document.getElementById('port-similar-track');
+    if (!track) return;
+    const scrollBy = dir => track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' });
+    document.getElementById('port-similar-prev').addEventListener('click', () => scrollBy(-1));
+    document.getElementById('port-similar-next').addEventListener('click', () => scrollBy(1));
+  })();
+
+  // Long readmes/instructions get clamped to a readable height behind a
+  // fade with a Show more toggle, instead of running for several screens -
+  // which also kept the sticky sidebar travelling long after there was
+  // anything left to look at. Only applied when the content actually
+  // overflows, so short ports are unaffected.
+  const COLLAPSE_MAX_PX = 420;
+
+  function makeCollapsible(contentEl) {
+    const section = contentEl.closest('.modal-text-section');
+    if (!section) return;
+
+    // Clear whatever the previously rendered port left behind.
+    const oldBtn = section.querySelector('.port-expand-btn');
+    if (oldBtn) oldBtn.remove();
+    contentEl.classList.remove('is-clamped', 'is-expanded');
+
+    // Images inside a readme usually haven't loaded at first measure, which
+    // would under-report the height and skip the toggle on a page that does
+    // need one. Re-measure once each finishes.
+    contentEl.querySelectorAll('img').forEach(img => {
+      if (!img.complete) {
+        img.addEventListener('load', () => makeCollapsible(contentEl), { once: true });
+      }
+    });
+
+    // Unclamped, scrollHeight is just the natural content height.
+    if (contentEl.scrollHeight <= COLLAPSE_MAX_PX) return;
+
+    contentEl.classList.add('is-clamped');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'port-expand-btn';
+    const label = expanded => expanded
+      ? '<span>Show less</span> <i class="bi bi-chevron-up"></i>'
+      : '<span>Show more</span> <i class="bi bi-chevron-down"></i>';
+    btn.innerHTML = label(false);
+    btn.addEventListener('click', () => {
+      const expanded = contentEl.classList.toggle('is-expanded');
+      btn.innerHTML = label(expanded);
+      // Collapsing from far down the expanded text would otherwise leave
+      // the viewport stranded below the section entirely.
+      if (!expanded) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    section.appendChild(btn);
   }
 
   // border-radius/overflow:hidden on <table> itself doesn't reliably clip
@@ -96,16 +270,24 @@
     const downloadBtn = document.getElementById('port-download-btn');
     downloadBtn.href = port.url || '#';
 
-    // ===== Stat pills =====
-    document.getElementById('port-stat-downloads').textContent = port.downloads > 0 ? port.downloads.toLocaleString() : 'N/A';
-    document.getElementById('port-stat-porter').textContent = port.porter && port.porter.length
-      ? (port.porter.length > 1 ? `${port.porter[0]} +${port.porter.length - 1}` : port.porter[0])
-      : 'Unknown';
-    document.getElementById('port-stat-rtr').textContent = port.rtr ? 'Ready to Run' : 'Setup Required';
-    const rtrPill = document.getElementById('port-stat-rtr-pill');
-    const rtrIcon = document.getElementById('port-stat-rtr-icon');
-    rtrPill.classList.toggle('port-stat-pill--warn', !port.rtr);
-    rtrIcon.className = port.rtr ? 'bi bi-lightning-charge-fill' : 'bi bi-tools';
+    // ===== Title meta line =====
+    document.getElementById('port-title-porter').innerHTML = port.porter && port.porter.length
+      ? `by ${porterLinks(port.porter)}`
+      : '';
+
+    // ===== Sidebar headline =====
+    // Heads the rail where a storefront would put a price. Everything here
+    // is free, so saying so adds nothing - what actually decides whether
+    // someone can play this is whether they need to supply game files.
+    // "Files Required" matches the wording on the games page hero slides.
+    const statusEl = document.getElementById('port-status');
+    const statusIcon = document.getElementById('port-status-icon');
+    statusEl.className = 'port-status ' + (port.rtr ? 'port-status--rtr' : 'port-status--files');
+    statusIcon.className = port.rtr ? 'bi bi-lightning-charge-fill' : 'bi bi-tools';
+    document.getElementById('port-status-text').textContent = port.rtr ? 'Ready to Run' : 'Files Required';
+    document.getElementById('port-status-note').textContent = port.rtr
+      ? 'Everything you need is included.'
+      : 'You need to supply the game\'s own files.';
 
     // ===== Store links =====
     const storeWrap = document.getElementById('port-store-links');
@@ -119,16 +301,17 @@
       storeWrap.style.display = 'none';
     }
 
-    // ===== Full details grid (bottom of page) =====
-    document.getElementById('port-genres').innerHTML = badges(port.genres);
-    document.getElementById('port-reqs').innerHTML = badges(port.reqs);
+    // ===== Tag groups (left column, under the description) =====
+    fillTagGroup('port-genres-group', 'port-genres', port.genres);
+    fillTagGroup('port-reqs-group', 'port-reqs', port.reqs);
+
+    // ===== Sidebar spec sheet =====
     document.getElementById('port-porter-full').innerHTML = porterLinks(port.porter);
     document.getElementById('port-downloads').textContent = port.downloads > 0 ? port.downloads.toLocaleString() : 'N/A';
     document.getElementById('port-runtimes').innerHTML = badges(port.runtime);
     document.getElementById('port-arch').innerHTML = badges(port.arch);
     document.getElementById('port-date-added').textContent = port.dateAdded || 'N/A';
     document.getElementById('port-date-updated').textContent = port.dateUpdated || 'N/A';
-    document.getElementById('port-misc').textContent = port.rtr ? 'Ready to Run' : 'Setup Required';
 
     const instSection = document.getElementById('port-inst-section');
     const instEl = document.getElementById('port-inst');
@@ -136,12 +319,14 @@
       instEl.innerHTML = port.instHtml;
       wrapTables(instEl);
       instSection.style.display = '';
+      makeCollapsible(instEl);
     } else {
       instSection.style.display = 'none';
     }
 
     activePortId = portId;
     loadReadme(portId, port.repo);
+    renderSimilar(portId, port);
     currentPort = port;
     updateDeviceChip();
     setState('content');
@@ -153,6 +338,7 @@
     if (readmeCache[portId]) {
       readmeEl.innerHTML = readmeCache[portId];
       wrapTables(readmeEl);
+      makeCollapsible(readmeEl);
       return;
     }
 
@@ -170,12 +356,16 @@
         if (activePortId === portId) {
           readmeEl.innerHTML = html;
           wrapTables(readmeEl);
+          makeCollapsible(readmeEl);
         }
       })
       .catch(() => {
         const fallback = '<p>No additional information available.</p>';
         readmeCache[portId] = fallback;
-        if (activePortId === portId) readmeEl.innerHTML = fallback;
+        if (activePortId === portId) {
+          readmeEl.innerHTML = fallback;
+          makeCollapsible(readmeEl);
+        }
       });
   }
 

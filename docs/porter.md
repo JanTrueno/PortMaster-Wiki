@@ -43,15 +43,15 @@ glightbox: false
     </div>
 
     <div class="porter-detail-stats">
-      <div class="porter-stat-item">
-        <i class="bi bi-box-seam"></i>
-        <span id="porter-port-count">0</span>
-        <label>Ports</label>
+      <div class="stats-card">
+        <i class="bi bi-box-seam stats-card-icon"></i>
+        <span class="stats-card-value" id="porter-port-count">0</span>
+        <span class="stats-card-label">Ports</span>
       </div>
-      <div class="porter-stat-item">
-        <i class="bi bi-download"></i>
-        <span id="porter-downloads">0</span>
-        <label>Downloads</label>
+      <div class="stats-card">
+        <i class="bi bi-download stats-card-icon"></i>
+        <span class="stats-card-value" id="porter-downloads">0</span>
+        <span class="stats-card-label">Downloads</span>
       </div>
     </div>
 

@@ -60,11 +60,11 @@
 
 /* --card-border is too light (#e0e0e0) against the light-mode page
    background to read as a real edge, so these controls get an explicit,
-   slightly darker neutral border in light mode instead. */
-[data-md-color-scheme="light"] .filter-toggle-btn,
+   slightly darker neutral border in light mode instead. (.filter-toggle-btn
+   and .view-toggle-wrapper used to be listed here too - they're filled
+   pills with no border now, so the override no longer applies to them.) */
 [data-md-color-scheme="light"] .sort-toggle-btn,
-[data-md-color-scheme="light"] .sort-dropdown,
-[data-md-color-scheme="light"] .view-toggle-wrapper {
+[data-md-color-scheme="light"] .sort-dropdown {
   border-color: #c4c4c4;
 }
 
@@ -115,16 +115,23 @@
   color: #888888;
 }
 
-/* Filter Toggle Button */
+/* Filter Toggle Button
+   Filled pill, matching .view-toggle-wrapper right beside it (and the
+   .active-filter-chip / .carousel-btn treatment used elsewhere). It was an
+   outlined 7px-radius square next to a filled 999px pill, at a different
+   height - two visual languages sitting adjacent in the same toolbar.
+   The 9px padding is load-bearing: it sets the 14px inner box the
+   hamburger-to-X transforms below are tuned against, so size changes are
+   made via width/height + padding together, never padding alone. */
 .filter-toggle-btn {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 32px;
   height: 32px;
-  background-color: transparent;
-  border: 1px solid var(--card-border, #cccccc);
-  border-radius: 7px;
+  background-color: rgba(128, 128, 128, 0.18);
+  border: none;
+  border-radius: 999px;
   cursor: pointer;
   padding: 9px;
   transition: all 0.2s ease;
@@ -132,8 +139,7 @@
 }
 
 .filter-toggle-btn:hover {
-  border-color: #F49519;
-  background-color: rgba(244, 149, 25, 0.08);
+  background-color: rgba(244, 149, 25, 0.18);
 }
 
 .filter-toggle-btn span {
@@ -146,8 +152,7 @@
 }
 
 .filter-toggle-btn.active {
-  border-color: #F49519;
-  background-color: rgba(244, 149, 25, 0.08);
+  background-color: rgba(244, 149, 25, 0.18);
 }
 
 .filter-toggle-btn.active span {
@@ -596,22 +601,113 @@
     right: -100%;
   }
   
+  /* Mobile toolbar order:
+       row 1  Show: [sort]            [grid|list] [filters]
+       row 2  active filter chips
+       row 3  result counter
+     display:contents dissolves the .filters-left / .filters-right grouping
+     boxes so their children become flex items of the container directly -
+     the only way to interleave them like this (controls come from the
+     right group, chips from the left) without duplicating markup. The two
+     groups still exist as boxes on desktop, where they're what keeps the
+     counter and toggle from being stranded on separate lines. */
   .filters-container {
     padding: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
   }
-  
+
+  .filters-left,
+  .filters-right {
+    display: contents;
+  }
+
+  .sort-label {
+    order: 1;
+  }
+
+  /* Both shrink a step at this width so the longest sort value ("Date
+     Updated (Newest)") fits on the row whole, instead of ellipsising to
+     make room for the controls beside it. */
+  .sort-label {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+  }
+
+  /* flex-basis:0 (not auto) is the load-bearing bit. A flex line wraps
+     before it shrinks, so with an auto basis the sort trigger claimed its
+     full content width - 190px for "Date Updated (Newest)" vs 140px for
+     "Most Downloads" - and pushed the controls onto a second row. A zero
+     basis means this item can never overflow the line on its own, so no
+     wrap happens; it then grows into whatever space the controls leave and
+     ellipsises the label if that isn't enough. */
+  .sort-dropdown-wrapper {
+    order: 2;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .sort-toggle-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sort-toggle-btn > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sort-toggle-btn > i {
+    flex-shrink: 0;
+  }
+
+  /* margin-left:auto rather than margin-right:auto on the sort trigger:
+     that only right-aligns these while they share a line with it. This
+     keeps them flush right even if they do wrap onto a line of their own. */
+  .search-wrapper {
+    order: 3;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  /* flex-basis:100% forces each onto its own row. Still respects the inline
+     display:none JS sets on the chip row when no filters are active. */
+  .active-filters-row {
+    order: 4;
+    flex-basis: 100%;
+  }
+
+  #portsCounter {
+    order: 5;
+    flex-basis: 100%;
+  }
+
   .search-bar {
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
   }
-  
+
+  /* Filter button and view toggle are a matched pair in this toolbar, so
+     they get the same height on mobile too. Padding grows with the box to
+     hold the hamburger's inner square at 14px - the value the X transform
+     is tuned against; at the old 44px/9px the bars spread out and the X
+     stopped meeting in the middle. */
   .filter-toggle-btn {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
+    padding: 11px;
   }
-  
+
+  /* The matching .view-toggle-wrapper/.view-toggle-btn mobile sizes live in
+     shared-toggle-pagination.css, next to their base rules - that file
+     loads after this one, so an override here loses on source order
+     (media queries add no specificity). */
+
   /* No fixed width here (unlike .filter-toggle-btn above) - this is a
-     text+chevron trigger, not an icon square, so squashing it to 44px
+     text+chevron trigger, not an icon square, so squashing it to 36px
      would clip the sort label. Just grow the tap target via height/
      padding/font-size instead. */
   .sort-toggle-btn {
@@ -644,11 +740,9 @@
     font-size: 0.9rem;
   }
   
-  .filter-toggle-btn {
-    width: 38px;
-    height: 38px;
-    padding: 8px;
-  }
+  /* Filter button and view toggle keep the 36px they get at 768px - the
+     pair has to stay the same size as each other, and dropping only one of
+     them here is what made them mismatch in the first place. */
 
   /* Text+chevron trigger, not an icon square - no fixed width (see the
      768px block above, same reasoning: forcing one here clips/overflows

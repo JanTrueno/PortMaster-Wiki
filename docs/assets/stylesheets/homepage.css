@@ -40,6 +40,10 @@
   transition: transform 0.15s ease, background-color 0.15s ease,
               border-color 0.15s ease, color 0.15s ease;
   white-space: nowrap;
+  /* Floor so standalone buttons (the Get Involved pair, which aren't in
+     a shared grid) still match each other rather than hugging their own
+     label widths. */
+  min-width: 10.5rem;
 }
 
 .hero-btn:hover {
@@ -122,9 +126,14 @@
   color: rgba(0, 0, 0, 0.62);
 }
 
+/* inline-grid with equal fr columns sizes both buttons to the wider of
+   the two, so the pair always matches regardless of label length (the
+   port count in "Browse 1400+ Games" changes every build). inline-grid
+   keeps the group itself shrink-to-fit rather than filling the column. */
 .hero-cta-group {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 0.85rem;
 }
 
@@ -296,29 +305,45 @@
   .hero {
     flex-direction: column;
     align-items: stretch;
-    gap: 1.5rem;
+    gap: 1.25rem;
     text-align: center;
   }
 
+  /* display:contents dissolves .hero-content as a box so its children
+     become flex items of .hero directly - the only way to get the CTAs
+     below the device here while keeping them inside the text column on
+     desktop, without duplicating the markup. */
   .hero-content {
-    flex-basis: auto;
+    display: contents;
   }
 
   .hero-content h1 {
-    font-size: 1.6rem;
+    order: 1;
+    font-size: 1.5rem;
   }
 
   .hero-subtitle {
-    font-size: 0.78rem;
+    order: 2;
+    font-size: 0.75rem;
     max-width: none;
-  }
-
-  .hero-cta-group {
-    justify-content: center;
+    margin-bottom: 0;
   }
 
   .hero-visual {
+    order: 3;
     flex-basis: auto;
+  }
+
+  .hero-cta-group {
+    order: 4;
+  }
+
+  /* The min-width floor above would overflow two-up at this width, so
+     drop it and let the equal grid columns do the sizing instead. */
+  .hero-btn {
+    min-width: 0;
+    padding: 0.62rem 0.8rem;
+    font-size: 0.78rem;
   }
 
   /* No off-edge crop at this width - there isn't the room for it to read
@@ -326,38 +351,75 @@
   .hero-visual .preview-container {
     width: 100%;
     margin-left: 0;
-    max-width: 420px;
+    max-width: 380px;
     margin: 0 auto;
   }
 
+  /* All four stats stay on one row - shrunk to fit rather than wrapped. */
   .stats-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .stats-card {
+    padding: 0 0.25rem;
+  }
+
+  .stats-card-icon {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
 
   .stats-card-value {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
 
+  .stats-card-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.1px;
+    line-height: 1.3;
+    margin-top: 0.25rem;
+  }
+
+  /* Both cards stay side by side too. */
   .get-involved-grid {
-    grid-template-columns: 1fr;
-    row-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 
   .get-involved-card {
     padding: 0;
   }
 
+  .get-involved-icon {
+    font-size: 1.35rem;
+  }
+
+  .get-involved-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .get-involved-card p {
+    font-size: 0.74rem;
+    margin-bottom: 1rem;
+  }
+
+  /* min-width is zeroed below for the hero pair, which would otherwise
+     leave these two sized to their own labels (151px vs 142px). Filling
+     the card keeps them identical since the cards are equal columns. */
+  .get-involved-card .hero-btn {
+    width: 100%;
+  }
+
   .showcase {
     margin: 3rem calc(-50vw + 50%);
-    padding: 3rem calc(50vw - 50%) 2rem;
+    padding: 2.5rem calc(50vw - 50%) 1.75rem;
   }
 
   .showcase-inner {
     flex-direction: column;
     gap: 2rem;
     min-height: 0;
-    text-align: center;
   }
 
   .showcase-text {
@@ -369,23 +431,24 @@
   }
 
   .showcase-text p {
+    font-size: 0.75rem;
     max-width: none;
   }
 
   /* Fewer, bigger tiles so the mosaic still reads as screenshots rather
-     than noise at this width, and a top-to-bottom scrim instead of the
-     left-to-right one (the text is centred here, not in a left column). */
+     than noise at this width. Scrim stays left-weighted (not top-to-
+     bottom) because the copy is still left-aligned here. */
   .showcase-mosaic {
     grid-template-columns: repeat(4, 1fr);
   }
 
   .showcase::after {
     background:
-      linear-gradient(to bottom, rgba(14, 14, 16, 0.86) 0%, rgba(14, 14, 16, 0.78) 100%),
-      rgba(14, 14, 16, 0.35);
+      linear-gradient(to right, rgba(14, 14, 16, 0.94) 30%, rgba(14, 14, 16, 0.72) 100%),
+      rgba(14, 14, 16, 0.3);
   }
 
   .showcase-caption {
-    text-align: center;
+    font-size: 0.6rem;
   }
 }

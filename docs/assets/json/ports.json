@@ -167,7 +167,7 @@
         "porter": [
           "saitamasahil"
         ],
-        "desc": "A feature-packed implementation of the classic puzzle game 2048 for PortMaster, built using the L\u00d6VE framework.",
+        "desc": "A feature-packed implementation of the classic puzzle game 2048, built using the L\u00d6VE framework.",
         "desc_md": null,
         "inst": "Ready to run. Use the D-Pad to move tiles, L1/R1 for power-ups, B to undo, and Y to switch themes.",
         "inst_md": "Ready to run. Use the **D-Pad** to move tiles, **L1/R1** for power-ups, **B** to undo, and **Y** to switch themes.",
@@ -194,11 +194,11 @@
       },
       "source": {
         "date_added": "2026-06-22",
-        "date_updated": "2026-07-21",
-        "md5": "4562ccb5b682be8d3edc04cfe4fc68fa",
-        "release_id": "2026-07-21_2337",
-        "size": 63443252,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-07-21_2337/2048plus.zip"
+        "date_updated": "2026-08-23",
+        "md5": "061d5ddde45a24bbedcef41000b504b4",
+        "release_id": "2026-08-23_0904",
+        "size": 105395969,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/2048plus.zip"
       }
     },
     "6feetunder.zip": {
@@ -1509,8 +1509,8 @@
         "date_added": "2026-08-21",
         "date_updated": "2026-08-21",
         "md5": "3ca488697486a9a5be36a913075383cc",
-        "size": 26969996,
         "release_id": "2026-08-21_2000",
+        "size": 26969996,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/alex3.zip"
       }
     },
@@ -2260,6 +2260,52 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-19_1404/amphetamine.zip"
       }
     },
+    "amuletsarmor.zip": {
+      "version": 4,
+      "name": "amuletsarmor.zip",
+      "items": [
+        "Amulets and Armor.sh",
+        "amuletsarmor"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Amulets & Armor",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "1997 first-person dungeon-crawler RPG, released as open source by ExiguusEntertainment.",
+        "desc_md": "",
+        "inst": "Ready to run!",
+        "inst_md": "",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "1091e4e4cf3c11322b1537476fbd6e2b",
+        "size": 83032887,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/amuletsarmor.zip"
+      }
+    },
     "anarch.zip": {
       "version": 2,
       "name": "anarch.zip",
@@ -3000,6 +3046,55 @@
         "release_id": "2026-02-26_2317",
         "size": 620914,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-02-26_2317/arcadespirits.zip"
+      }
+    },
+    "arcanumce.zip": {
+      "version": 4,
+      "name": "arcanumce.zip",
+      "items": [
+        "Arcanum Community Edition.sh",
+        "arcanumce"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Arcanum Community Edition",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A steampunk isometric RPG from Troika Games where you can freely mix magic and technology.",
+        "desc_md": "A steampunk isometric RPG from Troika Games where you can freely mix magic and technology. Ported via [Arcanum Community Edition](https://github.com/alexbatalov/arcanum-ce), a clean-room reimplementation of the original engine.",
+        "inst": "Copy your own purchased Arcanum data files (tig.dat, arcanum1-4.dat, modules/) into the port's arcanumce/gamedata folder before launching. See README for details.",
+        "inst_md": "You must own Arcanum (GOG or Steam) and copy its data files into `arcanumce/gamedata/` on the device before launching: `tig.dat`, `arcanum1.dat` through `arcanum4.dat`, and the `modules/` folder.",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          "https://www.gog.com/game/arcanum_of_steamworks_and_magick_obscura",
+          "https://store.steampowered.com/app/500810"
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "f05c25a5d105688f5160c9c905c336ea",
+        "size": 3467711,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/arcanumce.zip"
       }
     },
     "arco.zip": {
@@ -13519,6 +13614,68 @@
         "release_id": "2025-01-01_2019",
         "size": 14388274,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-01-01_2019/daikatana.zip"
+      }
+    },
+    "damoclesgaze.zip": {
+      "version": 4,
+      "name": "damoclesgaze.zip",
+      "items": [
+        "Damocles Gaze.sh",
+        "damoclesgaze"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Damocles Gaze",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Damocles Gaze is a radically tight roguelite top-down shooter where every run takes 12 minutes. No matter how many times you die, no matter how good or bad you are, the run ends only after the 720 seconds went out.",
+        "desc_md": null,
+        "inst": "Purchase the game on Itch.io or Steam. For Itch.io, download the MacOS version and extract the game files into gamedata folder. For Steam, download the MacOS depot via the Steam console using this command:  download_depot 2521530 2521532 6713100392068965472, then copy the files into gamedata folder.",
+        "inst_md": "Purchase the game on [tch.io](https://punkcake.itch.io/damocles-gaze) or [Steam](store.steampowered.com/app/2521530/Damocles_Gaze/). For Itch.io, download the MacOS version and extract the game files into gamedata folder. For Steam, download the MacOS depot via the Steam console using this command:  download_depot 2521530 2521532 6713100392068965472, then copy the files into gamedata folder.",
+        "genres": [
+          "action",
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://punkcake.itch.io/damocles-gaze",
+            "developerurl": ""
+          },
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2521530/Damocles_Gaze/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "analog_2"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "d4d099554b7fdf3fefc8333c04aa9291",
+        "size": 4632522,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/damoclesgaze.zip"
       }
     },
     "darkcrypt.zip": {
@@ -28583,6 +28740,52 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-14_1654/imagestriker2.zip"
       }
     },
+    "impostorfactory.zip": {
+      "version": 4,
+      "name": "impostorfactory.zip",
+      "items": [
+        "Impostor Factory.sh",
+        "impostorfactory"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Impostor Factory",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A narrative-driven RPG Maker game from Freebird Games, continuing the story told in To the Moon and Finding Paradise.",
+        "desc_md": null,
+        "inst": "Buy the game from your favorite store Steam / GOG and copy the gamedata of your game to impostorfactory/gamedata/. If using the GOG linux version, place the impostor_factory_*.sh installer at the root of the impostorfactory folder, or extract the contents of data/noarch/game/ into impostorfactory/gamedata/.",
+        "inst_md": null,
+        "genres": [
+          "adventure"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "20a4950786a590babf684012099b9ff4",
+        "size": 6425400,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/impostorfactory.zip"
+      }
+    },
     "inertiablast.zip": {
       "version": 2,
       "name": "inertiablast.zip",
@@ -31195,8 +31398,8 @@
         "date_added": "2026-08-21",
         "date_updated": "2026-08-21",
         "md5": "1256baf852b731a4d1e7fb2d3d866900",
-        "size": 42318362,
         "release_id": "2026-08-21_2000",
+        "size": 42318362,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/lasagnaboyclassic.zip"
       }
     },
@@ -31287,6 +31490,52 @@
         "release_id": "2024-09-17_0942",
         "size": 5961178,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-09-17_0942/lastmission.zip"
+      }
+    },
+    "lastscenario.zip": {
+      "version": 4,
+      "name": "lastscenario.zip",
+      "items": [
+        "Last Scenario.sh",
+        "lastscenario"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Last Scenario",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Turn-based RPG following Hilbert, a small-town boy who learns he descends from the legendary demon slayer Alexander and sets out to fulfill that destiny. Party-based battles with Spellcard magic, plus the Hex card minigame.",
+        "desc_md": "Hilbert, a boy who lives in the small town of Whitelake, considers himself the town's hero, much to the disbelief of most of its residents. After doing some \"heroic\" tasks around town he meets a mysterious woman named Zawu, who informs him that he is in the lineage of the mighty demon slayer Alexander and is destined to follow in his footsteps. This knowledge inspires Hilbert to go out into the world and fulfill his destined fate.\n\nLast Scenario is an RPG with turn-based battles. The party for battles can contain up to four members. Other than physically attacking and using items in battles, players can also use magic in the form of Spellcards.\n\nThere is also a minigame called Hex that can be played against certain people throughout the world. Hex is a card battle type game played on a hexagonal grid.",
+        "inst": "Download Last Scenario from https://site.scfworks.com/?page_id=8 and extract its contents (Game.rgssad, Audio, etc.) into the port's game folder, then launch.",
+        "inst_md": "",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "free",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "e5355a9b4a402d6b4c4191dd7fbc9d66",
+        "size": 17012957,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/lastscenario.zip"
       }
     },
     "lawnbusterforhire.zip": {
@@ -36346,6 +36595,66 @@
         "release_id": "2025-10-04_1030",
         "size": 2423578,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/mojotron.zip"
+      }
+    },
+    "monktower.zip": {
+      "version": 4,
+      "name": "monktower.zip",
+      "items": [
+        "Monk Tower.sh",
+        "monktower"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Monk Tower",
+        "porter": [
+          "mxmgorin"
+        ],
+        "desc": "A coffee-break roguelike. Climb 20 floors of the cloister tower to retrieve the lost manuscript, one turn at a time. Weapons wear out and break, so what you carry and when you swap it matters more than what you fight.",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "itch.io",
+            "gameurl": "https://maciekglowka.itch.io/monk-tower",
+            "developerurl": "https://maciekglowka.itch.io"
+          },
+          {
+            "name": "GitHub",
+            "gameurl": "https://github.com/maciekglowka/tower-rl",
+            "developerurl": "https://github.com/maciekglowka"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64",
+          "armhf"
+        ],
+        "min_glibc": "2.28"
+      },
+      "source": {
+        "date_added": "2026-08-23",
+        "date_updated": "2026-08-23",
+        "md5": "fec96c6a70082d46ec21b4908e5a9bf6",
+        "size": 6528439,
+        "release_id": "2026-08-23_0904",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/monktower.zip"
       }
     },
     "monolith.zip": {
@@ -54569,11 +54878,11 @@
       },
       "source": {
         "date_added": "2026-06-22",
-        "date_updated": "2026-08-21",
-        "md5": "76962861ee32d555beab3dada821008d",
-        "release_id": "2026-08-21_2000",
-        "size": 27205760,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/openjkdf2.zip"
+        "date_updated": "2026-08-23",
+        "md5": "577764b9ae3d52b857a409068c4c3a74",
+        "release_id": "2026-08-23_0904",
+        "size": 27205766,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/openjkdf2.zip"
       }
     },
     "theforceengine.zip": {
@@ -67054,9 +67363,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "734f52651befa5146b3ad4c8d7c8b8d0",
-      "size": 165358352,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/gameinfo.zip"
+      "md5": "785c25b6db8b17f963c55abbbed756da",
+      "size": 165660846,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -68451,9 +68760,9 @@
     },
     "images.013.zip": {
       "name": "images.013.zip",
-      "md5": "d88a43590f9dd3aaee776495ad4718f3",
-      "size": 4589544,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/images.013.zip",
+      "md5": "27f98584b5d836019b9591a8c1374bda",
+      "size": 4801695,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/images.013.zip",
       "images": [
         "2048plus.screenshot.png",
         "alex1.screenshot.png",
@@ -68462,8 +68771,10 @@
         "alex4.screenshot.png",
         "alexvsbus.screenshot.png",
         "amphetamine.screenshot.jpg",
+        "amuletsarmor.screenshot.png",
         "antecrypt.screenshot.png",
         "antonballdeluxe.screenshot.png",
+        "arcanumce.screenshot.jpg",
         "asc.screenshot.jpg",
         "bitriot.screenshot.jpg",
         "blupimania.screenshot.png",
@@ -68475,6 +68786,7 @@
         "cropandclaw2.screenshot.png",
         "crystalien.screenshot.jpg",
         "cylindrix.screenshot.jpg",
+        "damoclesgaze.screenshot.png",
         "daserbe.screenshot.png",
         "daserbe2.screenshot.png",
         "disccreatures.screenshot.png",
@@ -68490,9 +68802,11 @@
         "growseedpinball.screenshot.png",
         "hellstarsquadron.screenshot.png",
         "hypercycles.screenshot.png",
+        "impostorfactory.screenshot.jpg",
         "jimmyslostfruits.screenshot.png",
         "kor.screenshot.png",
         "lasagnaboyclassic.screenshot.png",
+        "lastscenario.screenshot.jpg",
         "leadhaul.screenshot.png",
         "limbo.screenshot.png",
         "makenewfriends.screenshot.png",
@@ -68500,6 +68814,7 @@
         "megamanspace2.screenshot.png",
         "mina.screenshot.png",
         "minesofmoria.screenshot.png",
+        "monktower.screenshot.png",
         "moonchildfe.screenshot.png",
         "openchaos.screenshot.png",
         "openjkdf2.screenshot.jpg",
@@ -68534,9 +68849,9 @@
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "a0c3ed47b4be763abf822799268b1223",
-      "size": 87966247,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-21_2000/images.zip"
+      "md5": "41d85a8767d239b2c7c5202836207972",
+      "size": 88178398,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",

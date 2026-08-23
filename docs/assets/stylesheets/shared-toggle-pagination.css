@@ -7,23 +7,28 @@
 /* ===== VIEW TOGGLE (Grid / List) ===== */
 /* Pill-shaped segmented toggle: both icons sit in one rounded track, and
    the active mode is marked by a filled circle behind its icon alone. */
+/* Height matches .filter-toggle-btn, which sits directly beside this in the
+   browse toolbar - they were 28px and 32px before, so the pair never lined
+   up. Change both together. */
 .view-toggle-wrapper {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   gap: 0.1rem;
+  height: 32px;
   padding: 2px;
   border-radius: 999px;
   background-color: rgba(128, 128, 128, 0.18);
   border: none;
+  box-sizing: border-box;
 }
 
 .view-toggle-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: transparent;
   color: var(--card-stat-color, #888888);
@@ -49,6 +54,25 @@
   background-color: #ffffff;
   color: #111111;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Matches .filter-toggle-btn's mobile size (games-filters.css) so the pair
+   stays aligned. Lives here rather than in that file because this
+   stylesheet loads later - an override there would lose the cascade to the
+   base rule above, since media queries carry no extra specificity. */
+@media (max-width: 768px) {
+  .view-toggle-wrapper {
+    height: 36px;
+  }
+
+  .view-toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .view-toggle-btn i {
+    font-size: 0.8rem;
+  }
 }
 
 /* ===== LIST VIEW ===== */

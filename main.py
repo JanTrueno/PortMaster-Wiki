@@ -336,11 +336,20 @@ def define_env(env):
                     raw_url = f"https://{raw_url}"
                 return raw_url
 
-            store = [
-                {"name": s.get("name") or "", "url": normalize_store_url(s.get("gameurl") or "")}
-                for s in (attr.get("store") or [])
-                if s.get("gameurl")
-            ]
+            # Almost every entry is {"name": ..., "gameurl": ...}, but at
+            # least one upstream port (arcanumce.zip) ships store as a
+            # list of bare URL strings instead - handle both shapes
+            # rather than assuming every entry is a dict.
+            store = []
+            for s in attr.get("store") or []:
+                if isinstance(s, str):
+                    url = s
+                    name = ""
+                else:
+                    url = s.get("gameurl") or ""
+                    name = s.get("name") or ""
+                if url:
+                    store.append({"name": name, "url": normalize_store_url(url)})
 
             port_details[port_id] = {
                 "title": attr.get("title") or port_id,

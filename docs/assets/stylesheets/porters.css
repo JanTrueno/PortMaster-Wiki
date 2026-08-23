@@ -3,46 +3,31 @@
    Porter Cards, Modals, and Badges
    =============================================== */
 
-/* Counter styling is inherited from games.css (portsCounter) */
+/* Counter styling is inherited from games-filters.css (portsCounter) */
 
-.porters-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding: 1rem 0;
-}
-
-@media (min-width: 600px) {
-  .porters-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .porters-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-
-@media (max-width: 400px) {
-  .porters-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* ===== Porter card =====
+   Unlike .pm-card on the Browse grid, porters keep a boxed card (the
+   avatar alone doesn't fill a tile the way a screenshot does, so a flat
+   cardless tile read as too sparse) - .porter-card still reuses
+   .game-grid for layout (see porters.md) so column counts/gaps always
+   match Browse exactly. Stats stay a distinct .porter-stat class (not
+   .card-stat) because shared-cards.css hides .card-stat:last-child
+   sitewide to drop the date column on port cards, which would silently
+   eat the downloads figure here too. */
 .porter-card {
-  padding: 1.25rem;
+  position: relative;
+  min-width: 0;
+  padding: 1.25rem 1rem;
   border-radius: 12px;
   box-shadow: var(--md-shadow-z1);
+  background-color: var(--card-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
-  position: relative;
-  background-color: var(--card-bg);
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .porter-card:hover {
@@ -56,52 +41,62 @@
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, #F49519, #ff6b35);
+  margin-bottom: 0.6rem;
   flex-shrink: 0;
 }
 
-.porter-avatar img {
+.porter-avatar img,
+.porter-avatar-placeholder {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.porter-avatar img {
   object-fit: cover;
   display: block;
 }
 
 .porter-avatar-placeholder {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-size: 2.5rem;
+  background: linear-gradient(135deg, #F49519, #ff6b35);
 }
 
 .porter-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: var(--md-default-fg-color);
-  word-break: break-word;
+  margin: 0 0 0.3rem;
+  width: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-text, var(--md-default-fg-color));
 }
 
 .porter-stats {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.68rem;
+  color: var(--card-stat-color, var(--md-default-fg-color--light));
 }
 
 .porter-stat {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
+  gap: 0.2rem;
 }
 
 .porter-stat i {
   color: #F49519;
+  font-size: 0.72rem;
 }
 
 .porter-support-badge {
@@ -118,18 +113,16 @@
   gap: 0.25rem;
 }
 
-/* Porter Modal */
-.porter-modal-content {
-  max-width: 1000px;
-}
-
+/* ===== Porter detail header (/porter/?name=X) =====
+   Flat, unboxed - no gradient panel/border-radius/card background. Same
+   "content sits directly on the page" treatment as the rest of the site
+   post-redesign (hero, showcase text, stats-cards-grid all dropped their
+   boxes too), rather than a standalone card competing with the page. */
 .porter-detail-header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, rgba(244, 149, 25, 0.1), rgba(255, 107, 53, 0.1));
-  border-radius: 12px 12px 0 0;
+  padding: 1rem 0 0;
 }
 
 .porter-detail-avatar {
@@ -159,14 +152,13 @@
 
 .porter-detail-info h1 {
   margin: 0 0 0.5rem 0;
-  color: #F49519;
+  color: var(--md-default-fg-color);
   font-size: 2rem;
 }
 
 .porter-detail-bio {
   margin: 0 0 1rem 0;
   color: var(--md-default-fg-color--light);
-  font-style: italic;
 }
 
 .porter-detail-links {
@@ -175,231 +167,21 @@
   gap: 0.75rem;
 }
 
-.porter-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  background: var(--md-default-bg-color);
-  border-radius: 6px;
-  color: var(--md-default-fg-color);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  border: 1px solid var(--md-default-fg-color--lightest);
-}
-
-.porter-link:hover {
-  border-color: #F49519;
-  color: #F49519;
-}
-
-.porter-link.support-link {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
-  color: #fff;
-  border: none;
-}
-
-.porter-link.support-link:hover {
-  background: linear-gradient(135deg, #ff5252, #e04444);
-  color: #fff;
-}
-
 .no-links {
   color: var(--md-default-fg-color--light);
   font-size: 0.9rem;
 }
 
+/* Reuses .stats-card/.stats-card-icon/.stats-card-value/.stats-card-label
+   from homepage.css for the individual stat items (icon, big number,
+   uppercase label - no boxes), same component as the homepage's stats
+   row. Just 2 items here rather than 4, and no border - flat like the
+   rest of the page now. */
 .porter-detail-stats {
   display: flex;
   justify-content: center;
   gap: 3rem;
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
-}
-
-.porter-stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.porter-stat-item i {
-  font-size: 1.5rem;
-  color: #F49519;
-}
-
-.porter-stat-item span {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--md-default-fg-color);
-}
-
-.porter-stat-item label {
-  font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.porter-ports-section {
-  padding: 1.5rem 2rem 2rem;
-}
-
-.porter-ports-section h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  color: var(--md-default-fg-color);
-}
-
-.porter-ports-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  max-height: 500px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0.5rem;
-  margin: -0.5rem;
-}
-
-@media (min-width: 600px) {
-  .porter-ports-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Custom scrollbar for porter ports grid */
-.porter-ports-grid::-webkit-scrollbar {
-  width: 8px;
-}
-
-.porter-ports-grid::-webkit-scrollbar-track {
-  background: var(--md-default-bg-color);
-  border-radius: 4px;
-}
-
-.porter-ports-grid::-webkit-scrollbar-thumb {
-  background: #F49519;
-  border-radius: 4px;
-}
-
-.porter-ports-grid::-webkit-scrollbar-thumb:hover {
-  background: #ff9d2e;
-}
-
-/* Firefox scrollbar */
-.porter-ports-grid {
-  scrollbar-width: thin;
-  scrollbar-color: #F49519 var(--md-default-bg-color);
-}
-
-/* Port cards in porter modal - exact same as game cards */
-/* Maximum specificity to override everything */
-.porter-ports-grid .porter-game-card.game-card,
-.porter-ports-grid .game-card.porter-game-card,
-div.porter-ports-grid div.game-card.porter-game-card {
-  padding: 1rem !important;
-  border-radius: 12px !important;
-  box-shadow: var(--md-shadow-z1) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  cursor: pointer !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
-  text-align: center !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  background-color: var(--card-bg) !important;
-  color: var(--card-text) !important;
-  height: auto !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card:hover,
-.porter-ports-grid .game-card.porter-game-card:hover,
-div.porter-ports-grid div.game-card.porter-game-card:hover {
-  transform: scale(1.05) !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1) !important;
-  background-color: var(--card-bg-hover) !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card img,
-.porter-ports-grid .game-card.porter-game-card img,
-div.porter-ports-grid div.game-card.porter-game-card img {
-  width: 100% !important;
-  aspect-ratio: 4 / 3 !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-  margin-bottom: 0.5rem !important;
-  display: block !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card h3,
-.porter-ports-grid .game-card.porter-game-card h3,
-div.porter-ports-grid div.game-card.porter-game-card h3,
-.md-typeset .porter-ports-grid .game-card.porter-game-card h3 {
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 1rem !important;
-  line-height: 1.3 !important;
-  flex-grow: 1 !important;
-  display: block !important;
-  color: var(--md-default-fg-color) !important;
-  text-align: center !important;
-  font-weight: 700 !important;
-  width: 100% !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card .card-stats,
-.porter-ports-grid .game-card.porter-game-card .card-stats,
-div.porter-ports-grid div.game-card.porter-game-card div.card-stats {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  width: 100% !important;
-  margin-top: 0.6rem !important;
-  padding-top: 0.6rem !important;
-  border-top: 1px solid var(--card-border) !important;
-  gap: 0.25rem !important;
-  flex-shrink: 0 !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card .card-stat,
-.porter-ports-grid .game-card.porter-game-card .card-stat,
-div.porter-ports-grid div.game-card.porter-game-card span.card-stat {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.2rem !important;
-  font-size: 0.65rem !important;
-  opacity: 0.8 !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  color: var(--card-stat-color) !important;
-}
-
-.porter-ports-grid .porter-game-card.game-card .card-stat i,
-.porter-ports-grid .game-card.porter-game-card .card-stat i,
-div.porter-ports-grid div.game-card.porter-game-card span.card-stat i {
-  font-size: 0.7rem !important;
-  color: #F49519 !important;
-  flex-shrink: 0 !important;
-}
-
-@media (max-width: 600px) {
-  .porter-ports-grid .porter-game-card.game-card .card-stat,
-  .porter-ports-grid .game-card.porter-game-card .card-stat,
-  div.porter-ports-grid div.game-card.porter-game-card span.card-stat {
-    font-size: 0.55rem !important;
-    gap: 0.15rem !important;
-  }
-  .porter-ports-grid .porter-game-card.game-card .card-stat i,
-  .porter-ports-grid .game-card.porter-game-card .card-stat i,
-  div.porter-ports-grid div.game-card.porter-game-card span.card-stat i {
-    font-size: 0.6rem !important;
-  }
+  padding: 1.5rem 0;
 }
 
 .no-ports {
@@ -459,42 +241,30 @@ img.no-lightbox {
   pointer-events: none !important;
 }
 
-/* Responsive porter modal */
+/* Responsive porter detail header */
 @media (max-width: 600px) {
   .porter-detail-header {
     flex-direction: column;
     text-align: center;
-    padding: 1.5rem;
+    padding-top: 0.5rem;
   }
-  
+
   .porter-detail-avatar {
     width: 100px;
     height: 100px;
     font-size: 3rem;
   }
-  
+
   .porter-detail-info h1 {
     font-size: 1.5rem;
   }
-  
+
   .porter-detail-links {
     justify-content: center;
   }
-  
+
   .porter-detail-stats {
     gap: 2rem;
-  }
-  
-  .porter-stat-item span {
-    font-size: 1.5rem;
-  }
-  
-  .porter-ports-section {
-    padding: 1rem;
-  }
-  
-  .porter-ports-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 /* ===== Fix card sizing without mobile freeze ===== */

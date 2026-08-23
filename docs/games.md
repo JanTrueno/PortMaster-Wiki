@@ -372,7 +372,7 @@ glightbox: false
         </div>
       </div>
 
-      <div class="filter-accordion open">
+      <div class="filter-accordion">
         <div class="filter-accordion-summary" role="button" tabindex="0">
           <span>Device</span>
           <i class="bi bi-chevron-down accordion-chevron"></i>
@@ -382,7 +382,7 @@ glightbox: false
         </div>
       </div>
 
-      <div class="filter-accordion open">
+      <div class="filter-accordion">
         <div class="filter-accordion-summary" role="button" tabindex="0">
           <span>Operating System</span>
           <i class="bi bi-chevron-down accordion-chevron"></i>
@@ -392,7 +392,7 @@ glightbox: false
         </div>
       </div>
 
-      <div class="filter-accordion open">
+      <div class="filter-accordion">
         <div class="filter-accordion-summary" role="button" tabindex="0">
           <span>Genre</span>
           <i class="bi bi-chevron-down accordion-chevron"></i>
@@ -402,7 +402,7 @@ glightbox: false
         </div>
       </div>
 
-      <div class="filter-accordion open">
+      <div class="filter-accordion">
         <div class="filter-accordion-summary" role="button" tabindex="0">
           <span>Options</span>
           <i class="bi bi-chevron-down accordion-chevron"></i>
@@ -633,15 +633,17 @@ glightbox: false
       const genre = tile.dataset.genre;
       setView('browse', { skipFilter: true });
       ensureBrowseData().then(() => {
-        // A tile click is a fresh single-genre jump, not an add-to-selection -
-        // replaces whatever genre checkboxes were already ticked.
+        // Clicking the tile that's already the sole active genre turns
+        // the filter back off, instead of just re-selecting the same
+        // genre with no visible effect. Any other tile is still a fresh
+        // single-genre jump, replacing whatever was ticked before.
+        const isActiveSolo = selectedGenres.size === 1 && selectedGenres.has(genre);
         selectedGenres.clear();
-        selectedGenres.add(genre);
-        document.querySelectorAll('#genreCheckboxList input').forEach(i => { i.checked = i.value === genre; });
+        if (!isActiveSolo) selectedGenres.add(genre);
+        document.querySelectorAll('#genreCheckboxList input').forEach(i => { i.checked = selectedGenres.has(i.value); });
         syncGenreTiles();
-        setCookie('selectedGenres', genre);
+        setCookie('selectedGenres', [...selectedGenres].join('|'));
         filterAndSearch();
-        document.querySelector('.filters-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   });

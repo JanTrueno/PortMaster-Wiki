@@ -26,7 +26,7 @@ hide:
     <h1>Real PC &amp; indie games, running natively on your handheld</h1>
     <p class="hero-subtitle">Stardew Valley, Celeste, Balatro, Limbo, and {{ total_port_count }}+ more &mdash; installed and running on cheap Linux-based handhelds with PortMaster. Completely free. Not emulation.</p>
     <div class="hero-cta-group">
-      <a href="games/#browse" class="hero-btn hero-btn-primary">Browse {{ total_port_count }}+ Games</a>
+      <a href="games/" class="hero-btn hero-btn-primary">Discover {{ total_port_count }}+ Games</a>
       <a href="installation/installing-portmaster/" class="hero-btn hero-btn-secondary">Get PortMaster</a>
     </div>
   </div>
@@ -86,7 +86,6 @@ hide:
 
 <!-- ===== GET INVOLVED (Community + Contribute) ===== -->
 <section class="home-section">
-  <h2>Get Involved</h2>
   <div class="get-involved-grid">
     <div class="get-involved-card">
       <i class="bi bi-discord get-involved-icon"></i>
