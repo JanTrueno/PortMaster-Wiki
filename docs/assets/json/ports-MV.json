@@ -144,11 +144,11 @@
             },
             "source": {
                 "date_added": "2025-10-07",
-                "date_updated": "2025-10-07",
-                "md5": "0f098386e4591add4ad212d889cfcf14",
-                "release_id": "2025-10-07_1242",
-                "size": 33812077,
-                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2025-10-07_1242/chaoresortisland.zip"
+                "date_updated": "2026-08-29",
+                "md5": "0b3e98f344bac4784df16c22c4ce308c",
+                "release_id": "2026-08-29_1948",
+                "size": 71290322,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-29_1948/chaoresortisland.zip"
             }
         },
         "donkeykongredux.zip": {
@@ -1332,8 +1332,8 @@
                 "image": {
                     "screenshot": "screenshot.jpg",
                     "covers": [
-                        "cover.sm.png",
-                        "cover.smredux.png"
+                        "cover.smredux.png",
+                        "cover.sm.png"
                     ],
                     "thumbnail": null,
                     "video": null
@@ -1887,7 +1887,7 @@
             "name": "images.zip",
             "md5": "7212b2f167b8ea342a663da3f7607311",
             "size": 4237406,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-04_1814/images.zip"
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-29_1948/images.zip"
         }
     }
 }

@@ -2301,8 +2301,8 @@
         "date_added": "2026-08-23",
         "date_updated": "2026-08-23",
         "md5": "1091e4e4cf3c11322b1537476fbd6e2b",
-        "size": 83032887,
         "release_id": "2026-08-23_0904",
+        "size": 83032887,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/amuletsarmor.zip"
       }
     },
@@ -2396,6 +2396,52 @@
         "release_id": "2026-08-13_2211",
         "size": 24285825,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-13_2211/angband.zip"
+      }
+    },
+    "angrydd.zip": {
+      "version": 4,
+      "name": "angrydd.zip",
+      "items": [
+        "Angry Drunken Dwarves.sh",
+        "angrydd"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Angry Drunken Dwarves",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A falling-block puzzle game in the style of Puzzle Fighter. Build large gems by matching colors, then break them to drop garbage gems on your opponent. Seven playable characters, six AI difficulty levels, and secret unlockable modes.",
+        "desc_md": "",
+        "inst": "Ready to run.",
+        "inst_md": "",
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "python_3.11"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "68779d8d4390ea3f6d95dec30cb6e1ff",
+        "size": 5828189,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/angrydd.zip"
       }
     },
     "annalynn.zip": {
@@ -3078,8 +3124,16 @@
         "exp": false,
         "runtime": [],
         "store": [
-          "https://www.gog.com/game/arcanum_of_steamworks_and_magick_obscura",
-          "https://store.steampowered.com/app/500810"
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/game/arcanum_of_steamworks_and_magick_obscura",
+            "developerurl": "https://en.wikipedia.org/wiki/Troika_Games"
+          },
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/500810",
+            "developerurl": "https://en.wikipedia.org/wiki/Troika_Games"
+          }
         ],
         "availability": "paid",
         "reqs": [],
@@ -3090,11 +3144,11 @@
       },
       "source": {
         "date_added": "2026-08-23",
-        "date_updated": "2026-08-23",
-        "md5": "f05c25a5d105688f5160c9c905c336ea",
-        "size": 3467711,
-        "release_id": "2026-08-23_0904",
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/arcanumce.zip"
+        "date_updated": "2026-08-25",
+        "md5": "82bdd75474556d6624988c1f365317f9",
+        "release_id": "2026-08-25_1115",
+        "size": 3467771,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-25_1115/arcanumce.zip"
       }
     },
     "arco.zip": {
@@ -3946,11 +4000,11 @@
       },
       "source": {
         "date_added": "2024-10-09",
-        "date_updated": "2024-10-17",
-        "md5": "6a22875ab92cb266b640cc45b08c7e9a",
-        "release_id": "2024-10-17_0726",
-        "size": 2750470,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-10-17_0726/axecop.zip"
+        "date_updated": "2026-08-29",
+        "md5": "da00629ef1cd19bcadbed6bba22421c9",
+        "release_id": "2026-08-29_2149",
+        "size": 2693636,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/axecop.zip"
       }
     },
     "axiom.verge.zip": {
@@ -4047,6 +4101,52 @@
         "release_id": "2025-11-19_1302",
         "size": 1791728,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-19_1302/azimuth.zip"
+      }
+    },
+    "babbeu.zip": {
+      "version": 4,
+      "name": "babbeu.zip",
+      "items": [
+        "Bab Be U.sh",
+        "babbeu"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Bab Be U",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A fan game of Baba Is You: a puzzle game where the rules you follow are represented as physical blocks you can push around and recombine.",
+        "desc_md": "",
+        "inst": "Ready to run out of the box, no additional files needed.",
+        "inst_md": "",
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "3d1a23065acc0695ab607be5fdee81fd",
+        "size": 35202277,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/babbeu.zip"
       }
     },
     "badendtheater.zip": {
@@ -8001,6 +8101,52 @@
         "release_id": "2026-05-30_1707",
         "size": 7302314,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-30_1707/bulletbeat.zip"
+      }
+    },
+    "bullethell.zip": {
+      "version": 4,
+      "name": "bullethell.zip",
+      "items": [
+        "Bullethell.sh",
+        "bullethell"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Bullethell",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A fast-paced bullet-hell shooter with weapon power-ups, a chargeable shield, and boss fights across three levels.",
+        "desc_md": "",
+        "inst": "Ready to run.",
+        "inst_md": "",
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "3d2ebce0b153056836a64efab927e139",
+        "size": 32600822,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/bullethell.zip"
       }
     },
     "bumpersbroadswords.zip": {
@@ -13673,8 +13819,8 @@
         "date_added": "2026-08-23",
         "date_updated": "2026-08-23",
         "md5": "d4d099554b7fdf3fefc8333c04aa9291",
-        "size": 4632522,
         "release_id": "2026-08-23_0904",
+        "size": 4632522,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/damoclesgaze.zip"
       }
     },
@@ -16446,11 +16592,11 @@
       },
       "source": {
         "date_added": "2025-03-28",
-        "date_updated": "2026-05-30",
-        "md5": "55c8b95a29adb65be2c6e2e77ba038ee",
-        "release_id": "2026-05-30_1707",
-        "size": 58937163,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-30_1707/dokimon.zip"
+        "date_updated": "2026-08-29",
+        "md5": "e954c115b524cce603e7b75e4517aee8",
+        "release_id": "2026-08-29_2149",
+        "size": 60165728,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/dokimon.zip"
       }
     },
     "domeromantik.zip": {
@@ -17325,6 +17471,52 @@
         "release_id": "2025-02-15_1456",
         "size": 2244393,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-02-15_1456/drally.zip"
+      }
+    },
+    "dreamchess.zip": {
+      "version": 4,
+      "name": "dreamchess.zip",
+      "items": [
+        "DreamChess.sh",
+        "dreamchess"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "DreamChess",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Open source 3D chess game with a freely rotatable board and its own xboard-compatible Dreamer engine.",
+        "desc_md": "",
+        "inst": "D-Pad/left stick or right stick as a pointer, A confirms, B back.",
+        "inst_md": "",
+        "genres": [
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "2bb4cda13690134aff274355a154a1a6",
+        "size": 91676966,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/dreamchess.zip"
       }
     },
     "driftsurvivor.zip": {
@@ -20956,6 +21148,54 @@
         "release_id": "2025-05-12_1413",
         "size": 38707586,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-12_1413/fireboy.zip"
+      }
+    },
+    "firemadness.zip": {
+      "version": 4,
+      "name": "firemadness.zip",
+      "items": [
+        "Fire Madness.sh",
+        "firemadness"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Fire Madness",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Top-down bullet hell shooter inspired by CrossFire (1981). Eliminate waves of enemy bots that grow tougher each time you destroy them, up to the occasional boss.",
+        "desc_md": null,
+        "inst": "Move with the left stick/d-pad, fire in 4 directions with the right stick or the face buttons.",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "weston_pkg_0.2"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "579bb35e873b546ba20cb8fa04f591aa",
+        "size": 43065132,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/firemadness.zip"
       }
     },
     "firework.zip": {
@@ -28781,8 +29021,8 @@
         "date_added": "2026-08-23",
         "date_updated": "2026-08-23",
         "md5": "20a4950786a590babf684012099b9ff4",
-        "size": 6425400,
         "release_id": "2026-08-23_0904",
+        "size": 6425400,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/impostorfactory.zip"
       }
     },
@@ -29027,6 +29267,59 @@
         "release_id": "2026-04-28_1830",
         "size": 9250147,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-04-28_1830/ink.zip"
+      }
+    },
+    "insaniquarium.zip": {
+      "version": 4,
+      "name": "insaniquarium.zip",
+      "items": [
+        "Insaniquarium Deluxe.sh",
+        "insaniquarium/"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Insaniquarium Deluxe",
+        "porter": [
+          "SaMeiers"
+        ],
+        "desc": "Insaniquarium Deluxe (PopCap, 2004) running natively on aarch64.\n\nNot an emulator: this is the WinFish decompilation of the game, ported from the original SexyAppFramework to PopLib, which replaces DirectDraw with SDL3. Module music is played with libopenmpt. The binary is native aarch64 and depends on no closed-source libraries.\n\nThe game is played entirely with the pointer, so the gamepad acts as a mouse: stick and d-pad move it, A left clicks, B right clicks, and L1/R1 slow it down for hitting coins and small fish. Options has an Auto Collect switch that puts every coin in the tank on the Y button, for anyone who would rather not wear out A.",
+        "desc_md": null,
+        "inst": "This port does NOT include the game. Copy the data, images, music, properties, sounds and fishsongs folders from your copy of Insaniquarium Deluxe (Steam) into ports/insaniquarium/.\n\nWatch the letter case: Windows ignores it and Linux does not. If the game complains about an image that clearly exists, that is almost always why.",
+        "inst_md": null,
+        "genres": [
+          "arcade",
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/3320/Insaniquarium_Deluxe/",
+            "developerurl": "https://www.ea.com/ea-studios/popcap"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": "2.29"
+      },
+      "source": {
+        "date_added": "2026-08-26",
+        "date_updated": "2026-08-26",
+        "md5": "c43e77cc0b59c3496c8b38ab1547277e",
+        "release_id": "2026-08-26_1052",
+        "size": 8785948,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-26_1052/insaniquarium.zip"
       }
     },
     "threecoins.zip": {
@@ -30349,11 +30642,11 @@
       },
       "source": {
         "date_added": "2024-10-03",
-        "date_updated": "2025-05-04",
-        "md5": "becfa6739adcf86dcc436b3a744a3a71",
-        "release_id": "2025-05-04_0401",
-        "size": 2710892,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-04_0401/kaijubigbattel.zip"
+        "date_updated": "2026-08-29",
+        "md5": "f13acae748a79e496754760f73246141",
+        "release_id": "2026-08-29_2149",
+        "size": 2654051,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/kaijubigbattel.zip"
       }
     },
     "kaima.zip": {
@@ -31533,8 +31826,8 @@
         "date_added": "2026-08-23",
         "date_updated": "2026-08-23",
         "md5": "e5355a9b4a402d6b4c4191dd7fbc9d66",
-        "size": 17012957,
         "release_id": "2026-08-23_0904",
+        "size": 17012957,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/lastscenario.zip"
       }
     },
@@ -36652,8 +36945,8 @@
         "date_added": "2026-08-23",
         "date_updated": "2026-08-23",
         "md5": "fec96c6a70082d46ec21b4908e5a9bf6",
-        "size": 6528439,
         "release_id": "2026-08-23_0904",
+        "size": 6528439,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/monktower.zip"
       }
     },
@@ -45986,11 +46279,12 @@
       }
     },
     "quakespasm.zip": {
-      "version": 2,
+      "version": 4,
       "name": "quakespasm.zip",
       "items": [
         "Quakespasm - Aftershock.sh",
         "Quakespasm - Arcane Dimensions.sh",
+        "Quakespasm - Dawn of the Machine.sh",
         "Quakespasm - Dimension of the Machine.sh",
         "Quakespasm - Dimension of the Past.sh",
         "Quakespasm - Dissolution of Eternity.sh",
@@ -45998,19 +46292,21 @@
         "Quakespasm - Quake.sh",
         "Quakespasm - QZone.sh",
         "Quakespasm - Scourge of Armagon.sh",
-        "quakespasm/"
+        "quakespasm"
       ],
       "items_opt": null,
       "attr": {
         "title": "Quakespasm",
-        "desc": "QuakeSpasm is a modern, cross-platform Quake game engine by sezero based on FitzQuake. This source port of quake supports many mods and Dimension of the Machine.\n\nQuakespasm-for-GL4ES (https://github.com/Slayer366/quakespasm-for-GL4ES) based on (https://github.com/jfgomez21/quakespasm) who began modifying Quakespasm to work with GL4ES.",
-        "inst": "You will need to populate the id1, hipnotic, rogue, dopa, ad, and mg1 directories with your pak files and music tracks.  Some JelOS users may need to use flac instead of ogg or mp3.  It is recommended to use an RK3566 or faster CPU to run Arcane Dimensions or Dimension of the Machine.",
-        "genres": [
-          "fps",
-          "action"
-        ],
         "porter": [
           "Slayer366"
+        ],
+        "desc": "QuakeSpasm is a modern, cross-platform Quake game engine based on FitzQuake. This source port for quake supports many mods, Dimension of the Machine, and Dawn of the Machine.\n",
+        "desc_md": "QuakeSpasm is a modern, cross-platform Quake game engine based on FitzQuake. This source port for quake supports many mods, Dimension of the Machine, and Dawn of the Machine.\n\n[Quakespasm-for-GL4ES](https://github.com/Slayer366/quakespasm-for-GL4ES) based on [jfgomez21-Quakespasm](https://github.com/jfgomez21/quakespasm) who began modifying Quakespasm to work with GL4ES.",
+        "inst": "You will need to populate the id1, hipnotic, rogue, dopa, ad, mg1, and mg3 directories with your pak files and music tracks.  Some users may need to use flac instead of ogg or mp3.  It is recommended to use an RK3566 or faster CPU to run Arcane Dimensions, Dimension of the Machine, or Dawn of the Machine.",
+        "inst_md": null,
+        "genres": [
+          "action",
+          "fps"
         ],
         "image": {
           "screenshot": "screenshot.jpg",
@@ -46021,25 +46317,36 @@
           "video": null
         },
         "rtr": false,
+        "exp": false,
         "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/2310/Quake/",
+            "developerurl": ""
+          },
+          {
+            "name": "GoG",
+            "gameurl": "https://www.gog.com/en/game/quake_the_offering",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
         "reqs": [],
         "arch": [
           "aarch64",
           "armhf",
           "x86_64"
         ],
-        "desc_md": null,
-        "inst_md": null,
-        "exp": false,
         "min_glibc": ""
       },
       "source": {
         "date_added": "2023-10-23",
-        "date_updated": "2026-06-07",
-        "md5": "b391530111fb22ddee3e03af2aa3993c",
-        "release_id": "2026-06-07_0548",
-        "size": 41028140,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-06-07_0548/quakespasm.zip"
+        "date_updated": "2026-08-29",
+        "md5": "e5238c6fc9529e42cf5f321edcaf4a9c",
+        "release_id": "2026-08-29_2149",
+        "size": 42820102,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/quakespasm.zip"
       }
     },
     "quarion.zip": {
@@ -57166,6 +57473,63 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-04-21_1125/superstarpunk.zip"
       }
     },
+    "superstartrek.zip": {
+      "version": 4,
+      "name": "superstartrek.zip",
+      "items": [
+        "Super Star Trek 25th.sh",
+        "superstartrek"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Super Star Trek meets 25th Anniversary",
+        "porter": [
+          "JanTrueno",
+          "Ganimoth"
+        ],
+        "desc": "This free fan game is a remake/conversion of the 1978 strategy game Super Star Trek reimagined with the UI of the Star Trek 25th Anniversary.",
+        "desc_md": null,
+        "inst": "Download the Windows version on itch and copy all game files into the gamedata folder.",
+        "inst_md": "Download the Windows version on [itch](https://emabolo.itch.io/super-star-trek-25th) and copy all game files into the `gamedata` folder.",
+        "genres": [
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://emabolo.itch.io/super-star-trek-25th",
+            "developerurl": ""
+          }
+        ],
+        "availability": "free",
+        "reqs": [
+          "analog_1"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-08-29",
+        "date_updated": "2026-08-29",
+        "md5": "8731845a037d64f83b7974d8228f4c27",
+        "size": 2475312,
+        "release_id": "2026-08-29_2149",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/superstartrek.zip"
+      }
+    },
     "supertransball2.zip": {
       "version": 4,
       "name": "supertransball2.zip",
@@ -67363,9 +67727,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "785c25b6db8b17f963c55abbbed756da",
-      "size": 165660846,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/gameinfo.zip"
+      "md5": "a1aa19202a4938f3a66e988e384ee676",
+      "size": 165942576,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -68760,9 +69124,9 @@
     },
     "images.013.zip": {
       "name": "images.013.zip",
-      "md5": "27f98584b5d836019b9591a8c1374bda",
-      "size": 4801695,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/images.013.zip",
+      "md5": "2503793689426c61043d779fdf4e9e34",
+      "size": 5005348,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/images.013.zip",
       "images": [
         "2048plus.screenshot.png",
         "alex1.screenshot.png",
@@ -68772,14 +69136,17 @@
         "alexvsbus.screenshot.png",
         "amphetamine.screenshot.jpg",
         "amuletsarmor.screenshot.png",
+        "angrydd.screenshot.jpg",
         "antecrypt.screenshot.png",
         "antonballdeluxe.screenshot.png",
         "arcanumce.screenshot.jpg",
         "asc.screenshot.jpg",
+        "babbeu.screenshot.png",
         "bitriot.screenshot.jpg",
         "blupimania.screenshot.png",
         "breakhack.screenshot.png",
         "bulletbeat.screenshot.png",
+        "bullethell.screenshot.jpg",
         "candycrisis.screenshot.jpg",
         "caveblazers.screenshot.png",
         "crimsonland.screenshot.png",
@@ -68790,12 +69157,14 @@
         "daserbe.screenshot.png",
         "daserbe2.screenshot.png",
         "disccreatures.screenshot.png",
+        "dreamchess.screenshot.jpg",
         "dungeonantiqua.screenshot.png",
         "dungeonantiqua2.screenshot.png",
         "eatgirl.screenshot.png",
         "environmentalstationalpha.screenshot.png",
         "exactchinesechess.screenshot.png",
         "firebrimstone.screenshot.png",
+        "firemadness.screenshot.jpg",
         "franticdimension.screenshot.png",
         "geminiarms.screenshot.png",
         "grimdungeon.screenshot.png",
@@ -68803,6 +69172,7 @@
         "hellstarsquadron.screenshot.png",
         "hypercycles.screenshot.png",
         "impostorfactory.screenshot.jpg",
+        "insaniquarium.screenshot.jpg",
         "jimmyslostfruits.screenshot.png",
         "kor.screenshot.png",
         "lasagnaboyclassic.screenshot.png",
@@ -68833,6 +69203,7 @@
         "stardewvalleymainline.screenshot.png",
         "superbloodhockey.screenshot.png",
         "supermazerobo.screenshot.png",
+        "superstartrek.screenshot.png",
         "tecnoballz.screenshot.png",
         "theforceengine.screenshot.jpg",
         "theimpossiblegame.screenshot.png",
@@ -68849,9 +69220,9 @@
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "41d85a8767d239b2c7c5202836207972",
-      "size": 88178398,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/images.zip"
+      "md5": "0d071b4ac251e5ee6152fd0d0cdc5317",
+      "size": 88382051,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",

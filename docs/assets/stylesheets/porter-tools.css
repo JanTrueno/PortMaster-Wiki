@@ -431,3 +431,108 @@
 [data-md-color-scheme="dark"] .porter-tool .controls-table {
   border-color: var(--card-border);
 }
+/* ===============================================
+   ARTWORK MAKER (tools/image-maker.md)
+   Three image slots + a 640x480 preview canvas.
+   =============================================== */
+.porter-tool .im-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .porter-tool .im-slots {
+    grid-template-columns: 1fr;
+  }
+}
+
+.porter-tool .im-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  /* Alpha grey rather than --card-border (#e0e0e0), which is invisible
+     against the light-mode page. Same fix as the port page controls. */
+  border: 1px dashed rgba(128, 128, 128, 0.4);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.porter-tool .im-slot.is-filled {
+  border-style: solid;
+  border-color: #F49519;
+}
+
+/* Whole-card drop target - matches Chrome/Firefox's native drag feedback
+   language (dashed border, tinted fill) rather than inventing a new one. */
+.porter-tool .im-slot.is-dragover {
+  border-style: solid;
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+/* 16:9 so the box doesn't jump height when an image lands in it. */
+.porter-tool .im-slot-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  background-color: rgba(128, 128, 128, 0.12);
+  overflow: hidden;
+  color: var(--card-stat-color, #888888);
+  font-size: 1.6rem;
+}
+
+.porter-tool .im-slot-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.porter-tool .im-slot label {
+  margin-bottom: 0.15rem;
+}
+
+.porter-tool .im-slot .help-text {
+  margin-bottom: 0.5rem;
+}
+
+.porter-tool .im-slot input[type="file"] {
+  width: 100%;
+  font-size: 0.75rem;
+  color: var(--card-text);
+}
+
+.porter-tool .im-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 1rem;
+  border-radius: 10px;
+  /* Checkerboard: the cover is transparent outside the bezel and floppy,
+     so a flat fill would hide what is and isn't actually opaque. */
+  background-image:
+    linear-gradient(45deg, rgba(128,128,128,0.18) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(128,128,128,0.18) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(128,128,128,0.18) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(128,128,128,0.18) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.porter-tool .im-stage canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.porter-tool .im-empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--card-stat-color, #888888);
+}
