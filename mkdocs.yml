@@ -146,5 +146,6 @@ nav:
       - Developer Tools:
           - README Generator: tools/markdown-generator.md
           - JSON Generator: tools/json-generator.md
+          - Gameinfo Generator: tools/gameinfo-generator.md
           - Cover Generator: tools/cover-generator.md
   - FAQ: faq.md

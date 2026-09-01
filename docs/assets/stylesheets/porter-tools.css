@@ -1,69 +1,53 @@
 /* ===============================================
-   PORTER-TOOLS.CSS - Unified Porter Tool Styles
-   Markdown Generator, JSON Generator, Metadata Editor
+   PORTER-TOOLS.CSS - Porter tool pages
+   Cover Generator, JSON Generator, README Generator
+
+   Sizing note: this site sets a 125% root font (so 1rem = 20px), which
+   every other stylesheet here accounts for. This file originally did not -
+   it used desktop-app scale values (0.95rem inputs, 0.875rem padding,
+   2.5rem headings) that rendered ~25% larger than everything around them,
+   which is what made these pages read as oversized and detached from the
+   rest of the site. Control sizes below are matched to the Browse filter
+   panel in games-filters.css: 0.78rem text, 0.45rem/0.6rem padding, 8px
+   radius. Keep them in step with that file.
    =============================================== */
 
-/* ===== CONTAINER ===== */
+/* ===== CONTAINER =====
+   No max-width or side padding of its own - the theme's .md-content__inner
+   already caps and gutters every page, so anything extra here just made
+   these pages narrower than their neighbours. */
 .porter-tool {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 1.25rem 0 2rem;
 }
 
-.porter-tool h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--md-default-fg-color);
-}
-
-.porter-tool .subtitle {
-  color: var(--md-default-fg-color--light);
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
-
-/* ===== SECTIONS ===== */
-.porter-tool .section {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
+/* Bordered card wrapping a stack of .filter-accordion sections, so a long
+   form reads as one collapsible panel rather than a run of loose fields -
+   same component and colours as the Browse filter panel. Padding is 0
+   because each accordion row carries its own, letting the divider borders
+   span the full width edge to edge. */
+.porter-tool-panel {
   border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: box-shadow 0.2s ease;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  overflow: hidden;
 }
 
-.porter-tool .section:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+[data-md-color-scheme="light"] .porter-tool-panel {
+  background-color: #ececec;
+  color: #111111;
 }
 
-.porter-tool .section-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+[data-md-color-scheme="dark"] .porter-tool-panel {
+  background-color: #2b2b2b;
+  color: #eeeeee;
 }
 
-.porter-tool .section-number {
-  background: var(--md-accent-fg-color);
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.porter-tool .section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--md-default-fg-color);
-}
+/* h1/subtitle/numbered-section-card styling used to live here, for markup
+   like <h1>/<p class="subtitle">/<div class="section"><div
+   class="section-number">1</div>... All three tool pages use real Markdown
+   (#, ##) for their titles now, which already carries its own typographic
+   weight via the theme's .md-typeset rules and earns a TOC entry for free.
+   The numbered circles said nothing the heading didn't, so they're gone
+   rather than reimplemented. */
 
 /* ===== FORM ELEMENTS ===== */
 .porter-tool textarea,
@@ -71,23 +55,25 @@
 .porter-tool input[type="url"],
 .porter-tool input[type="email"],
 .porter-tool input[type="number"],
+.porter-tool input[type="date"],
 .porter-tool select {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.45rem 0.6rem;
   border-radius: 8px;
-  border: 1px solid var(--card-border);
+  /* Alpha grey rather than --card-border (#e0e0e0), which sits ~1:1 against
+     the light-mode page and disappears entirely. */
+  border: 1px solid rgba(128, 128, 128, 0.45);
   background: var(--md-default-bg-color);
   color: var(--md-default-fg-color);
-  font-size: 0.95rem;
+  font-size: 0.78rem;
   font-family: inherit;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .porter-tool textarea {
-  min-height: 140px;
+  min-height: 5.5rem;
   resize: vertical;
-  font-family: inherit;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .porter-tool textarea:focus,
@@ -95,35 +81,74 @@
 .porter-tool input[type="url"]:focus,
 .porter-tool input[type="email"]:focus,
 .porter-tool input[type="number"]:focus,
+.porter-tool input[type="date"]:focus,
 .porter-tool select:focus {
   outline: none;
-  border-color: var(--md-accent-fg-color);
-  box-shadow: 0 0 0 3px rgba(244,149,25,0.15);
+  border-color: #F49519;
+  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.12);
 }
 
-.porter-tool label {
+/* input[type="date"] was missing from the shared rule above until now, so
+   it fell back to the browser's bare native control - a white box with a
+   black calendar glyph, regardless of theme, sitting next to fields that
+   all otherwise match the page. color-scheme tells the browser which
+   palette to render ITS OWN chrome in (the picker icon and the calendar
+   popup it opens - neither is reachable via ordinary CSS properties),
+   matched to this site's manual light/dark toggle rather than the OS's. */
+[data-md-color-scheme="dark"] .porter-tool input[type="date"] {
+  color-scheme: dark;
+}
+
+[data-md-color-scheme="light"] .porter-tool input[type="date"] {
+  color-scheme: light;
+}
+
+.porter-tool input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px;
+  margin-right: -2px;
+  transition: background-color 0.2s ease;
+}
+
+.porter-tool input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background-color: rgba(244, 149, 25, 0.15);
+}
+
+/* Scoped to .form-group/.im-slot rather than every label inside the tool:
+   .filter-subgroup label (Resolution / Ram / Other) comes from
+   games-filters.css with its own uppercase small-caps treatment, and this
+   file loads later, so an unscoped .porter-tool label would silently
+   override half of it and leave those headers in a hybrid style. */
+.porter-tool .form-group > label,
+.porter-tool .im-slot-body label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   font-weight: 600;
   color: var(--md-default-fg-color);
-  font-size: 0.95rem;
+  font-size: 0.78rem;
 }
 
 .porter-tool .form-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.porter-tool .form-group:last-child {
+  margin-bottom: 0;
 }
 
 .porter-tool .form-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 0.9rem;
 }
 
 .porter-tool .help-text {
-  font-size: 0.85rem;
+  font-size: 0.68rem;
+  line-height: 1.45;
   color: var(--md-default-fg-color--light);
-  margin-top: 0.25rem;
+  margin: 0.25rem 0 0;
 }
 
 /* ===== TABLES ===== */
@@ -131,27 +156,29 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 1rem;
+  margin-top: 0;
   overflow: hidden;
   border-radius: 8px;
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  font-size: 0.78rem;
 }
 
 .porter-tool .controls-table thead {
-  background: var(--md-typeset-table-color);
+  background: rgba(128, 128, 128, 0.12);
 }
 
 .porter-tool .controls-table th {
-  padding: 1rem;
+  padding: 0.5rem 0.6rem;
   text-align: left;
   font-weight: 600;
+  font-size: 0.72rem;
   color: var(--md-default-fg-color);
-  border-bottom: 2px solid var(--card-border);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .porter-tool .controls-table td {
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--md-typeset-table-color--light);
+  padding: 0.4rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .porter-tool .controls-table tr:last-child td {
@@ -166,113 +193,88 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--card-border);
-}
-
-.porter-tool .btn-row {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-/* ===== BUTTONS ===== */
-.porter-tool .primary-btn {
-  display: inline-flex;
-  align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: var(--md-accent-fg-color);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  font-size: 0.95rem;
+  margin-top: 0.75rem;
 }
 
-.porter-tool .primary-btn:hover {
-  background: #d67f0f;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3);
-}
-
-.porter-tool .primary-btn:active {
-  transform: translateY(0);
-}
-
-.porter-tool .secondary-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: transparent;
-  color: var(--md-default-fg-color--light);
-  border: 1px solid var(--card-border);
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.porter-tool .secondary-btn:hover {
-  background: var(--card-bg-hover);
-  border-color: var(--md-default-fg-color--lighter);
-}
-
+/* ===== BUTTONS =====
+   38px tall at 0.75rem, matching the Connect button in the Browse filter
+   panel - but coloured like .hero-btn-primary/.hero-btn-secondary from
+   homepage.css (an inverted near-white/near-black solid paired with a
+   transparent outline) rather than solid orange, so these match the same
+   button family as the homepage CTAs and the { .md-button } links used
+   elsewhere in the docs (see extra.css). Orange is kept only as an accent
+   (focus rings, the destructive .row-delete-btn hover, filter-panel
+   pieces reused from games-filters.css) rather than a button fill. */
+.porter-tool .primary-btn,
 .porter-tool .add-row-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: var(--md-accent-fg-color);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
+  gap: 0.4rem;
+  padding: 0 0.8rem;
+  height: 1.9rem;
+  background: #f0f0f2;
+  color: #15151a;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.75rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
+.porter-tool .primary-btn:hover,
 .porter-tool .add-row-btn:hover {
-  background: #d67f0f;
+  background: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(244, 149, 25, 0.3);
 }
 
-.porter-tool .add-row-btn:active {
-  transform: translateY(0);
+[data-md-color-scheme="light"] .porter-tool .primary-btn,
+[data-md-color-scheme="light"] .porter-tool .add-row-btn {
+  background: #1a1a1e;
+  color: #f5f5f7;
 }
 
+[data-md-color-scheme="light"] .porter-tool .primary-btn:hover,
+[data-md-color-scheme="light"] .porter-tool .add-row-btn:hover {
+  background: #000000;
+}
+
+.porter-tool .secondary-btn,
 .porter-tool .clear-btn,
 .porter-tool .remove-btn {
-  padding: 0.625rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 0.8rem;
+  height: 1.9rem;
   background: transparent;
-  color: var(--md-default-fg-color--light);
-  border: 1px solid var(--card-border);
-  border-radius: 6px;
-  font-weight: 500;
+  color: var(--md-default-fg-color);
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.75rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.95rem;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
+.porter-tool .secondary-btn:hover,
 .porter-tool .clear-btn:hover,
 .porter-tool .remove-btn:hover {
-  background: var(--card-bg-hover);
-  border-color: var(--md-default-fg-color--lighter);
+  border-color: rgba(128, 128, 128, 0.9);
+  color: var(--md-default-fg-color);
+  background: transparent;
 }
 
 .porter-tool .action-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
   flex-wrap: wrap;
 }
 
@@ -283,58 +285,35 @@
 
 .porter-tool pre {
   margin: 0;
-  padding: 1.5rem;
+  padding: 0.9rem;
   background: var(--md-code-bg-color);
   color: var(--md-code-fg-color);
   border-radius: 8px;
   overflow-x: auto;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   line-height: 1.6;
   font-family: 'Roboto Mono', monospace;
-  border: 1px solid var(--card-border);
-  max-height: 500px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  max-height: 22rem;
   overflow-y: auto;
 }
 
 .porter-tool .output-placeholder {
-  color: var(--md-default-fg-color--lighter);
+  color: var(--md-default-fg-color--light);
   font-style: italic;
   text-align: center;
-  padding: 3rem;
-}
-
-.porter-tool .icon {
-  font-size: 1.2rem;
-}
-
-/* ===== CHECKBOXES & RADIO ===== */
-.porter-tool .checkbox-group,
-.porter-tool .radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.porter-tool .checkbox-item,
-.porter-tool .radio-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.porter-tool input[type="checkbox"],
-.porter-tool input[type="radio"] {
-  width: auto;
-  cursor: pointer;
+  padding: 2rem 1rem;
+  font-size: 0.75rem;
 }
 
 /* ===== ALERTS ===== */
 .porter-tool .alert {
-  padding: 1rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   border: 1px solid;
+  font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 .porter-tool .alert-info {
@@ -355,84 +334,39 @@
   color: var(--md-default-fg-color);
 }
 
-/* ===== TABS ===== */
-.porter-tool .tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid var(--card-border);
-}
-
-.porter-tool .tab {
-  padding: 0.75rem 1.5rem;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--md-default-fg-color--light);
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  margin-bottom: -2px;
-}
-
-.porter-tool .tab:hover {
-  color: var(--md-accent-fg-color);
-}
-
-.porter-tool .tab.active {
-  color: var(--md-accent-fg-color);
-  border-bottom-color: var(--md-accent-fg-color);
-}
-
-.porter-tool .tab-content {
-  display: none;
-}
-
-.porter-tool .tab-content.active {
-  display: block;
+/* Section divider: a hairline above every ## heading that follows one of
+   these tool blocks. General-sibling selector, so it needs no wrapper
+   markup and self-scopes to pages that use .porter-tool. */
+.md-typeset .porter-tool ~ h2 {
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .porter-tool {
-    padding: 0 0.5rem;
-  }
-  
-  .porter-tool h1 {
-    font-size: 2rem;
-  }
-  
   .porter-tool .action-buttons {
     flex-direction: column;
   }
-  
+
   .porter-tool .primary-btn,
   .porter-tool .secondary-btn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .porter-tool .table-actions {
     flex-direction: column;
-    gap: 1rem;
     align-items: stretch;
   }
-  
+
   .porter-tool .form-row {
     grid-template-columns: 1fr;
   }
 }
 
-/* Dark mode specific adjustments */
-[data-md-color-scheme="dark"] .porter-tool .section {
-  background: var(--card-bg);
-}
-
-[data-md-color-scheme="dark"] .porter-tool .controls-table {
-  border-color: var(--card-border);
-}
 /* ===============================================
-   ARTWORK MAKER (tools/image-maker.md)
+   COVER GENERATOR (tools/cover-generator.md)
    Three image slots + a 640x480 preview canvas.
    =============================================== */
 .porter-tool .im-slots {
@@ -454,8 +388,6 @@
   padding: 0.9rem;
   border-radius: 10px;
   cursor: pointer;
-  /* Alpha grey rather than --card-border (#e0e0e0), which is invisible
-     against the light-mode page. Same fix as the port page controls. */
   border: 1px dashed rgba(128, 128, 128, 0.4);
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
@@ -493,17 +425,9 @@
   display: block;
 }
 
-.porter-tool .im-slot label {
-  margin-bottom: 0.15rem;
-}
-
-.porter-tool .im-slot .help-text {
-  margin-bottom: 0.5rem;
-}
-
 .porter-tool .im-slot input[type="file"] {
   width: 100%;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--card-text);
 }
 
@@ -533,6 +457,114 @@
 
 .porter-tool .im-empty {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--card-stat-color, #888888);
+}
+
+/* ===============================================
+   JSON/README GENERATORS
+   The accordion sections, checkbox rows and radio
+   lists all reuse games-filters.css directly, so
+   these pages share the Browse filter panel's look.
+   Only the bits that don't exist there live here.
+   =============================================== */
+
+/* Genre/architecture picker - the filter panel's dense checkbox rows
+   flowed into a wrapping grid instead of one tall column. */
+.porter-tool .tool-check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.1rem 0.75rem;
+}
+
+/* Requirements group headers ("Resolution", "Ram", "Other") reuse
+   .filter-subgroup + .filter-subgroup label from games-filters.css; this
+   only widens their spacing to form-group rhythm. */
+.porter-tool .filter-subgroup {
+  margin-bottom: 0.9rem;
+}
+
+.porter-tool .filter-subgroup:last-child {
+  margin-bottom: 0;
+}
+
+/* games-filters.css styles `.filter-subgroup label` as an uppercase
+   small-caps group header, but .filter-checkbox-item rows are themselves
+   <label>s, so nested option rows inherit that treatment and win on
+   specificity (0,1,1 over 0,1,0). On the games page that goes unnoticed -
+   the values there are short tokens like "aarch64". Here they're full
+   sentences ("Not Lowres: Exclude 480x320..."), which in all-caps is close
+   to unreadable, so option rows are put back to sentence case. Scoped to
+   .porter-tool so the games panel keeps the look it has today. */
+.porter-tool .filter-subgroup .filter-checkbox-item {
+  display: flex;
+  margin-bottom: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: var(--card-text, var(--md-default-fg-color));
+}
+
+.porter-tool select[multiple] {
+  min-height: 8rem;
+  padding: 0.3rem;
+}
+
+.porter-tool select[multiple] option {
+  padding: 0.3rem 0.4rem;
+  border-radius: 4px;
+}
+
+.porter-tool select[multiple] optgroup {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+/* Input + button on one line ("Add Porter", SteamDB command). The input's
+   flex-basis is a real floor rather than 0/auto: with a wide button beside
+   it ("Add Steam Instructions" is ~277px) an auto basis let the input
+   collapse to ~42px on a phone instead of wrapping the button onto its own
+   line, which is what this basis + flex-wrap now forces. */
+.porter-tool .tool-inline-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.porter-tool .tool-inline-row input {
+  flex: 1 1 11rem;
+  min-width: 0;
+}
+
+.porter-tool .tool-inline-row .add-row-btn {
+  flex-shrink: 0;
+}
+
+/* Ghost icon button that removes one row from the store-links/controls
+   tables. */
+.porter-tool .row-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  font-size: 0.6rem;
+}
+
+.porter-tool .row-delete-btn:hover {
+  border-color: #dc3545;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.08);
+}
+
+.porter-tool .controls-table th.row-actions,
+.porter-tool .controls-table td.row-actions {
+  width: 2.2rem;
+  text-align: center;
 }
