@@ -6,15 +6,16 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Every blocker hit while getting OneShot: World Machine Edition running on PortMaster handhelds, and the MonoMod patch that fixes each one.
+">
       
       
-        <link rel="canonical" href="https://portmaster.games/news/2026/02/01/february-2026-port-of-the-month-dragon-dragon-fire-fire/">
+      
+        <link rel="canonical" href="https://portmaster.games/news/2026/09/01/porting-oneshot-world-machine-edition/">
       
       
-        <link rel="prev" href="../../../01/01/january-2026-port-of-the-month-bar-hop/">
+        <link rel="prev" href="../../../02/01/february-2026-port-of-the-month-dragon-dragon-fire-fire/">
       
-      
-        <link rel="next" href="../../../09/01/porting-oneshot-world-machine-edition/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -22,7 +23,7 @@
     
     
       
-        <title>February 2026 Port of the Month: Dragon Dragon Fire Fire - PortMaster Wiki</title>
+        <title>Porting OneShot: World Machine Edition - PortMaster Wiki</title>
       
     
     
@@ -105,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#february-2026-port-of-the-month-dragon-dragon-fire-fire" class="md-skip">
+        <a href="#porting-oneshot-world-machine-edition" class="md-skip">
           Skip to content
         </a>
       
@@ -140,7 +141,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              February 2026 Port of the Month: Dragon Dragon Fire Fire
+              Porting OneShot: World Machine Edition
             
           </span>
         </div>
@@ -1495,12 +1496,12 @@
                 
                   <div class="md-profile md-post__profile">
                     <span class="md-author md-author--long">
-                      <img src="https://avatars.githubusercontent.com/u/4617076?v=4" alt="Kloptops">
+                      <img src="https://avatars.githubusercontent.com/u/159560609?v=4" alt="JanTrueno">
                     </span>
                     <span class="md-profile__description">
                       <strong>
                         
-                          <a href="https://github.com/kloptops">Kloptops</a>
+                          <a href="https://github.com/JanTrueno">JanTrueno</a>
                         
                       </strong>
                       <br>
@@ -1522,7 +1523,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2026-02-01 00:00:00+00:00" class="md-ellipsis">Sunday, February 1, 2026</time>
+                        <time datetime="2026-09-01 00:00:00+00:00" class="md-ellipsis">Tuesday, September 1, 2026</time>
                       </div>
                     </li>
                     
@@ -1534,7 +1535,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              5 min read
+                              15 min read
                             
                           </span>
                         </div>
@@ -1563,18 +1564,90 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about-dragon-dragon-fire-fire" class="md-nav__link">
+  <a href="#1-the-crash-that-wasnt-the-crash" class="md-nav__link">
     <span class="md-ellipsis">
-      About Dragon Dragon Fire Fire
+      1. The crash that wasn't the crash
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#port-of-the-month-rules" class="md-nav__link">
+  <a href="#2-missingmethodexception-op_equality" class="md-nav__link">
     <span class="md-ellipsis">
-      Port of the Month Rules
+      2. MissingMethodException: op_Equality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-getting-rid-of-gdi-entirely" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Getting rid of GDI+ entirely
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-patch-that-silently-did-nothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. The patch that silently did nothing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-no-audio-and-no-error-about-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. No audio, and no error about it
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-dllmap-that-looked-applied-and-wasnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. The dllmap that looked applied and wasn't
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-failed-to-create-graphics-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Failed to create graphics device!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-quarter-of-a-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A quarter of a game
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-saves-and-one-last-trap" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Saves, and one last trap
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closing-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Closing thought
     </span>
   </a>
   
@@ -1598,37 +1671,234 @@
   
 
 
-<h1 id="february-2026-port-of-the-month-dragon-dragon-fire-fire">February 2026 Port of the Month: Dragon Dragon Fire Fire<a class="headerlink" href="#february-2026-port-of-the-month-dragon-dragon-fire-fire" title="Permanent link">¶</a></h1>
-<p>Ignite the new month with blazing action and arcade nostalgia—February's Port of the Month is <strong>Dragon Dragon Fire Fire</strong>!</p>
+<h1 id="porting-oneshot-world-machine-edition">Porting OneShot: World Machine Edition<a class="headerlink" href="#porting-oneshot-world-machine-edition" title="Permanent link">¶</a></h1>
+<p>This one took a while. Not because any single problem was hard, but because
+almost every failure in this game presents as a <em>different</em> failure than the one
+you actually have. Four separate times I went chasing something that turned out
+to be a symptom.</p>
 <!-- more -->
 
-<p><strong>First of all, congrats to @Alaric for their hopping great score in Bar Hop!</strong></p>
-<p><a class="glightbox" href="https://raw.githubusercontent.com/PortsMaster/PortMaster-New/main/ports/dragondragonfirefire/screenshot.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Dragon Dragon Fire Fire Screenshot" src="https://raw.githubusercontent.com/PortsMaster/PortMaster-New/main/ports/dragondragonfirefire/screenshot.png" /></a></p>
-<h2 id="about-dragon-dragon-fire-fire">About Dragon Dragon Fire Fire<a class="headerlink" href="#about-dragon-dragon-fire-fire" title="Permanent link">¶</a></h2>
-<p>Dragon Dragon Fire Fire is a fast-paced arcade platformer where you:</p>
+<p>There's no Linux build, so this starts from the Windows release: MonoGame/C#,
+64-bit, run under Mono on aarch64. No native game code to worry about, which
+sounds easy right up until the managed code starts P/Invoking into the Windows
+DLLs it was built against. Every fix below is a MonoMod patch or a launcher
+change. Nothing ships a modified game binary.</p>
+<h2 id="1-the-crash-that-wasnt-the-crash">1. The crash that wasn't the crash<a class="headerlink" href="#1-the-crash-that-wasnt-the-crash" title="Permanent link">¶</a></h2>
+<p>First launch, straight to a GDI+ error. Something about <code>libgdiplus</code>. Fine, I
+thought, that's a known Mono thing, I'll just ship the library.</p>
+<p>Except that made no sense. This is a pixel-art adventure game. Why would it need
+GDI+ at startup, before it's drawn anything?</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">steamMan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SteamManager</span><span class="p">();</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// LogManager.Log&#39;s Error branch ends with MessageBox.Show(text)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">logMan</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="n">LogManager</span><span class="p">.</span><span class="n">LogLevel</span><span class="p">.</span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>SteamAPI.Init()</code> was throwing, because it P/Invokes into <code>steam_api64</code>, a native
+Windows DLL that Mono cannot load on Linux, ever. The game caught that exception
+and tried to report it through a WinForms message box, which needs GDI+, which
+isn't there. The real error was destroyed on its way to being reported, and I'd
+been about to fix the error handler's dependency instead of the error.</p>
+<p>The fix is a fully managed <code>Steamworks.NET.dll</code> that replaces the real one. No
+native Steam anywhere. <code>SteamAPI.Init()</code> returns false, achievement calls are
+no-ops, and <code>GetConnectedControllers()</code> always returns <code>0</code>.</p>
+<p>That last one matters, because the game already has this:</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">steamMan</span><span class="p">.</span><span class="n">IsSteamInputControllerConnected</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">steamMan</span><span class="p">.</span><span class="n">IsOnSteamDeck</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Report no Steam Input controllers and it falls straight through to MonoGame's own
+gamepad path. Nothing is lost.</p>
+<p>One catch: the stub's <code>AssemblyVersion</code> must be exactly <code>20.2.0.0</code>, matching the
+real library, or the game won't bind to it.</p>
+<h2 id="2-missingmethodexception-op_equality">2. MissingMethodException: op_Equality<a class="headerlink" href="#2-missingmethodexception-op_equality" title="Permanent link">¶</a></h2>
+<p>Stub in place, new crash. The game does <code>someHandle == otherHandle</code> on
+Steamworks' handle structs, and the compiled IL calls <code>op_Equality</code> directly. My
+stub structs were plain <code>ulong</code> wrappers with no operators.</p>
+<p>All four handle types needed <code>IEquatable&lt;T&gt;</code>, <code>Equals</code>, <code>GetHashCode</code>, <code>==</code> and
+<code>!=</code>:</p>
 <ul>
-<li><strong>Play as a fire-breathing dragon</strong> blasting through destructible levels in a late-80s arcade style!</li>
-<li><strong>Incinerate enemies and terrain</strong> with blazing fire breath as you chase the high score!</li>
-<li><strong>Enjoy fast-paced platforming chaos</strong> that keeps the action intense and addictive!</li>
+<li><code>InputHandle_t</code></li>
+<li><code>InputActionSetHandle_t</code></li>
+<li><code>InputDigitalActionHandle_t</code></li>
+<li><code>InputAnalogActionHandle_t</code></li>
 </ul>
-<p>It's like if classic arcade spirit and fiery dragon fury had a pixelated love child—and your reflexes are the key to survival!</p>
-<h2 id="port-of-the-month-rules">Port of the Month Rules<a class="headerlink" href="#port-of-the-month-rules" title="Permanent link">¶</a></h2>
-<p>As always, you can either <strong>participate</strong> or <strong>compete</strong>!</p>
-<h3 id="to-participate">To Participate<a class="headerlink" href="#to-participate" title="Permanent link">¶</a></h3>
-<p>Share a photo of your score running on your device to earn the role of <strong>@POTM Participant</strong>!</p>
-<h3 id="to-compete">To Compete<a class="headerlink" href="#to-compete" title="Permanent link">¶</a></h3>
-<p>Post a photo of your device showing your best score along with your name and date to be in the running for the coveted <strong>@POTM Champion</strong>!</p>
-<hr />
-<p><strong>Ignite the leaderboard and scorch the competition this February</strong>—may your fire burn the highest score!</p>
+<p>I only found this by actually running the game on my PC against an x86_64 FMOD
+build, rather than reading device logs and guessing. Every stub you write is an
+API surface you're promising to honour, and the compiler will not tell you which
+parts of that promise the game calls.</p>
+<h2 id="3-getting-rid-of-gdi-entirely">3. Getting rid of GDI+ entirely<a class="headerlink" href="#3-getting-rid-of-gdi-entirely" title="Permanent link">¶</a></h2>
+<p>With Steam fixed the game booted, but <code>libgdiplus</code> was still on the shopping list
+for two real call sites: the <code>MessageBox.Show</code> above, and <code>Screen.AllScreens</code> in
+<code>generateAvailableResolutions()</code>.</p>
+<p>I could have shipped it, but <code>libgdiplus.so.0</code> pulls in libX11, cairo, fontconfig,
+glib-2.0, libjpeg, libpng, libtiff, libgif, freetype and libexif. That's an entire
+desktop GUI stack, bundled so that two incidental calls keep working on a device
+with one fixed display and no window manager.</p>
+<p>So instead, two MonoMod patches.</p>
+<p>The <code>MessageBox.Show</code> call gets deleted outright: push arg, call, pop result,
+three instructions gone. Error logging still writes to the console and <code>log.txt</code>,
+which is where you actually want it. Errors on this path can finally be seen
+instead of masked, which is exactly what bit me in section 1.</p>
+<p><code>Screen.AllScreens</code> gets replaced with an empty array:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ldc.i4.0
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>newarr  System.Windows.Forms.Screen
+</span></code></pre></div>
+<p>The <code>foreach</code> after it simply doesn't run. Every hardcoded resolution is already
+in the list before that call.</p>
+<p>It has to be <code>newarr</code> rather than a helper call. Creating an array of a type does
+not run that type's static constructor, whereas touching any member of <code>Screen</code>
+would, and <code>Screen</code>'s cctor is itself a GDI+ trip. Get this wrong and you
+reintroduce the exact dependency you're removing.</p>
+<h2 id="4-the-patch-that-silently-did-nothing">4. The patch that silently did nothing<a class="headerlink" href="#4-the-patch-that-silently-did-nothing" title="Permanent link">¶</a></h2>
+<p>Wrote the MonoMod patch. Merge succeeded. Ran it. Nothing happened. No error, no
+warning, no diagnostic, the original behaviour just carried on.</p>
+<p>I had written <code>private static void Main(string[] args)</code>. The game has
+<code>static void Main()</code>.</p>
+<p>MonoMod merges by exact signature. A mismatched signature is not an error. It's
+just a new overload, sitting quietly next to the untouched original, never called.
+The merge reports success. Everything looks right. Nothing happens.</p>
+<p>I found it by running <code>ikdasm</code> and reading the <code>.entrypoint</code> directive instead of
+continuing to guess. When a patch appears to do nothing, verify that the thing
+you're patching is the thing you think it is, before assuming your logic is wrong.</p>
+<h2 id="5-no-audio-and-no-error-about-it">5. No audio, and no error about it<a class="headerlink" href="#5-no-audio-and-no-error-about-it" title="Permanent link">¶</a></h2>
+<p>Game running, no sound. Not "wrong sound": silence, and nothing in the log. FMOD
+was returning <code>FMOD_RESULT</code> 20, <code>ERR_HEADER_MISMATCH</code>, and the game wasn't
+checking.</p>
+<p>Two wrong turns first. I grabbed <code>libfmodstudio.so</code>, which is not the same library
+as Core. <code>nm -D</code> settles it instantly:</p>
+<div class="language-console highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>nm<span class="w"> </span>-D<span class="w"> </span>libfmodstudio.so<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>FMOD_System_Create
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">U FMOD_System_Create   # undefined, it needs this</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="gp">$ </span>nm<span class="w"> </span>-D<span class="w"> </span>libfmod.so<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>FMOD_System_Create
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">T FMOD_System_Create   # defined, it exports this</span>
+</span></code></pre></div>
+<p>Then, since "header mismatch" obviously means the wrong FMOD version, I went
+hunting for the exact matching build. It is not a version problem at all.</p>
+<p>The game declares one argument:</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="na">[DllImport(&quot;fmod&quot;)]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="n">RESULT</span><span class="w"> </span><span class="nf">FMOD5_System_Create</span><span class="p">(</span><span class="k">out</span><span class="w"> </span><span class="n">IntPtr</span><span class="w"> </span><span class="n">system</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Disassembling the real aarch64 <code>libfmod.so.13</code>, <code>FMOD5_System_Create</code> turns out to
+be exactly one instruction:</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">b</span><span class="w">  </span><span class="no">FMOD_System_Create</span>
+</span></code></pre></div>
+<p>That's a naked tail-call into the real function, which takes two arguments:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">FMOD_RESULT</span><span class="w"> </span><span class="nf">FMOD_System_Create</span><span class="p">(</span><span class="n">FMOD_SYSTEM</span><span class="w"> </span><span class="o">**</span><span class="n">system</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">headerversion</span><span class="p">);</span>
+</span></code></pre></div>
+<p>A bare branch does not touch registers, so whatever garbage happened to be in the
+second argument register got passed as <code>headerversion</code>. It essentially never
+matches by chance.</p>
+<p>To be sure I wasn't guessing, I cross-compiled a test with <code>aarch64-linux-gnu-gcc</code>
+and ran it under <code>qemu-aarch64-static</code> against the real library. Every value from
+<code>0x00020202</code> through <code>0x00020218</code> succeeded, and only the 2.01.x line failed. The
+check is lenient about the patch number, so it really was just the missing
+argument.</p>
+<p>The fix redirects the call to a declaration that passes both arguments. Same stack
+effect either side, so the IL change is literally swapping the call target.</p>
+<h2 id="6-the-dllmap-that-looked-applied-and-wasnt">6. The dllmap that looked applied and wasn't<a class="headerlink" href="#6-the-dllmap-that-looked-applied-and-wasnt" title="Permanent link">¶</a></h2>
+<p>The FMOD fix needs a dllmap, because the game hardcodes a Windows path:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">&lt;dllmap</span><span class="w"> </span><span class="na">dll=</span><span class="s">&quot;x64/fmod&quot;</span><span class="w"> </span><span class="na">os=</span><span class="s">&quot;linux&quot;</span><span class="w"> </span><span class="na">target=</span><span class="s">&quot;../libs/libfmod.so&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></div>
+<p>Verified it was correct. It did nothing.</p>
+<p>Mono resolves config by exact runtime filename. After MonoMod the game runs as
+<code>MONOMODDED_OneShotMG.exe</code>, so Mono looks for <code>MONOMODDED_OneShotMG.exe.config</code>,
+which didn't exist. The config I'd carefully verified was for a file that never
+ran. It's now copied under both names, unconditionally, on every launch.</p>
+<h2 id="7-failed-to-create-graphics-device">7. Failed to create graphics device!<a class="headerlink" href="#7-failed-to-create-graphics-device" title="Permanent link">¶</a></h2>
+<p>Ran fine for me, failed on GLES-only devices. The launcher had this:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">controlfolder</span><span class="si">}</span><span class="s2">/libgl_</span><span class="si">${</span><span class="nv">CFW_NAME</span><span class="si">}</span><span class="s2">.txt&quot;</span>
+</span></code></pre></div>
+<p>and then did nothing with it. That file only reports what the device supports,
+setting <code>LIBGL_ES</code> and friends. It does not point SDL at a GL implementation.
+That's the port's job.</p>
+<p>Meanwhile the port had been shipping <code>gl4es/libGL.so.1</code> and <code>libEGL.so.1</code> the
+entire time, referenced by absolutely nothing. That was the tell.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LIBGL_ES</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">SDL_VIDEO_GL_DRIVER</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/gl4es/libGL.so.1&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">SDL_VIDEO_EGL_DRIVER</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/gl4es/libEGL.so.1&quot;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">fi</span>
+</span></code></pre></div>
+<p>Gated on <code>LIBGL_ES</code> so devices with real desktop GL aren't pushed through a
+translation layer for no reason.</p>
+<h2 id="8-a-quarter-of-a-game">8. A quarter of a game<a class="headerlink" href="#8-a-quarter-of-a-game" title="Permanent link">¶</a></h2>
+<p>Graphics device created, game runs. But launched from the frontend only the
+top-left quarter is on screen, while over SSH it is perfect. That difference is
+the entire clue, and it is an accident.</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">graphics</span><span class="p">.</span><span class="n">PreferredBackBufferWidth</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">OutputScreenSize</span><span class="p">.</span><span class="n">X</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1280</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">graphics</span><span class="p">.</span><span class="n">PreferredBackBufferHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OutputScreenSize</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span><span class="w">  </span><span class="c1">// 720</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1">// ...</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Game1</span><span class="p">.</span><span class="n">steamMan</span><span class="p">.</span><span class="n">IsOnSteamDeck</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="n">SetFullscreen</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>That's the only <code>SetFullscreen(true)</code> in the constructor, and it never runs,
+because the Steam stub correctly reports that this is not a Steam Deck. So on a
+640x480 panel you get a 1280x720 window and see roughly a quarter of it.</p>
+<p>Why does SSH work? With no display server, SDL drives KMSDRM directly and clamps
+the oversized window to a real panel mode. That fires <code>ClientSizeChanged</code> into
+<code>GraphicsManager.OnResize</code>, which snaps the backbuffer back to something that
+fits. From the frontend the window is created at its literal requested size, no
+resize event ever fires, and nothing corrects it. <code>OnResize</code> is also explicitly a
+no-op while fullscreen, so going fullscreen doesn't paper over the symptom. It
+removes the dependency on that accident.</p>
+<p>I was briefly tempted to make <code>IsOnSteamDeck</code> return true and take the handheld
+path the developers already wrote, but it's used in 15 places: it swaps in Steam
+Deck button glyphs and hides the display settings menu.</p>
+<p>So the patch appends <code>SetFullscreen(true)</code> to the constructor, then
+<code>SetDrawResolution(GetDrawResolutionForOneshotMaximized())</code>. That second call is
+the game's own helper for deriving an aspect-correct draw size from the output
+size, worth using rather than picking a resolution myself, because the final blit
+stretches draw size to output size with no letterboxing, so a mismatched aspect
+visibly distorts. On a 640x480 panel it picks 1280x960. On my 3440x1440 ultrawide
+it picked 2293x960. Both exact.</p>
+<p>One IL detail nearly got me. You cannot just insert before the constructor's
+trailing <code>ret</code>, because that Steam Deck <code>if</code> compiles to a branch straight to the
+final <code>ret</code>:</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nl">IL_0366:</span><span class="w">  </span><span class="nf">brfalse.s</span><span class="w">  </span><span class="no">IL_0385</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="na">...</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nl">IL_0385:</span><span class="w">  </span><span class="nf">ret</span>
+</span></code></pre></div>
+<p>Since the condition is always false, that branch is always taken, so anything
+inserted before the <code>ret</code> gets jumped clean over, and the patch does nothing,
+silently, again. Instead, rewrite the existing <code>ret</code> in place into <code>ldarg.0</code>, then
+append the call and a fresh <code>ret</code> after it. Branch targets are instruction
+references, so the branch now lands on the new code and every path reaches it.</p>
+<p>It also has to be pinned, or saves undo it. Loading a save does
+<code>Game1.gMan.SetFullscreen(data.isFullscreen)</code>, and a save written while the
+display was broken stores <code>false</code>, so the game comes up correctly and then puts
+itself back into an oversized window a second later. <code>SetFullscreen</code> gets its
+argument forced to <code>true</code> (<code>ldarg.1</code> becomes <code>ldc.i4.1</code>), leaving the "enter
+fullscreen" direction working and ignoring only "leave". Windowed mode has no
+meaning on a fixed single-display handheld anyway.</p>
+<h2 id="9-saves-and-one-last-trap">9. Saves, and one last trap<a class="headerlink" href="#9-saves-and-one-last-trap" title="Permanent link">¶</a></h2>
+<p>The game saves to <code>Environment.SpecialFolder.ApplicationData</code>, and the usual
+PortMaster template redirects with <code>XDG_DATA_HOME</code>. That does not work here, which
+I tested rather than assumed:</p>
+<div class="language-console highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">$ </span><span class="nv">XDG_CONFIG_HOME</span><span class="o">=</span>/tmp/probe_cfg<span class="w"> </span>mono<span class="w"> </span>appdata_probe.exe
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="go">ApplicationData = /tmp/probe_cfg</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="gp">$ </span><span class="nv">XDG_DATA_HOME</span><span class="o">=</span>/tmp/probe_data<span class="w"> </span>mono<span class="w"> </span>appdata_probe.exe
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="go">ApplicationData = /home/user/.config</span>
+</span></code></pre></div>
+<p>Mono maps <code>ApplicationData</code> to <code>XDG_CONFIG_HOME</code> and ignores <code>XDG_DATA_HOME</code>
+entirely. Saves now land in the port's own <code>savedata/</code> where they belong.</p>
+<h2 id="closing-thought">Closing thought<a class="headerlink" href="#closing-thought" title="Permanent link">¶</a></h2>
+<p>Every patch here hooks by reflection through <code>MonoMod.RuntimeDetour.ILHook</code>
+rather than through generated HookGen bindings, so nothing holds a compile-time
+reference to the game assembly and one build works regardless of what the
+executable is named.</p>
+<p>The recurring theme, though, is not a MonoMod technique. It's that this game
+reports four of its failures as something other than what they are:</p>
 <ul>
-<li><strong>Discuss it in</strong>: <a href="https://discord.com/channels/1122861252088172575/1249310815312678993">#potm-chat</a></li>
-<li><strong>Post your scores in</strong>: <a href="https://discord.com/channels/1122861252088172575/1254752475202981921">#potm-scores</a></li>
-<li><strong>Game details</strong>: <a href="https://portmaster.games/detail.html?name=dragondragonfirefire">PortMaster</a></li>
+<li>The Steam error became a GDI+ crash.</li>
+<li>The FMOD argument bug became a version mismatch.</li>
+<li>The missing GL wiring became a device-creation failure.</li>
+<li>The windowed backbuffer became "works over SSH, breaks from the frontend."</li>
 </ul>
-<div class="admonition tip">
-<p class="admonition-title">Submission Requirements</p>
-<p>Be sure to include your <strong>name</strong>, <strong>date</strong>, and <strong>device</strong> in your screenshot submission.</p>
-</div>
+<p>Every one of those cost real time to the first plausible-but-wrong explanation.
+The tools that actually ended arguments were the boring ones: <code>nm -D</code>, <code>ikdasm</code>,
+<code>objdump</code>, and a cross-compiled test binary under QEMU. When something looks like
+a version mismatch, go read the disassembly before you go hunting for versions.</p>
 
 
 
@@ -1667,7 +1937,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../../01/01/january-2026-port-of-the-month-bar-hop/" class="md-footer__link md-footer__link--prev" aria-label="Previous: January 2026 Port of the Month: Bar Hop">
+          <a href="../../../02/01/february-2026-port-of-the-month-dragon-dragon-fire-fire/" class="md-footer__link md-footer__link--prev" aria-label="Previous: February 2026 Port of the Month: Dragon Dragon Fire Fire">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1677,27 +1947,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                January 2026 Port of the Month: Bar Hop
+                February 2026 Port of the Month: Dragon Dragon Fire Fire
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../../../09/01/porting-oneshot-world-machine-edition/" class="md-footer__link md-footer__link--next" aria-label="Next: Porting OneShot: World Machine Edition">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Porting OneShot: World Machine Edition
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
