@@ -1,6 +1,9 @@
 ---
 hide:
-  - navigation
+  # Only the toc is hidden. The nav index stays so the Community section
+  # (Overview, News) is still reachable from here - unlike games.md, this
+  # page sits inside a section with siblings, and without the sidebar you
+  # land here with no way back into the rest of it.
   - toc
 
 # Porter cards link straight to /porter/?name=<id> now (no quick-view
@@ -10,9 +13,6 @@ hide:
 # and (combined with glightbox's regex bug - see games.md) dominated the
 # site build. glightbox itself is still skipped here since every <img> is
 # already opted out via off-glb.
-# hide: navigation/toc matches games.md - this is a full-width browse
-# grid now, same as the games page, so it shouldn't carry a nav sidebar
-# the other browse-style page doesn't have.
 glightbox: false
 ---
 
