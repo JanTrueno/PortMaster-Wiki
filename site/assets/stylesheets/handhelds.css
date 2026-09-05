@@ -8,7 +8,7 @@
 /* ===== HANDHELDS GRID ===== */
 .handhelds-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 0.75rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -16,179 +16,126 @@
   box-sizing: border-box;
 }
 
+/* Cards are landscape (artwork beside the details rather than above them),
+   so they need far fewer columns than the old portrait layout's five. */
 @media (min-width: 600px) {
   .handhelds-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .handhelds-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
   .handhelds-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 400px) {
-  .handhelds-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-}
-
-/* ===== HANDHELD CARD ===== */
+/* ===== HANDHELD CARD =====
+   Deliberately mirrors .porter-card (porters.css): same radius, shadow,
+   centred column and hover lift, so the two browse-style grids on the site
+   read as one family. The device artwork takes the place of the avatar. */
 .handheld-card {
-  padding: 1rem;
+  position: relative;
+  padding: 0.9rem;
   border-radius: 12px;
   box-shadow: var(--md-shadow-z1);
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
   background-color: var(--card-bg);
   color: var(--card-text);
-  cursor: default;
 }
 
 .handheld-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 15px rgba(255, 255, 255, 0.1);
   background-color: var(--card-bg-hover);
 }
 
-/* Card Header - Fixed Height */
-.handheld-header {
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--card-border);
-  min-height: 3.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.handheld-name {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.2;
-  font-weight: 700;
-  color: var(--card-text);
-  text-align: center;
+.handheld-card h3 {
+  margin: 0 0 0.1rem;
+  width: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-text, var(--md-default-fg-color));
 }
 
 .handheld-brand {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--md-default-fg-color--light);
+  display: block;
+  font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-align: center;
-  opacity: 0.8;
+  color: var(--card-stat-color, var(--md-default-fg-color--light));
+  margin-bottom: 0.6rem;
 }
 
-/* Specs Section - Fixed Height */
+/* Wrapping flex row rather than fixed columns: a 1fr column is ~66px in a
+   5-across grid, which clipped "640x480" by 3px. Content-sized items wrap
+   to two lines on their own and never truncate. */
 .handheld-specs {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  padding-top: 0.75rem;
-  min-height: 5.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.28rem 0.55rem;
+  width: 100%;
+  margin-bottom: 0.6rem;
+  font-size: 0.66rem;
+  color: var(--card-stat-color, var(--md-default-fg-color--light));
 }
 
-.spec-row {
-  display: flex;
+.handheld-spec {
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--card-text);
+  gap: 0.25rem;
+  white-space: nowrap;
 }
 
-.spec-row i {
-  font-size: 0.75rem;
-  color: #F49519;
-  width: 1rem;
-  text-align: center;
-  flex-shrink: 0;
+.handheld-spec i {
+  flex: none;
+  font-size: 0.78rem;
+  opacity: 0.85;
 }
 
-.spec-row span {
-  font-family: var(--md-code-font-family);
-  font-weight: 500;
-}
-
-/* CFW Pills - Fixed Height */
 .handheld-cfw {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--card-border);
-  min-height: 2.5rem;
-  align-content: flex-start;
+  width: 100%;
 }
 
 .cfw-pill {
-  display: inline-block;
-  padding: 0.15rem 0.35rem;
-  border-radius: 10px;
-  font-size: 0.55rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  user-select: none;
-  background-color: #F49519;
-  color: #ffffff;
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 0.14rem 0.45rem;
+  border-radius: 999px;
+  background-color: rgba(244, 149, 25, 0.16);
+  color: #F49519;
+  border: 1px solid rgba(244, 149, 25, 0.3);
+  white-space: nowrap;
 }
 
-.cfw-pill:hover {
-  background-color: #ff9d2e;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(244, 149, 25, 0.3);
-}
-
-/* ===== MOBILE RESPONSIVE ===== */
+/* Small screens. The old rules here targeted .handheld-header/.handheld-name/
+   .spec-row, none of which exist any more, and pinned .handheld-specs to a
+   5rem min-height for the old stacked layout - which forced a 100px row and
+   stretched every spec. Only the parts that still apply are kept. */
 @media (max-width: 600px) {
   .handheld-card {
     padding: 0.75rem;
   }
-  
-  .handheld-header {
-    min-height: 3rem;
-    padding-bottom: 0.6rem;
-  }
-  
-  .handheld-name {
-    font-size: 0.9rem;
-  }
-  
+
   .handheld-brand {
     font-size: 0.65rem;
   }
-  
-  .handheld-specs {
-    padding-top: 0.6rem;
-    min-height: 5rem;
-  }
-  
-  .spec-row {
-    font-size: 0.7rem;
-  }
-  
-  .spec-row i {
-    font-size: 0.7rem;
-  }
-  
-  .handheld-cfw {
-    padding-top: 0.6rem;
-  }
-  
+
   .cfw-pill {
     font-size: 0.5rem;
     padding: 0.12rem 0.3rem;
@@ -214,3 +161,105 @@
 /* We're reusing those styles */
 
 /* No results styling - reuse from games.css */
+
+/* ===== List view =====
+   The default. These rows are specs, and specs compare far better as
+   aligned columns than as a wall of cards - the whole point of the toggle
+   is that the grid stays available for browsing by shape. */
+.handhelds-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 1200px;
+}
+
+.handhelds-grid.list-view .handheld-card {
+  display: grid;
+  /* name | specs | firmware. The name column is fixed so device names line
+     up down the page; specs take what they need; firmware takes the rest. */
+  grid-template-columns: minmax(9rem, 1.2fr) auto minmax(0, 1.4fr);
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+}
+
+.handhelds-grid.list-view .handheld-info {
+  display: contents;
+}
+
+.handhelds-grid.list-view .handheld-card h3 {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.handhelds-grid.list-view .handheld-brand {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+}
+
+/* Fixed spec columns rather than a flex row: widths are sized to the
+   longest real value in the dataset (1920x1152, A133PLUS, 16.0GB), so every
+   value lines up down the page and the list can actually be scanned. */
+.handhelds-grid.list-view .handheld-specs {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  grid-template-columns: 5.4rem 5rem 3.9rem 2.4rem;
+  width: auto;
+  margin: 0;
+  gap: 0;
+}
+
+.handhelds-grid.list-view .handheld-cfw {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  justify-content: flex-end;
+}
+
+/* Below the grid breakpoint the three columns cannot hold their content, so
+   the row folds back into a stacked block rather than squashing. */
+@media (max-width: 800px) {
+  .handhelds-grid.list-view .handheld-card {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .handhelds-grid.list-view .handheld-card h3,
+  .handhelds-grid.list-view .handheld-brand,
+  .handhelds-grid.list-view .handheld-specs,
+  .handhelds-grid.list-view .handheld-cfw {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  /* The fixed spec columns above total ~334px, which overflows a 375px
+     phone. Drop back to a wrapping flex row where each value sizes to its
+     own content. */
+  .handhelds-grid.list-view .handheld-specs {
+    display: flex;
+    grid-template-columns: none;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.7rem;
+  }
+
+  .handhelds-grid.list-view .handheld-cfw {
+    justify-content: flex-start;
+  }
+}
+
+
+/* ===== Filter drawer =====
+   Reuses .filter-panel / .filter-overlay from games-filters.css, but that
+   CSS only gives the panel a z-index inside @media (max-width: 899px) -
+   on the games page the drawer is only an overlay at those widths. Here it
+   is a drawer at every width, so above 899px the panel had z-index:auto
+   while .filter-overlay has 1099, and the overlay painted straight over
+   it: the panel opened correctly but was invisible and unclickable.
+   Scoped by id so the games page keeps its own behaviour. */
+#handheld-filter-panel.open {
+  z-index: 1100;
+}

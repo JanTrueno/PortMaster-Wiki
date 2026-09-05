@@ -1584,123 +1584,211 @@
 
 
 <h1 id="supported-handhelds">Supported Handhelds<a class="headerlink" href="#supported-handhelds" title="Permanent link">¶</a></h1>
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></p>
+<p>Every device below runs PortMaster on at least one custom firmware.</p>
 <div class="filters-container">
-  <div class="search-wrapper">
-    <input type="text" id="handheld-search" class="search-bar" placeholder="Search devices...">
-    <button class="filter-toggle-btn" id="handheld-filter-toggle">
+  <div class="filters-left">
+    <div class="games-search-wrapper">
+      <i class="bi bi-search games-search-icon"></i>
+      <input type="text" id="handheld-search" class="games-search-input" placeholder="Search devices...">
+    </div>
+    <div class="view-toggle-wrapper" id="viewToggleWrapper">
+      <button class="view-toggle-btn" id="gridViewBtn" title="Grid view" aria-label="Grid view">
+        <i class="bi bi-grid-3x3-gap-fill"></i>
+      </button>
+      <button class="view-toggle-btn active" id="listViewBtn" title="List view" aria-label="List view">
+        <i class="bi bi-list-ul"></i>
+      </button>
+    </div>
+    <button class="filter-toggle-btn" id="handheld-filter-toggle" aria-label="Filters">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </div>
+  <div class="filters-right">
+    <p id="portsCounter">Showing <span id="visible-handheld-count">40</span> of 40 devices</p>
+  </div>
 </div>
 
-<!-- Filter Panel (Sidebar) -->
+<!-- Filter drawer. Uses the same components as the games page filter panel
+     (accordion + checkbox list + reset link) rather than the .filter-pill
+     class the page used to use, which had no CSS anywhere in the project
+     and so rendered as plain running text. -->
 <div class="filter-overlay" id="handheld-filter-overlay"></div>
 <div class="filter-panel" id="handheld-filter-panel">
   <div class="filter-panel-header">
-    <h2>Filters</h2>
-    <button class="close-panel-btn" id="close-handheld-panel">&times;</button>
-  </div>
-
-  <div class="filter-section">
-    <h3>Manufacturer</h3>
-    <div class="filter-pills" id="manufacturer-filters">
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Anbernic">Anbernic</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Game Console">Game Console</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Game Kiddy">Game Kiddy</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Gameforce">Gameforce</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Hardkernel">Hardkernel</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="MagicX">MagicX</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Powkiddy">Powkiddy</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Retroid Pocket">Retroid Pocket</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="TrimUI">TrimUI</span>
-
-      <span class="filter-pill" data-filter="manufacturer" data-value="Valve">Valve</span>
-
+    <h2>Filters <span class="filter-count-badge" id="handheldFilterCount" style="display:none">(0)</span></h2>
+    <div class="filter-panel-header-actions">
+      <button type="button" class="filter-reset-link" id="clear-handheld-filters">Reset</button>
+      <button class="close-panel-btn" id="close-handheld-panel">&times;</button>
     </div>
   </div>
 
-  <div class="filter-section">
-    <h3>Custom Firmware</h3>
-    <div class="filter-pills" id="cfw-filters">
+  <div class="filter-accordion open">
+    <div class="filter-accordion-summary" role="button" tabindex="0">
+      <span>Manufacturer</span>
+      <i class="bi bi-chevron-down accordion-chevron"></i>
+    </div>
+    <div class="filter-accordion-body">
+      <div class="filter-radio-list">
 
-      <span class="filter-pill" data-filter="cfw" data-value="AmberELEC">AmberELEC</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Anbernic">
+          <span>Anbernic</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="ArkOS">ArkOS</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Game Console">
+          <span>Game Console</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="ArkOS (Wummle)">ArkOS (Wummle)</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Game Kiddy">
+          <span>Game Kiddy</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="Batocera">Batocera</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Gameforce">
+          <span>Gameforce</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="EMUELEC">EMUELEC</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Hardkernel">
+          <span>Hardkernel</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="EmuELEC">EmuELEC</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="MagicX">
+          <span>MagicX</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="KNULLI">KNULLI</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Powkiddy">
+          <span>Powkiddy</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="Knulli">Knulli</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Retroid Pocket">
+          <span>Retroid Pocket</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="ROCKNIX">ROCKNIX</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="TrimUI">
+          <span>TrimUI</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="RetroDECK">RetroDECK</span>
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="manufacturer" value="Valve">
+          <span>Valve</span>
+        </label>
 
-      <span class="filter-pill" data-filter="cfw" data-value="TheRA">TheRA</span>
-
-      <span class="filter-pill" data-filter="cfw" data-value="TrimUI">TrimUI</span>
-
-      <span class="filter-pill" data-filter="cfw" data-value="muOS">muOS</span>
-
+      </div>
     </div>
   </div>
 
-  <button class="clear-all-filters-btn" id="clear-handheld-filters">
-    <i class="fa-solid fa-rotate-left"></i> Clear All Filters
-  </button>
+  <div class="filter-accordion">
+    <div class="filter-accordion-summary" role="button" tabindex="0">
+      <span>Custom Firmware</span>
+      <i class="bi bi-chevron-down accordion-chevron"></i>
+    </div>
+    <div class="filter-accordion-body">
+      <div class="filter-radio-list">
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="AmberELEC">
+          <span>AmberELEC</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="ArkOS">
+          <span>ArkOS</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="ArkOS (Wummle)">
+          <span>ArkOS (Wummle)</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="Batocera">
+          <span>Batocera</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="EMUELEC">
+          <span>EMUELEC</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="EmuELEC">
+          <span>EmuELEC</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="KNULLI">
+          <span>KNULLI</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="Knulli">
+          <span>Knulli</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="ROCKNIX">
+          <span>ROCKNIX</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="RetroDECK">
+          <span>RetroDECK</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="TheRA">
+          <span>TheRA</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="TrimUI">
+          <span>TrimUI</span>
+        </label>
+
+        <label class="filter-checkbox-item">
+          <input type="checkbox" data-filter="cfw" value="muOS">
+          <span>muOS</span>
+        </label>
+
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="portsCounter">
-  Showing <span id="visible-handheld-count">40</span> of 40 devices
-</div>
+<div class="game-grid handhelds-grid list-view" id="handheldsGrid">
 
-<div class="handhelds-grid">
-
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="ROCKNIX"
-       data-search="anbernic rg arc-d anbernic">
+       data-search="anbernic rg arc-d anbernic rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG ARC-D</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG ARC-D</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1708,35 +1796,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="ROCKNIX"
-       data-search="anbernic rg arc-s anbernic">
+       data-search="anbernic rg arc-s anbernic rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG ARC-S</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG ARC-S</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1744,35 +1828,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg28xx anbernic">
+       data-search="anbernic rg28xx anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG28XX</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG28XX</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1784,35 +1864,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg34xx anbernic">
+       data-search="anbernic rg34xx anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG34XX</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG34XX</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>720x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>720x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1824,35 +1900,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg34xx sp anbernic">
+       data-search="anbernic rg34xx sp anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG34XX SP</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG34XX SP</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>720x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>720x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1864,35 +1936,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="AmberELEC,ArkOS,TheRA"
-       data-search="anbernic rg351mp anbernic">
+       data-search="anbernic rg351mp anbernic rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG351MP</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG351MP</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1904,35 +1972,31 @@
       <span class="cfw-pill">TheRA</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="AmberELEC,ArkOS (Wummle),ROCKNIX"
-       data-search="anbernic rg351p/m anbernic">
+       data-search="anbernic rg351p/m anbernic rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG351P/M</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG351P/M</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>480x320</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>480x320
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1944,35 +2008,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="AmberELEC,ArkOS,ROCKNIX"
-       data-search="anbernic rg351v anbernic">
+       data-search="anbernic rg351v anbernic rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG351V</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG351V</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>1 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>1
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -1984,35 +2044,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="ArkOS"
-       data-search="anbernic rg353 m/v/p anbernic">
+       data-search="anbernic rg353 m/v/p anbernic rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG353 M/V/P</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG353 M/V/P</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2020,35 +2076,31 @@
       <span class="cfw-pill">ArkOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="ArkOS,ROCKNIX"
-       data-search="anbernic rg353 vs/ps anbernic">
+       data-search="anbernic rg353 vs/ps anbernic rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG353 VS/PS</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG353 VS/PS</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2058,35 +2110,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg35xx h anbernic">
+       data-search="anbernic rg35xx h anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG35XX H</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG35XX H</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2098,35 +2146,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg35xx plus anbernic">
+       data-search="anbernic rg35xx plus anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG35XX PLUS</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG35XX PLUS</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2138,35 +2182,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg35xx sp anbernic">
+       data-search="anbernic rg35xx sp anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG35XX SP</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG35XX SP</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2178,35 +2218,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg40xx h anbernic">
+       data-search="anbernic rg40xx h anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG40XX H</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG40XX H</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2218,35 +2254,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rg40xx v anbernic">
+       data-search="anbernic rg40xx v anbernic h700">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG40XX V</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG40XX V</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>H700</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>1 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>H700
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>1
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2258,35 +2290,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="ArkOS,ROCKNIX"
-       data-search="anbernic rg503 anbernic">
+       data-search="anbernic rg503 anbernic rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG503</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG503</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>960x544</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>960x544
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2296,35 +2324,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="AmberELEC,ROCKNIX"
-       data-search="anbernic rg552 anbernic">
+       data-search="anbernic rg552 anbernic rk3399">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RG552</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RG552</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1920x1152</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3399</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>4.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1920x1152
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3399
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>4.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2334,35 +2358,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Anbernic" 
+  <div class="handheld-card"
+       data-manufacturer="Anbernic"
        data-cfw="Knulli,ROCKNIX,muOS"
-       data-search="anbernic rgcubexx anbernic">
+       data-search="anbernic rgcubexx anbernic unknown">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGCUBEXX</h3>
-      <span class="handheld-brand">Anbernic</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGCUBEXX</h3>
+    <span class="handheld-brand">Anbernic</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>UNKNOWN</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>0MB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>UNKNOWN
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>0MB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2374,35 +2394,31 @@
       <span class="cfw-pill">muOS</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Game Console" 
+  <div class="handheld-card"
+       data-manufacturer="Game Console"
        data-cfw="AmberELEC,ArkOS,ROCKNIX"
-       data-search="r33s retro handheld game console">
+       data-search="r33s retro handheld game console rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">R33S Retro Handheld</h3>
-      <span class="handheld-brand">Game Console</span>
-    </div>
+    <div class="handheld-info">
+    <h3>R33S Retro Handheld</h3>
+    <span class="handheld-brand">Game Console</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2414,35 +2430,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Game Console" 
+  <div class="handheld-card"
+       data-manufacturer="Game Console"
        data-cfw="AmberELEC,ArkOS,ROCKNIX"
-       data-search="r35s retro handheld game console">
+       data-search="r35s retro handheld game console rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">R35S Retro Handheld</h3>
-      <span class="handheld-brand">Game Console</span>
-    </div>
+    <div class="handheld-info">
+    <h3>R35S Retro Handheld</h3>
+    <span class="handheld-brand">Game Console</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2454,35 +2466,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Game Console" 
+  <div class="handheld-card"
+       data-manufacturer="Game Console"
        data-cfw="AmberELEC,ArkOS,ROCKNIX"
-       data-search="r36s retro handheld game console">
+       data-search="r36s retro handheld game console rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">R36S Retro Handheld</h3>
-      <span class="handheld-brand">Game Console</span>
-    </div>
+    <div class="handheld-info">
+    <h3>R36S Retro Handheld</h3>
+    <span class="handheld-brand">Game Console</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2494,35 +2502,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Game Kiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Game Kiddy"
        data-cfw="EMUELEC"
-       data-search="gkd bubble game kiddy">
+       data-search="gkd bubble game kiddy rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">GKD Bubble</h3>
-      <span class="handheld-brand">Game Kiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>GKD Bubble</h3>
+    <span class="handheld-brand">Game Kiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2530,35 +2534,31 @@
       <span class="cfw-pill">EMUELEC</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Gameforce" 
+  <div class="handheld-card"
+       data-manufacturer="Gameforce"
        data-cfw="ROCKNIX"
-       data-search="gameforce ace gameforce">
+       data-search="gameforce ace gameforce rk3588">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">Ace</h3>
-      <span class="handheld-brand">Gameforce</span>
-    </div>
+    <div class="handheld-info">
+    <h3>Ace</h3>
+    <span class="handheld-brand">Gameforce</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1920x1080</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3588</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>8.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1920x1080
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3588
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>8.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2566,35 +2566,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Gameforce" 
+  <div class="handheld-card"
+       data-manufacturer="Gameforce"
        data-cfw="ArkOS,EmuELEC"
-       data-search="gameforce chi gameforce">
+       data-search="gameforce chi gameforce rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">Chi</h3>
-      <span class="handheld-brand">Gameforce</span>
-    </div>
+    <div class="handheld-info">
+    <h3>Chi</h3>
+    <span class="handheld-brand">Gameforce</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2604,35 +2600,31 @@
       <span class="cfw-pill">EmuELEC</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Hardkernel" 
+  <div class="handheld-card"
+       data-manufacturer="Hardkernel"
        data-cfw="AmberELEC,ArkOS,EmuELEC,ROCKNIX"
-       data-search="hardkernel odroid go advance hardkernel">
+       data-search="hardkernel odroid go advance hardkernel rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">ODROID GO Advance</h3>
-      <span class="handheld-brand">Hardkernel</span>
-    </div>
+    <div class="handheld-info">
+    <h3>ODROID GO Advance</h3>
+    <span class="handheld-brand">Hardkernel</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>480x320</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>1 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>480x320
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>1
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2646,35 +2638,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Hardkernel" 
+  <div class="handheld-card"
+       data-manufacturer="Hardkernel"
        data-cfw="AmberELEC,ArkOS,EmuELEC,ROCKNIX"
-       data-search="hardkernel odroid go super hardkernel">
+       data-search="hardkernel odroid go super hardkernel rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">ODROID GO Super</h3>
-      <span class="handheld-brand">Hardkernel</span>
-    </div>
+    <div class="handheld-info">
+    <h3>ODROID GO Super</h3>
+    <span class="handheld-brand">Hardkernel</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>854x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>854x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2688,35 +2676,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Hardkernel" 
+  <div class="handheld-card"
+       data-manufacturer="Hardkernel"
        data-cfw="AmberELEC,ArkOS,EmuELEC,ROCKNIX"
-       data-search="hardkernel odroid go ultra hardkernel">
+       data-search="hardkernel odroid go ultra hardkernel s922x">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">ODROID GO Ultra</h3>
-      <span class="handheld-brand">Hardkernel</span>
-    </div>
+    <div class="handheld-info">
+    <h3>ODROID GO Ultra</h3>
+    <span class="handheld-brand">Hardkernel</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>854x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>S922X</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>854x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>S922X
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2730,35 +2714,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="MagicX" 
+  <div class="handheld-card"
+       data-manufacturer="MagicX"
        data-cfw="AmberELEC,ArkOS,ROCKNIX"
-       data-search="xu10 retro handheld magicx">
+       data-search="xu10 retro handheld magicx rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">XU10 Retro Handheld</h3>
-      <span class="handheld-brand">MagicX</span>
-    </div>
+    <div class="handheld-info">
+    <h3>XU10 Retro Handheld</h3>
+    <span class="handheld-brand">MagicX</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2770,35 +2750,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ArkOS,ROCKNIX"
-       data-search="powkiddy rgb10 powkiddy">
+       data-search="powkiddy rgb10 powkiddy unknown">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGB10</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGB10</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>UNKNOWN</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>0MB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>UNKNOWN
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>0MB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2808,35 +2784,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ROCKNIX"
-       data-search="powkiddy rgb10max3 powkiddy">
+       data-search="powkiddy rgb10max3 powkiddy rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGB10MAX3</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGB10MAX3</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1280x720</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1280x720
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2844,35 +2816,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ROCKNIX"
-       data-search="powkiddy rgb10max3 pro powkiddy">
+       data-search="powkiddy rgb10max3 pro powkiddy s922x">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGB10MAX3 Pro</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGB10MAX3 Pro</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>854x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>S922X</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>854x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>S922X
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2880,35 +2848,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="AmberELEC"
-       data-search="powkiddy rgb20s powkiddy">
+       data-search="powkiddy rgb20s powkiddy rk3326">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGB20S</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGB20S</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3326</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3326
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2916,35 +2880,31 @@
       <span class="cfw-pill">AmberELEC</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ArkOS,ROCKNIX"
-       data-search="powkiddy rgb30 powkiddy">
+       data-search="powkiddy rgb30 powkiddy rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RGB30</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RGB30</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>720x720</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>720x720
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2954,35 +2914,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ArkOS,ROCKNIX"
-       data-search="powkiddy rk2023 powkiddy">
+       data-search="powkiddy rk2023 powkiddy rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">RK2023</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>RK2023</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>640x480</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>640x480
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -2992,35 +2948,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Powkiddy" 
+  <div class="handheld-card"
+       data-manufacturer="Powkiddy"
        data-cfw="ROCKNIX"
-       data-search="powkiddy x55 powkiddy">
+       data-search="powkiddy x55 powkiddy rk3566">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">X55</h3>
-      <span class="handheld-brand">Powkiddy</span>
-    </div>
+    <div class="handheld-info">
+    <h3>X55</h3>
+    <span class="handheld-brand">Powkiddy</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1280x720</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>RK3566</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>2.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1280x720
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>RK3566
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>2.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3028,35 +2980,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Retroid Pocket" 
+  <div class="handheld-card"
+       data-manufacturer="Retroid Pocket"
        data-cfw="Batocera,ROCKNIX"
-       data-search="retroid pocket 5 retroid pocket">
+       data-search="retroid pocket 5 retroid pocket sd865">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">5</h3>
-      <span class="handheld-brand">Retroid Pocket</span>
-    </div>
+    <div class="handheld-info">
+    <h3>5</h3>
+    <span class="handheld-brand">Retroid Pocket</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1920x1080</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>SD865</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>8.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1920x1080
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>SD865
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>8.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3066,35 +3014,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Retroid Pocket" 
+  <div class="handheld-card"
+       data-manufacturer="Retroid Pocket"
        data-cfw="Batocera,ROCKNIX"
-       data-search="retroid pocket mini retroid pocket">
+       data-search="retroid pocket mini retroid pocket sd865">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">Mini</h3>
-      <span class="handheld-brand">Retroid Pocket</span>
-    </div>
+    <div class="handheld-info">
+    <h3>Mini</h3>
+    <span class="handheld-brand">Retroid Pocket</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1280x960</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>SD865</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>6.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1280x960
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>SD865
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>6.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3104,35 +3048,31 @@
       <span class="cfw-pill">ROCKNIX</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="TrimUI" 
+  <div class="handheld-card"
+       data-manufacturer="TrimUI"
        data-cfw="KNULLI,TrimUI"
-       data-search="trimui brick trimui">
+       data-search="trimui brick trimui a133plus">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">Brick</h3>
-      <span class="handheld-brand">TrimUI</span>
-    </div>
+    <div class="handheld-info">
+    <h3>Brick</h3>
+    <span class="handheld-brand">TrimUI</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1024x768</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>A133PLUS</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>0 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1024x768
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>A133PLUS
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>0
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3142,35 +3082,31 @@
       <span class="cfw-pill">TrimUI</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="TrimUI" 
+  <div class="handheld-card"
+       data-manufacturer="TrimUI"
        data-cfw="KNULLI,TrimUI"
-       data-search="trimui smart pro trimui">
+       data-search="trimui smart pro trimui a133plus">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">Smart Pro</h3>
-      <span class="handheld-brand">TrimUI</span>
-    </div>
+    <div class="handheld-info">
+    <h3>Smart Pro</h3>
+    <span class="handheld-brand">TrimUI</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1280x720</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>A133PLUS</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>1.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1280x720
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>A133PLUS
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>1.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3180,35 +3116,31 @@
       <span class="cfw-pill">TrimUI</span>
 
     </div>
+    </div>
   </div>
 
-  <div class="handheld-card" 
-       data-manufacturer="Valve" 
+  <div class="handheld-card"
+       data-manufacturer="Valve"
        data-cfw="Batocera,RetroDECK"
-       data-search="steamdeck valve">
+       data-search="steamdeck valve x86_64">
 
-    <div class="handheld-header">
-      <h3 class="handheld-name">SteamDeck</h3>
-      <span class="handheld-brand">Valve</span>
-    </div>
+    <div class="handheld-info">
+    <h3>SteamDeck</h3>
+    <span class="handheld-brand">Valve</span>
 
     <div class="handheld-specs">
-      <div class="spec-row">
-        <i class="fa-solid fa-display"></i>
-        <span>1280x800</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-microchip"></i>
-        <span>X86_64</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-memory"></i>
-        <span>16.0GB</span>
-      </div>
-      <div class="spec-row">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>2 sticks</span>
-      </div>
+      <span class="handheld-spec" title="Resolution">
+        <i class="bi bi-display"></i>1280x800
+      </span>
+      <span class="handheld-spec" title="Chipset">
+        <i class="bi bi-cpu"></i>X86_64
+      </span>
+      <span class="handheld-spec" title="Memory">
+        <i class="bi bi-memory"></i>16.0GB
+      </span>
+      <span class="handheld-spec" title="Analog sticks">
+        <i class="bi bi-joystick"></i>2
+      </span>
     </div>
 
     <div class="handheld-cfw">
@@ -3218,6 +3150,7 @@
       <span class="cfw-pill">RetroDECK</span>
 
     </div>
+    </div>
   </div>
 
 </div>
@@ -3225,12 +3158,23 @@
 <div id="no-results" class="no-results" style="display: none;">
   <p>No devices found matching your filters.</p>
   <button class="clear-all-filters-btn" onclick="document.getElementById('clear-handheld-filters').click()">
-    <i class="fa-solid fa-rotate-left"></i> Clear Filters
+    <i class="bi bi-arrow-counterclockwise"></i> Clear Filters
   </button>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // .filter-panel positions its top from --md-header-actual-height, which the
+  // games page measures at runtime. Without it the drawer falls back to 3rem
+  // and rides up over the real (taller) header.
+  function updateHeaderHeightVar() {
+    const header = document.querySelector('.md-header');
+    if (!header) return;
+    document.documentElement.style.setProperty('--md-header-actual-height', `${header.getBoundingClientRect().height}px`);
+  }
+  updateHeaderHeightVar();
+  window.addEventListener('resize', updateHeaderHeightVar);
+
   const searchBar = document.getElementById('handheld-search');
   const filterToggle = document.getElementById('handheld-filter-toggle');
   const filterPanel = document.getElementById('handheld-filter-panel');
@@ -3240,7 +3184,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.handheld-card');
   const visibleCount = document.getElementById('visible-handheld-count');
   const noResults = document.getElementById('no-results');
-  const filterPills = document.querySelectorAll('.filter-pill');
+  const filterInputs = document.querySelectorAll('#handheld-filter-panel input[type="checkbox"]');
+  const filterCount = document.getElementById('handheldFilterCount');
 
   let activeFilters = {
     manufacturer: new Set(),
@@ -3266,40 +3211,61 @@ document.addEventListener('DOMContentLoaded', function() {
     filterToggle.classList.remove('active');
   });
 
-  // Filter pill toggle
-  filterPills.forEach(pill => {
-    pill.addEventListener('click', function() {
-      const filterType = this.dataset.filter;
-      const value = this.dataset.value.toLowerCase();
+  // Accordion open/close, same interaction as the games panel
+  document.querySelectorAll('#handheld-filter-panel .filter-accordion-summary').forEach(sum => {
+    const toggle = () => sum.parentElement.classList.toggle('open');
+    sum.addEventListener('click', toggle);
+    sum.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
 
-      if (activeFilters[filterType].has(value)) {
-        activeFilters[filterType].delete(value);
-        this.classList.remove('selected');
+  filterInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      const type = this.dataset.filter;
+      const value = this.value.toLowerCase();
+      if (this.checked) {
+        activeFilters[type].add(value);
       } else {
-        activeFilters[filterType].add(value);
-        this.classList.add('selected');
+        activeFilters[type].delete(value);
       }
-
       applyFilters();
     });
   });
 
-  // Search
-  searchBar.addEventListener('input', function() {
-    applyFilters();
-  });
+  // Grid / list toggle, mirroring the games page. List is the default here
+  // because these rows are specs, which read better as aligned columns.
+  const grid = document.getElementById('handheldsGrid');
+  const gridBtn = document.getElementById('gridViewBtn');
+  const listBtn = document.getElementById('listViewBtn');
 
-  // Clear all filters
+  function setView(view) {
+    const isList = view === 'list';
+    grid.classList.toggle('list-view', isList);
+    listBtn.classList.toggle('active', isList);
+    gridBtn.classList.toggle('active', !isList);
+    try { localStorage.setItem('pm-handhelds-view', view); } catch (e) {}
+  }
+
+  gridBtn.addEventListener('click', () => setView('grid'));
+  listBtn.addEventListener('click', () => setView('list'));
+
+  try {
+    const saved = localStorage.getItem('pm-handhelds-view');
+    if (saved === 'grid') setView('grid');
+  } catch (e) {}
+
+  searchBar.addEventListener('input', applyFilters);
+
   clearFilters.addEventListener('click', function() {
     activeFilters.manufacturer.clear();
     activeFilters.cfw.clear();
     searchBar.value = '';
 
-    filterPills.forEach(pill => pill.classList.remove('selected'));
+    filterInputs.forEach(input => { input.checked = false; });
     applyFilters();
   });
 
-  // Apply filters
   function applyFilters() {
     const searchTerm = searchBar.value.toLowerCase();
     let visibleCards = 0;
@@ -3309,15 +3275,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const cfwList = card.dataset.cfw.toLowerCase().split(',');
       const searchText = card.dataset.search;
 
-      // Check manufacturer filter
-      const matchesManufacturer = activeFilters.manufacturer.size === 0 || 
+      const matchesManufacturer = activeFilters.manufacturer.size === 0 ||
                                    activeFilters.manufacturer.has(manufacturer);
 
-      // Check CFW filter (device must have at least one selected CFW)
-      const matchesCFW = activeFilters.cfw.size === 0 || 
+      const matchesCFW = activeFilters.cfw.size === 0 ||
                          cfwList.some(cfw => activeFilters.cfw.has(cfw.trim()));
 
-      // Check search
       const matchesSearch = !searchTerm || searchText.includes(searchTerm);
 
       if (matchesManufacturer && matchesCFW && matchesSearch) {
@@ -3329,12 +3292,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     visibleCount.textContent = visibleCards;
+    noResults.style.display = visibleCards === 0 ? 'block' : 'none';
 
-    if (visibleCards === 0) {
-      noResults.style.display = 'block';
-    } else {
-      noResults.style.display = 'none';
-    }
+    const active = activeFilters.manufacturer.size + activeFilters.cfw.size;
+    filterCount.textContent = `(${active})`;
+    filterCount.style.display = active ? '' : 'none';
   }
 });
 </script>

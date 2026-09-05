@@ -853,6 +853,10 @@ def define_env(env):
                 "name": device_name,
                 "manufacturer": manufacturer,
                 "resolution": f"{resolution[0]}x{resolution[1]}",
+                # Raw dimensions as well as the display string: the handhelds
+                # page draws each device's screen to its real aspect ratio.
+                "res_w": resolution[0],
+                "res_h": resolution[1],
                 "aspect_ratio": aspect_ratio,
                 "cpu": cpu,
                 "ram_mb": ram,
