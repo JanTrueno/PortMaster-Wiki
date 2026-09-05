@@ -306,6 +306,61 @@
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-29_1431/dusklight.zip"
             }
         },
+        "gizmoduck.zip": {
+            "version": 4,
+            "name": "gizmoduck.zip",
+            "items": [
+                "Gizmoduck.sh",
+                "gizmoduck"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Gizmoduck",
+                "porter": [
+                    "Ganimoth"
+                ],
+                "desc": "This is a fangame about the adventures of Gizmoduck developed by Gektorne.",
+                "desc_md": null,
+                "inst": "Download the Windows version of the game from Itch.io and copy Gizmoduck.exe into gamedata folder.",
+                "inst_md": "Download the `Windows` version of the game from [Itch.io](https://gektorne.itch.io/httpsxcomgektorne) and copy `Gizmoduck.exe` into `gamedata` folder.",
+                "genres": [
+                    "platformer"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [
+                    "godot_4.7.1.squashfs",
+                    "weston_pkg_0.2.squashfs"
+                ],
+                "store": [
+                    {
+                        "name": "Itch.io",
+                        "gameurl": "https://gektorne.itch.io/httpsxcomgektorne",
+                        "developerurl": ""
+                    }
+                ],
+                "availability": "free",
+                "reqs": [],
+                "arch": [],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-09-02",
+                "date_updated": "2026-09-02",
+                "md5": "6e3ef8be067a0bbf157d80168b35a5ed",
+                "size": 79219,
+                "release_id": "2026-09-02_1433",
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/gizmoduck.zip"
+            }
+        },
         "gta3.zip": {
             "version": 2,
             "name": "gta3.zip",
@@ -451,6 +506,61 @@
                 "release_id": "2026-02-24_1300",
                 "size": 30491889,
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-02-24_1300/loderunneronline.zip"
+            }
+        },
+        "megamanw.zip": {
+            "version": 4,
+            "name": "megamanw.zip",
+            "items": [
+                "Mega Man W.sh",
+                "megamanw"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Mega Man W",
+                "porter": [
+                    "armsonic"
+                ],
+                "desc": "Mega Man W is a fan made game by Team W which aims to be similar to the original six mega man games. You will face off against a fierce hoard of robots infected by a virus corrupting them and making them go mad!",
+                "desc_md": null,
+                "inst": "Download any version of the game (linux,windows,mac) from https://jumpdashevade.itch.io/mega-man-w and place the .pck file into the MegaManW port folder.",
+                "inst_md": null,
+                "genres": [
+                    "action",
+                    "platformer"
+                ],
+                "image": {
+                    "screenshot": "screenshot.jpg",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [
+                    "frt_3.5.2.squashfs"
+                ],
+                "store": [
+                    {
+                        "name": "Itch.io",
+                        "gameurl": "https://jumpdashevade.itch.io/mega-man-w",
+                        "developerurl": "https://megamanw.com/"
+                    }
+                ],
+                "availability": "free",
+                "reqs": [],
+                "arch": [],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-09-02",
+                "date_updated": "2026-09-02",
+                "md5": "83910b8e2ce68e80fb6139d05215d186",
+                "size": 159739,
+                "release_id": "2026-09-02_1433",
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/megamanw.zip"
             }
         },
         "minimario.zip": {
@@ -1879,15 +1989,15 @@
     "utils": {
         "gameinfo.zip": {
             "name": "gameinfo.zip",
-            "md5": "0f1a5d25e0c52d3c99668e5a6f6e73ab",
-            "size": 9314991,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-29_1431/gameinfo.zip"
+            "md5": "cf42ed4a22be95e6a8bbc67b286c83e1",
+            "size": 9522605,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/gameinfo.zip"
         },
         "images.zip": {
             "name": "images.zip",
-            "md5": "7212b2f167b8ea342a663da3f7607311",
-            "size": 4237406,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-08-29_1948/images.zip"
+            "md5": "c079c3ef33a826dcadb684779cb4f2ee",
+            "size": 4313999,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/images.zip"
         }
     }
 }

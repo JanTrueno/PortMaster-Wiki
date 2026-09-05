@@ -452,3 +452,173 @@
     font-size: 0.6rem;
   }
 }
+
+/* ===== Latest news =====
+   Same borderless language as the stats / get-involved rows above: no
+   card boxes, just type on the page. Left-aligned rather than centered
+   because these are headlines and prose, not labelled stats. */
+.news-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* .home-section > h2 carries the section's bottom margin; the flex row
+   owns the spacing here instead, so zero it out. */
+.news-head > h2 {
+  margin-bottom: 0;
+}
+
+.news-all {
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.news-all:hover {
+  color: var(--md-default-fg-color);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.news-item {
+  display: flex;
+  flex-direction: column;
+  /* Grid items default to min-width:auto, so a long unbroken headline
+     would push the column wider than its 1fr track. */
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.news-item-date {
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.news-item-title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin: 0.4rem 0 0.4rem;
+}
+
+.news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+.news-item-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+  margin: 0;
+  /* Excerpts come from the posts themselves and vary wildly in length;
+     clamping keeps the three columns roughly level. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Material colours every <a> inside .md-typeset via `.md-typeset a`
+   (specificity 0,2,0), which beats a bare class - so these two need the
+   parent selector to keep the news links from going link-blue. */
+.md-typeset .news-all,
+.md-typeset .news-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset .news-all {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .news-all:hover,
+.md-typeset .news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+/* Byline sits at the bottom of the card; margin-top:auto keeps it on the
+   baseline across columns whose excerpts clamp to different heights. */
+.news-item-by {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+  font-size: 0.74rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.news-item-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex: none;
+  /* Avatars are decorative here, so don't let the lightbox grab them. */
+  pointer-events: none;
+}
+
+/* ===== Latest news: dark band =====
+   Alternates against the light Get Involved row above it, the same way
+   the showcase panel does. Full-bleed via the same negative-margin /
+   positive-padding pair as .showcase (see the note there for why this
+   rather than a 100vw pseudo-element). */
+.news-band {
+  background-color: #0e0e10;
+  /* The band is the last thing on the page, and .md-content__inner sits on
+     a 1.2rem bottom margin - which showed as a pale strip between this dark
+     band and the dark footer. Cancel exactly that much so the band meets the
+     footer; the 3.5rem bottom padding still keeps the cards off the edge.
+     The negative margin lives on the .md-typeset-qualified rule below,
+     because Material zeroes it via `.md-typeset > :last-child`. */
+  margin: 5rem calc(-50vw + 50%) 0;
+  padding: 3.5rem calc(50vw - 50%) 3.5rem;
+  overflow: hidden;
+}
+
+/* The band is a fixed dark surface in both colour schemes, so its text
+   is pinned to literal values rather than the theme's fg tokens - those
+   would flip to near-black in light mode and vanish. */
+.news-band > .news-head > h2 {
+  color: #ffffff;
+}
+
+.md-typeset .news-band .news-all,
+.news-band .news-item-date,
+.news-band .news-item-excerpt,
+.news-band .news-item-by {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.news-band .news-item-title {
+  color: #f2f2f4;
+}
+
+.md-typeset .news-band .news-all:hover,
+.md-typeset .news-band .news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+/* Material's `.md-typeset > :last-child { margin-bottom: 0 }` (0,2,0) beats
+   a bare `.news-band`, so the pull-down has to match that specificity. */
+.md-typeset > .news-band:last-child {
+  margin-bottom: -1.2rem;
+}

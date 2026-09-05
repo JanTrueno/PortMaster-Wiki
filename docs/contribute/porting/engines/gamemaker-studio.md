@@ -1,114 +1,102 @@
 # GameMaker Studio :simple-gamemaker:
 
+[GameMaker Studio](https://gamemaker.io/en) is a 2D game engine built around a
+drag-and-drop editor and its own scripting language, GML. It exports to Windows,
+macOS, Linux, Android, iOS and the major consoles.
 
-_[GameMaker Studio](https://gamemaker.io/en) is a game development engine designed to simplify the creation of 2D games. It offers a drag-and-drop interface for beginners and a custom scripting language for advanced users. Developers can create game elements through an event-driven system, making the engine accessible without requiring extensive programming knowledge._
+It does not export to ARM Linux, and that is the whole problem. A GameMaker game
+has no build that runs natively on the handhelds PortMaster targets, so every
+GameMaker port goes through a compatibility layer instead.
 
-_While GameMaker supports multiple platforms, including Windows, macOS, Linux, Android, iOS, and major consoles like Nintendo Switch, PlayStation, and Xbox, its support for ARM-based Linux systems is extremely limited. As a result, GameMaker titles are not compatible with the handheld devices supported by PortMaster using conventional methods._
+It is still the most-ported engine in the library by a wide margin.
 
-## Porting Methodology
+## How PortMaster runs it
 
+[GMLoader](https://github.com/JohnnyonFlame/droidports) and its successor
+[GMLoaderNext](https://github.com/JohnnyonFlame/gmloader-next), written by
+[JohnnyOnFlame](https://github.com/JohnnyonFlame) and contributors, are
+GameMaker compatibility layers for ARM Linux. They share a codebase and history
+with the PS Vita project
+[YoYoLoader](https://github.com/Rinnegatamante/yoyoloader_vita).
 
-[Gmloader](https://github.com/JohnnyonFlame/droidports) and its successor, [gmloader-next](https://github.com/JohnnyonFlame/gmloader-next) are GameMaker Studio compatibility layers for ARM-based Linux systems, developed by [JohnnyOnFlame](https://github.com/JohnnyonFlame) and contributors. These projects share a history and codebase to the PS Vita parallel project, [YoYoLoader](https://github.com/Rinnegatamante/yoyoloader_vita).
+Both wrap `libyoyo.so`, the official GameMaker runner for Android. They load
+that ARM executable into memory, resolve its imports against native functions,
+and patch it where needed so it runs. The effect is a minimal Android-like
+environment in which an Android GameMaker build executes directly on ARM Linux.
 
-Both gmloader and gmloader-next function as compatibility layers for `libyoyo.so`, the official GameMaker Studio Runner application for Android. They load the ARM executable into memory, resolve its imports with native functions, and apply necessary patches to ensure proper execution.
+Most GameMaker ports now use GMLoaderNext. The rest still run on the original
+GMLoader.
 
-By simulating a minimalist Android-like environment, these tools enable the native execution of GameMaker Studio-developed games on ARM-based Linux devices.
-
-For more details on gmloader’s origin and deeper technical functionality, refer to the [research documentation](https://github.com/JohnnyonFlame/yyg_fix/blob/master/RESEARCH.md).
-
----
+The [research documentation](https://github.com/JohnnyonFlame/yyg_fix/blob/master/RESEARCH.md)
+covers the origin and the deeper technical detail.
 
 ## Compatibility
 
-The theoretical compatibility across platforms is summarized in the table below:
+GameMaker can compile a game two ways, and only one of them ports. Bytecode
+builds are portable; YoYo Compiler (YYC) builds compile GML straight to machine
+code, which is faster and harder to tamper with but ties the game to the
+platform it was built for.
 
-| Platform | Bytecode Compiler | YoYo Compiler (YYC) |
+Since the loader runs the Android runner, an Android build is what's needed:
+
+| Platform | Bytecode compiler | YoYo Compiler (YYC) |
 |----------|-------------------|---------------------|
 | Android  | Yes               | Yes                 |
 | Windows  | Yes               | No                  |
 | Linux    | Yes               | No                  |
 | macOS    | Yes               | No                  |
 
-*   **gmloader**: Supports GMS versions **2022.x** and earlier, compatible with **ARMv7/armhf** architectures.
-*   **gmloader-next.armhf**: Supports **all GMS versions**, works with **ARMv7/armhf**.
-*   **gmloader-next.aarch64**: Supports GMS version **2.2.1+**, compatible with **ARMv8/AARCH64**.
+Which loader applies depends on the GameMaker version and the device
+architecture:
 
-### What is YYC?
+| Loader | GameMaker versions | Architecture |
+|---|---|---|
+| `gmloader` | 2022.x and earlier | ARMv7 / armhf |
+| `gmloadernext.armhf` | all | ARMv7 / armhf |
+| `gmloadernext.aarch64` | 2.2.1 and later | ARMv8 / aarch64 |
 
-**YYC** (YoYo Compiler) is a feature in GameMaker Studio that compiles game code directly into machine code. This process leads to:
+GMLoader is deprecated. Use it only when nothing else works.
 
-*   **Faster execution speed**.
-*   **Enhanced security** due to direct compilation.
-*   However, the compiled code is integrated tightly into the executable, **reducing portability** across different platforms.
+## Identifying a game
 
-### Determining GMS Version and Compiler Type
+Two facts decide everything else: the GameMaker version, and whether the game
+was built as bytecode or YYC.
 
-To determine whether a GameMaker game uses **YYC** or **bytecode**, follow these steps:
+[UndertaleModTool](https://github.com/UnderminersTeam/UndertaleModTool/releases)
+answers both. Open the game's data file, which will be `data.win`, `game.unx`,
+`game.ios` or `game.droid`, extracting it from an APK or the game folder first
+if needed:
 
-1.  **Install UndertaleModTool** from [here](https://github.com/UnderminersTeam/UndertaleModTool/releases).
-2.  **Extract game assets** (e.g., `data.win`, `game.unx`, `game.ios`, or `game.droid`) from the APK using [7Zip](https://www.7-zip.org/download.html).
-3.  **Open the extracted assets** in **UndertaleModTool**. The tool will automatically detect if the game uses **YYC** or **bytecode**.
-4.  Navigate to **Data > General Info** to check the **GameMaker version**.
+- The version is under **Data > General Info**.
+- A warning appears on load if the game uses YYC.
 
-If the game uses **YYC**, a warning will appear in UndertaleModTool.
+UndertaleModTool makes an educated guess at the version, so treat it as
+approximate rather than authoritative.
 
-## Steps Involved
+For finding candidates in the first place,
+[itch.io](https://itch.io/games/made-with-gamemaker) and
+[SteamDB](https://steamdb.info/tech/Engine/GameMaker/) both list games by
+engine. Free games are the better starting point, since most of the
+commercially successful portable ones are already ported.
 
-Porting a **GameMaker** game to an ARM-based Linux device using **gmloader** involves several key steps. The following guide outlines the process for porting a game.
+## Wrappers
 
-### Step 1: Find the Target Game
+The loader needs a wrapper APK carrying the GameMaker runtime libraries for the
+target architecture, and those libraries have to match the loader you picked:
+ARMv7 libraries for `armhf`, ARMv8 for `aarch64`.
 
-The first step is to select a **GameMaker** game to port. A variety of GameMaker-developed games can be found on the following platforms:
+Prebuilt wrappers are available from the
+[GMloader-ports repository](https://github.com/Fraxinus88/GMloader-ports/tree/main/gmloader%20wrappers%20(APK)).
 
-*   [**Itch.io**: Games made with GameMaker](https://itch.io/games/made-with-gamemaker)
-*   [**SteamDB**: Steam games using GameMaker Studio](https://steamdb.info/tech/Engine/GameMaker/)
+For final packaging we prefer building a custom wrapper: download the matching
+GameMaker Studio version, set up the Android export, export an open-source
+example, launch it once, then strip the assets back out.
 
-Tags and filters can be used to narrow down the search. It is recommended to begin with free games, as most commercially successful portable games have already been ported.
+```bash
+zip -d portname.port 'assets/*'
+```
 
-### Step 2: Extract the Game’s Bytecode File
-
-After selecting the game, the next step is to locate its bytecode file. GameMaker games typically store their assets in files such as **data.win**, **game.unx**, **game.ios**, or **game.droid**.
-
-To extract and inspect these files:
-
-1.  **Download UndertaleModTool** from [here](https://github.com/UnderminersTeam/UndertaleModTool/releases).
-2.  **Extract the game files** from the APK or game folder.
-3.  **Open the bytecode file** (e.g., **data.win**, **game.unx**, **game.ios**,or **game.droid**) with UndertaleModTool.
-
-### Step 3: Check for YYC and GameMaker Version
-
-Within **UndertaleModTool**, check if the game uses **YYC (YoYo Compiler)** or bytecode:
-
-1.  Look for the **YYC warning**. If the game uses YYC, a warning will appear.
-2.  Check the **GameMaker version** under _Data > General Info_.
-
-**Note**: UndertaleModTool makes an educated guess regarding the version, so accuracy is not always guaranteed.
-
-### Step 4: Select the Correct Wrapper
-
-After confirming the GameMaker version and compiler type, the appropriate wrapper APK should be downloaded from the following repository:
-
-*   [**GameMaker Studio Wrappers**: wrapper APKs](https://github.com/Fraxinus88/GMloader-ports/tree/main/gmloader%20wrappers%20(APK))
-
-**Note**: It is preferable to **build a custom wrapper/APK** for final packaging. This can be done by downloading the matching version of GameMaker Studio, setting up the Android export, and exporting an open-source example. After the first launch, the assets can be removed using the following command: `zip -d portname.port 'assets/*'`. For further details on the reasoning behind this packaging, refer to the documentation below.
-
-### Step 5: Rework the Example Package for the Game
-
-After obtaining the correct wrapper, the example zip package must be reworked for the specific game. Depending on the version of GameMaker Studio (GMS) used, choose between the following:
-
-*   **gmloader** (deprecated unless necessary)
-*   **gmloadernext.aarch64** (recommended for GMS 2.2.1+ on ARMv8)
-*   **gmloadernext.armhf** (recommended for GMS 2.2.1- on ARMv7)
-
-It is crucial to ensure that the selected wrapper/APK includes the appropriate, matching, ARMv7 or ARMv8 Android libraries.
-
-By following these steps, a GameMaker game can be ported to an ARM-based Linux device using **gmloader**. Some games may require additional troubleshooting or configuration to run properly on the target device.
-
----
-
-## Packaging
-
-### GMLoader Port File Structure
+## Port structure
 
 ```
 Portname.sh
@@ -129,115 +117,101 @@ portname/
 ├── portname.gptk
 └── portname.port
 ```
-    
 
-*   **lib folder**
-    The `lib` folder within the runtime squashfs houses Android AOSP libraries, taken from a prebuilt image provided by Google. This folder is named `lib` because these are native Android libraries, following the file path structure used in Android. The `libs.${DEVICE_ARCH}` folder contains libraries native to either `aarch64` or `armhf`. GMLoader-Next requires `libcrypto`, `libopenal`, and `libzip` at a minimum to function.
-    
-*   **licenses folder**
-    The `licenses` folder contains text and markdown files that outline the license agreements for each library and binary used in GMLoader.
-    
-*   **assets folder**
-    This folder is where the end users place their game data. Typically, users will copy everything from their Steam or GOG installation folder, or unzip an archive from [Itch.io](http://Itch.io) into this folder. Once the `patchscript` completes on the first run, this folder may be removed.
-    
-*   **saves folder**
-    This folder is used to store GameMaker games’ save data. While the folder can be renamed, it is typically referred to as `saves`.
-    
-*   **gmloader.json**
-    This JSON file contains configuration options for GMLoader-Next on a per-port basis. It is configurable and can be named `portname.json`.
-    
+**`lib/`** holds Android AOSP libraries taken from a prebuilt image provided by
+Google. It's named `lib` because these are native Android libraries and this is
+the path structure Android uses. The `libs.${DEVICE_ARCH}` folder contains
+libraries native to either `aarch64` or `armhf`. GMLoaderNext needs at minimum
+`libcrypto`, `libopenal` and `libzip`.
 
-    {
-        "save_dir" : "saves",
-        "apk_path" : "my_game.port",
-        "show_cursor" : false,
-        "disable_controller" : false,
-        "force_platform" : "os_windows"
-    }
-    
+**`licenses/`** contains the license agreements for each library and binary used
+in GMLoader.
 
-*   **patchscript**
-    This is a bash script that runs on the first boot via the PortMaster Patcher program. The `.sh` file extension is avoided to prevent interference with PortMaster scripts. An example of the script can be found [here](https://github.com/JeodC/PortMaster-UFO50/blob/main/ufo50/tools/patchscript).
-    
-*   **portname.gptk**
-    If the GpToKeyB tool is used in the port, this file is likely included. Even if native gamepad controls are present, it is still advisable to include an empty `portname.gptk` file for debugging.
-    
-    ```
-    back = \"
-    start = \"
-    up = \"
-    down = \"
-    left = \"
-    right = \"
-    a = \"
-    b = \"
-    x = \"
-    y = \"
-    l1 = \"
-    l2 = \"
-    l3 = \"
-    r1 = \"
-    r2 = \"
-    r3 = \"
-    left_analog_up = \"
-    left_analog_down = \"
-    left_analog_left = \"
-    left_analog_right = \"
-    right_analog_up = \"
-    right_analog_down = \" 
-    right_analog_left = \"
-    right_analog_right = \"
-    ```
+**`assets/`** is where the end user puts their game data, typically everything
+from a Steam or GOG install folder, or the contents of an itch.io archive. Once
+`patchscript` has finished on first run, this folder can be removed.
 
-*   **portname.port**
-    This is an archive file structured like an APK file but without any Android-specific references. Upon opening, it will contain a `lib` folder with the GameMaker Studio runtime file and, if the port has been packed, an `assets` folder containing all the game data previously stored in the `portname/assets` folder.
+**`saves/`** holds the game's save data. The name is conventional rather than
+required.
 
-**Note:**
-Game Maker Studio has listed two end-user license agreements on their website for their runtimes: the [free](https://gamemaker.io/en/legal/gamemaker-runtime-licence-free) agreement, and the [professional](https://gamemaker.io/en/legal/gamemaker-runtime-licence-professional) agreement. Both list the following clause:
+**`gmloader.json`** carries per-port configuration for GMLoaderNext. It can be
+renamed to `portname.json`.
 
-> This licence grants you the right to distribute the runtime portion of GameMaker in executable code format only as an integrated and inseparable part of your content to third parties to whom you license such content, subject in each case to your full compliance with the GameMaker Terms and payment of all applicable fees.
-
-In order to adhere to the EULA, we execute a good-faith practice by bundling game data with the runtime inside the `portname.port` archive.
-
----
-
-## Patching and known bugs
-
-Sometimes ports need patches to function properly. Patches can be created with UTMT and In-house tools from Portmaster. Patches are usually deployed with an xdelta patch. When patching takes long it’s recommended to use the PortMaster patching program to show progress.
-
-### Pack audio into wrapper:
-
-Gmloader can have **trouble loading in the audio** when they are not packed into the wrapper/apk. The following example script will pack the OGG’s to the wrapper/apk. This can also be adapted for games that use audiogroups.
-
-```bash
-    # Check for .ogg files and move to APK
-    	if [ -n "$(ls ./assets/*.ogg 2>/dev/null)" ]; then
-        zip -r -0 ./portname.port./assets/
-        echo "Zipped contents to ./portname.port"
-    else
-        echo "No .ogg files found"
-    fi
+```json
+{
+    "save_dir": "saves",
+    "apk_path": "my_game.port",
+    "show_cursor": false,
+    "disable_controller": false,
+    "force_platform": "os_windows"
+}
 ```
-    
 
-### NewTextureRepacker (UTMT)
+**`patches/patchscript`** is a bash script run on first boot by the PortMaster
+patcher. It deliberately avoids the `.sh` extension so it doesn't interfere with
+PortMaster's own scripts. There's a
+[worked example](https://github.com/JeodC/PortMaster-UFO50/blob/main/ufo50/tools/patchscript)
+to work from.
 
-Script to export and repack textures developed by JohnnyOnFlame. Known to **fix crashes caused by huge texturepages** on Mali gpu’s. Can **reduce ram usage**. Known to **fix broken fonts** on Mali gpu’s.
+**`portname.gptk`** holds the gptokeyb mapping. Include an empty one even when
+the game has native gamepad support, since it helps with debugging.
 
-### Bytecode up/downgraders (UTMT)
+```
+back = \"
+start = \"
+up = \"
+down = \"
+left = \"
+right = \"
+a = \"
+b = \"
+x = \"
+y = \"
+l1 = \"
+l2 = \"
+l3 = \"
+r1 = \"
+r2 = \"
+r3 = \"
+left_analog_up = \"
+left_analog_down = \"
+left_analog_left = \"
+left_analog_right = \"
+right_analog_up = \"
+right_analog_down = \" 
+right_analog_left = \"
+right_analog_right = \"
+```
 
-This collection of scripts can up and downgrade bytecode versions. This can **increase compatibility** for GMS1 and GMS2 games.
+**`portname.port`** is an archive structured like an APK but without the
+Android-specific references. It contains a `lib` folder with the GameMaker
+runtime, and once the port is packed, an `assets` folder holding the game data
+that was previously in `portname/assets`.
 
-### GMTools (PortMaster In-house)
+!!! note "Why the game data is bundled this way"
+    GameMaker's [free](https://gamemaker.io/en/legal/gamemaker-runtime-licence-free)
+    and [professional](https://gamemaker.io/en/legal/gamemaker-runtime-licence-professional)
+    runtime licences both state that the runtime may be distributed
+    "as an integrated and inseparable part of your content". Bundling the game
+    data with the runtime inside `portname.port` is our good-faith way of
+    meeting that condition.
 
-Not all GameMaker games are the same when it comes to audio. Developers have a variety of audio options, from streaming external audio (like Undertale), to grouping audio files into `audiogroup.dat` files, to embedding audio files into the GMS data file. When audio files aren’t streamed, they’re loaded into memory at runtime. For low-mem handhelds, this can cause problems. GMTools analyzes all audiogroups and the data file and converts any `.wav` files it finds to `.ogg`, and can also compress audio to a specified bitrate. This can significantly **reduce ram usage**. For our usecase, audio quality isn’t a big concern–the handhelds use small speakers, after all.
+## Patching and common fixes
 
-### Patch deployment (PortMaster tool)
+Most GameMaker ports need the game's data file modified before it runs properly
+on a handheld. There are two ways to ship those modifications, and newer ports
+increasingly use the second.
 
-If a GMS data file requires modifications, we need to then supply a method for the end-user to make use of the modifications without having to open up UTMT themselves. PortMaster strives to make ports as accessible and seamless as possible. [XDelta3](https://github.com/Moodkiller/xdelta3-gui-2.0) both creates a patch file containing the differences between our two GMS data files, and applies patch files on-device during the first-time launch process for a port. This can be done with out xdelta binary inside the PortMaster controlfolder using the following:
+### Precomputed patches (xdelta)
+
+Build the modified data file on a PC, ship the binary difference, and apply it
+on device at first launch.
+[XDelta3](https://github.com/Moodkiller/xdelta3-gui-2.0) creates the patch from
+the difference between the original and modified files, and the `xdelta3` binary
+in the PortMaster control folder applies it.
 
 ```bash
-#Check if "data.win" exists and its MD5 checksum matches the specified value then apply patch
+# Check if "data.win" exists and its MD5 checksum matches, then apply the patch
 if [ -f "assets/data.win" ]; then
     checksum=$(md5sum "assets/data.win" | awk '{print $1}')
         if [ "$checksum" = "4b97bb2da8c515d787fe70aa03550ce5" ]; then
@@ -247,53 +221,152 @@ if [ -f "assets/data.win" ]; then
 fi
 ```
 
----
+This is simple and fast, but the patch is tied to one exact build of the game,
+which is why the checksum guard is there.
 
-## Tools Used
+### On-device patching (UndertaleModCli)
 
-PortMaster Engineers heavily rely on a few major tools that make GMS ports successful.
+The newer approach runs UndertaleModTool's command line interface,
+`UndertaleModCli.dll`, on the handheld itself through .NET. The port ships the
+transformation rather than the result, so it works from whatever copy of the
+game the user actually owns.
 
-*   [GameMaker Studio](https://gamemaker.io/en) is the **game engine** in which these games are created. If a GMS game is open source, we can use GMS to build it ourselves and make it “Ready To Run”. Example: [Spelunky Classic HD](https://github.com/JanTrueno/SpelunkyClassicHD).
-    
-*   [UndertaleModTool](https://github.com/UnderminersTeam/UndertaleModTool) is a fantastic tool for both **examining GameMaker files** (`data.win`, `game.unx`, `game.ios` and `game.droid`) and **modifying them** via scripts.
-    
-*   [XDelta3 GUI](https://github.com/Moodkiller/xdelta3-gui-2.0) is a gui version of xdelta3 that allows **creating `.xdelta` patch files** from differences in two files, used for GameMaker game modifications. A cli variant exists in PortMaster for applying these patches to legally obtained game files.
-    
-*   [GMTools](https://github.com/cdeletre/gmtools), by PortMaster Crew Member Cyril aka kotzebuedog, is a python script that handles **audio analysis and compression**.
-    
-*   [GMLoader](https://github.com/JohnnyonFlame/droidports) and [GMLoader-Next](https://github.com/JohnnyonFlame/gmloader-next) are the **compatibility binaries** that translate android vm bytecode to linux vm. These two (used for armhf and aarch64 respectively) read an android GameMaker runner library `libyoyo.so` and translate it for linux execution.
-    
----
+It needs two runtimes, declared in the port's `port.json` and mounted by the
+patchscript before use. `gmtoolkit.squashfs` provides `utmt-cli` and `gmtools`;
+`dotnet-8.0.12.squashfs` provides `dotnet` itself.
 
-## Troubleshooting Performance (Case Study)
-
-!!! quote "UFO 50"
-    When RAM limitations are not the problem, it’s time to dive deeper to find out why the game performs subpar. GameMaker uses rooms as a space to load content, and will often contain preplaced static content such as tiles to avoid draw calls later. A game can have several different rooms, like one for the title screen, and then another for the game itself, etc. These rooms are loaded into memory wholesale, so if a room has massive dimensions (think 10,000 x 20,000), it might also have a massive amount of object instances. This means the entire game will chug while using that room. A good example of this is UFO 50’s Ninpek game. If we open UFO 50 in UndertaleModTool and load rm34_Ninpek, we can instantly see why it’s choppy and slow on small-arm handhelds: the room dimensions are 15,360 x 216. Ninpek is a sidescrolling game with a constantly moving camera, so it’s natural for the developer to create a room like this to hold the content and flow. However, because the room contains so many instances, it slows to a crawl on low-power devices. There’s not much we can do about a room like this, though, at least not without heavily tampering with the game—which would essentially deviate the project from a simple compatibility patch and turn it into a complete mod.
-
-!!! quote "Isle of Sea and Sky"
-    Isles of Sea and Sky is another fine example of performance troubleshooting. In IOSAS, entering specific areas will result in a huge framerate drop—which instantly recovers as soon as the area is left. This again indicates a problem with rooms. IOSAS has a specific set of rooms called “god rooms” that load a specific script that has to do with “god gem” special effects. This special effect in question is a calculation loop for drawing lines to synchronize with gems rotating around a sprite. Calculations are already CPU-intensive tasks, so putting them into a loop that executes every frame is asking for low performance. This particular case was resolved by modifying the loop to retrieve variables from a file pm-config.ini, an ini file specially made for the port. Inside, the user can configure two variables: Idol_SFX and FrameSkip. If Idol_SFX=1, meaning the loop is allowed to execute, then FrameSkip=x will dictate when the loop will execute. Instead of executing every frame (FrameSkip=0), we can modify the value so the loop only executes every 20 or 30 frames. This results in a change: our low framerate is now a stutter, where the game “pauses” once every x frames when it performs the calculation step. This means the special effect also isn’t perfectly aligned—but it preserves the artistic effect somewhat while compensating for low CPU power.
----
-
-### Compiling
-
-Gmloader-next can be cross-compiled using the following steps. 
-
-!!!info 
-    This is for development and contribution only, prebuilds are available in the example packages.
-
-
-- Clone the repository and all submodules
+```bash
+TOOLKIT="$HOME/gmtoolkit"
+RUNTIME="$controlfolder/libs/gmtoolkit.squashfs"
+if [ -f "$RUNTIME" ]; then
+    $ESUDO mkdir -p "$TOOLKIT"
+    $ESUDO umount "$TOOLKIT" 2>/dev/null || true
+    $ESUDO mount "$RUNTIME" "$TOOLKIT"
+else
+    echo "This port requires the GMToolkit runtime. Please download it."
+    sleep 2
+    patch_failure
+fi
 ```
+
+The dotnet runtime is mounted the same way, from
+`$controlfolder/libs/dotnet-8.0.12.squashfs` onto `$HOME/mono`. Three
+UndertaleModCli verbs cover nearly every port.
+
+**`dump`** externalises the game's textures and writes out a converted data
+file. This is the most common use by a wide margin, since it both compresses
+textures and produces the `game.droid` the loader wants.
+
+```bash
+dotnet "$TOOLKIT/utmt-cli/UndertaleModCli.dll" \
+    dump "$DATADIR/data.win" \
+    -e "$DATADIR/textures" "$DATADIR/game.droid"
+```
+
+**`load -s`** runs a UndertaleModTool C# script (`.csx`) against the data file,
+which is how the UTMT scripts below get applied on device rather than by hand.
+
+```bash
+dotnet "$TOOLKIT/utmt-cli/UndertaleModCli.dll" \
+    load "$DATADIR/data.win" \
+    -s "$GAMEDIR/tools/NewTextureRepacker.csx" -o "$DATADIR/data2.win"
+```
+
+**`replace`** swaps out GML code entries from `.gml` files shipped in the port,
+which is the cleanest way to change game logic without carrying a whole patched
+data file.
+
+```bash
+CODEARGS=()
+for file in "$GAMEDIR/tools/gml/"*.gml; do
+    [ -f "$file" ] || continue
+    entry=$(basename "$file" .gml)
+    CODEARGS+=(--code "$entry=$file")
+done
+
+dotnet "$TOOLKIT/utmt-cli/UndertaleModCli.dll" \
+    replace "$DATADIR/data.win" -o "$DATADIR/data2.win" "${CODEARGS[@]}"
+```
+
+Patching this way takes noticeably longer than applying an xdelta, so use the
+PortMaster patching program to show progress.
+
+### Packing audio into the wrapper
+
+GMLoader can have trouble loading audio that isn't packed into the wrapper APK.
+This packs the OGGs in, and can be adapted for games that use audiogroups.
+
+```bash
+# Check for .ogg files and move to APK
+if [ -n "$(ls ./assets/*.ogg 2>/dev/null)" ]; then
+    zip -r -0 ./portname.port ./assets/
+    echo "Zipped contents to ./portname.port"
+else
+    echo "No .ogg files found"
+fi
+```
+
+### NewTextureRepacker
+
+A texture export and repack script by JohnnyOnFlame, shipped as a `.csx` and run
+through `load -s`. Fixes crashes caused by oversized texture pages on Mali GPUs,
+fixes broken fonts on the same, and reduces RAM usage.
+
+### Bytecode up/downgraders
+
+UndertaleModTool scripts that move a game between bytecode versions, which can
+improve compatibility for GMS1 and GMS2 games.
+
+### GMTools
+
+GameMaker games handle audio in several ways: streamed externally like
+Undertale, grouped into `audiogroup.dat` files, or embedded in the data file.
+Anything not streamed gets loaded into memory at runtime, which is a problem on
+low-memory handhelds. [GMTools](https://github.com/cdeletre/gmtools) analyses
+the audiogroups and the data file, converts any `.wav` it finds to `.ogg`, and
+can compress to a target bitrate. The RAM saving is significant, and audio
+quality matters little through handheld speakers. It ships inside the
+`gmtoolkit` runtime alongside `utmt-cli`.
+
+## Tools
+
+- [GameMaker Studio](https://gamemaker.io/en) is the engine itself. If a game is
+  open source we can build it directly and make the port Ready to Run, as with
+  [Spelunky Classic HD](https://github.com/JanTrueno/SpelunkyClassicHD).
+- [UndertaleModTool](https://github.com/UnderminersTeam/UndertaleModTool)
+  examines and modifies GameMaker data files (`data.win`, `game.unx`,
+  `game.ios`, `game.droid`) via scripts. Its command line interface,
+  `UndertaleModCli`, is what runs on-device in newer ports.
+- [XDelta3 GUI](https://github.com/Moodkiller/xdelta3-gui-2.0) creates `.xdelta`
+  patch files from the difference between two data files. A CLI variant ships
+  with PortMaster to apply them to legally obtained game files.
+- [GMTools](https://github.com/cdeletre/gmtools), by PortMaster crew member
+  Cyril (kotzebuedog), handles audio analysis and compression.
+- [GMLoader](https://github.com/JohnnyonFlame/droidports) and
+  [GMLoaderNext](https://github.com/JohnnyonFlame/gmloader-next) are the
+  compatibility binaries themselves, for armhf and aarch64 respectively.
+
+## Building GMLoaderNext from source
+
+!!! info
+    Only needed for development and contribution. Prebuilt binaries ship in the
+    example packages.
+
+Clone the repository with its submodules:
+
+```bash
 git clone https://github.com/JohnnyonFlame/gmloader-next --recursive
 ```
 
-- Build the project with desired target platform options
-```
+Build for the target platform:
+
+```bash
 make -f Makefile.gmloader ARCH=aarch64-linux-gnu
 ```
-    
-- Example: Build using Debian Bullseye for older platforms
-```
+
+Building on Debian Bullseye for older platforms:
+
+```bash
 make -f Makefile.gmloader \
 ARCH=aarch64-linux-gnu \
 LLVM_FILE=/usr/lib/llvm-11/lib/libclang-11.so.1 \
@@ -301,35 +374,31 @@ LLVM_INC=/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
 -j$(nproc)
 ```
 
-- Generate the libc dependencies
-```
+Generate the libc dependencies:
+
+```bash
 python3 scripts/generate_libc.py aarch64-linux-gnu \
 --llvm-includes /usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu \
 --llvm-library-file "/usr/lib/llvm-11/lib/libclang-11.so.1"
 ```
 
-    
-- Deploy: Copy the lib redist folder to the application directory]
-```
+Then copy the redistributable libraries into the application directory:
+
+```bash
 cp -r lib_redist/ <application_folder>/
 ```
-    
-For more details, check the full [documentation](https://github.com/JohnnyonFlame/gmloader-next).
 
-    
+The [project documentation](https://github.com/JohnnyonFlame/gmloader-next) has
+the full detail.
 
----
+## Example ports
 
-## Conclusion
+Real GameMaker ports in the library, useful to unpack and look at:
 
-By leveraging the tools and knowledge outlined in this guide, PortMaster Engineers enable modern **GameMaker Studio** games to run smoothly on small ARM-based handheld devices. The primary focus is on preserving the original game’s features and feel, while optimizing it for different hardware. These optimizations help ensure that these iconic titles reach new platforms and players.
-
-Some of the notable games ported include:
-
-*   **Undertale**
-*   **AM2R (Another Metroid 2 Remake)**
-*   **Forager**
-*   **UFO50**
-*   **Risk of Rain**
-
-Through these efforts, we strive to make **GameMaker Studio** games accessible to a wider audience, ensuring they remain playable on a variety of devices.
+- [Undertale](../../../../port/?name=undertale)
+- [AM2R](../../../../port/?name=am2r)
+- [Deltarune](../../../../port/?name=deltarune)
+- [Pizza Tower](../../../../port/?name=pizzatower)
+- [Forager](../../../../port/?name=forager)
+- [Downwell](../../../../port/?name=downwell)
+- [Risk of Rain (2013)](../../../../port/?name=riskofrain)

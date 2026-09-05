@@ -62,7 +62,7 @@ Featured Ports
 :   Recommended games from the PortMaster team
 
 All Ports
-:   500+ available ports for your device
+:   {{ total_port_count }}+ available ports for your device
 
 Ready to Run
 :   Free games that don't need commercial files
@@ -79,3 +79,19 @@ Options
 
 !!! info "No WiFi?"
     Install runtimes separately using the [Runtimes Guide](runtimes.md).
+
+---
+
+## Community guides
+
+[Retro Game Corps](https://retrogamecorps.com/) has covered PortMaster in depth.
+Worth a look if you'd rather follow along with someone than read reference docs.
+
+- [PortMaster Starter Guide](https://retrogamecorps.com/2024/07/12/portmaster-starter-guide/) (article, July 2024)
+- [PortMaster Guide: 500+ PC Games on Handhelds!](https://www.youtube.com/watch?v=1rAe9P74BLI) (video walkthrough)
+- [My Favorite PC Ports on Retro Handhelds](https://www.youtube.com/watch?v=4FOlGX499pU) (video, a tour of what the library has)
+
+These are made by the community, not the PortMaster team, and PortMaster has
+changed since they were published. The video title says 500+ games, for example,
+and the library is past {{ total_port_count }} now. Where they disagree with this
+wiki, the wiki is current.

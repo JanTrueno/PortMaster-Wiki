@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 import urllib.request
 import urllib.error
 import urllib.parse
+import yaml
+from pymdownx.slugs import slugify as _pymdownx_slugify
 
 MARKDOWN_EXTENSIONS = ["tables", "fenced_code"]
 
@@ -238,6 +240,91 @@ def build_mosaic_ports(base_path, port_details):
     return chosen
 
 
+# Post URLs belong to the blog plugin, so instead of hardcoding them the
+# homepage strip rebuilds them exactly the way the plugin does:
+# <blog_dir>/<date>/<slugified title>/. Both the slugifier and the date
+# layout below are the plugin's own defaults (material/plugins/blog/config.py),
+# so this only needs revisiting if mkdocs.yml starts overriding them.
+_POST_SLUGIFY = _pymdownx_slugify(case="lower")
+
+
+def _plain_text(md_text):
+    """Flatten inline markdown to bare text for a card excerpt."""
+    md_text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", md_text)      # images
+    md_text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", md_text)  # links -> label
+    md_text = re.sub(r":[a-z0-9_+-]+:", "", md_text)              # :emoji: shortcodes
+    md_text = re.sub(r"[*_`]+", "", md_text)                      # emphasis / code
+    return re.sub(r"\s+", " ", md_text).strip()
+
+
+def load_blog_authors(authors_file):
+    """Map author id -> display name / avatar, from the blog's .authors.yml."""
+    try:
+        data = yaml.safe_load(Path(authors_file).read_text(encoding="utf-8")) or {}
+        return data.get("authors", {}) or {}
+    except Exception as exc:  # noqa: BLE001
+        print(f"latest_news: no authors ({exc})", flush=True)
+        return {}
+
+
+def load_latest_news(posts_dir, blog_dir="news", limit=3, authors=None):
+    """Read the blog posts for the homepage 'Latest news' strip.
+
+    Returns newest-first dicts of title/url/date/excerpt. Anything that fails
+    to parse is skipped rather than breaking the build, since a malformed
+    post should cost us one card, not the whole site.
+    """
+    posts = []
+    for path in sorted(Path(posts_dir).glob("*.md")):
+        try:
+            raw = path.read_text(encoding="utf-8")
+            match = re.match(r"^---\n(.*?)\n---\n(.*)$", raw, re.S)
+            if not match:
+                continue
+            meta = yaml.safe_load(match.group(1)) or {}
+            body = match.group(2)
+
+            heading = re.search(r"^#\s+(.+?)\s*$", body, re.M)
+            date = meta.get("date")
+            if not heading or not date:
+                continue
+            if isinstance(date, datetime):
+                date = date.date()
+
+            title = heading.group(1).strip()
+
+            # Prefer an explicit description; otherwise use the first
+            # paragraph of the excerpt (the part above <!-- more -->).
+            excerpt = (meta.get("description") or "").strip()
+            if not excerpt:
+                above_fold = re.sub(r"^#\s+.+?$", "", body, count=1, flags=re.M)
+                above_fold = above_fold.split("<!-- more -->")[0]
+                paragraphs = [p for p in above_fold.split("\n\n") if p.strip()]
+                excerpt = paragraphs[0] if paragraphs else ""
+
+            posts.append({
+                "title": _plain_text(title),
+                "url": f"{blog_dir}/{date:%Y/%m/%d}/{_POST_SLUGIFY(title, '-')}/",
+                "date": date,
+                "date_display": f"{date:%d %B %Y}".lstrip("0"),
+                "excerpt": _plain_text(excerpt),
+                "readtime": meta.get("readtime"),
+                "authors": [
+                    {
+                        "name": (authors or {}).get(a, {}).get("name", a),
+                        "avatar": (authors or {}).get(a, {}).get("avatar", ""),
+                    }
+                    for a in (meta.get("authors") or [])
+                ],
+            })
+        except Exception as exc:  # noqa: BLE001 - one bad post shouldn't fail the build
+            print(f"latest_news: skipping {path.name} ({exc})", flush=True)
+
+    posts.sort(key=lambda p: p["date"], reverse=True)
+    return posts[:limit]
+
+
+
 def define_env(env):
     base_path = Path(__file__).parent / "docs" / "assets" / "json"
 
@@ -300,6 +387,13 @@ def define_env(env):
 
     # Total port count for immediate display
     env.variables["total_port_count"] = len(merged_ports["ports"])
+
+    # Latest blog posts for the homepage strip
+    news_dir = Path(__file__).parent / "docs" / "news"
+    env.variables["latest_news"] = load_latest_news(
+        news_dir / "posts",
+        authors=load_blog_authors(news_dir / ".authors.yml"),
+    )
 
     # Build a runtime arch lookup: runtime_name -> [available archs]
     runtime_archs = {}

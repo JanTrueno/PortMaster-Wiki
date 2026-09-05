@@ -194,11 +194,11 @@
       },
       "source": {
         "date_added": "2026-06-22",
-        "date_updated": "2026-08-23",
-        "md5": "061d5ddde45a24bbedcef41000b504b4",
-        "release_id": "2026-08-23_0904",
-        "size": 105395969,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-23_0904/2048plus.zip"
+        "date_updated": "2026-09-02",
+        "md5": "32edf8bdb58ed7adb78324733313ac79",
+        "release_id": "2026-09-02_1031",
+        "size": 105395952,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/2048plus.zip"
       }
     },
     "6feetunder.zip": {
@@ -2439,8 +2439,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "68779d8d4390ea3f6d95dec30cb6e1ff",
-        "size": 5828189,
         "release_id": "2026-08-29_2149",
+        "size": 5828189,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/angrydd.zip"
       }
     },
@@ -4144,8 +4144,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "3d1a23065acc0695ab607be5fdee81fd",
-        "size": 35202277,
         "release_id": "2026-08-29_2149",
+        "size": 35202277,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/babbeu.zip"
       }
     },
@@ -8144,8 +8144,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "3d2ebce0b153056836a64efab927e139",
-        "size": 32600822,
         "release_id": "2026-08-29_2149",
+        "size": 32600822,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/bullethell.zip"
       }
     },
@@ -10479,6 +10479,60 @@
         "release_id": "2025-05-08_2151",
         "size": 3056724,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-05-08_2151/celeste.zip"
+      }
+    },
+    "celeste64.zip": {
+      "version": 4,
+      "name": "celeste64.zip",
+      "items": [
+        "Celeste64.sh",
+        "celeste64"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Celeste 64",
+        "porter": [
+          "JanTrueno"
+        ],
+        "desc": "A 3D platformer inspired by classic N64 games. Play as Madeline, explore a small version of Celeste Mountain, collect strawberries, and master Celeste's signature movement.\n",
+        "desc_md": null,
+        "inst": "Ready to run!",
+        "inst_md": null,
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://maddymakesgamesinc.itch.io/celeste64",
+            "developerurl": "https://exok.com/"
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-04",
+        "date_updated": "2026-09-04",
+        "md5": "e606af52438813c331707732cdbb0577",
+        "size": 32650808,
+        "release_id": "2026-09-04_1516",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/celeste64.zip"
       }
     },
     "cceleste.zip": {
@@ -17514,8 +17568,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "2bb4cda13690134aff274355a154a1a6",
-        "size": 91676966,
         "release_id": "2026-08-29_2149",
+        "size": 91676966,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/dreamchess.zip"
       }
     },
@@ -18514,6 +18568,52 @@
         "release_id": "2025-07-24_0745",
         "size": 3072439,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-07-24_0745/dustaet.zip"
+      }
+    },
+    "dustracing2d.zip": {
+      "version": 4,
+      "name": "dustracing2d.zip",
+      "items": [
+        "Dust Racing 2D.sh",
+        "dustracing2d"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Dust Racing 2D",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Traditional top-down 2D car racing game with a track editor.",
+        "desc_md": "",
+        "inst": "Ready to run out of the box, no additional files needed.",
+        "inst_md": "",
+        "genres": [
+          "racing"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+          "qt6-eglfs-6.6.3.squashfs"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-04",
+        "date_updated": "2026-09-04",
+        "md5": "8b77d2cbaaca36deceea29268f216648",
+        "size": 5604304,
+        "release_id": "2026-09-04_1516",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/dustracing2d.zip"
       }
     },
     "dynamate_playdate.zip": {
@@ -20465,6 +20565,52 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-09-08_0954/falseskies.zip"
       }
     },
+    "fanwor.zip": {
+      "version": 4,
+      "name": "fanwor.zip",
+      "items": [
+        "Fanwor.sh",
+        "fanwor"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Fanwor",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A small top-down action-adventure in the style of The Legend of Zelda - explore the world of Fanwor, fight monsters with your sword, and recover the eight stolen Gems of Power.",
+        "desc_md": "",
+        "inst": "Ready to run, no additional files needed.",
+        "inst_md": "",
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-02",
+        "md5": "39da99682e0042f8b3f576a044668a1a",
+        "release_id": "2026-09-02_1031",
+        "size": 1840160,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/fanwor.zip"
+      }
+    },
     "fares.zip": {
       "version": 4,
       "name": "fares.zip",
@@ -21193,8 +21339,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "579bb35e873b546ba20cb8fa04f591aa",
-        "size": 43065132,
         "release_id": "2026-08-29_2149",
+        "size": 43065132,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/firemadness.zip"
       }
     },
@@ -23332,6 +23478,62 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-02-27_2241/gardenstory.zip"
       }
     },
+    "skeldal.zip": {
+      "version": 4,
+      "name": "skeldal.zip",
+      "items": [
+        "Gates of Skeldal.sh",
+        "skeldal"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Gates of Skeldal",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "Gates of Skeldal is a cult classic Czech dungeon crawler from 1998. On the mythical island of Rovenland, a party of adventurers sets out to stop five rogue mages from the tower of Skeldal. Enjoy turn-based combat, powerful magic, and tricky puzzles in this legendary RPG!",
+        "desc_md": null,
+        "inst": "Purchase the game on Steam, open the Steam console and use the following command to download a correct version: download_depot 3533830 3533831 6059229500711526139. Copy downloaded files into port folder (skeldal).",
+        "inst_md": "Purchase the game on [Steam](https://store.steampowered.com/app/3533830/Brany_Skeldalu/), open the [Steam console](steam://open/console) and use the following command to download a correct version: `download_depot 3533830 3533831 6059229500711526139`. Copy downloaded files into port folder (`skeldal`).",
+        "genres": [
+          "rpg"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/3533830/Brany_Skeldalu/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "analog_1"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-04",
+        "md5": "4d48fe124042447717ee17529bc88134",
+        "release_id": "2026-09-04_1353",
+        "size": 1308888,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1353/skeldal.zip"
+      }
+    },
     "gatoroboto.zip": {
       "version": 4,
       "name": "gatoroboto.zip",
@@ -24009,6 +24211,52 @@
         "release_id": "2026-05-24_0547",
         "size": 41992275,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-24_0547/globeba.zip"
+      }
+    },
+    "glob2.zip": {
+      "version": 4,
+      "name": "glob2.zip",
+      "items": [
+        "Globulation 2.sh",
+        "glob2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Globulation 2",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "A real-time strategy game where you set goals for your colonists to achieve, rather than micromanaging each unit individually.",
+        "desc_md": null,
+        "inst": "Ready to run, no additional files needed.",
+        "inst_md": null,
+        "genres": [
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-02",
+        "md5": "efcd9c3557f534cd0dacda88e33cbb95",
+        "release_id": "2026-09-02_1031",
+        "size": 12384653,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/glob2.zip"
       }
     },
     "gloom.zip": {
@@ -29315,11 +29563,11 @@
       },
       "source": {
         "date_added": "2026-08-26",
-        "date_updated": "2026-08-26",
-        "md5": "c43e77cc0b59c3496c8b38ab1547277e",
-        "release_id": "2026-08-26_1052",
-        "size": 8785948,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-26_1052/insaniquarium.zip"
+        "date_updated": "2026-09-02",
+        "md5": "c9ed53fbe886786dbf7421c61a4bf378",
+        "release_id": "2026-09-02_1031",
+        "size": 8782610,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/insaniquarium.zip"
       }
     },
     "threecoins.zip": {
@@ -40840,6 +41088,59 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/openclaw.zip"
       }
     },
+    "opendefender.zip": {
+      "version": 4,
+      "name": "opendefender.zip",
+      "items": [
+        "OpenDefender.sh",
+        "opendefender"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "OpenDefender",
+        "porter": [
+          "Ganimoth"
+        ],
+        "desc": "OpenDefender is an open source defender clone created with Game maker : Studio 1. ",
+        "desc_md": null,
+        "inst": "Ready to run.",
+        "inst_md": null,
+        "genres": [
+          "action",
+          "arcade"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://hijong-park.itch.io/opendefender",
+            "developerurl": ""
+          }
+        ],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-02",
+        "md5": "53563dbe0ce85e9ea72cae5fc4c10707",
+        "release_id": "2026-09-02_1031",
+        "size": 5617578,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/opendefender.zip"
+      }
+    },
     "openenroth.zip": {
       "version": 4,
       "name": "openenroth.zip",
@@ -44760,6 +45061,65 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-01-07_1055/postvoid.zip"
       }
     },
+    "postal.zip": {
+      "version": 4,
+      "name": "postal.zip",
+      "items": [
+        "Postal.sh",
+        "postal"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Postal",
+        "porter": [
+          "initdream"
+        ],
+        "desc": "Postal is a 1997 isometric shoot 'em up where players control the \"Postal Dude\" as he commits mass murder in Paradise, Arizona, progressing by killing a set percentage of armed hostiles per level.",
+        "desc_md": null,
+        "inst": "1. Download *Postal* from either GOG or Steam.\n2. Locate the `res` folder and POSTAL.INI file inside your installed game directory.\n3. Copy the `res` folder and the POSTAL.INI file and paste it inside the `postal/` folder in the `ports/` directory on your device.",
+        "inst_md": null,
+        "genres": [
+          "other"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/232770/POSTAL/",
+            "developerurl": "https://www.gopostal.com/"
+          },
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/en/game/postal_classic_and_uncut",
+            "developerurl": "https://www.gopostal.com/"
+          }
+        ],
+        "availability": "free",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-04",
+        "md5": "515e5a57f146ec90b88336d5d7797edd",
+        "release_id": "2026-09-04_1353",
+        "size": 879027,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1353/postal.zip"
+      }
+    },
     "powder.zip": {
       "version": 2,
       "name": "powder.zip",
@@ -46342,11 +46702,11 @@
       },
       "source": {
         "date_added": "2023-10-23",
-        "date_updated": "2026-08-29",
-        "md5": "e5238c6fc9529e42cf5f321edcaf4a9c",
-        "release_id": "2026-08-29_2149",
-        "size": 42820102,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/quakespasm.zip"
+        "date_updated": "2026-09-02",
+        "md5": "a6d0038c8043e5837864d817e2a539ff",
+        "release_id": "2026-09-02_1031",
+        "size": 42820183,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/quakespasm.zip"
       }
     },
     "quarion.zip": {
@@ -46563,6 +46923,52 @@
         "release_id": "2024-07-18_2225",
         "size": 11544199,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-07-18_2225/rwatch.zip"
+      }
+    },
+    "raceintospace.zip": {
+      "version": 4,
+      "name": "raceintospace.zip",
+      "items": [
+        "Race Into Space.sh",
+        "raceintospace"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Race Into Space",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Free software recreation of Buzz Aldrin's Race into Space, a turn-based strategy game where you run the US or Soviet space program in the race to land on the Moon.",
+        "desc_md": null,
+        "inst": "Ready to run, no additional files needed. Game data is extracted from data.tar.gz on first launch.",
+        "inst_md": null,
+        "genres": [
+          "strategy"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-02",
+        "md5": "0f8c79cfcd35f71af28828289cd04ed7",
+        "release_id": "2026-09-02_1031",
+        "size": 109475114,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/raceintospace.zip"
       }
     },
     "ragingblasters.zip": {
@@ -57525,8 +57931,8 @@
         "date_added": "2026-08-29",
         "date_updated": "2026-08-29",
         "md5": "8731845a037d64f83b7974d8228f4c27",
-        "size": 2475312,
         "release_id": "2026-08-29_2149",
+        "size": 2475312,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/superstartrek.zip"
       }
     },
@@ -58283,11 +58689,11 @@
       },
       "source": {
         "date_added": "2024-11-28",
-        "date_updated": "2024-11-28",
-        "md5": "c2a07598d8d2eaf3f972b9a45ec44489",
-        "release_id": "2024-11-28_0901",
-        "size": 7074279,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2024-11-28_0901/tamashii.zip"
+        "date_updated": "2026-09-02",
+        "md5": "95190d73d468844a0e6e01eecdb2a569",
+        "release_id": "2026-09-02_1031",
+        "size": 7074333,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/tamashii.zip"
       }
     },
     "tamatool.zip": {
@@ -59488,6 +59894,63 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-14_1654/happyhills.zip"
       }
     },
+    "happyhills2.zip": {
+      "version": 4,
+      "name": "happyhills2.zip",
+      "items": [
+        "Happyhills Homicide 2.sh",
+        "happyhills2"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "The Happyhills Homicide 2: Out For Blood",
+        "porter": [
+          "SLAYKIN6_TTV"
+        ],
+        "desc": "He is back. Once again take control of mass serial killer John Wade. Six years later, the infamous Pale Grin resurrects from the grave to terrorize the broken town of Happyhills.",
+        "desc_md": null,
+        "inst": "Place your Steam or GameJolt copy of the game into happyhills2/assets/ on first run.",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/3489670/The_Happyhills_Homicide_2_Out_For_Blood/",
+            "developerurl": "https://store.steampowered.com/developer/Copperbolt"
+          },
+          {
+            "name": "GameJolt",
+            "gameurl": "https://gamejolt.com/games/thehappyhillshomicide2/883945",
+            "developerurl": "https://gamejolt.com/@copperbolt"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-04",
+        "date_updated": "2026-09-04",
+        "md5": "1929b08613834ac2bae497073ab9f9e7",
+        "release_id": "2026-09-04_1353",
+        "size": 41907686,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1353/happyhills2.zip"
+      }
+    },
     "hordes.zip": {
       "version": 4,
       "name": "hordes.zip",
@@ -60125,6 +60588,65 @@
         "release_id": "2026-05-14_1654",
         "size": 10323859,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-14_1654/thesunandmoon.zip"
+      }
+    },
+    "theswapper.zip": {
+      "version": 4,
+      "name": "theswapper.zip",
+      "items": [
+        "The Swapper.sh",
+        "theswapper"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "The Swapper",
+        "porter": [
+          "Producdevity"
+        ],
+        "desc": "A puzzle-platformer set aboard an abandoned space station, built around creating and swapping between clones.",
+        "desc_md": null,
+        "inst": "Purchase The Swapper on Steam, download the Windows depot with `download_depot 231160 231161 5334393392610826601`, and copy its files into `ports/theswapper/gamedata`.",
+        "inst_md": "### Steam Instructions\n* [Open Steam console](steam://open/console)\n* Copy and paste command: `download_depot 231160 231161 5334393392610826601`\n* Copy the downloaded files into `ports/theswapper/gamedata`.\n\nThe folder should contain `TheSwapper.exe`, `mainSettings.ini`, and the `data` directory.",
+        "genres": [
+          "puzzle",
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [
+          "mono-6.12.0.122-aarch64.squashfs"
+        ],
+        "store": [
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/231160/The_Swapper/",
+            "developerurl": ""
+          }
+        ],
+        "availability": "paid",
+        "reqs": [
+          "!lowres"
+        ],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": "2.17"
+      },
+      "source": {
+        "date_added": "2026-09-04",
+        "date_updated": "2026-09-04",
+        "md5": "31217908918f33849448fa63acefb041",
+        "release_id": "2026-09-04_1353",
+        "size": 2208443,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1353/theswapper.zip"
       }
     },
     "swordwitchsapprentice.zip": {
@@ -61189,11 +61711,11 @@
       },
       "source": {
         "date_added": "2024-03-08",
-        "date_updated": "2025-10-04",
-        "md5": "974c75098662d355ea5fc92b4c13c190",
-        "release_id": "2025-10-04_1030",
-        "size": 10574837,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/tmntsr.zip"
+        "date_updated": "2026-09-02",
+        "md5": "71b6c02b443a70c2f497dd1c348b7d74",
+        "release_id": "2026-09-02_1031",
+        "size": 10574871,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/tmntsr.zip"
       }
     },
     "to_the_moon.zip": {
@@ -63043,6 +63565,60 @@
         "release_id": "2025-10-04_1030",
         "size": 6212036,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-04_1030/ultimatetapankaikki.zip"
+      }
+    },
+    "ultionus.zip": {
+      "version": 4,
+      "name": "ultionus.zip",
+      "items": [
+        "Ultionus.sh",
+        "ultionus"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Ultionus",
+        "porter": [
+          "Pridetoons"
+        ],
+        "desc": "The galactic heroine Serena S and her best friend Balzac have saved the Universe again! She posts her victory on Spacebook only to be trolled by a misogynistic self proclaimed space prince. Time to make him pay! Ultionus is a love-letter to the home computer and arcade games of the late 80s and early 90s! It's kinda a spiritual successor to Phantis/Game Over II. Huge Thanks goes to Darkfalzx for making this game!",
+        "desc_md": null,
+        "inst": "[Instructions]\n1) Download Legacy Version of Ultionus from itch.io (Download Ultionus_RC3D_Windows_NoSteam)\n2) Drop purchased game files into the Game Data folder\n3) Enjoy!!! \n\n[How to Play]\nA = Jump\nX = Shoot",
+        "inst_md": null,
+        "genres": [
+          "action"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "Itch.io",
+            "gameurl": "https://darkfalzx.itch.io/ultionus",
+            "developerurl": "https://darkfalzx.itch.io/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "armhf"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-04",
+        "date_updated": "2026-09-04",
+        "md5": "beb4b2352ca2048085b796dfab1f7afb",
+        "size": 11967001,
+        "release_id": "2026-09-04_1516",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/ultionus.zip"
       }
     },
     "ultracoredive.zip": {
@@ -64999,6 +65575,53 @@
         "release_id": "2025-10-11_1509",
         "size": 23879858,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-10-11_1509/watchduckslegacy.zip"
+      }
+    },
+    "watercloset.zip": {
+      "version": 4,
+      "name": "watercloset.zip",
+      "items": [
+        "Water Closet.sh",
+        "watercloset"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Water Closet",
+        "porter": [
+          "Cebion",
+          "Bamboozler"
+        ],
+        "desc": "Escape down the toilet at the end of each stage in this puzzle-platformer, using a time-cloning mechanic to solve each room.",
+        "desc_md": "",
+        "inst": "Ready to run, no additional files needed.",
+        "inst_md": "",
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": true,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-09-02",
+        "date_updated": "2026-09-02",
+        "md5": "fab60fb7c4cb9931403f1575e44da060",
+        "release_id": "2026-09-02_1031",
+        "size": 8345046,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1031/watercloset.zip"
       }
     },
     "waternet.zip": {
@@ -67727,9 +68350,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "a1aa19202a4938f3a66e988e384ee676",
-      "size": 165942576,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/gameinfo.zip"
+      "md5": "3bea0558e89de26f793a315f059d4300",
+      "size": 168309000,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -69124,9 +69747,9 @@
     },
     "images.013.zip": {
       "name": "images.013.zip",
-      "md5": "2503793689426c61043d779fdf4e9e34",
-      "size": 5005348,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/images.013.zip",
+      "md5": "1af16655f9667d35c703616c426544a7",
+      "size": 6142283,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/images.013.zip",
       "images": [
         "2048plus.screenshot.png",
         "alex1.screenshot.png",
@@ -69149,6 +69772,7 @@
         "bullethell.screenshot.jpg",
         "candycrisis.screenshot.jpg",
         "caveblazers.screenshot.png",
+        "celeste64.screenshot.png",
         "crimsonland.screenshot.png",
         "cropandclaw2.screenshot.png",
         "crystalien.screenshot.jpg",
@@ -69160,15 +69784,19 @@
         "dreamchess.screenshot.jpg",
         "dungeonantiqua.screenshot.png",
         "dungeonantiqua2.screenshot.png",
+        "dustracing2d.screenshot.jpg",
         "eatgirl.screenshot.png",
         "environmentalstationalpha.screenshot.png",
         "exactchinesechess.screenshot.png",
+        "fanwor.screenshot.png",
         "firebrimstone.screenshot.png",
         "firemadness.screenshot.jpg",
         "franticdimension.screenshot.png",
         "geminiarms.screenshot.png",
+        "glob2.screenshot.jpg",
         "grimdungeon.screenshot.png",
         "growseedpinball.screenshot.png",
+        "happyhills2.screenshot.png",
         "hellstarsquadron.screenshot.png",
         "hypercycles.screenshot.png",
         "impostorfactory.screenshot.jpg",
@@ -69187,16 +69815,20 @@
         "monktower.screenshot.png",
         "moonchildfe.screenshot.png",
         "openchaos.screenshot.png",
+        "opendefender.screenshot.png",
         "openjkdf2.screenshot.jpg",
         "orcishskies.screenshot.png",
         "pentasma.screenshot.png",
+        "postal.screenshot.png",
         "pullchain.screenshot.png",
         "pvz_portable.screenshot.png",
+        "raceintospace.screenshot.png",
         "retsend.screenshot.png",
         "roguelegacy.screenshot.png",
         "rollingbird.screenshot.png",
         "scavengerofdunomini.screenshot.png",
         "sgsquadronext.screenshot.png",
+        "skeldal.screenshot.png",
         "skullyardpinball.screenshot.png",
         "slaythespire.screenshot.png",
         "spectrumforces.screenshot.png",
@@ -69207,8 +69839,11 @@
         "tecnoballz.screenshot.png",
         "theforceengine.screenshot.jpg",
         "theimpossiblegame.screenshot.png",
+        "theswapper.screenshot.png",
         "tomomi.screenshot.png",
+        "ultionus.screenshot.png",
         "urguys.screenshot.png",
+        "watercloset.screenshot.png",
         "wizorb.screenshot.png",
         "wolfensteinrpg.screenshot.jpg",
         "wratchsden.screenshot.png",
@@ -69220,9 +69855,9 @@
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "0d071b4ac251e5ee6152fd0d0cdc5317",
-      "size": 88382051,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-08-29_2149/images.zip"
+      "md5": "79411f0c00a6f9db5a385d4b1dc72164",
+      "size": 89518986,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-04_1516/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
@@ -69831,6 +70466,14 @@
       "md5": "2fd69e7717ea0cb89166c696225105a0",
       "size": 75886592,
       "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-06-22_1100/pyxel_2.9.5_python_3.11_x86_64.squashfs"
+    },
+    "qt6-eglfs-6.6.3.squashfs": {
+      "name": "Qt6/EGLFS 6.6.3",
+      "runtime_name": "qt6-eglfs-6.6.3.squashfs",
+      "runtime_arch": "aarch64",
+      "md5": "dc347c34e9e88c7c089fde7317c4e524",
+      "size": 40517632,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-09-02_1146/qt6-eglfs-6.6.3.squashfs"
     },
     "renpy_8.1.3.squashfs": {
       "name": "Ren'Py 8.1.3",

@@ -17,6 +17,8 @@ to be a symptom.
 
 <!-- more -->
 
+![OneShot: World Machine Edition](../../assets/images/oneshot/oneshot-logo.png)
+
 There's no Linux build, so this starts from the Windows release: MonoGame/C#,
 64-bit, run under Mono on aarch64. No native game code to worry about, which
 sounds easy right up until the managed code starts P/Invoking into the Windows
@@ -183,47 +185,7 @@ argument.
 The fix redirects the call to a declaration that passes both arguments. Same stack
 effect either side, so the IL change is literally swapping the call target.
 
-## 6. The dllmap that looked applied and wasn't
-
-The FMOD fix needs a dllmap, because the game hardcodes a Windows path:
-
-```xml
-<dllmap dll="x64/fmod" os="linux" target="../libs/libfmod.so"/>
-```
-
-Verified it was correct. It did nothing.
-
-Mono resolves config by exact runtime filename. After MonoMod the game runs as
-`MONOMODDED_OneShotMG.exe`, so Mono looks for `MONOMODDED_OneShotMG.exe.config`,
-which didn't exist. The config I'd carefully verified was for a file that never
-ran. It's now copied under both names, unconditionally, on every launch.
-
-## 7. Failed to create graphics device!
-
-Ran fine for me, failed on GLES-only devices. The launcher had this:
-
-```bash
-source "${controlfolder}/libgl_${CFW_NAME}.txt"
-```
-
-and then did nothing with it. That file only reports what the device supports,
-setting `LIBGL_ES` and friends. It does not point SDL at a GL implementation.
-That's the port's job.
-
-Meanwhile the port had been shipping `gl4es/libGL.so.1` and `libEGL.so.1` the
-entire time, referenced by absolutely nothing. That was the tell.
-
-```bash
-if [[ "$LIBGL_ES" != "" ]]; then
-  export SDL_VIDEO_GL_DRIVER="$GAMEDIR/gl4es/libGL.so.1"
-  export SDL_VIDEO_EGL_DRIVER="$GAMEDIR/gl4es/libEGL.so.1"
-fi
-```
-
-Gated on `LIBGL_ES` so devices with real desktop GL aren't pushed through a
-translation layer for no reason.
-
-## 8. A quarter of a game
+## 6. A quarter of a game
 
 Graphics device created, game runs. But launched from the frontend only the
 top-left quarter is on screen, while over SSH it is perfect. That difference is
@@ -286,7 +248,7 @@ argument forced to `true` (`ldarg.1` becomes `ldc.i4.1`), leaving the "enter
 fullscreen" direction working and ignoring only "leave". Windowed mode has no
 meaning on a fixed single-display handheld anyway.
 
-## 9. Saves, and one last trap
+## 7. Saves, and one last trap
 
 The game saves to `Environment.SpecialFolder.ApplicationData`, and the usual
 PortMaster template redirects with `XDG_DATA_HOME`. That does not work here, which
@@ -322,3 +284,8 @@ Every one of those cost real time to the first plausible-but-wrong explanation.
 The tools that actually ended arguments were the boring ones: `nm -D`, `ikdasm`,
 `objdump`, and a cross-compiled test binary under QEMU. When something looks like
 a version mismatch, go read the disassembly before you go hunting for versions.
+
+![OneShot running on a handheld](../../assets/images/oneshot/oneshot-handheld.jpg)
+/// caption
+The World Machine desktop, running on hardware.
+///

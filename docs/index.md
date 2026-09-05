@@ -101,3 +101,29 @@ hide:
     </div>
   </div>
 </section>
+
+<!-- ===== LATEST NEWS ===== -->
+<section class="home-section news-band">
+  <div class="news-head">
+    <h2>Latest news</h2>
+    <a class="news-all" href="news/">All news <span aria-hidden="true">&rarr;</span></a>
+  </div>
+
+  <div class="news-grid">
+    {% for post in latest_news %}
+    <a class="news-item" href="{{ post.url }}">
+      <span class="news-item-date">{{ post.date_display }}{% if post.readtime %} &middot; {{ post.readtime }} min read{% endif %}</span>
+      <h3 class="news-item-title">{{ post.title | e }}</h3>
+      <p class="news-item-excerpt">{{ post.excerpt | e }}</p>
+      {% if post.authors %}
+      <span class="news-item-by">
+        {% for author in post.authors %}
+        <img class="news-item-avatar off-glb" src="{{ author.avatar }}" alt="" loading="lazy" width="20" height="20">
+        {% endfor %}
+        <span>{{ post.authors | map(attribute='name') | join(', ') | e }}</span>
+      </span>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+</section>

@@ -42,6 +42,9 @@ theme:
 markdown_extensions:
   - tables
   - attr_list
+  # Required by the "Term / :   definition" blocks in installing-portmaster.md
+  # and installing-ports.md - without it they render as a stray colon.
+  - def_list
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -119,33 +122,44 @@ extra_javascript:
 nav:
   - Home: index.md
   - Games: games.md
-  - Install:
-      - Getting Started: installation/installing-portmaster.md
-      - Installing Ports: installation/installing-ports.md
-      - Supported Handhelds: installation/supported-handhelds.md
-      - Runtimes: installation/runtimes.md
-  - News: news/index.md
-  - Community:
-      - Porters: porters.md
+  # Split by audience rather than by document type: everything a player
+  # needs is under Help, everything a porter needs is under Contribute.
+  # Section names here are independent of file paths, so this ordering
+  # carries no URL changes - pages stay where they are on disk.
   - Contribute:
       - How to Contribute: contribute/index.md
+      # Port Suggestions is deliberately absent from nav: the page is still
+      # built and reachable at /contribute/suggestions/, but only by URL.
+      # Its front matter also excludes it from search.
+      # Ordered to follow the actual porting workflow: decide if it can be
+      # ported, set up a build, write the script, package it.
       - Porting Games:
           - What Can Be Ported?: contribute/porting/what-can-be-ported.md
-          - Engines:
-              - Love2D: contribute/porting/engines/love2d.md
-              - GameMaker Studio: contribute/porting/engines/gamemaker-studio.md
           - Build Environments: contribute/porting/build-environments.md
           - Script Templates: contribute/porting/script-templates.md
           - Packaging: contribute/porting/packaging.md
           - Developer Details: contribute/porting/developer-details.md
+          - Engines:
+              - Godot: contribute/porting/engines/godot.md
+              - GameMaker Studio: contribute/porting/engines/gamemaker-studio.md
+              - Love2D: contribute/porting/engines/love2d.md
       - GUI Development:
           - Themes: contribute/gui/theme-engine.md
           - Translation: contribute/gui/translation.md
-      - Suggestions:
-          - contribute/suggestions.md
-      - Developer Tools:
-          - README Generator: tools/markdown-generator.md
+      - Porter Tools:
           - JSON Generator: tools/json-generator.md
+          - README Generator: tools/markdown-generator.md
           - Gameinfo Generator: tools/gameinfo-generator.md
           - Cover Generator: tools/cover-generator.md
-  - FAQ: faq.md
+  - Community:
+      - Overview: community/index.md
+      - Porters: porters.md
+      - News: news/index.md
+  # Last so it sits at the far right of the tab bar - nav order is what
+  # drives tab order, so this is the only thing that controls it.
+  - Help:
+      - Getting Started: installation/installing-portmaster.md
+      - Installing Ports: installation/installing-ports.md
+      - Supported Handhelds: installation/supported-handhelds.md
+      - Runtimes: installation/runtimes.md
+      - FAQ: faq.md

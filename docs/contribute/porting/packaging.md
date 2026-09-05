@@ -1,17 +1,22 @@
 # Packaging Ports for PortMaster
 
-**To release a Port on PortMaster we have some guidelines that need to be followed:**
+To release a port on PortMaster there are some guidelines that need to be
+followed.
 
+## Port structure
 
-## Port Structure:
+Ports live in the `ports` top level directory, each in its own sub-directory
+named after the port. Every port needs a `port.json`, a `screenshot.{jpg,png}`,
+a `README.md`, a `gameinfo.xml`, a launch script and a port directory. A
+`cover.{jpg,png}` is optional.
 
-Ports are now contained within the `port` top level directory, each port has its own sub-directory named after the port itself. Each port must adhere to the `portname` rules stated above. Each port must have a `port.json`, `screenshot.{jpg,png}`, `README.md`, `gameinfo.xml`, a port script and a port directory. It may optionally include a `cover.{jpg,png}`.
+The launch script can have capital letters and spaces, like `Port Name.sh`, and
+must end in `.sh`. The port directory must match the name of the directory
+containing it. Some legacy ports break these rules, but new ports are not
+accepted unless they follow the current convention.
 
-The script should have capital letters (like `Port Name.sh`) and must end in `.sh`, the port directory should be the same as the containing directory. Some legacy ports have different names, new ports won't be accepted unless they follow the new convention.
-
-Scripts and port directories must be unique across the whole project, checks will be run to ensure this is right.
-
-A port directory might look like the following:
+Script names and port directories must be unique across the whole project.
+Checks run on submission to make sure of it.
 
 ```
 portname/
@@ -19,30 +24,32 @@ portname/
 ├── README.md
 ├── screenshot.jpg
 ├── gameinfo.xml
-├── cover.jpg (Optional)
+├── cover.jpg (optional)
 ├── Port Name.sh
 └── portname/
     ├── licenses/
-    │   └── LICENSE Files
-    └── <portfiles here>
+    │   └── LICENSE files
+    └── <port files here>
 ```
 
-### portname
+The **portname** itself has its own rules:
 
-- The **portname** must start with either a lowercase letter (a-z) or a number (0-9).
+- It must start with a lowercase letter (a-z) or a number (0-9).
+- After that you can use lowercase letters (a-z), numbers (0-9), periods (.)
+  or underscores (\_).
+- There is no length limit, but keep it short.
+- It must not clash with any existing port.
 
-- You can then have a combination of lowercase letters (a-z), numbers (0-9), periods (.), or underscores (\_).
+## port.json
 
-- There is no limit on the length of the name, but keep it short.
+This is what PortMaster itself reads, and it holds all the pertinent info for
+the port. The [JSON Generator](../../tools/json-generator.md) will build one for
+you.
 
-- This name must not clash with any other existing ports.
+Make sure to select the correct architecture. If the game uses a runtime such as
+Godot, Mono or Java, no arch needs to be entered.
 
-### port.json
-
-This is used by portmaster, this should include all the pertinent info for the port, [we have a handy port.json generator here](http://portmaster.games/port-json.html).
-Make sure to select the correct architecture. If the game is using a runtime e.g. Godot/Mono/Java no arch needs to be entered.
-
-Example from 2048.
+Example, from 2048:
 
 ```json
 {
@@ -75,54 +82,59 @@ Example from 2048.
 }
 ```
 
-### README.md
+## README.md
 
-This adds additional info for the port on the wiki, [we have a handy README.md generator here](http://portmaster.games/port-markdown.html).
-Please always add a dedicated thank you note for the developer/creator. Without these people we would not be here. 
+This provides the additional info shown for the port on the wiki. The
+[README Generator](../../tools/markdown-generator.md) will build one for you.
+
+Always include a thank you to the developer or creator. Without these people we
+would not be here.
 
 Example:
 
-```md
-    ## Notes
-    Thanks to the [Alien Blaster Team](https://www.schwardtnet.de/alienblaster/) for creating this game and making it available for free!
-     
-    ## Controls
+````md
+## Notes
 
-    | Button | Action |
-    |--|--| 
-    |A| Special Weapon|
-    |B| Main Weapon|
-    |X| Swap Weapon|
-    |Y| Spwap Special Weapon |
-    |R1| Key "1" |
-     
+Thanks to the [Alien Blaster Team](https://www.schwardtnet.de/alienblaster/) for
+creating this game and making it available for free!
 
-    ## Compile
+## Controls
 
-    ```
-    wget http://www.schwardtnet.de/alienblaster/archives/alienblaster-1.1.0.tgz
-    cd alienblaster-1.1.0
-    make
-    ```
+| Button | Action |
+|--|--|
+|A| Special Weapon|
+|B| Main Weapon|
+|X| Swap Weapon|
+|Y| Swap Special Weapon |
+|R1| Key "1" |
+
+## Compile
+
 ```
+wget http://www.schwardtnet.de/alienblaster/archives/alienblaster-1.1.0.tgz
+cd alienblaster-1.1.0
+make
+```
+````
 
-### screenshot.png
-For use in the PortMaster GUI aswell as for the Wiki we need a screenshot of the gameplay or main function of the Port. The screenshot has to be exactly 640x480 in dimensions and format can either be .jpg or .png
+## screenshot.png
 
-You can use these scripts to capture either screenshots or videos on your device. Depending on your device you might need to adjust the width and height values.
+Used in the PortMaster GUI and on the wiki, so it needs to show gameplay or the
+port's main function. It has to be exactly 640x480, as either `.jpg` or `.png`.
 
-### gameinfo.xml & cover.png
+## gameinfo.xml and cover.png
 
-Portmaster installs Metadata including a cover to emulationstation upon a Port install.
-For this we use a custom gameinfo.xml with all the data needed for Emulationstation and a cover file.
+PortMaster installs metadata, including a cover, into EmulationStation when a
+port is installed. That comes from a `gameinfo.xml` and a cover file.
 
-The Coverfile should always show gameplay in additon to other media like boxart or logo.
-If no cover is used Portmaster will use the screenshot instead.
+The cover should show gameplay in addition to other media such as box art or a
+logo. If no cover is supplied, PortMaster falls back to the screenshot.
 
-To edit existing metadata and to create a new gameinfo.xml file you can use following tool:
-https://portmaster.games/metadata-editor.html
+The [Gameinfo Generator](../../tools/gameinfo-generator.md) creates and edits
+`gameinfo.xml`, and the [Cover Generator](../../tools/cover-generator.md) builds
+a `cover.png` from your artwork.
 
-Here is the structure of a filled out gameinfo.xml
+A filled out `gameinfo.xml` looks like this:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -141,33 +153,35 @@ You play an adventurer seeking riches, fighting monsters, and preparing for a fi
   </game>
 </gameList>
 ```
-  
-### Licenses
-Please add licensefiles for all sources, libraries and assets you used into a licenses subfolder.
 
-For example:
+## Licenses
 
-- game project open source file (if it's an open source game)
-- gptokeyb license file
-- sdl1.2 compat license file
-- gl4es license file
-- box86 / box64 license files
-- .so libraries files
+Add license files for all sources, libraries and assets you used, in a
+`licenses` subfolder. For example:
 
-You often can find the libraries either in the source folder you compiled or in distributions under /usr/share/doc/package/copyright
-### The Launchscript .sh
+- The game project's own license, if it's an open source game
+- gptokeyb
+- sdl1.2 compat
+- gl4es
+- box86 / box64
+- any `.so` libraries you shipped
 
-!!! info inline end "Example Scripts"
-    All of the example scripts can be found [here](script-templates.md)!
+You can usually find these either in the source folder you compiled from, or on
+your build system under `/usr/share/doc/<package>/copyright`.
 
-The script should have capital letters (like `Port Name.sh`) and must end in `.sh`, the port directory should be the same as the containing directory. Some legacy ports have different names, new ports won't be accepted unless they follow the new convention.
+## The launch script
 
-Below we pick apart a launchscript  and explain what each function does:
+!!! info inline end "Example scripts"
+    Ready-made scripts for each engine are on the
+    [Script Templates](script-templates.md) page.
 
+Below is a launch script with every section annotated, explaining what each part
+does.
 
-```shell
-# Below we assign the source of the control folder (which is the PortMaster folder) based on the distro:
+```bash
 #!/bin/bash
+
+# Below we assign the source of the control folder (which is the PortMaster folder) based on the distro:
 
 XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 
@@ -207,16 +221,16 @@ cd $GAMEDIR
 # Log the execution of the script, the script overwrites itself on each launch
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
-# Some ports like to create save files or settings files in the user's home folder or other locations. We map these config folders so we can either preconfigure games and or have the savefiles in one place. I
+# Some ports like to create save files or settings files in the user's home folder or other locations. We map these config folders so we can either preconfigure games and or have the savefiles in one place.
 # You can either use XDG variables to redirect the Ports to our gamefolder if the port supports it:
 
 # Set the XDG environment variables for config & savefiles
 export XDG_DATA_HOME="$CONFDIR"
 
-# OR  
+# OR
 
 # Use bind_directories to reroute that to a location within the ports folder.
-bind_directories ~/.portfolder $GAMEDIR/conf/.portfolder 
+bind_directories ~/.portfolder $GAMEDIR/conf/.portfolder
 
 # Port specific additional libraries should be included within the port's directory in a separate subfolder named libs.aarch64, libs.armhf or libs.x64
 export LD_LIBRARY_PATH="$GAMEDIR/libs.${DEVICE_ARCH}:$LD_LIBRARY_PATH"
@@ -225,14 +239,14 @@ export LD_LIBRARY_PATH="$GAMEDIR/libs.${DEVICE_ARCH}:$LD_LIBRARY_PATH"
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
 
 # If a port uses GL4ES (libgl.so.1) a folder named gl4es.aarch64 etc. needs to be created with the libgl.so.1 file in it. This makes sure that each cfw and device get the correct GL4ES export.
-if [ -f "${controlfolder}/libgl_${CFW_NAME}.txt" ]; then 
+if [ -f "${controlfolder}/libgl_${CFW_NAME}.txt" ]; then
   source "${controlfolder}/libgl_${CFW_NAME}.txt"
 else
   source "${controlfolder}/libgl_default.txt"
 fi
 
 # We launch gptokeyb using this $GPTOKEYB variable as it will take care of sourcing the executable from the central location,
-# assign the appropriate exit hotkey dependent on the device (ex. select + start for most devices and minus + start for the 
+# assign the appropriate exit hotkey dependent on the device (ex. select + start for most devices and minus + start for the
 # rgb10) and assign the appropriate method for killing an executable dependent on the OS the port is run from.
 # With -c we assign a custom mapping file else gptokeyb will only run as a tool to kill the process.
 # For $ANALOG_STICKS we have the ability to supply multiple gptk files to support 1 and 2 analogue stick devices in different ways.
@@ -243,27 +257,25 @@ $GPTOKEYB "portexecutable.${DEVICE_ARCH}" -c "./portname.gptk.$ANALOG_STICKS" &
 pm_platform_helper "$GAMEDIR/portexecutable.${DEVICE_ARCH}"
 
 # Now we launch the port's executable with multiarch support. Make sure to rename your file according to the architecture you built for. E.g. portexecutable.aarch64
-./portexecutable.${DEVICE_ARCH} Launch the executable
+./portexecutable.${DEVICE_ARCH}
 
 # Cleanup any running gptokeyb instances, and any platform specific stuff.
 pm_finish
-
 ```
 
-### Launchscript functions and error handling
+## Functions and error handling
 
-Some games require installation or patches on first run. We can use functions inside shell to keep code organized. Use error handling inside functions to keep the launchscript stable.
+Some games need installation or patching on first run. Use functions to keep the
+launch script organised, and error handling inside them to keep it stable.
 
-Example:
-
-```shell
+```bash
 # Functions
 install() {
-    pm_message "Performing first-run setup..." 
+    pm_message "Performing first-run setup..."
     # Purge unneeded files
     rm -rf assets/*.exe assets/*.dll assets/.gitkeep
     # Rename data.win
-    pm_message "Moving game files..." 
+    pm_message "Moving game files..."
     mv "./assets/data.win" "./game.droid" || return 1
     mv assets/* ./
     rmdir assets
@@ -277,20 +289,20 @@ install() {
 }
 
 apply_patch() {
-    pm_message "Applying patch..." 
+    pm_message "Applying patch..."
     if [ -f "$controlfolder/xdelta3" ]; then
         error=$("$controlfolder/xdelta3" -d -s "$GAMEDIR/game.droid" "$GAMEDIR/patch/iosas.xdelta" "$GAMEDIR/game2.droid" 2>&1)
         if [ $? -eq 0 ]; then
             rm -rf "$GAMEDIR/game.droid"
             mv "$GAMEDIR/game2.droid" "$GAMEDIR/game.droid"
-            pm_message "Patch applied successfully." 
+            pm_message "Patch applied successfully."
         else
-            pm_message "Failed to apply patch. Error: $error" 
+            pm_message "Failed to apply patch. Error: $error"
             rm -f "$GAMEDIR/game2.droid"
             return 1
         fi
     else
-        pm_message "Error: xdelta3 not found in $controlfolder. Try updating PortMaster." 
+        pm_message "Error: xdelta3 not found in $controlfolder. Try updating PortMaster."
         return 1
     fi
 }
@@ -302,10 +314,14 @@ fi
 
 Several things to note here:
 
-- The line for moving the game.droid file immediately returns `1` if it couldn't do it. This prevents the install function from proceeding if a critical task wasn't completed.
-- The `apply_patch` function and `.csv` file are only used if the target device has less than 2GB of RAM, making use of the `$DEVICE_RAM` variable filled by `control.txt`.
-- The `$GAMEDIR/patch` directory is only removed if the `apply_patch` function is successful, by using `&&`. This allows the user to correct any mistakes during the install process without having to reinstall the port.
-- The `apply_patch` function itself is a nest of IF conditionals to assist with error checking. It returns `1` if it failed.
-- The `installed` function is only run once if successful. If it was successfully completed, a `.installed` file is created, preventing future runs of the function.
-
-
+- The line moving `game.droid` returns `1` immediately if it fails, which stops
+  the install function proceeding after a critical task didn't complete.
+- `apply_patch` and the `.csv` file are only used if the device has less than
+  2GB of RAM, using the `$DEVICE_RAM` variable filled by `control.txt`.
+- The `$GAMEDIR/patch` directory is only removed if `apply_patch` succeeded,
+  via `&&`. That lets the user correct mistakes during install without
+  reinstalling the port.
+- `apply_patch` is a nest of conditionals for error checking, and returns `1` if
+  it failed.
+- `install` only runs once. On success a `.installed` file is created, which
+  prevents it running again.
