@@ -140,6 +140,7 @@ nav:
           - Packaging: contribute/porting/packaging.md
           - Developer Details: contribute/porting/developer-details.md
           - Engines:
+              - Documentation Request Template: contribute/porting/engines/template.md
               - Godot: contribute/porting/engines/godot.md
               - GameMaker Studio: contribute/porting/engines/gamemaker-studio.md
               - Love2D: contribute/porting/engines/love2d.md
