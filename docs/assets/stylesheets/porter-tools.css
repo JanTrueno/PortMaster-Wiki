@@ -651,6 +651,13 @@
 .porter-tool .pq-delta.is-smaller { color: #43a047; }
 .porter-tool .pq-delta.is-bigger { color: #e53935; }
 
+/* Breaks onto its own line rather than sitting in the figures row - it is
+   an instruction, not another number. */
+.porter-tool .pq-hint {
+  flex-basis: 100%;
+  color: var(--card-stat-color, #888888);
+}
+
 /* ===============================================
    JSON/README GENERATORS
    The accordion sections, checkbox rows and radio

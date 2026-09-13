@@ -24,6 +24,9 @@ fine detail and dithered patterns survive the reduction instead of shimmering.
 Exact 2x, 3x and 4x enlargements are done with nearest neighbour instead, which
 keeps pixel art crisp.
 
+The PNG this writes is a full 32 bit one. Run it through the
+[PNG Compressor](png-compressor.md) afterwards to get the file size down.
+
 ## Pick your screenshot
 
 <div class="porter-tool">

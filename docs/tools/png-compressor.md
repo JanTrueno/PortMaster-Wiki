@@ -13,6 +13,9 @@ glightbox: false
 
 Shrink a `screenshot.png` or `cover.png` without leaving your browser.
 
+Needs one at 640x480 first? The [Screenshot Resizer](screenshot-resizer.md) makes
+those, and the [Cover Generator](cover-generator.md) builds covers.
+
 A screenshot straight out of a capture tool is usually a 24 or 32 bit PNG, which
 stores a full colour value for every pixel. Cutting it down to a palette of at
 most 256 colours typically saves 70-90% with no visible difference, which is what
@@ -554,11 +557,24 @@ the same range as pngquant, give or take a few percent.
     afterImg.src = resultUrl;
 
     const delta = sourceBytes ? Math.round((1 - blob.size / sourceBytes) * 100) : 0;
+
+    // Coming out bigger is a real outcome, not an error, and it has two
+    // causes worth telling apart. Dithering on flat art is by far the
+    // common one: the noise it sprays over every solid region is exactly
+    // the kind of thing deflate cannot pack, and switching it off can turn
+    // "3x bigger" into "half the size" on the same image.
+    let hint = '';
+    if (delta <= 0) {
+      hint = dither.checked
+        ? '<span class="pq-hint">Dithering is doing this - on flat artwork it adds noise that will not compress. Try it off.</span>'
+        : '<span class="pq-hint">This PNG is already well packed, so a palette version has nothing to win back.</span>';
+    }
+
     sizes.innerHTML =
       '<span class="pq-size"><strong>Original</strong> ' + formatBytes(sourceBytes) + '</span>' +
       '<span class="pq-size"><strong>Compressed</strong> ' + formatBytes(blob.size) + '</span>' +
       '<span class="pq-size pq-delta ' + (delta > 0 ? 'is-smaller' : 'is-bigger') + '">' +
-      (delta > 0 ? delta + '% smaller' : Math.abs(delta) + '% bigger') + '</span>';
+      (delta > 0 ? delta + '% smaller' : Math.abs(delta) + '% bigger') + '</span>' + hint;
 
     qualityNote.textContent = palette.length + ' colour palette at ' +
       depthFor(palette.length) + ' bits per pixel.';
