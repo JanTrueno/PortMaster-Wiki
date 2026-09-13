@@ -2,7 +2,7 @@
     {
         "name": "Hero Spotlight",
         "type": "hero",
-        "description": "Optional labels for the /games/ hero banner. Which ports actually show up is auto-detected from docs/assets/images/hero/<port_id>.{jpg,png,webp} - drop or remove an image there to add or remove a slide.",
+        "description": "Optional labels for the /games/ hero banner. Which ports actually show up is auto-detected from docs/assets/images/hero/<port_id>.{jpg,png,webp} - drop or remove an image there to add or remove a slide. The banner shows five; if there are more images than that, a random five are drawn each build.",
         "ports": [
             {
                 "key": "balatro.zip",

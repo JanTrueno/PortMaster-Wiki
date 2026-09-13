@@ -722,6 +722,13 @@ def define_env(env):
     # Falls back to an auto-computed set (still true if no hero images exist
     # yet) so the banner never just breaks.
     HERO_DESC_MAX_LEN = 110
+    # The banner only has room for five: .hero-main is locked to 21:9 while
+    # .hero-sidebar is an uncapped column, so a sixth pill grows the sidebar
+    # taller than the image beside it. Past that many images, draw a random
+    # five each build so the extras still get screen time - same trick as
+    # MAX_GROUPS_PER_CATEGORY above, and the hourly CI rebuild is what makes
+    # it rotate.
+    HERO_MAX_SLIDES = 5
     HERO_IMAGE_DIR = base_path.parent / "images" / "hero"
     HERO_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"]
     today = datetime.now()
@@ -785,10 +792,21 @@ def define_env(env):
             f.stem for f in HERO_IMAGE_DIR.iterdir()
             if f.is_file() and f.suffix.lower() in HERO_IMAGE_EXTENSIONS
         })
-        for port_id in image_port_ids:
+        # Whittle down to the ports that can actually become a slide before
+        # drawing, not after: sampling first and filtering second would
+        # quietly return fewer than five whenever an image outlives its port
+        # or names one on the exclude list.
+        hero_candidates = [
+            port_id for port_id in image_port_ids
+            if f"{port_id}.zip" in merged_ports["ports"] and f"{port_id}.zip" not in hero_used
+        ]
+        if len(hero_candidates) > HERO_MAX_SLIDES:
+            # Unsorted on purpose - the draw decides the running order too,
+            # so the slide that greets a visitor first changes as well.
+            hero_candidates = random.sample(hero_candidates, HERO_MAX_SLIDES)
+
+        for port_id in hero_candidates:
             key = f"{port_id}.zip"
-            if key not in merged_ports["ports"] or key in hero_used:
-                continue
             hero_used.add(key)
             hero_slides.append(build_hero_slide(hero_labels.get(port_id, ""), key))
 
