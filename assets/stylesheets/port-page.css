@@ -1,0 +1,878 @@
+/* ===============================================
+   PORT-PAGE.CSS
+   The standalone port detail page (/port/?name=X):
+   storefront-style two-column layout (media + long
+   form content left, sticky download rail right),
+   device-compatibility control, download warning,
+   and the back-to-top button.
+   =============================================== */
+
+/* ===== STANDALONE PORT PAGE (/port/?name=X) =====
+   Modeled on a storefront product page (Epic/Steam): flat and wide rather
+   than a narrow boxed card, with everything that makes the "should I
+   install this" decision - price, download, compatibility, spec sheet -
+   collected in a rail that stays pinned while the readme scrolls. */
+/* No max-width or side padding of its own: .md-content__inner already caps
+   and gutters every page in the site (via .md-grid), so anything extra here
+   just made this page narrower than the games/porters pages next to it. */
+.port-page {
+  margin: 0.5rem 0 4rem;
+  padding: 0;
+}
+
+/* ===== Title block (spans both columns) ===== */
+.port-titlebar {
+  margin-bottom: 1.5rem;
+}
+
+.port-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--card-stat-color, #888888) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+.port-breadcrumb:hover {
+  color: #F49519 !important;
+}
+
+/* Scoped under .port-titlebar so this beats the theme's own
+   ".md-typeset h1 { font-size, color }" rule on specificity - a bare
+   single-class selector loses that fight regardless of source order, which
+   is why the title silently rendered at the theme's default 2rem before. */
+.port-titlebar .port-title {
+  margin: 0;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  font-weight: 700;
+  text-align: left;
+  color: var(--card-text);
+}
+
+.port-title-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.port-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.port-badge--rtr {
+  background-color: rgba(244, 149, 25, 0.16);
+  color: #F49519;
+}
+
+.port-badge--setup {
+  background-color: rgba(128, 128, 128, 0.2);
+  color: var(--card-stat-color, #888888);
+}
+
+.port-title-porter {
+  color: var(--card-stat-color, #888888);
+}
+
+.port-title-porter a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.port-title-porter a:hover {
+  color: #F49519 !important;
+  text-decoration: underline !important;
+}
+
+/* ===== Two-column body =====
+   .port-hero is a direct grid child rather than living inside .port-main
+   so the single-column fallback orders as screenshot -> download rail ->
+   readme. Nesting it would have pushed the download button below the
+   entire readme on mobile. */
+.port-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  column-gap: 2.5rem;
+  row-gap: 1.5rem;
+}
+
+.port-hero {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+}
+
+.port-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.port-main {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}
+
+/* Spans both rows so the sticky inner has the full height of the left
+   column to travel within. */
+.port-sidebar {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-width: 0;
+}
+
+.port-sidebar-inner {
+  position: sticky;
+  /* Clears the theme's fixed header (~2.4rem) with breathing room. */
+  top: 5rem;
+}
+
+/* ===== Sidebar: status headline + actions =====
+   Sits where a storefront puts its price. Every port is free, so the thing
+   worth saying up front is whether the user has to bring their own game
+   files - the one fact that decides if they can actually play it. */
+.port-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.port-status i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.port-status--rtr {
+  color: #F49519;
+}
+
+.port-status--files {
+  color: var(--card-text);
+}
+
+.port-status-note {
+  margin: 0.35rem 0 1rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--card-stat-color, #888888);
+}
+
+/* Overrides .modal-download-btn's 70px-tall / flex:1 / min-width:200px
+   sizing from shared-modal.css, which was built for a wide action row
+   rather than a 320px rail. */
+.port-sidebar .port-download-cta {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 0;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.port-sidebar .port-download-cta:hover {
+  /* The shared rule scales this up; in a fixed-width rail that reads as
+     the button outgrowing its column, so just brighten instead. */
+  transform: none;
+}
+
+.port-sidebar .device-chip-wrapper {
+  margin-top: 0.6rem;
+}
+
+/* Full-width labelled control in the rail rather than the bare 70px icon
+   square the wide action row used - see .device-filter-btn base rule
+   further down for the shared look. */
+.port-sidebar .device-filter-btn {
+  width: 100%;
+  height: 44px;
+  gap: 0.5rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-text);
+}
+
+.port-sidebar .device-filter-btn:hover {
+  transform: none;
+}
+
+.port-sidebar .device-filter-btn i {
+  font-size: 1.05rem;
+}
+
+.device-chip-label {
+  line-height: 1;
+}
+
+/* ===== Sidebar: spec sheet ===== */
+.port-facts {
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.port-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+  font-size: 0.78rem;
+}
+
+.port-facts .port-fact:last-child {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+/* dt/dd need explicit resets - the theme's .md-typeset styles them with
+   its own margins/weights otherwise. */
+.port-fact dt {
+  margin: 0;
+  flex-shrink: 0;
+  font-weight: 400;
+  color: var(--card-stat-color, #888888);
+}
+
+.port-fact dd {
+  margin: 0;
+  min-width: 0;
+  text-align: right;
+  font-weight: 600;
+  color: var(--card-text);
+  overflow-wrap: anywhere;
+}
+
+.port-fact dd a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.port-fact dd a:hover {
+  text-decoration: underline !important;
+}
+
+/* ===== Sidebar: store links + share ===== */
+.port-store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.port-store-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 1 1 45%;
+  height: 40px;
+  padding: 0 0.6rem;
+  border-radius: 10px;
+  /* Mid-grey alpha rather than --card-border: that token is #e0e0e0, which
+     sits 1.03:1 against this page's light-mode background (#dddddd) - i.e.
+     the outline was invisible in light mode. Alpha grey holds an edge on
+     both themes. Same fix as .hero-btn-secondary in homepage.css. */
+  border: 1px solid rgba(128, 128, 128, 0.6);
+  background-color: transparent;
+  color: var(--card-text) !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.port-store-link i {
+  font-size: 1rem;
+}
+
+.store-icon-svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.port-store-link:hover {
+  border-color: #F49519;
+  color: #F49519 !important;
+  background-color: rgba(244, 149, 25, 0.08);
+}
+
+/* WCAG 1.4.11 wants 3:1 for a control's visual boundary. No single alpha
+   grey clears that on both themes: composited over the light page
+   (#dddddd) even a solid #808080 only reaches 2.9:1, and the same value
+   over the dark page lands at 2.4:1. So each scheme gets an explicit tone
+   - 3.3:1 light, 3.2:1 dark - rather than one value that fails on both.
+   These outlined controls sit directly on the page background (the sidebar
+   has no surface of its own), which is what makes the margin so tight. */
+[data-md-color-scheme="light"] .port-sidebar .device-filter-btn,
+[data-md-color-scheme="light"] .port-sidebar .share-btn,
+[data-md-color-scheme="light"] .port-store-link {
+  border-color: #767676;
+}
+
+[data-md-color-scheme="dark"] .port-sidebar .device-filter-btn,
+[data-md-color-scheme="dark"] .port-sidebar .share-btn,
+[data-md-color-scheme="dark"] .port-store-link {
+  border-color: #6a6a6a;
+}
+
+.port-sidebar .share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  height: 40px;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--card-text);
+}
+
+.port-sidebar .share-btn:hover {
+  transform: none;
+}
+
+.port-sidebar .share-btn i {
+  font-size: 0.95rem;
+}
+
+/* ===== Left column: description + tag groups ===== */
+.port-description {
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--card-text);
+}
+
+.port-description p {
+  margin: 0 0 0.75rem 0;
+}
+
+.port-description:empty {
+  display: none;
+}
+
+.port-tag-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.port-main .port-tag-heading {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--card-stat-color, #888888);
+}
+
+.port-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.port-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background-color: rgba(128, 128, 128, 0.18);
+  color: var(--card-text);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* .modal-text-section was built for a boxed modal: 2rem side padding plus
+   an alternating grey fill on odd children to separate sections inside the
+   box. On a flat page that fill reads as a stray grey panel and the side
+   padding indents the text away from the screenshot above it, so both are
+   dropped here - the hairline rule alone does the separating. */
+.port-main .modal-text-section {
+  padding: 1.5rem 0 0;
+  margin-top: 1.5rem;
+  background-color: transparent !important;
+}
+
+/* The first section has the tag groups directly above it, which already
+   read as a break - a rule there as well would be a double separator. */
+.port-main .modal-text-section:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
+/* ===== Collapsed long content =====
+   Applied by makeCollapsible() in port-page.js only when the content
+   actually exceeds the clamp, so short readmes never get a toggle. */
+.port-main .modal-text-content.is-clamped {
+  position: relative;
+  max-height: 420px;
+  overflow: hidden;
+}
+
+.port-main .modal-text-content.is-clamped::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 130px;
+  /* Fades into the page itself, not a card, since this layout is flat. */
+  background: linear-gradient(to bottom, transparent, var(--md-default-bg-color));
+  pointer-events: none;
+}
+
+/* Must follow .is-clamped: both are the same specificity, so source order
+   is what lets the expanded state win. */
+.port-main .modal-text-content.is-expanded {
+  max-height: none;
+  overflow: visible;
+}
+
+.port-main .modal-text-content.is-expanded::after {
+  display: none;
+}
+
+/* Plain text affordance with a chevron, not a boxed button - a full-width
+   outlined box read as a second CTA competing with Download. */
+.port-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--card-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.port-expand-btn:hover {
+  color: #F49519;
+}
+
+.port-expand-btn i {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.port-expand-btn:hover i {
+  transform: translateY(1px);
+}
+
+/* ===== Similar games =====
+   Full width below both columns (it's a browsing prompt, not part of the
+   detail record). Card/track/arrow styling all comes from shared-cards.css
+   so this row is identical to the carousels on the games page. */
+.port-similar {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+/* .carousel-nav is flex:1 + space-between for the games page, where a
+   "See All" link sits opposite the arrows. There's no such link here, so
+   the lone button group would otherwise sit hard against the title. */
+.port-similar .carousel-nav {
+  justify-content: flex-end;
+}
+
+.port-similar .carousel-section-title h2 {
+  font-size: 1.05rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1000px) {
+  .port-layout {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    column-gap: 1.75rem;
+  }
+}
+
+/* Single column: DOM order (hero -> sidebar -> main) puts the download
+   rail directly under the screenshot instead of below the whole readme. */
+@media (max-width: 900px) {
+  .port-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .port-hero,
+  .port-sidebar,
+  .port-main {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .port-sidebar-inner {
+    position: static;
+  }
+
+  .port-titlebar .port-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .port-page {
+    margin-bottom: 2.5rem;
+  }
+
+  .port-titlebar {
+    margin-bottom: 1rem;
+  }
+
+  .port-titlebar .port-title {
+    font-size: 1.35rem;
+  }
+
+  .port-hero {
+    border-radius: 10px;
+  }
+
+  .port-description {
+    font-size: 0.85rem;
+  }
+
+  /* Genres and Requirements stack rather than squeezing two chip columns
+     into a phone width. */
+  .port-tag-groups {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .port-store-link {
+    flex-basis: 100%;
+  }
+
+  .device-chip-popover {
+    left: auto;
+    right: 0;
+    transform: none;
+    min-width: 240px;
+    max-width: calc(100vw - 2.5rem);
+  }
+}
+
+.port-page-loading,
+.port-page-not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Back button overlay - now only used by the porter detail page
+   (/porter/?name=X); the port page uses the .port-breadcrumb text link
+   above its title instead. */
+.port-hero-back {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+  z-index: 2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.port-hero-back:hover {
+  background-color: rgba(244, 149, 25, 0.9);
+  transform: scale(1.08);
+}
+
+/* ===== Device compatibility control (port page + modal) ===== */
+.device-chip-wrapper {
+  position: relative;
+}
+
+.device-chip-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--card-stat-color, #888888);
+  border: 2px solid var(--card-bg);
+  opacity: 0;
+}
+
+.device-chip-dot.is-compatible,
+.device-chip-dot.is-incompatible {
+  opacity: 1;
+}
+
+.device-chip-dot.is-compatible {
+  background-color: #2fb344;
+}
+
+.device-chip-dot.is-incompatible {
+  background-color: #dc3545;
+}
+
+.device-chip-popover {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  min-width: 260px;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--card-border, #cccccc);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+[data-md-color-scheme="light"] .device-chip-popover {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="dark"] .device-chip-popover {
+  background-color: #232323;
+}
+
+.device-chip-popover label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--card-stat-color, #888888);
+  margin-top: 0.4rem;
+}
+
+.device-chip-popover label:first-child {
+  margin-top: 0;
+}
+
+.device-chip-popover select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, #cccccc);
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  font-size: 0.85rem;
+}
+
+.device-chip-popover select:disabled {
+  opacity: 0.5;
+}
+
+.device-chip-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.device-chip-hint.is-incompatible {
+  color: #dc3545;
+}
+
+.device-chip-hint.is-compatible {
+  color: #2fb344;
+}
+
+/* ===== DOWNLOAD WARNING ===== */
+.download-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+  background-color: rgba(244, 149, 25, 0.15);
+  color: #F49519;
+  border: 2px solid #F49519;
+}
+
+/* Error state for incompatible downloads */
+.download-warning.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.download-warning.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.download-warning i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Device Filter Button - matches .share-btn's neutral ghost style */
+.device-filter-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  /* See .port-store-link above for why this isn't --card-border. */
+  border: 1px solid rgba(128, 128, 128, 0.6);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex-shrink: 0;
+}
+
+.device-filter-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.device-filter-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.device-filter-btn:hover i {
+  color: #F49519;
+}
+
+/* Share Button - neutral ghost, sized by whichever context hosts it. */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  background-color: transparent;
+  /* See .port-store-link above for why this isn't --card-border. */
+  border: 1px solid rgba(128, 128, 128, 0.6);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  will-change: transform, background-color, border-color;
+  flex: 1;
+}
+
+.share-btn:hover {
+  border-color: #F49519;
+  background-color: rgba(244, 149, 25, 0.08);
+  transform: scale(1.05);
+}
+
+.share-btn i {
+  font-size: 1.4rem;
+  color: var(--card-text, #555555);
+  transition: color 0.2s ease;
+}
+
+.share-btn:hover i {
+  color: #F49519;
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #F49519;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.1);
+}
+
+.back-to-top.visible:hover {
+  transform: translateY(0) scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+}

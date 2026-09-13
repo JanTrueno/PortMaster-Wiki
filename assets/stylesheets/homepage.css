@@ -1,0 +1,624 @@
+/* ===============================================
+   HOMEPAGE.CSS
+   Real classes throughout (no attribute selectors
+   matching inline styles) so responsive behavior
+   can't silently break when markup changes.
+   No port/game cards live here anymore - the games
+   page already covers browsing, so this file only
+   needs .pm-card indirectly (none used) and mostly
+   its own section/grid components.
+   =============================================== */
+
+/* ===== Shared section rhythm ===== */
+.home-section {
+  margin: 4.5rem 0;
+}
+
+.home-section > h2 {
+  font-size: 1.4rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ===== Buttons (shared by hero / get involved) =====
+   Pill-shaped, like the primary CTAs on the reference sites (Linear's
+   "Sign up", Opal's "Order now"): one solid button carrying the main
+   action, one quiet outlined partner. Smaller and lighter-weight than
+   before - the old 0.95rem/700 in a 10px box read as chunky. */
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.68rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none !important;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease,
+              border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  /* Floor so standalone buttons (the Get Involved pair, which aren't in
+     a shared grid) still match each other rather than hugging their own
+     label widths. */
+  min-width: 10.5rem;
+}
+
+.hero-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Solid, near-white on the dark theme and inverted on the light one, so
+   it always reads as the filled/primary of the pair. */
+.hero-btn-primary {
+  background-color: #f0f0f2;
+  color: #15151a !important;
+}
+
+.hero-btn-primary:hover {
+  background-color: #ffffff;
+}
+
+[data-md-color-scheme="light"] .hero-btn-primary {
+  background-color: #1a1a1e;
+  color: #f5f5f7 !important;
+}
+
+[data-md-color-scheme="light"] .hero-btn-primary:hover {
+  background-color: #000000;
+}
+
+.hero-btn-secondary {
+  background-color: transparent;
+  /* Mid-grey alpha rather than --card-border (#e0e0e0): that value is
+     tuned for a white surface and sits ~3 values off this page's light-
+     mode background (#dddddd), which made the outline invisible. An
+     alpha grey keeps a visible edge on light and dark alike. */
+  border-color: rgba(128, 128, 128, 0.45);
+  color: var(--card-text) !important;
+}
+
+.hero-btn-secondary:hover {
+  border-color: rgba(128, 128, 128, 0.9);
+}
+
+/* ===== Hero =====
+   Copy on the left, device oversized on the right and cropped off the
+   edge of the screen. No backdrop panel behind it - the crop and the
+   empty space are doing the work. Full-bleed via the negative-margin /
+   positive-padding pair so overflow:hidden clips the device at the
+   viewport edge rather than at the content column. */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem calc(-50vw + 50%) 4.5rem;
+  padding: 0 calc(50vw - 50%);
+  overflow: hidden;
+}
+
+.hero-content {
+  flex: 0 0 46%;
+  min-width: 0;
+}
+
+.hero-content h1 {
+  font-size: 2.25rem;
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+}
+
+.hero-subtitle {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  /* Explicit alpha per scheme rather than --md-default-fg-color--lighter:
+     that token is near-white in Material's light scheme, which put this
+     at rgb(204,204,204) on a rgb(221,221,221) page - 1.18:1 contrast,
+     i.e. unreadable. These both clear WCAG AA. */
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0 0 1.75rem;
+  max-width: 32rem;
+}
+
+[data-md-color-scheme="light"] .hero-subtitle {
+  color: rgba(0, 0, 0, 0.62);
+}
+
+/* inline-grid with equal fr columns sizes both buttons to the wider of
+   the two, so the pair always matches regardless of label length (the
+   port count in "Browse 1400+ Games" changes every build). inline-grid
+   keeps the group itself shrink-to-fit rather than filling the column. */
+.hero-cta-group {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.hero-visual {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-visual .preview-container {
+  display: block;
+  width: 150%;
+  margin-left: 6%;
+}
+
+/* ===== Plain grids (stats / get involved) =====
+   No card boxes - Linear's own feature row is just icon + heading + text
+   sitting directly on the page, columns separated by a thin vertical
+   divider rather than individual bordered/filled tiles. */
+.stats-cards-grid,
+.get-involved-grid {
+  display: grid;
+}
+
+.stats-cards-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.get-involved-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stats-card,
+.get-involved-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.stats-card-icon,
+.get-involved-icon {
+  font-size: 1.6rem;
+  color: #F49519;
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.stats-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stats-card-label {
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-top: 0.35rem;
+}
+
+.get-involved-card h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+}
+
+.get-involved-card p {
+  font-size: 0.88rem;
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 1.25rem;
+}
+
+/* ===== Showcase =====
+   One full-bleed dark panel: quiet text on the left, the device very
+   large on the right and cropped off the edge of the screen. The scale
+   contrast (small type, huge product) and the empty space around them
+   are doing the work here - keep it sparse. */
+/* Full-bleed via the negative-margin / positive-padding pair rather than
+   an absolutely-positioned 100vw ::before: the overflow:hidden needed to
+   crop the device at the screen edge would also have clipped that
+   pseudo-element back to the content column, so the background has to
+   live on the element that does the clipping. */
+.showcase {
+  position: relative;
+  background-color: #0e0e10;
+  margin: 5rem calc(-50vw + 50%);
+  padding: 5rem calc(50vw - 50%) 3rem;
+  overflow: hidden;
+}
+
+/* Wall of real port screenshots filling the panel, then a scrim over the
+   top so the copy stays readable. The grid deliberately overflows the
+   panel height - it's a texture, not a gallery, so partial rows at the
+   edges are fine (and .showcase's overflow:hidden crops them). */
+.showcase-mosaic {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+  z-index: 0;
+}
+
+.showcase-mosaic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 3px;
+}
+
+.showcase::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Opaque behind the copy, then clearing toward the right so the
+     screenshots are actually legible - they're the point of the panel,
+     not wallpaper. */
+  background:
+    linear-gradient(to right, #0e0e10 20%, rgba(14, 14, 16, 0.78) 42%, rgba(14, 14, 16, 0.42) 100%),
+    rgba(14, 14, 16, 0.22);
+}
+
+.showcase-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 380px;
+}
+
+.showcase-text {
+  flex: 0 0 46%;
+  min-width: 0;
+}
+
+.showcase-text h2 {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  color: #f2f2f2;
+}
+
+.showcase-text p {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: 24rem;
+}
+
+.showcase-caption {
+  position: relative;
+  z-index: 2;
+  margin: 2.5rem 0 0;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  /* display:contents dissolves .hero-content as a box so its children
+     become flex items of .hero directly - the only way to get the CTAs
+     below the device here while keeping them inside the text column on
+     desktop, without duplicating the markup. */
+  .hero-content {
+    display: contents;
+  }
+
+  .hero-content h1 {
+    order: 1;
+    font-size: 1.5rem;
+  }
+
+  .hero-subtitle {
+    order: 2;
+    font-size: 0.75rem;
+    max-width: none;
+    margin-bottom: 0;
+  }
+
+  .hero-visual {
+    order: 3;
+    flex-basis: auto;
+  }
+
+  .hero-cta-group {
+    order: 4;
+  }
+
+  /* The min-width floor above would overflow two-up at this width, so
+     drop it and let the equal grid columns do the sizing instead. */
+  .hero-btn {
+    min-width: 0;
+    padding: 0.62rem 0.8rem;
+    font-size: 0.78rem;
+  }
+
+  /* No off-edge crop at this width - there isn't the room for it to read
+     as deliberate rather than broken, so the device sits centred. */
+  .hero-visual .preview-container {
+    width: 100%;
+    margin-left: 0;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* All four stats stay on one row - shrunk to fit rather than wrapped. */
+  .stats-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .stats-card {
+    padding: 0 0.25rem;
+  }
+
+  .stats-card-icon {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stats-card-value {
+    font-size: 1rem;
+  }
+
+  .stats-card-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.1px;
+    line-height: 1.3;
+    margin-top: 0.25rem;
+  }
+
+  /* Both cards stay side by side too. */
+  .get-involved-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .get-involved-card {
+    padding: 0;
+  }
+
+  .get-involved-icon {
+    font-size: 1.35rem;
+  }
+
+  .get-involved-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .get-involved-card p {
+    font-size: 0.74rem;
+    margin-bottom: 1rem;
+  }
+
+  /* min-width is zeroed below for the hero pair, which would otherwise
+     leave these two sized to their own labels (151px vs 142px). Filling
+     the card keeps them identical since the cards are equal columns. */
+  .get-involved-card .hero-btn {
+    width: 100%;
+  }
+
+  .showcase {
+    margin: 3rem calc(-50vw + 50%);
+    padding: 2.5rem calc(50vw - 50%) 1.75rem;
+  }
+
+  .showcase-inner {
+    flex-direction: column;
+    gap: 2rem;
+    min-height: 0;
+  }
+
+  .showcase-text {
+    flex-basis: auto;
+  }
+
+  .showcase-text h2 {
+    font-size: 1.45rem;
+  }
+
+  .showcase-text p {
+    font-size: 0.75rem;
+    max-width: none;
+  }
+
+  /* Fewer, bigger tiles so the mosaic still reads as screenshots rather
+     than noise at this width. Scrim stays left-weighted (not top-to-
+     bottom) because the copy is still left-aligned here. */
+  .showcase-mosaic {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .showcase::after {
+    background:
+      linear-gradient(to right, rgba(14, 14, 16, 0.94) 30%, rgba(14, 14, 16, 0.72) 100%),
+      rgba(14, 14, 16, 0.3);
+  }
+
+  .showcase-caption {
+    font-size: 0.6rem;
+  }
+}
+
+/* ===== Latest news =====
+   Same borderless language as the stats / get-involved rows above: no
+   card boxes, just type on the page. Left-aligned rather than centered
+   because these are headlines and prose, not labelled stats. */
+.news-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* .home-section > h2 carries the section's bottom margin; the flex row
+   owns the spacing here instead, so zero it out. */
+.news-head > h2 {
+  margin-bottom: 0;
+}
+
+.news-all {
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.news-all:hover {
+  color: var(--md-default-fg-color);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.news-item {
+  display: flex;
+  flex-direction: column;
+  /* Grid items default to min-width:auto, so a long unbroken headline
+     would push the column wider than its 1fr track. */
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.news-item-date {
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.news-item-title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin: 0.4rem 0 0.4rem;
+}
+
+.news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+.news-item-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+  margin: 0;
+  /* Excerpts come from the posts themselves and vary wildly in length;
+     clamping keeps the three columns roughly level. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Material colours every <a> inside .md-typeset via `.md-typeset a`
+   (specificity 0,2,0), which beats a bare class - so these two need the
+   parent selector to keep the news links from going link-blue. */
+.md-typeset .news-all,
+.md-typeset .news-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset .news-all {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .news-all:hover,
+.md-typeset .news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+/* Byline sits at the bottom of the card; margin-top:auto keeps it on the
+   baseline across columns whose excerpts clamp to different heights. */
+.news-item-by {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+  font-size: 0.74rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.news-item-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex: none;
+  /* Avatars are decorative here, so don't let the lightbox grab them. */
+  pointer-events: none;
+}
+
+/* ===== Latest news: dark band =====
+   Alternates against the light Get Involved row above it, the same way
+   the showcase panel does. Full-bleed via the same negative-margin /
+   positive-padding pair as .showcase (see the note there for why this
+   rather than a 100vw pseudo-element). */
+.news-band {
+  background-color: #0e0e10;
+  /* The band is the last thing on the page, and .md-content__inner sits on
+     a 1.2rem bottom margin - which showed as a pale strip between this dark
+     band and the dark footer. Cancel exactly that much so the band meets the
+     footer; the 3.5rem bottom padding still keeps the cards off the edge.
+     The negative margin lives on the .md-typeset-qualified rule below,
+     because Material zeroes it via `.md-typeset > :last-child`. */
+  margin: 5rem calc(-50vw + 50%) 0;
+  padding: 3.5rem calc(50vw - 50%) 3.5rem;
+  overflow: hidden;
+}
+
+/* The band is a fixed dark surface in both colour schemes, so its text
+   is pinned to literal values rather than the theme's fg tokens - those
+   would flip to near-black in light mode and vanish. */
+.news-band > .news-head > h2 {
+  color: #ffffff;
+}
+
+.md-typeset .news-band .news-all,
+.news-band .news-item-date,
+.news-band .news-item-excerpt,
+.news-band .news-item-by {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.news-band .news-item-title {
+  color: #f2f2f4;
+}
+
+.md-typeset .news-band .news-all:hover,
+.md-typeset .news-band .news-item:hover .news-item-title {
+  color: #F49519;
+}
+
+/* Material's `.md-typeset > :last-child { margin-bottom: 0 }` (0,2,0) beats
+   a bare `.news-band`, so the pull-down has to match that specificity. */
+.md-typeset > .news-band:last-child {
+  margin-bottom: -1.2rem;
+}
