@@ -657,20 +657,28 @@ the same range as pngquant, give or take a few percent.
   // Pointer events rather than mouse+touch pairs: one code path covers a
   // mouse, a finger and a stylus, and capture keeps the drag alive when the
   // pointer leaves the box.
+  let dragging = 0;
+
   compare.addEventListener('pointerdown', (e) => {
     if (result.hidden) return;
-    compare.setPointerCapture(e.pointerId);
+    dragging = e.pointerId;
+    // Capture is a nicety - it keeps events coming when the pointer leaves
+    // the box - but it throws on a pointer the browser no longer considers
+    // active, and the drag itself must not depend on it having worked.
+    try { compare.setPointerCapture(e.pointerId); } catch (err) { /* not fatal */ }
     compare.classList.add('is-dragging');
     positionFromEvent(e);
   });
 
   compare.addEventListener('pointermove', (e) => {
-    if (!compare.hasPointerCapture(e.pointerId)) return;
+    if (dragging !== e.pointerId) return;
     positionFromEvent(e);
   });
 
   ['pointerup', 'pointercancel'].forEach(evt => compare.addEventListener(evt, (e) => {
-    compare.releasePointerCapture(e.pointerId);
+    if (dragging !== e.pointerId) return;
+    dragging = 0;
+    try { compare.releasePointerCapture(e.pointerId); } catch (err) { /* already gone */ }
     compare.classList.remove('is-dragging');
   }));
 
