@@ -152,6 +152,8 @@ nav:
           - README Generator: tools/markdown-generator.md
           - Gameinfo Generator: tools/gameinfo-generator.md
           - Cover Generator: tools/cover-generator.md
+          - Screenshot Resizer: tools/screenshot-resizer.md
+          - PNG Compressor: tools/png-compressor.md
   - Community:
       - Overview: community/index.md
       - Porters: porters.md

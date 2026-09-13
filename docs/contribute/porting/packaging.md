@@ -122,6 +122,9 @@ make
 Used in the PortMaster GUI and on the wiki, so it needs to show gameplay or the
 port's main function. It has to be exactly 640x480, as either `.jpg` or `.png`.
 
+The [Screenshot Resizer](../../tools/screenshot-resizer.md) resizes an image of
+any size to a 640x480 `screenshot.png`.
+
 ## gameinfo.xml and cover.png
 
 PortMaster installs metadata, including a cover, into EmulationStation when a

@@ -462,6 +462,196 @@
 }
 
 /* ===============================================
+   SCREENSHOT RESIZER (tools/screenshot-resizer.md)
+   One drop slot beside the fit-mode picker, then
+   the cover generator's stage underneath.
+   =============================================== */
+.porter-tool .rs-setup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  /* The slot is shorter than the radio list on most viewports - without
+     this it stretches to match and the 16:9 preview box grows with it. */
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .porter-tool .rs-setup {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* What the current mode did to the source, in .im-empty's muted treatment.
+   Sits outside .im-stage so the checkerboard doesn't run behind the text. */
+.porter-tool .rs-meta {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: var(--card-stat-color, #888888);
+}
+
+/* ===============================================
+   PNG COMPRESSOR (tools/png-compressor.md)
+   Drop slot + quality controls, then a
+   before/after wipe over the two renderings.
+   =============================================== */
+.porter-tool .pq-setup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .porter-tool .pq-setup {
+    grid-template-columns: 1fr;
+  }
+}
+
+.porter-tool .pq-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.porter-tool input[type="range"] {
+  width: 100%;
+  margin: 0.2rem 0 0;
+  /* accent-color hands the track and thumb to the browser's own control
+     in brand orange - no vendor-prefixed thumb rules to keep in sync. */
+  accent-color: #F49519;
+  cursor: pointer;
+}
+
+.porter-tool .pq-value {
+  float: right;
+  font-weight: 400;
+  color: var(--card-stat-color, #888888);
+}
+
+/* The checkbox row is a .filter-checkbox-item so it matches the filter
+   panel, but on its own it sits too tight under the group label. */
+.porter-tool .pq-dither {
+  padding-left: 0;
+}
+
+.porter-tool .pq-compare {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 100%;
+  /* The wipe is driven by pointer events, so the browser must not claim
+     a horizontal drag as a page scroll first. */
+  touch-action: none;
+  user-select: none;
+  cursor: ew-resize;
+  /* Checkerboard: a compressed PNG can keep transparency, and a flat fill
+     would hide which parts are actually see-through. */
+  background-image:
+    linear-gradient(45deg, rgba(128,128,128,0.18) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(128,128,128,0.18) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(128,128,128,0.18) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(128,128,128,0.18) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.porter-tool .pq-compare img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* clip-path rather than a width plus overflow: the two layers then share
+   one coordinate system, so the halves line up exactly at the divider
+   whatever the image's aspect ratio is. */
+.porter-tool .pq-compare-overlay {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--pq-pos, 50%)) 0 0);
+}
+
+.porter-tool .pq-compare-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pq-pos, 50%);
+  width: 2px;
+  margin-left: -1px;
+  background-color: #F49519;
+  cursor: ew-resize;
+}
+
+.porter-tool .pq-compare-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  border: 2px solid #F49519;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.porter-tool .pq-compare-handle:focus-visible {
+  outline: none;
+}
+
+.porter-tool .pq-compare-handle:focus-visible::after {
+  box-shadow: 0 0 0 3px rgba(244, 149, 25, 0.45);
+}
+
+/* Held down, the labels and grip would otherwise sit in the way of the
+   thing being compared. */
+.porter-tool .pq-compare.is-dragging .pq-tag {
+  opacity: 0;
+}
+
+.porter-tool .pq-tag {
+  position: absolute;
+  top: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.porter-tool .pq-tag-left { left: 0.5rem; }
+.porter-tool .pq-tag-right { right: 0.5rem; }
+
+.porter-tool .pq-compare.is-busy {
+  /* Quantising blocks the main thread, so the only honest feedback is to
+     dim what is already on screen until the new render replaces it. */
+  opacity: 0.55;
+}
+
+.porter-tool .pq-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.porter-tool .pq-size strong {
+  font-weight: 600;
+  color: var(--card-text);
+  margin-right: 0.3rem;
+}
+
+.porter-tool .pq-delta.is-smaller { color: #43a047; }
+.porter-tool .pq-delta.is-bigger { color: #e53935; }
+
+/* ===============================================
    JSON/README GENERATORS
    The accordion sections, checkbox rows and radio
    lists all reuse games-filters.css directly, so
