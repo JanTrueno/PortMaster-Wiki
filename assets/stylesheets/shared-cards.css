@@ -1,0 +1,405 @@
+/* ===============================================
+   SHARED-CARDS.CSS
+   The .pm-card tile component and the horizontal
+   carousel that hosts it - used on games.md
+   (Discover carousels + Browse grid), index.md's
+   homepage sections, and porters.md's per-porter
+   game lists. Split out of the old games.css since
+   none of this is games.md-specific.
+   =============================================== */
+
+/* ===== SHARED CARD COMPONENT (Discover carousels + Browse grid) =====
+   One card style used everywhere a port is shown as a tile: full-bleed
+   rounded image, single-line ellipsis title, small stats row below.
+   Layout context (flex-basis in a carousel track vs. auto width in the
+   CSS grid) is applied separately further down / in .game-grid. */
+.game-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .game-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .game-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-grid {
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+  }
+}
+
+/* Stays at the base 2-column layout even at the smallest widths (no
+   single-column collapse) - most phones fall under 400px, and one huge
+   full-width card per row read as oversized next to the much denser
+   carousel tiles just above it. Just a bit more breathing room than the
+   600px breakpoint's gap/padding. */
+@media (max-width: 400px) {
+  .game-grid {
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Cardless, image-forward tile (Steam/Epic style): no box/shadow behind
+   the card - just the screenshot and title sitting directly on the page,
+   with the image brightening on hover instead of the whole tile scaling
+   up. Title text is unaffected on hover. */
+.pm-card {
+  position: relative;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none !important;
+  color: var(--card-text) !important;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-card:hover {
+  text-decoration: none !important;
+  color: var(--card-text) !important;
+}
+
+.pm-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Consistent image aspect ratio */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+  background-color: var(--card-bg);
+}
+
+.pm-card:hover img {
+  filter: brightness(1.35);
+}
+
+.pm-card h3 {
+  margin: 0;
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-text);
+  transition: color 0.2s ease;
+}
+
+/* Ready-to-Run badge overlay (top-left corner of the card image) */
+.pm-rtr-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.12rem 0.35rem;
+  border-radius: 5px;
+  background-color: #F49519;
+  color: #ffffff;
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* "In your Steam library" tick - top-right so it never collides with the
+   RTR badge in the opposite corner. Only rendered once a Steam library is
+   connected (see renderCardHtml in games.md). */
+.pm-owned-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #2fb344;
+  color: #ffffff;
+  font-size: 0.6rem;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.pm-owned-badge i {
+  line-height: 1;
+}
+
+/* Card Stats (Downloads & Date Added) */
+.card-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.3rem;
+  gap: 0.25rem;
+}
+
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--card-stat-color);
+}
+
+.card-stat i {
+  font-size: 0.7rem;
+  color: #f49519;
+  flex-shrink: 0;
+}
+
+/* Every card (Browse grid, Browse list, Discover carousels) drops the
+   date-added stat - downloads only - at every width. It's always the
+   second/last stat. */
+.card-stat:last-child {
+  display: none;
+}
+
+/* Smaller font on mobile. */
+@media (max-width: 600px) {
+  .card-stat {
+    font-size: 0.55rem;
+    gap: 0.15rem;
+  }
+  .card-stat i {
+    font-size: 0.6rem;
+  }
+}
+
+/* Incompatible cards - greyed out */
+.pm-card.incompatible {
+  opacity: 0.4;
+  filter: grayscale(70%);
+}
+
+.pm-card.incompatible:hover {
+  opacity: 0.6;
+  filter: grayscale(50%);
+}
+
+
+
+/* ===== PORTS CAROUSEL =====
+   Nav arrows live in the section header (top-right), the "See All" link is
+   an inline chevron right next to the title, and the row fills the full
+   available content width - matches the Steam/Epic store reference. No
+   dot pagination; the header arrows are the only navigation. */
+.carousel-container {
+  position: relative;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 0.85rem;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.25rem 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Carousel-only sizing: the shared .pm-card look (image, title, badge,
+   stats) is defined once, above, and applies here unchanged - only the
+   flex-basis differs from the grid context. */
+.carousel-track .pm-card {
+  flex: 0 0 195px;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.carousel-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Genre carousel is a wrapping grid above 600px (not a horizontal strip),
+   so the scroll arrows have nothing to do there. */
+.genre-carousel-nav .carousel-btn-group {
+  display: none;
+}
+
+/* Prev/next arrows are a mouse affordance - on mobile everything scrolls
+   by swipe instead, so hide them there for every carousel (ports and
+   genres alike). The "See All" chevron stays visible. */
+@media (max-width: 600px) {
+  .carousel-btn-group {
+    display: none;
+  }
+}
+
+.carousel-btn {
+  position: static;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.16);
+  padding: 0;
+  color: var(--card-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-md-color-scheme="dark"] .carousel-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.carousel-btn:hover {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+.carousel-btn i {
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .featured-category {
+    padding: 0 0.5rem;
+  }
+
+  .carousel-track {
+    gap: 0.4rem;
+  }
+
+  .carousel-track .pm-card {
+    flex: 0 0 115px;
+  }
+
+  .carousel-track .pm-card h3 {
+    font-size: 0.62rem;
+  }
+
+  .carousel-section-title h1,
+  .carousel-section-title h2 {
+    font-size: 0.85rem;
+  }
+
+  .featured-category-header h1 {
+    font-size: 0.95rem;
+  }
+
+  .featured-category-header p {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-category {
+    padding: 0 0.35rem;
+  }
+
+  .carousel-track {
+    gap: 0.3rem;
+  }
+
+  .carousel-track .pm-card {
+    flex: 0 0 96px;
+  }
+
+  .carousel-track .pm-card h3 {
+    font-size: 0.58rem;
+  }
+
+  .carousel-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 0.62rem;
+  }
+
+  .carousel-section-title h1,
+  .carousel-section-title h2 {
+    font-size: 0.78rem;
+  }
+
+  .featured-category-header h1 {
+    font-size: 0.85rem;
+  }
+
+  .featured-category-header p {
+    font-size: 0.62rem;
+  }
+}
+
+/* Below 600px, port carousels go 2 rows tall (grid, column-major) instead
+   of one long single-row strip - twice as many cards visible per "page"
+   of horizontal scroll, same card look/sizing as the single-row version.
+   Placed after the 768/480 blocks above so it wins on source order at
+   every width <=600 regardless of which of those also matched; .pm-card's
+   flex-basis is neutralized (grid-auto-columns drives width instead). */
+@media (max-width: 600px) {
+  .carousel-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-columns: 110px;
+    row-gap: 0.7rem;
+    column-gap: 0.4rem;
+    align-items: start;
+  }
+
+  .carousel-track .pm-card {
+    flex: none;
+    width: 100%;
+  }
+}
+
