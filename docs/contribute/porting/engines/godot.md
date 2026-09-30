@@ -62,9 +62,8 @@ can go wrong. Godot 3 is the smoother target where you have the choice.
 
 ## Compatibility
 
-The runtime has to match the engine version the game was exported with. These
-are the runtimes available, listed roughly most-used first, which is the best
-available guide to what is known to work:
+The runtime has to match the major engine version the game was exported with. These
+are the runtimes currently available, listed roughly most-used first:
 
 | Godot 3 (FRT) | Godot 4 |
 |---|---|
@@ -76,13 +75,10 @@ available guide to what is known to work:
 | `frt_4.0.4` | `godot_4.6.3` |
 | `frt_2.1.6` | `godot_4.7.1` |
 
-`frt_3.5.2` is the most common runtime in the library by a wide margin. If a
-Godot 3 game runs on it, that is the path of least resistance.
-
 ### Things that block a port
 
 - **C# / Mono builds.** Godot games written in C# need the Mono-enabled engine
-  build, which the standard runtimes are not. Very few ports manage this.
+  build, which is only available for later versions (4.2.2 onwards).
 - **GDNative / GDExtension plugins.** These are compiled native libraries. They
   have to be rebuilt for ARM, and if the source isn't available the game can't
   be ported.
@@ -99,9 +95,9 @@ runtime.
 The `.pck` file and the game executable both carry version information, and the
 engine binary shipped with a desktop build reports it with `--version`.
 
-*Determining the exact minor version reliably still needs writing by someone who
-does this regularly.* In practice porters often work down from the most common
-runtimes, starting with `frt_3.5.2` for Godot 3.
+For a more detailed version number, you can use [GDRETools](https://github.com/GDRETools/gdsdecomp):
+- Load the game data (pck if available, otherwise it's safe to assume data was embeded in the exe) in GDRE.
+- Look at the top left corner: you should be able to see a label indicating something like "Version: 4.3.0", that is this game's godot version! 
 
 ## Port structure
 
@@ -128,6 +124,12 @@ runtime, and some carry mod-loader setup or per-port config alongside the pack.
 
 ## Patching and common fixes
 
+### No pck in my game
+
+If there is no pck to be found, however you are certain that this is a Godot game, you try to load the exe into GDRE instead, if that works, great! It means that the pck is embedded inside your executable, you can freely point to the exe in that case instead of a pck, the runtime will identify it and proceed normally.
+
+### General export variables
+
 **Exit shortcuts.** Set `FRT_NO_EXIT_SHORTCUTS` on FRT ports, or handheld button
 combinations can quit the game unexpectedly.
 
@@ -141,6 +143,50 @@ handhelds provide OpenGL ES rather than desktop OpenGL.
 so the game writes saves inside the port rather than into the user's home
 directory.
 
+### Double Inputs.
+
+Some later Godot versions suffer from double inputs: meaning that the engine will identify a wrong gamepad profile, that is inconsistent across devices.
+Therefore the port should either patch out gamepad controls by decompiling the game or block them with libcrusty:
+
+*For westonpack ports:*
+```
+$ESUDO env WRAPPED_PRELOAD_PANFROST=$GAMEDIR/libcrusty.so CRUSTY_BLOCK_INPUT=1 $weston_dir/westonwrap.sh headless noop kiosk crusty_x11egl \
+XDG_DATA_HOME=$CONFDIR $godot_dir/$godot_executable \
+--resolution ${DISPLAY_WIDTH}x${DISPLAY_HEIGHT} -f --disable-cursor \
+--rendering-driver opengl3_es --audio-driver ALSA --main-pack $GAMEDIR/$pck_filename
+```
+*For frt ports:*
+```
+export FRT_NO_EXIT_SHORTCUTS=FRT_NO_EXIT_SHORTCUTS
+export CRUSTY_BLOCK_INPUT=1
+$GPTOKEYB "$runtime" -c "./portname.gptk" &
+pm_platform_helper "$runtime"
+LD_PRELOAD="$GAMEDIR/libcrusty.so" "$runtime" $GODOT_OPTS --main-pack "gamedata/game.pck"
+```
+note that you will need to add libcrusty in your port directory [(example: merp in merpworld)](https://github.com/PortsMaster/PortMaster-New/tree/main/ports/merpinmerpworld/merpinmerpworld)
+
+### Precomputed patches (xdelta)
+
+Build the modified game file on a PC, ship the binary difference, and apply it
+on device at first launch.
+[XDelta3](https://github.com/Moodkiller/xdelta3-gui-2.0) creates the patch from
+the difference between the original and modified files, and the `xdelta3` binary
+in the PortMaster control folder applies it.
+
+```bash
+# Check if pck exists and its MD5 checksum matches, then apply the patch
+if [ -f "gamedata/a_meta_data_game.pck" ]; then
+    checksum=$(md5sum "gamedata/a_meta_data_game.pck" | awk '{print $1}')
+        if [ "$checksum" = "4b97bb2da8c515d787fe70aa03550ce5" ]; then
+        $ESUDO $controlfolder/xdelta3 -d -s "gamedata/a_meta_data_game.pck" -f "./patch/patch.xdelta3" "gamedata/a_meta_data_game_patched.pck" && \
+        rm "gamedata/a_meta_data_game.pck"
+    fi
+fi
+```
+
+This is simple and fast, but the patch is tied to one exact build of the game, and will fail if the game updates.
+*Also note that Godot xdelta patches can get very big, so should be generally avoided*
+
 *A fuller list of recurring Godot bugs and their fixes still needs writing.*
 
 ## Tools
@@ -149,6 +195,7 @@ directory.
   version, and re-exporting a pack where the game is open source.
 - [FRT](https://github.com/efornara/frt) is the Godot 3 build for embedded ARM
   devices that the `frt_*` runtimes are made from.
+- [GDRE tools](https://github.com/GDRETools/gdsdecomp) is used to check engine version number, and decompile the game in ports that require changing the game's source.
 
 ## Example ports
 
