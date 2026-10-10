@@ -1,0 +1,784 @@
+/* ===============================================
+   GAMES-DISCOVER-BROWSE.CSS
+   games.md-specific: the search/tabs top bar, the
+   Discover view (hero banner, Ready-to-Run spotlight,
+   featured carousels), and the Browse view's genre
+   tiles + sidebar/drawer filter layout wrapper.
+   =============================================== */
+
+/* ===== FEATURED CAROUSEL SECTIONS (games.md) ===== */
+.featured-category {
+  margin: 1.5rem auto;
+  padding: 0 0.5rem;
+}
+
+.featured-category--first {
+  margin-top: 0;
+}
+
+/* Intro-only header (no carousel of its own) used by multi-group
+   categories like "Ready to Run" / "Premium Games". */
+.featured-category-header {
+  margin: 0 0 0.35rem;
+}
+
+.featured-category-header h1 {
+  font-size: 1.15rem;
+  margin: 0 0 0.15rem 0;
+  color: var(--card-text);
+}
+
+.featured-category-header h1 i {
+  color: #F49519;
+}
+
+.featured-category-header p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.featured-group {
+  margin: 1rem 0;
+}
+
+/* Unified header row for every carousel (standalone or nested group):
+   title + inline "See All" chevron on the left, prev/next arrows on the
+   right - matches the Steam/Epic store reference layout. */
+.carousel-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.4rem;
+}
+
+.carousel-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.carousel-section-title h1,
+.carousel-section-title h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carousel-section-title h1,
+.carousel-section-title h2 {
+  color: var(--card-text);
+}
+
+.carousel-section-title h2 {
+  font-size: 0.95rem;
+}
+
+/* "See All" sits at the start of the flexible nav area (or right next to
+   a plain section title, e.g. "Browse by Genre"), reading as part of the
+   heading, like Epic's "Top New Releases >" link. !important is needed:
+   the theme's own ".md-typeset a" link-color rule outranks a single class
+   selector, which is why this was rendering theme-blue instead of
+   white/grey - a plain ".see-all-inline" selector (not scoped to
+   ".carousel-nav") so it's fixed everywhere the class is used, not just
+   inside carousel headers. */
+.see-all-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--card-text) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.see-all-inline:hover {
+  color: #F49519 !important;
+  transform: translateX(2px);
+}
+
+.see-all-inline i {
+  font-size: 0.85rem;
+}
+
+/* The "See All" label stays in the markup (a bare icon-only link, with no
+   other text, previously sent mkdocs's md_in_html markdown extension into
+   a multi-minute pathological parse - see games.md) but is hidden
+   visually here, leaving just the arrow. */
+.see-all-inline .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== GAMES PAGE: TOP BAR (search + Discover/Browse tabs) =====
+   Modeled on the Steam/Epic store header: a modest-width search box with
+   plain text tabs immediately beside it, left-aligned - not a full-width
+   search bar with a separate pill switcher off to the side. */
+.games-topbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  margin: 0 auto 20px;
+  box-sizing: border-box;
+}
+
+.games-search-wrapper {
+  position: relative;
+  flex: 0 1 260px;
+  min-width: 0;
+}
+
+.games-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--card-stat-color, #888888);
+  pointer-events: none;
+}
+
+.games-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px 9px 34px;
+  border-radius: 7px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+[data-md-color-scheme="light"] .games-search-input {
+  background-color: #ebebeb;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .games-search-input {
+  background-color: #2b2e33;
+  color: #eeeeee;
+}
+
+.games-search-input::placeholder {
+  color: var(--card-stat-color, #888888);
+}
+
+.games-view-switcher {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.games-view-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--card-stat-color, #888888);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.games-view-btn:hover {
+  color: var(--card-text);
+}
+
+.games-view-btn.active {
+  color: var(--card-text);
+  font-weight: 700;
+}
+
+.games-view {
+  display: none;
+}
+
+.games-view.active {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .games-topbar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .games-search-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .games-view-switcher {
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+/* ===== DISCOVER VIEW: Ready to Run spotlight =====
+   A neutral grey card (like Epic's "Free Games" box). ".rtr-spotlight" is
+   applied to the SAME element as ".featured-category" (not a child of
+   it), so its outer edges already align with every other carousel
+   section for free. It adds a little extra side padding of its own on
+   top of that (content ends up very slightly narrower than the plain
+   sections) purely for card breathing room - the outer box position is
+   unaffected either way. */
+.rtr-spotlight {
+  box-sizing: border-box;
+  padding-top: 1.1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+[data-md-color-scheme="dark"] .rtr-spotlight {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+  .rtr-spotlight {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rtr-spotlight {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    border-radius: 14px;
+  }
+}
+
+/* ===== BROWSE VIEW: Genre tiles ===== */
+.genre-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .genre-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .genre-tiles {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Below 600px: a horizontally-swipeable, 2-row-tall grid instead of a
+   long wrapping list - swipe left/right to see the rest of the genres.
+   Same tile look as desktop (image + rounded corners), just 2 stacked per
+   column instead of wrapping across the full width. grid-template-columns
+   must be explicitly cleared here: left at the base rule's
+   "repeat(2, 1fr)", the first two auto-flow columns would still use that
+   (splitting the container 50/50) while the rest used grid-auto-columns,
+   producing wildly inconsistent tile widths - some near 0. .genre-tile's
+   height also needs !important since the base, unconditional
+   "height: 90px" rule below this in the file otherwise wins on equal
+   specificity (source order), overflowing the row track and making tiles
+   overlap/scroll vertically. */
+@media (max-width: 600px) {
+  .genre-tiles {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 84px);
+    grid-auto-columns: 130px;
+    column-gap: 0.5rem;
+    row-gap: 0.4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .genre-tiles::-webkit-scrollbar {
+    display: none;
+  }
+
+  .genre-tile {
+    height: 100% !important;
+  }
+
+  /* A single thin grey line between the two stacked rows (not around
+     every tile) - sits in the row-gap, under the top tile of each pair. */
+  .genre-tiles .genre-tile:nth-child(odd) {
+    position: relative;
+  }
+
+  .genre-tiles .genre-tile:nth-child(odd)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.22rem;
+    height: 1px;
+    background-color: rgba(128, 128, 128, 0.4);
+  }
+
+  .genre-tile span {
+    font-size: 0.68rem;
+  }
+}
+
+.genre-tile {
+  position: relative;
+  height: 90px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border, rgba(128, 128, 128, 0.15));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.genre-tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.genre-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72), rgba(0,0,0,0.15));
+}
+
+.genre-tile span {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.55rem;
+  z-index: 1;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.genre-tile.active {
+  outline: 3px solid #F49519;
+  outline-offset: -3px;
+}
+
+@media (max-width: 400px) {
+  .genre-tile span {
+    font-size: 0.58rem;
+  }
+}
+
+/* ===== BROWSE VIEW: sidebar (desktop) / drawer (mobile) filter layout =====
+   Same .filter-panel markup and JS everywhere - only its CSS positioning
+   changes by breakpoint. Below ~900px it keeps the original fixed
+   slide-out drawer behavior (defined earlier in this file) unchanged. */
+.games-layout {
+  display: block;
+  width: 100%;
+}
+
+.games-main {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .games-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .games-main {
+    order: 1;
+  }
+
+  /* Promote the drawer into a static sidebar column */
+  .games-layout .filter-panel {
+    position: static;
+    /* Explicitly neutralized here rather than relying on z-index having
+       no effect on position:static (true per spec, but this removes any
+       doubt / any risk of it winning through an unexpected stacking
+       context) - the mobile drawer's z-index:1100 has no business
+       applying once this is a normal in-flow sidebar column, not an
+       overlay. */
+    z-index: auto;
+    order: 2;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    right: auto;
+    box-shadow: none;
+    border-radius: 12px;
+    /* Kept at 0 like the drawer - the rows supply their own padding so
+       section dividers reach both edges of the card. */
+    padding: 0;
+    overflow: hidden;
+    transition: none;
+  }
+
+  [data-md-color-scheme="light"] .games-layout .filter-panel {
+    border: 1px solid #c4c4c4;
+  }
+
+  [data-md-color-scheme="dark"] .games-layout .filter-panel {
+    border: 1px solid #333333;
+  }
+
+  .games-layout .filter-overlay {
+    display: none;
+  }
+
+  .games-layout .close-panel-btn {
+    display: none;
+  }
+
+  /* No slide-out to trigger once the panel is a permanent sidebar column */
+  .games-layout .filter-toggle-btn {
+    display: none;
+  }
+}
+
+/* ===== DISCOVER VIEW: Hero banner =====
+   Auto-rotating spotlight (Port of the Month / Most Downloaded / etc.) with
+   a big image+text card on the left and a 5-item pill list on the right;
+   the active pill fills with a timed progress bar and auto-advances. */
+.hero-banner {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: stretch;
+}
+
+.hero-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 21 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+/* Back to the original approach: the screenshot is a plain CSS background
+   (background-size:cover), which always fills the box's full height and
+   width by definition - no separate <img> sizing/specificity fight needed. */
+/* Quick slide-in-from-the-left + fade (not a slow crossfade) each time a
+   new slide becomes active. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-40px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+}
+
+.hero-slide.active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Bottom scrim fading to grey (the same --card-bg tone as every other
+   card), not pure black, so text sits on a readable panel at the bottom
+   of the image. */
+/* No background scrim - text sits directly on the image, readable via
+   text-shadow instead of a fade panel. */
+.hero-slide-overlay {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2rem 2rem 1.75rem;
+}
+
+.hero-slide-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.18);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.hero-slide-status--rtr {
+  background-color: #F49519;
+  color: #ffffff;
+}
+
+/* Scoped under .hero-slide-overlay (not just .hero-slide-title) so this
+   beats the theme's ".md-typeset h1 { color }" rule on specificity - a
+   bare single-class selector loses that fight regardless of source order. */
+.hero-slide-overlay .hero-slide-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.hero-slide-desc {
+  margin: 0 0 0.85rem;
+  max-width: 33%;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+.hero-slide-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.hero-download-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.25rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111111 !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-download-btn:hover {
+  background-color: #eeeeee;
+  transform: translateY(-1px);
+}
+
+.hero-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffffff !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hero-details-link:hover {
+  color: #F49519 !important;
+}
+
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 0 0 180px;
+}
+
+/* Only the active pill gets a box at all - the rest sit as plain text so
+   the grey highlight (filled in over time by .hero-pill-progress) is the
+   one clear "this is current" signal, no orange involved. */
+.hero-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--card-text);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1;
+}
+
+.hero-pill-thumb {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 52px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.hero-pill.active {
+  background-color: rgba(128, 128, 128, 0.14);
+}
+
+[data-md-color-scheme="dark"] .hero-pill.active {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.hero-pill-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background-color: rgba(128, 128, 128, 0.22);
+  z-index: 0;
+}
+
+[data-md-color-scheme="dark"] .hero-pill-progress {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-pill-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.hero-pill-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--card-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes heroPillFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .hero-sidebar {
+    display: none;
+  }
+
+  /* 21:9 leaves a lot less vertical room than the old 2:1 box, and with
+     the sidebar gone .hero-main also gets wider (so shorter still, per
+     the aspect ratio) - the desktop-sized overlay content (title/desc/
+     status/buttons) no longer reliably fits and was clipping against
+     overflow:hidden. Trim padding/type size and clamp the description to
+     2 lines (bounded height regardless of how the text wraps) instead of
+     letting it grow past the box. */
+  .hero-slide-overlay {
+    padding: 1.1rem 1.4rem 1.1rem;
+  }
+
+  .hero-slide-status {
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-slide-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-slide-desc {
+    max-width: 60%;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Full-bleed to the true screen edges instead of sitting inside
+     .featured-category's side padding - on a narrow phone that padding
+     was eating enough width to make the (still 21:9) box look narrow and
+     small rather than wide. Aspect ratio itself is unchanged so it still
+     matches the hand-supplied 21:9 hero art exactly. */
+  .hero-banner {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  /* No min-height override here - let aspect-ratio:2/1 size the box off
+     the (now much wider, edge-to-edge) mobile width instead of forcing a
+     tall fixed floor that made the whole banner dominate the screen. */
+  .hero-slide-status {
+    font-size: 0.4rem;
+    padding: 0.08rem 0.3rem;
+    margin-bottom: 0.2rem;
+    gap: 0.15rem;
+  }
+
+  .hero-slide-status i {
+    font-size: 0.5rem;
+  }
+
+  .hero-slide-title {
+    font-size: 0.65rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .hero-slide-desc {
+    display: none;
+  }
+
+  .hero-slide-actions {
+    gap: 0.35rem;
+  }
+
+  .hero-download-btn {
+    padding: 0.22rem 0.55rem;
+    font-size: 0.48rem;
+  }
+
+  .hero-details-link {
+    font-size: 0.44rem;
+  }
+
+  .hero-details-link i {
+    font-size: 0.44rem;
+  }
+
+  .hero-slide-overlay {
+    padding: 0.5rem 0.45rem 0.45rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner {
+    margin-left: -0.35rem;
+    margin-right: -0.35rem;
+  }
+}
+
