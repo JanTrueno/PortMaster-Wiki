@@ -1,0 +1,523 @@
+/* ===============================================
+   SHARED-MODAL.CSS
+   The old quick-view modal component. games.md no
+   longer uses it directly (ports link straight to
+   /port/ now), but porters.md's #porterModal still
+   does, and it shares this base styling.
+   =============================================== */
+
+/* ===== MODAL - REDESIGNED ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.modal.show {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Porter modal content - same animation */
+.porter-modal-content {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.show .porter-modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+[data-md-color-scheme="light"] .modal-content {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-md-color-scheme="dark"] .modal-content {
+  background-color: #1a1a1a;
+  color: #eeeeee;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: #ffffff;
+  z-index: 10;
+  transition: transform 0.2s ease, color 0.2s ease;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  line-height: 1;
+}
+
+.close:hover {
+  transform: scale(1.2);
+  color: #F49519;
+}
+
+/* ===== MODAL HEADER SECTION ===== */
+.modal-header-section {
+  text-align: center;
+  padding: 2rem 2rem 1.5rem;
+}
+
+.modal-main-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #F49519;
+}
+
+.modal-screenshot-container {
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+}
+
+.modal-screenshot {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Description */
+.modal-description {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.modal-description .desc-md {
+  text-align: center;
+  display: block;
+}
+
+.modal-description .desc-md p {
+  margin: 0 0 0.75rem 0;
+}
+
+.modal-description .desc-md:empty {
+  display: none;
+}
+
+/* Download Button */
+.modal-button-container {
+  margin-top: 1rem;
+}
+
+.modal-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  height: 70px;
+  background-color: #F49519;
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  will-change: transform, background-color;
+  flex: 1;
+  min-width: 200px;
+  flex-shrink: 1;
+}
+
+.modal-download-btn:hover {
+  background-color: #ff9d2e;
+  transform: scale(1.05);
+}
+
+/* ===== MODAL DETAILS SECTION ===== */
+.modal-details-section {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid;
+}
+
+[data-md-color-scheme="light"] .modal-details-section {
+  background-color: #f5f5f5;
+  border-top-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-details-section {
+  background-color: #252525;
+  border-top-color: #333333;
+}
+
+.modal-section-title {
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #F49519;
+  color: #F49519;
+}
+
+/* ===== INFO GRID - plain label/value list (store-page spec sheet style),
+   not individual icon-boxed cards - a 2-column grid of stacked
+   label-then-value pairs sitting directly on the section's own background. */
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Info Item - Each grid cell */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  border-radius: 0;
+  background: none !important;
+}
+
+.info-icon {
+  display: none;
+}
+
+/* Info Content */
+.info-content {
+  width: 100%;
+}
+
+.info-heading {
+  font-size: 0.8rem !important;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  margin: 0 0 0.3rem 0;
+  opacity: 1;
+  color: var(--card-stat-color, #888888);
+}
+
+.info-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--card-text);
+}
+
+/* Porter is the only .info-value that's a link (to their porters page) -
+   plain text color/no underline by default like the rest of this list,
+   same "just text" look, with an underline only on hover as the sole
+   affordance that it's clickable. */
+.info-value a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.info-value a:hover {
+  text-decoration: underline !important;
+}
+
+/* ===== MODAL TEXT SECTIONS (Instructions, README) ===== */
+.modal-text-section {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid;
+  text-align: left;
+}
+
+[data-md-color-scheme="light"] .modal-text-section {
+  border-top-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-text-section {
+  border-top-color: #333333;
+}
+
+/* Alternate backgrounds for visual separation */
+.modal-text-section:nth-child(even) {
+  /* Keep same background */
+}
+
+[data-md-color-scheme="light"] .modal-text-section:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+[data-md-color-scheme="dark"] .modal-text-section:nth-child(odd) {
+  background-color: #252525;
+}
+
+/* Modal Text Content - The markdown rendered area */
+.modal-text-content {
+  text-align: left !important;
+  line-height: 1.7;
+}
+
+.modal-text-content * {
+  text-align: left !important;
+}
+
+.modal-text-content h1,
+.modal-text-content h2,
+.modal-text-content h3,
+.modal-text-content h4,
+.modal-text-content h5,
+.modal-text-content h6 {
+  text-align: left !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.modal-text-content h1:first-child,
+.modal-text-content h2:first-child,
+.modal-text-content h3:first-child {
+  margin-top: 0;
+}
+
+.modal-text-content p {
+  margin: 0 0 1rem 0;
+  text-align: left !important;
+}
+
+.modal-text-content ul,
+.modal-text-content ol {
+  text-align: left !important;
+  padding-left: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.modal-text-content li {
+  text-align: left !important;
+  margin-bottom: 0.5rem;
+}
+
+.modal-text-content pre {
+  text-align: left !important;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 0 0 1rem 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+[data-md-color-scheme="light"] .modal-text-content pre {
+  background-color: #f0f0f0;
+  border: 1px solid #dddddd;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content pre {
+  background-color: #1c1c1c;
+  border: 1px solid #333333;
+}
+
+.modal-text-content code {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+[data-md-color-scheme="light"] .modal-text-content code {
+  background-color: #e8e8e8;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content code {
+  background-color: #333333;
+}
+
+.modal-text-content pre code {
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.5;
+  background: none;
+}
+
+.modal-text-content a {
+  color: #4DBEEE;
+  text-decoration: none;
+}
+
+.modal-text-content a:hover {
+  text-decoration: underline;
+}
+
+.modal-text-content blockquote {
+  border-left: 4px solid #F49519;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.modal-text-content hr {
+  border: none;
+  height: 1px;
+  margin: 1.5rem 0;
+}
+
+[data-md-color-scheme="light"] .modal-text-content hr {
+  background-color: #e0e0e0;
+}
+
+[data-md-color-scheme="dark"] .modal-text-content hr {
+  background-color: #444444;
+}
+
+/* ===== TABLES IN MODAL - card-style, no grid lines ===== */
+/* border-radius/overflow:hidden on <table> itself doesn't reliably clip
+   cell backgrounds across browsers, so JS wraps every table in a
+   .table-wrap div (see wrapTables() in port-page.js / all-games.md) and
+   the rounding + outer border live on that div instead. */
+.table-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, #cccccc);
+  margin: 1rem 0;
+}
+
+.modal-text-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  display: table !important;
+  table-layout: auto;
+}
+
+.modal-text-content thead {
+  text-align: left !important;
+}
+
+.modal-text-content th,
+.modal-text-content td {
+  text-align: left !important;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--card-border, #cccccc);
+}
+
+.modal-text-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.modal-text-content th {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background-color: rgba(244, 149, 25, 0.08);
+  color: #F49519;
+}
+
+.modal-text-content tbody tr:hover {
+  background-color: rgba(244, 149, 25, 0.05);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 600px) {
+  .modal {
+    padding: 1rem 0.5rem;
+  }
+  
+  .modal-content {
+    border-radius: 12px;
+  }
+  
+  .modal-header-section {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .modal-main-title {
+    font-size: 1.5rem;
+  }
+  
+  .modal-details-section,
+  .modal-text-section {
+    padding: 0.85rem;
+  }
+
+  .modal-section-title {
+    font-size: 0.95rem;
+  }
+
+  .close {
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 1.6rem;
+  }
+}
+
+/* ===== REMOVE OLD CONFLICTING STYLES ===== */
+/* These ensure the new modal styles take precedence */
+.modal-content img:not(.modal-screenshot) {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.markdown-content {
+  text-align: left !important;
+}
+
+/* Ensure desc-md and inst-md are left aligned */
+.desc-md,
+.inst-md,
+.readme-content {
+  text-align: left !important;
+}
+
+/* Override any center alignment from parent */
+.modal-text-content,
+.modal-text-content * {
+  text-align: left !important;
+}
+
+/* Exception for the description in header which should stay centered */
+.modal-header-section .modal-description,
+.modal-header-section .modal-description .desc-md,
+.modal-header-section .modal-description .desc-md * {
+  text-align: center !important;
+}
+
