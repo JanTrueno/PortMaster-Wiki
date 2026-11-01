@@ -654,6 +654,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#which-ubuntu-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which Ubuntu version?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#build-environment-options" class="md-nav__link">
     <span class="md-ellipsis">
       Build environment options
@@ -748,6 +757,8 @@
   
     
     
+      
+        
       
         
       
@@ -877,6 +888,29 @@
   
   <span class="md-ellipsis">
     Love2D
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../engines/fna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FNA
     
   </span>
   
@@ -1709,28 +1743,37 @@
 
 
 <h1 id="compiling-opensource-games-for-portmaster">Compiling Opensource Games for PortMaster<a class="headerlink" href="#compiling-opensource-games-for-portmaster" title="Permanent link">¶</a></h1>
-<p>Since PortMaster is platform-independent and delivers its own dependencies, we don't rely on the build mechanism of the CFWs out there. To compile games for the AARCH64 architecture, you can do so in various ways. Most of the porters build on Ubuntu 20.04, this relatively old version is required to prevent issues with glibc requirements on some CFW's.</p>
+<p>Since PortMaster is platform-independent and delivers its own dependencies, we don't rely on the build mechanism of the CFWs out there. To compile games for the AARCH64 architecture, you can do so in various ways. We build on <strong>Ubuntu 22.04 LTS</strong>.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>Many porting methods do not require you to set up a build environment. This is only necessary when you need to build games and/or libraries from source!</p>
 </div>
+<h2 id="which-ubuntu-version">Which Ubuntu version?<a class="headerlink" href="#which-ubuntu-version" title="Permanent link">¶</a></h2>
+<p>A program only runs on a device whose glibc is at least as new as the one it was built against. So the version of Ubuntu you build on decides which firmware your port can run on.</p>
+<ul>
+<li><strong>Ubuntu 22.04 (glibc 2.35)</strong> is what we build on. Use it unless you have a reason not to.</li>
+<li><strong>Ubuntu 20.04 (glibc 2.31)</strong> is the one to use if you want your port to also run on older CFWs like ArkOS. A device can run anything built against an older glibc than its own, so a port built on 20.04 runs everywhere a 22.04 build does, and on the older firmware as well.</li>
+</ul>
+<p>The WSL steps below use 22.04, and say what to change to build on 20.04 instead.</p>
+<p>The <code>min_glibc</code> field in a port's <code>port.json</code> makes PortMaster hide the port on devices whose glibc is older, so people don't install something that won't run. Only fill it in if your port supplies its own binaries. The <a href="../../../tools/json-generator/">Port JSON Generator</a> has a field for it and suggests 2.35 to match 22.04. If you built on 20.04 to support older CFWs like ArkOS, leave it empty.</p>
 <h2 id="build-environment-options">Build environment options<a class="headerlink" href="#build-environment-options" title="Permanent link">¶</a></h2>
 <p>Below you will find several options for build environments suited for PortMaster.</p>
 <hr />
 <h3 id="1-wsl2-chroot-change-root">1. WSL2 Chroot (Change root)<a class="headerlink" href="#1-wsl2-chroot-change-root" title="Permanent link">¶</a></h3>
 <p>For more information, visit the <a href="https://github.com/Cebion/Portmaster_builds">GitHub Repository</a>.</p>
 <h4 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">¶</a></h4>
-<p>Install required packages on Ubuntu 20.04/22.04 LTS WSL 2:</p>
+<p>Install required packages on Ubuntu 22.04 LTS WSL 2:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>binfmt-support<span class="w"> </span>daemonize<span class="w"> </span>libarchive-tools<span class="w"> </span>qemu-system<span class="w"> </span>qemu-user<span class="w"> </span>qemu-user-static<span class="w"> </span>gcc-aarch64-linux-gnu<span class="w"> </span>g++-aarch64-linux-gnu
 </span></code></pre></div>
 <ul>
 <li>
-<p>Download <strong><em>20.04 Focal server-cloudimg-arm64-wsl.rootfs.tar.gz</em></strong> from <a href="http://cloud-images-archive.ubuntu.com/releases/focal/release-20230731/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-7.66-4.26c.58.33 1.31.13 1.66-.44.31-.57.12-1.3-.46-1.64-.57-.33-1.31-.16-1.64.44-.33.57-.13 1.31.44 1.64m-2.46 7.76c-.53 0-1.03-.11-1.47-.32l-.84 1.5c.7.32 1.48.54 2.31.54.49 0 .95-.07 1.4-.19.08-.49.36-.93.82-1.19.46-.27.98-.29 1.44-.12.89-.87 1.46-2.06 1.55-3.39l-1.71-.02a3.506 3.506 0 0 1-3.5 3.19m0-7c1.84 0 3.34 1.39 3.5 3.19l1.71-.03a5.2 5.2 0 0 0-1.55-3.38c-.46.17-.99.14-1.44-.12-.46-.26-.74-.71-.82-1.19-.45-.12-.91-.19-1.4-.19-.83 0-1.61.19-2.31.54l.84 1.5c.44-.21.94-.32 1.47-.32M8.37 12c0-1.19.59-2.24 1.49-2.87L9 7.65a5.22 5.22 0 0 0-2.17 3.04c.38.31.62.78.62 1.31s-.24 1-.62 1.31A5.2 5.2 0 0 0 9 16.34l.86-1.47c-.9-.63-1.49-1.68-1.49-2.87m5.97 4.26c-.57.33-.77 1.06-.44 1.64.33.57 1.07.77 1.64.44.58-.34.77-1.07.46-1.64-.35-.58-1.08-.77-1.66-.44M5.76 10.8c-.66 0-1.2.54-1.2 1.2s.54 1.2 1.2 1.2c.67 0 1.2-.54 1.2-1.2s-.53-1.2-1.2-1.2"/></svg></span> Ubuntu Cloud Image</a>.</p>
+<p>Download <strong><em>ubuntu-22.04-server-cloudimg-arm64-root.tar.xz</em></strong> from <a href="https://cloud-images.ubuntu.com/releases/jammy/release/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-7.66-4.26c.58.33 1.31.13 1.66-.44.31-.57.12-1.3-.46-1.64-.57-.33-1.31-.16-1.64.44-.33.57-.13 1.31.44 1.64m-2.46 7.76c-.53 0-1.03-.11-1.47-.32l-.84 1.5c.7.32 1.48.54 2.31.54.49 0 .95-.07 1.4-.19.08-.49.36-.93.82-1.19.46-.27.98-.29 1.44-.12.89-.87 1.46-2.06 1.55-3.39l-1.71-.02a3.506 3.506 0 0 1-3.5 3.19m0-7c1.84 0 3.34 1.39 3.5 3.19l1.71-.03a5.2 5.2 0 0 0-1.55-3.38c-.46.17-.99.14-1.44-.12-.46-.26-.74-.71-.82-1.19-.45-.12-.91-.19-1.4-.19-.83 0-1.61.19-2.31.54l.84 1.5c.44-.21.94-.32 1.47-.32M8.37 12c0-1.19.59-2.24 1.49-2.87L9 7.65a5.22 5.22 0 0 0-2.17 3.04c.38.31.62.78.62 1.31s-.24 1-.62 1.31A5.2 5.2 0 0 0 9 16.34l.86-1.47c-.9-.63-1.49-1.68-1.49-2.87m5.97 4.26c-.57.33-.77 1.06-.44 1.64.33.57 1.07.77 1.64.44.58-.34.77-1.07.46-1.64-.35-.58-1.08-.77-1.66-.44M5.76 10.8c-.66 0-1.2.54-1.2 1.2s.54 1.2 1.2 1.2c.67 0 1.2-.54 1.2-1.2s-.53-1.2-1.2-1.2"/></svg></span> Ubuntu Cloud Images</a>.</p>
+<p>To build on 20.04 instead, for older CFWs like ArkOS, download <strong><em>20.04 Focal server-cloudimg-arm64-wsl.rootfs.tar.gz</em></strong> from the <a href="http://cloud-images-archive.ubuntu.com/releases/focal/release-20230731/">Ubuntu Cloud Image archive</a> and use its file name in the next step.</p>
 </li>
 <li>
 <p>Extract the tarball in a folder:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mkdir<span class="w"> </span>folder
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>bsdtar<span class="w"> </span>-xpf<span class="w"> </span>ubuntu-20.04-server-cloudimg-arm64-wsl.rootfs.tar.gz<span class="w"> </span>-C<span class="w"> </span>folder
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>bsdtar<span class="w"> </span>-xpf<span class="w"> </span>ubuntu-22.04-server-cloudimg-arm64-root.tar.xz<span class="w"> </span>-C<span class="w"> </span>folder
 </span></code></pre></div>
 </li>
 <li>

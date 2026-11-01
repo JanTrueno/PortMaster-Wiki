@@ -659,6 +659,210 @@
 }
 
 /* ===============================================
+   PORT JSON GENERATOR - REQUIREMENTS (tools/json-generator.md)
+   A tri-state tag picker and a device x firmware
+   grid showing which devices would list the port.
+   =============================================== */
+.porter-tool .req-status,
+.porter-tool .req-intro {
+  font-size: 0.78rem;
+  color: var(--card-stat-color, #888888);
+}
+
+.porter-tool .req-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.porter-tool .req-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.25rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  background: none;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--card-stat-color, #888888);
+  cursor: pointer;
+}
+
+.porter-tool .req-group-title small {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.porter-tool .req-group-title i {
+  transition: transform 0.2s ease;
+}
+
+.porter-tool .req-group.is-collapsed .req-group-title i {
+  transform: rotate(-90deg);
+}
+
+/* Firmware and device lists run to dozens of tags, so they start closed. */
+.porter-tool .req-group.is-collapsed .req-taglist {
+  display: none;
+}
+
+.porter-tool .req-taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding-top: 0.55rem;
+}
+
+.porter-tool .req-tag {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.72rem;
+  color: var(--card-text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.porter-tool .req-tag:hover {
+  border-color: #F49519;
+}
+
+.porter-tool .req-tag:focus-visible {
+  outline: 2px solid #F49519;
+  outline-offset: 2px;
+}
+
+.porter-tool .req-tag.is-required {
+  background: #F49519;
+  border-color: #F49519;
+  color: #111111;
+  font-weight: 600;
+}
+
+.porter-tool .req-tag.is-excluded {
+  border-color: #e53935;
+  color: #e53935;
+  text-decoration: line-through;
+}
+
+.porter-tool .req-tag.is-excluded::before {
+  content: "!";
+  display: inline-block;
+  margin-right: 0.1rem;
+  text-decoration: none;
+}
+
+.porter-tool .req-summary {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 0.82rem;
+}
+
+.porter-tool .req-warn {
+  color: #e53935;
+}
+
+.porter-tool .req-grid-scroll {
+  max-height: 26rem;
+  overflow: auto;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 8px;
+}
+
+/* The scrollbar the theme gives code blocks and the sidebar: a thin bar in the
+   faded text colour that turns the accent orange on hover. Chrome ignores the
+   ::-webkit-scrollbar rules once the standard properties are set, so those only
+   go to browsers that lack them (Firefox), as the theme itself does. */
+.porter-tool .req-grid-scroll::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.2rem;
+}
+
+.porter-tool .req-grid-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--md-default-fg-color--lighter);
+}
+
+.porter-tool .req-grid-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-accent-fg-color);
+}
+
+.porter-tool .req-grid-scroll::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .porter-tool .req-grid-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-default-fg-color--lighter) transparent;
+  }
+}
+
+/* A class on the table keeps mkdocs-material's own table styling off it. */
+.porter-tool .req-grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.68rem;
+}
+
+.porter-tool .req-grid th,
+.porter-tool .req-grid td {
+  padding: 0.3rem 0.55rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Header row and device column stay put while the rest scrolls. */
+.porter-tool .req-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--card-bg, var(--md-default-bg-color));
+}
+
+.porter-tool .req-grid tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  text-align: left;
+  font-weight: 500;
+  background: var(--card-bg, var(--md-default-bg-color));
+}
+
+.porter-tool .req-grid thead th:first-child {
+  left: 0;
+  z-index: 3;
+  text-align: left;
+}
+
+.porter-tool .req-grid td.is-pass {
+  color: #43a047;
+  font-weight: 700;
+}
+
+.porter-tool .req-grid td.is-fail {
+  color: #e53935;
+  background: rgba(229, 57, 53, 0.08);
+  cursor: help;
+}
+
+.porter-tool .req-grid td.is-na {
+  opacity: 0.35;
+}
+
+.porter-tool .req-note {
+  margin-top: 0.6rem;
+}
+
+/* ===============================================
    JSON/README GENERATORS
    The accordion sections, checkbox rows and radio
    lists all reuse games-filters.css directly, so

@@ -1,0 +1,9 @@
+{
+    "_readme": "Hand-curated additions to device_info.json, which main.py re-downloads from PortMaster-Info on every build and so can't be edited directly. Each entry adds a firmware to a device that upstream doesn't list it for: the new entry is a copy of the 'copy_from' firmware's entry for the same device (same hardware), with the firmware name swapped and glibc taken from the other entries for that firmware. Applied by apply_device_info_overrides() in main.py, which skips any firmware upstream already has, so entries here become no-ops once PortMaster-Info catches up and can then be deleted.",
+    "Anbernic RG353 M/V/P": {
+        "AmberELEC": {"copy_from": "ArkOS"}
+    },
+    "Anbernic RG353 VS/PS": {
+        "AmberELEC": {"copy_from": "ArkOS"}
+    }
+}

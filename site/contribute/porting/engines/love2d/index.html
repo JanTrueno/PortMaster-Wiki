@@ -14,7 +14,7 @@
         <link rel="prev" href="../gamemaker-studio/">
       
       
-        <link rel="next" href="../../../gui/theme-engine/">
+        <link rel="next" href="../fna/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -708,6 +708,8 @@
       
         
       
+        
+      
     
     
     
@@ -879,15 +881,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compatibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compatibility
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#identifying-a-game" class="md-nav__link">
     <span class="md-ellipsis">
       Identifying a game
@@ -897,18 +890,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#port-structure" class="md-nav__link">
+  <a href="#porting-a-free-game-step-by-step" class="md-nav__link">
     <span class="md-ellipsis">
-      Port structure
+      Porting a free game, step by step
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#patching-and-common-fixes" class="md-nav__link">
+  <a href="#games-the-user-supplies" class="md-nav__link">
     <span class="md-ellipsis">
-      Patching and common fixes
+      Games the user supplies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-and-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input and controls
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolution-conflua-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resolution, conf.lua and performance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compatibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ports-that-bundle-their-own-love-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ports that bundle their own LÖVE (legacy)
     </span>
   </a>
   
@@ -936,6 +965,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FNA
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1769,31 +1821,21 @@ iteration and cross-platform support.</p>
 <p>LÖVE games are among the easiest things to port. The framework is open source
 and builds natively for ARM, and the game itself is Lua source plus assets
 rather than compiled code, so the same game files usually run unmodified.</p>
-<p>LÖVE is one of the more common engines in the library. A handful of those ports
-use it only for a launcher front-end rather than for the game itself.</p>
+<p>LÖVE is one of the most common engines in the library. More than fifty ports use
+the shared runtime and more than thirty older ones carry their own copy. A handful
+use it only as a launcher front-end for a different engine. PortMaster itself
+uses it too, for the patcher screen shown while a port prepares a game on first
+launch.</p>
 <h2 id="how-portmaster-runs-it">How PortMaster runs it<a class="headerlink" href="#how-portmaster-runs-it" title="Permanent link">¶</a></h2>
-<p>There is no compatibility layer here. A LÖVE build for ARM runs the game
-directly.</p>
-<p><strong>Use the included <code>love_11.5</code> runtime.</strong> This is the preferred method and what
-a new port should do. PortMaster ships the LÖVE runtime centrally, so the port
-carries only the game itself: no engine binary, no shared libraries, nothing to
-rebuild when LÖVE is updated.</p>
-<p>The launch script sources the runtime, which sets everything needed:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Set the XDG environment variables for config &amp; savefiles</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">XDG_DATA_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$CONFDIR</span><span class="s2">&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SDL_GAMECONTROLLERCONFIG</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$sdl_controllerconfig</span><span class="s2">&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Source love2d runtime</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">source</span><span class="w"> </span><span class="nv">$controlfolder</span>/runtimes/<span class="s2">&quot;love_11.5&quot;</span>/love.txt
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Use the love runtime</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nv">$GPTOKEYB</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_GPTK</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">&amp;</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>pm_platform_helper<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_BINARY</span><span class="s2">&quot;</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nv">$LOVE_RUN</span><span class="w"> </span>gamedata
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>pm_finish
+<p>There is no compatibility layer. A LÖVE build for ARM runs the game directly.</p>
+<p><strong>Use the <code>love_11.5</code> runtime.</strong> PortMaster ships it inside its own folder, so a
+port carries only the game: no engine binary, no shared libraries, nothing to
+rebuild when LÖVE is updated. It isn't a separately downloaded runtime, so
+<code>runtime</code> stays empty in <code>port.json</code>.</p>
+<p>The launch script sources it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">source</span><span class="w"> </span><span class="nv">$controlfolder</span>/runtimes/<span class="s2">&quot;love_11.5&quot;</span>/love.txt
 </span></code></pre></div>
-<p>Sourcing <code>love.txt</code> provides three things:</p>
+<p>That sets the variables a port needs:</p>
 <table>
 <thead>
 <tr>
@@ -1804,7 +1846,7 @@ rebuild when LÖVE is updated.</p>
 <tbody>
 <tr>
 <td><code>$LOVE_RUN</code></td>
-<td>The command that runs the game. Give it the game directory or <code>.love</code> file.</td>
+<td>The command that runs a game. Give it a game directory or a <code>.love</code> file. It puts the runtime's own libraries on <code>LD_LIBRARY_PATH</code> first, and keeps whatever the port already set.</td>
 </tr>
 <tr>
 <td><code>$LOVE_BINARY</code></td>
@@ -1812,44 +1854,44 @@ rebuild when LÖVE is updated.</p>
 </tr>
 <tr>
 <td><code>$LOVE_GPTK</code></td>
-<td>The runtime's default gptokeyb config, so controls work without shipping one.</td>
+<td>The process name gptokeyb watches, <code>love.aarch64</code> or <code>love.x86_64</code>. Despite the name it is not a config file. See <a href="#input-and-controls">Input and controls</a>.</td>
 </tr>
 </tbody>
 </table>
-<p><code>love_11.5</code> is the only shared LÖVE runtime PortMaster ships, and every port
-using the runtime targets it. Target 11.5 unless the game genuinely cannot run
-on it.</p>
-<p><strong>Bundling a LÖVE binary in the port</strong> is the older approach. Those ports carry
-their own <code>love</code> executable and its shared libraries inside the port folder,
-which costs size, has to be maintained per port, and misses fixes made to the
-shared runtime. Only do this when the game will not run on
-11.5 and there is no way around it.</p>
-<h2 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">¶</a></h2>
-<p>Most LÖVE games port without modification. The things that cause trouble:</p>
-<ul>
-<li><strong>LuaJIT FFI and native C libraries.</strong> Anything calling into a compiled <code>.so</code>
-  needs that library rebuilt for ARM. This is the most common blocker.</li>
-<li><strong>Shaders.</strong> Handhelds run OpenGL ES, and GLSL written against desktop OpenGL
-  may not compile.</li>
-<li><strong>LÖVE version differences.</strong> The 0.x to 11.x API changes are significant.
-  A game written for 0.10 will not run on 11.5 unmodified.</li>
-<li><strong>Resolution and asset size.</strong> Large textures and heavy per-frame drawing hit
-  low-end devices hard.</li>
-</ul>
+<p><code>LOVE_VERSION</code> and <code>RUNTIME_DIR</code> are exported as well, though ports rarely need
+them.</p>
+<p><strong>Architectures.</strong> The runtime has aarch64 and x86_64 builds, so those are the
+two to list in <code>arch</code>. armhf is being phased out now that every supported CFW
+runs 64-bit, and the runtime has no armhf build.</p>
+<p><strong>Don't bundle LÖVE in a new port.</strong> About thirty older ports carry their own
+<code>love</code> binary and libraries. That costs size, has to be maintained per port, and
+misses fixes made to the shared runtime. They're covered
+<a href="#ports-that-bundle-their-own-love-legacy">at the end</a> so you can read one, not
+so you can copy it.</p>
 <h2 id="identifying-a-game">Identifying a game<a class="headerlink" href="#identifying-a-game" title="Permanent link">¶</a></h2>
-<p>A <code>.love</code> file is just a zip archive. Rename or unzip it and the game's source
-is right there, which makes LÖVE games unusually easy to inspect before
-committing to a port.</p>
+<p>LÖVE games ship in three shapes, and all three are zip archives or directories
+you can open before committing to a port:</p>
 <ul>
-<li><code>main.lua</code> is the entry point and confirms it's a LÖVE game.</li>
-<li><code>conf.lua</code> normally declares the LÖVE version the game targets, via
-  <code>t.version</code>. This is the value to match against the runtime.</li>
+<li><strong>A directory</strong> with <code>main.lua</code> at its root.</li>
+<li><strong>A <code>.love</code> file.</strong> It is a zip archive, so any zip tool opens it. <code>main.lua</code>
+  has to sit at the top level of the archive, not inside a folder. A <code>.love</code>
+  made by zipping a folder will not run.</li>
+<li><strong>A fused executable.</strong> Windows builds from itch.io, Steam, GOG and Epic are
+  usually this: LÖVE's own <code>.exe</code> with the game's <code>.love</code> archive appended, so
+  the one file is both a program and a zip. <code>unzip</code> or 7-Zip open it and the
+  game's files are inside. MacOS builds hold a plain <code>.love</code> inside the app
+  bundle, at <code>Game.app/Contents/Resources</code>.</li>
 </ul>
-<p>Games can be distributed either as a <code>.love</code> archive or as a plain directory
-containing <code>main.lua</code>. LÖVE runs both, so a port can use whichever the game
-shipped.</p>
-<h2 id="port-structure">Port structure<a class="headerlink" href="#port-structure" title="Permanent link">¶</a></h2>
-<p>A port using the shared runtime holds nothing but the game and its config:</p>
+<p><code>conf.lua</code>, when present, normally declares the LÖVE version the game targets
+through <code>t.version</code>. That is the value to compare against the runtime's 11.5.</p>
+<h2 id="porting-a-free-game-step-by-step">Porting a free game, step by step<a class="headerlink" href="#porting-a-free-game-step-by-step" title="Permanent link">¶</a></h2>
+<p>This is the shape every ready-to-run LÖVE port has. Games the user has to supply
+need a few extra steps, covered <a href="#games-the-user-supplies">below</a>.</p>
+<h3 id="1-get-the-game-into-a-shape-love-can-run">1. Get the game into a shape LÖVE can run<a class="headerlink" href="#1-get-the-game-into-a-shape-love-can-run" title="Permanent link">¶</a></h3>
+<p>Either unpack it to a directory with <code>main.lua</code> at the root, or keep it as a
+single <code>.love</code>. Check where <code>main.lua</code> ended up. If unzipping gives you a single
+folder holding everything, the game is that inner folder.</p>
+<h3 id="2-lay-out-the-port">2. Lay out the port<a class="headerlink" href="#2-lay-out-the-port" title="Permanent link">¶</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Curse of the Arrow.sh
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>curseofthearrow/
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── gamedata/
@@ -1857,64 +1899,368 @@ shipped.</p>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── conf.lua
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   └── assets/
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── conf/
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   └── love/
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│       └── CurseOfTheArrow/
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├── LICENSE.game.txt
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>└── LICENSE.love2d.txt
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>└── licenses/
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    ├── LICENSE.game.txt
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    └── LICENSE.love2d.txt
 </span></code></pre></div>
-<p><strong><code>gamedata/</code></strong> is the game itself, either an unpacked directory with <code>main.lua</code>
-at its root or a single <code>.love</code> file.</p>
-<p><strong><code>conf/</code></strong> is where saves and config go. The launch script points
-<code>XDG_DATA_HOME</code> at it, so LÖVE writes into the port folder instead of the
-user's home directory. LÖVE creates a subdirectory named after the game's
-identity, which is why the path has that extra level.</p>
-<p>A port that bundles its own binary carries the runtime too. This is the older
-layout, shown here for when you have to read one:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cityglitch/
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── bin/
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   └── love
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>├── libs/
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   ├── liblove-11.5.so
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   ├── libluajit-5.1.so.2
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   ├── libmodplug.so.1
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│   └── libogg.so.0
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>└── cityglitch.gptk
+<p><strong><code>gamedata/</code></strong> is the game itself. The name is a convention, not a requirement.
+Real ports keep the game in <code>gamedata/</code>, <code>game/</code>, or as a <code>.love</code> file sitting
+in the port folder. Whatever you pick, <code>$LOVE_RUN</code> is pointed at it.</p>
+<p><strong><code>conf/</code></strong> is where saves go. See the script below for how it gets used.</p>
+<p><strong><code>licenses/</code></strong> holds one <code>LICENSE.&lt;component&gt;.txt</code> per component, including the
+LÖVE license, since the runtime is part of what you're distributing. The
+<a href="../../packaging/">packaging guide</a> covers the rules.</p>
+<h3 id="3-write-the-launch-script">3. Write the launch script<a class="headerlink" href="#3-write-the-launch-script" title="Permanent link">¶</a></h3>
+<p>Start from the Love2d tab in the <a href="../../script-templates/">script templates</a>. The
+header that finds <code>controlfolder</code> is the same for every engine. The LÖVE part is
+short:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">GAMEDIR</span><span class="o">=</span>/<span class="nv">$directory</span>/ports/curseofthearrow
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">CONFDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/conf/&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CONFDIR</span><span class="s2">&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$GAMEDIR</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/log.txt&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&gt;<span class="w"> </span>&gt;<span class="o">(</span>tee<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/log.txt&quot;</span><span class="o">)</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Set the XDG environment variables for config &amp; savefiles</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">XDG_DATA_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$CONFDIR</span><span class="s2">&quot;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SDL_GAMECONTROLLERCONFIG</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$sdl_controllerconfig</span><span class="s2">&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">source</span><span class="w"> </span><span class="nv">$controlfolder</span>/runtimes/<span class="s2">&quot;love_11.5&quot;</span>/love.txt
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="nv">$GPTOKEYB</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_GPTK</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">&amp;</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>pm_platform_helper<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_BINARY</span><span class="s2">&quot;</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="nv">$LOVE_RUN</span><span class="w"> </span>gamedata
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>pm_finish
 </span></code></pre></div>
-<p><strong><code>bin/love</code></strong> is the LÖVE executable, and <strong><code>libs/</code></strong> holds the shared
-libraries it links against. The launch script adds <code>libs/</code> to
-<code>LD_LIBRARY_PATH</code> before running it.</p>
-<h2 id="patching-and-common-fixes">Patching and common fixes<a class="headerlink" href="#patching-and-common-fixes" title="Permanent link">¶</a></h2>
-<p>Because the game is Lua source, fixes are usually applied by editing the game's
-own files at package time or in a <code>patchscript</code>, rather than by binary patching.</p>
-<p><strong>Rebuilding native dependencies.</strong> If the game uses FFI to call a C library,
-that library has to be compiled for ARM and shipped in the port's <code>libs/</code>
-folder.</p>
-<p><strong>Rewriting shaders.</strong> GLSL that assumes desktop OpenGL often needs adjusting
-for OpenGL ES. Precision qualifiers are a common cause of shader compile
-failures.</p>
-<p><strong>Resolution handling.</strong> Games that assume a fixed desktop resolution may need
-their <code>conf.lua</code> or window setup adjusted for handheld screens.</p>
-<p><strong>Controller input.</strong> Games built for keyboard and mouse are mapped with
-gptokeyb via the port's <code>.gptk</code> file, the same as any other port.</p>
+<p>What each part does:</p>
+<ul>
+<li><strong><code>XDG_DATA_HOME</code></strong> is where LÖVE writes saves. On Linux it uses
+  <code>$XDG_DATA_HOME/love/&lt;identity&gt;</code>, so pointing it at <code>conf/</code> keeps saves inside
+  the port folder, in <code>conf/love/&lt;identity&gt;</code>. The identity is the game's
+  <code>t.identity</code> in <code>conf.lua</code>, or whatever it passes to
+  <code>love.filesystem.setIdentity</code>. Some games write elsewhere and ignore the XDG
+  path. For those, the template shows <code>bind_directories</code> redirecting the
+  location into the port folder.</li>
+<li><strong><code>SDL_GAMECONTROLLERCONFIG</code></strong> is the device's controller mapping. LÖVE reads
+  gamepads through SDL, so this is what makes the buttons line up.</li>
+<li><strong><code>$GPTOKEYB "$LOVE_GPTK" &amp;</code></strong> starts gptokeyb in the background, before the
+  game.</li>
+<li><strong><code>pm_platform_helper "$LOVE_BINARY"</code></strong> tells the CFW which process is the
+  game. muOS records it as the foreground process, and ROCKNIX uses it to
+  fullscreen the window under sway.</li>
+<li><strong><code>$LOVE_RUN gamedata</code></strong> runs the game. It takes a directory or a <code>.love</code>
+  file, and ports use both.</li>
+<li><strong><code>pm_finish</code></strong> stops gptokeyb and restores the console. Don't hand-roll
+  cleanup with <code>trap</code> or <code>pkill</code>.</li>
+</ul>
+<p>Use LF line endings in the <code>.sh</code> and any <code>.gptk</code>. CRLF gives a black screen and
+no log at all.</p>
+<h3 id="4-fill-in-portjson">4. Fill in <code>port.json</code><a class="headerlink" href="#4-fill-in-portjson" title="Permanent link">¶</a></h3>
+<p>The <a href="../../../../tools/json-generator/">JSON generator</a> builds the file. The
+LÖVE-specific parts:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;rtr&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">&quot;runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">&quot;arch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;aarch64&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<p><code>rtr</code> is true only for games that need nothing from the user. <code>runtime</code> stays
+empty because the LÖVE runtime ships with PortMaster itself.</p>
+<h3 id="5-sort-out-the-controls-then-test">5. Sort out the controls, then test<a class="headerlink" href="#5-sort-out-the-controls-then-test" title="Permanent link">¶</a></h3>
+<p>Most of the remaining work is <a href="#input-and-controls">input</a>. Test on more than
+one resolution. The ports repo's contributor notes ask for 640x480 (the most
+common), 1024x768, 1280x720 and 720x720, and optionally 320x240.</p>
+<h2 id="games-the-user-supplies">Games the user supplies<a class="headerlink" href="#games-the-user-supplies" title="Permanent link">¶</a></h2>
+<p>Many LÖVE games are paid, and distributed as Windows <code>.exe</code> builds. Those are
+fused, which means the <code>.exe</code> is a zip and a port can convert it on the user's
+device. That keeps the game's files out of the port. For why PortMaster works
+this way, see <a href="../../../../faq/">the FAQ</a>.</p>
+<p>Set <code>rtr</code> to false and make <code>inst</code> say exactly which file to drop and where. For
+Gravity Circuit it reads: drop <code>GravityCircuit.exe</code> from your Epic, GOG or Steam
+copy into the <code>gamedata</code> folder.</p>
+<p>There are two patterns, depending on how much work the conversion is.</p>
+<h3 id="unpack-in-the-launch-script">Unpack in the launch script<a class="headerlink" href="#unpack-in-the-launch-script" title="Permanent link">¶</a></h3>
+<p>Shell Out Showdown is the simple case. The port folder holds an empty placeholder
+named <code>place ShellOutShowdown.exe here</code>, so the user can see what's expected. The
+script converts the <code>.exe</code> the first time it finds one:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>ShellOutShowdown.exe<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>pm_message<span class="w"> </span><span class="s2">&quot;Prepare game files ...&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>unzip<span class="w"> </span>ShellOutShowdown.exe<span class="w"> </span>-d<span class="w"> </span>ShellOutShowdown.love
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>cp<span class="w"> </span>conf.lua<span class="w"> </span>ShellOutShowdown.love
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span>rm<span class="w"> </span>ShellOutShowdown.exe
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">fi</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nv">$LOVE_RUN</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/ShellOutShowdown.love&quot;</span>
+</span></code></pre></div>
+<p>It unpacks into a directory (LÖVE runs a directory fine, whatever it's called),
+copies the port's own <code>conf.lua</code> over the game's, and deletes the <code>.exe</code> so the
+work only happens once. <code>pm_message</code> puts the text on screen.</p>
+<p>You don't have to zip the result back into a <code>.love</code>. If you do need to replace a
+file inside the game, such as <code>main.lua</code>, Pengu Never Left unpacks the <code>.exe</code>,
+copies its own <code>main.lua</code> in, and zips the directory back up with <code>zip -0</code>,
+which stores without compressing.</p>
+<p>Several ports ship their own extractor rather than rely on the firmware having
+one: Balatro bundles <code>7za</code>, and Braid and Beatblock bundle <code>unzip</code>. Bundled tools
+need their license files in <code>licenses/</code> like everything else.</p>
+<h3 id="use-the-patcher">Use the patcher<a class="headerlink" href="#use-the-patcher" title="Permanent link">¶</a></h3>
+<p>When the conversion takes a while, or needs real patching, use PortMaster's
+patcher. It is itself a LÖVE app. It runs your patch script behind a dialogue
+screen that tells the user what is happening, asks them to press A to begin, and
+asks again to continue to the game once it finishes. Gravity Circuit runs it like
+this:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">GAMEFILE</span><span class="o">=</span><span class="s2">&quot;./gamedata/GravityCircuit.exe&quot;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GAMEFILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATCHER_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TOOLDIR</span><span class="s2">/patchscript&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATCHER_TIME</span><span class="o">=</span><span class="s2">&quot;2-5 minutes&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nb">export</span><span class="w"> </span>controlfolder
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$controlfolder</span><span class="s2">/utils/patcher.txt&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nv">$ESUDO</span><span class="w"> </span>chmod<span class="w"> </span>a+x<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TOOLDIR</span><span class="s2">/patchscript&quot;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$controlfolder</span><span class="s2">/utils/patcher.txt&quot;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span>pm_gptokeyb_finish
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="k">else</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span>pm_message<span class="w"> </span><span class="s2">&quot;This port requires the latest PortMaster to run, please go to https://portmaster.games/ for more info.&quot;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span>sleep<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="nb">exit</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="k">fi</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">fi</span>
+</span></code></pre></div>
+<p>The check for <code>patcher.txt</code> matters: older PortMaster installs don't have it, and
+this gives the user a message instead of a silent failure. Sourcing the file runs
+the patcher through the same <code>love_11.5</code> runtime.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PATCHER_FILE</code></td>
+<td>The script to run. Required.</td>
+</tr>
+<tr>
+<td><code>PATCHER_TIME</code></td>
+<td>The estimate shown to the user, as free text. Defaults to "5 minutes".</td>
+</tr>
+<tr>
+<td><code>PATCHER_GAME</code></td>
+<td>The game's name in the dialogue. Defaults to "the game". Balatro sets it from the launcher's file name.</td>
+</tr>
+<tr>
+<td><code>PATCHER_QUESTIONS</code></td>
+<td>Optional. A Lua file of questions for the player to answer before the patch runs.</td>
+</tr>
+</tbody>
+</table>
+<p>The patcher can ask the player questions first. Arco asks whether to apply a
+D-pad patch. The questions file returns a table, and each question has an <code>id</code>
+and a list of <code>{value, label}</code> options:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">return</span> <span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="n">id</span> <span class="o">=</span> <span class="s2">&quot;DPADPATCH&quot;</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;Do you want to apply the D-pad/L-stick L2 toggle patch? (Select Yes for D-pad only devices!)&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            <span class="p">{</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;Yes&quot;</span><span class="p">},</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="p">{</span><span class="s2">&quot;false&quot;</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">}</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="p">}</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="p">}</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>It asks each one in turn, then runs the patch script with every answer set as an
+environment variable named after its <code>id</code>, so this patch script reads
+<code>$DPADPATCH</code>.</p>
+<p>The patch script itself is ordinary bash. Gravity Circuit's unpacks the <code>.exe</code>
+with a 7-Zip binary and deletes it, then applies a unified diff with a <code>patch</code>
+binary the port ships for each architecture, from <code>bin.aarch64</code> and <code>bin.x86_64</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>./gamedata
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">$GAMEDIR</span>/bin.<span class="si">${</span><span class="nv">DEVICE_ARCH</span><span class="si">}</span>/patch<span class="w"> </span>-p1<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/gravitycircuit.diff&quot;</span>
+</span></code></pre></div>
+<p>The original files have mixed line endings, so the script runs <code>dos2unix</code> over
+every file the diff touches before patching. Without that, hunks fail to apply.</p>
+<p>A diff is the right tool when you're changing the game's Lua. It stays small, it
+doesn't contain the original code, and it fails loudly if the user has a version
+you didn't expect.</p>
+<p>Balatro goes further. It keeps a set of Lua patch files for the small-screen
+layout, controls and performance, builds a patched copy of the game next to the
+user's original, and rebuilds when a setting changes. Its script says as much
+when something goes wrong: the purchased game was not modified. Leaving the
+user's own file untouched and writing the result alongside it is a good habit.</p>
+<h2 id="input-and-controls">Input and controls<a class="headerlink" href="#input-and-controls" title="Permanent link">¶</a></h2>
+<p>LÖVE reads gamepads itself, through SDL. So the first thing to find out is
+whether the game does too. Search its source for <code>love.joystick</code>,
+<code>gamepadpressed</code> or <code>joystickpressed</code>. Curse of the Arrow uses them, and so it
+needs no mapping at all.</p>
+<p>There are four situations, and real ports are spread across all of them.</p>
+<p><strong>The game handles gamepads.</strong> Run gptokeyb with no config:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">$GPTOKEYB</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_GPTK</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">&amp;</span>
+</span></code></pre></div>
+<p>Without <code>-c</code>, <a href="../../packaging/">gptokeyb only acts as a tool to kill the
+process</a>. The buttons reach the game through
+<code>SDL_GAMECONTROLLERCONFIG</code>.</p>
+<p>Layouts can still come out wrong. On some CFWs the A/B and X/Y buttons arrive
+swapped relative to what the game expects. Shell Out Showdown swaps them for
+ArkOS and ROCKNIX, and Max Payne for Knulli, by rewriting the controller mapping
+before the game starts. Both ship a small script for it. PortMaster doesn't
+provide one.</p>
+<p><strong>The game is keyboard-only.</strong> Map the buttons to keys with a <code>.gptk</code> file. The
+first argument stays <code>$LOVE_GPTK</code>, and <code>-c</code> names the mapping:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">$GPTOKEYB</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_GPTK</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;./mrrescue.gptk&quot;</span><span class="w"> </span><span class="p">&amp;</span>
+</span></code></pre></div>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="na">back</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">esc</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="na">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">enter</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">a</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="na">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">s</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="na">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">s</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">d</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="na">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">left</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="na">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">right</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="na">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">up</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="na">down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">down</span>
+</span></code></pre></div>
+<p>The <a href="https://github.com/PortsMaster/gptokeyb">gptokeyb README</a> documents the
+syntax.</p>
+<p><strong>The game is mouse-driven.</strong> gptokeyb can move the cursor, with the d-pad or
+sticks, and click with the face buttons:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="na">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_movement_up</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="na">down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_movement_down</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="na">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_movement_left</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="na">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_movement_right</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="na">dpad_mouse_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">6</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_left</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="na">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_right</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mouse_slow</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="na">mouse_slow_scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">50</span>
+</span></code></pre></div>
+<p>A cursor that crosses a 640 pixel screen comfortably is too slow on a 1280 one.
+Dumbass Smartass, Triple Trouble and several others compute the step from the
+display width and write it into the <code>.gptk</code> before launch:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">value</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">(</span><span class="nv">DISPLAY_WIDTH</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">640</span><span class="o">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">(</span><span class="nv">DISPLAY_WIDTH</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">1280</span><span class="o">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">(</span><span class="nv">DISPLAY_WIDTH</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">1920</span><span class="o">)</span><span class="w"> </span><span class="k">))</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>sed<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;s/(dpad_mouse_step|deadzone_scale) = [0-9]+/\1 = </span><span class="nv">$value</span><span class="s2">/g&quot;</span><span class="w"> </span><span class="s2">&quot;dumbasssmartass.gptk&quot;</span>
+</span></code></pre></div>
+<p><strong>The port uses gptokeyb2.</strong> Six ports, among them Void Call and Ot, use
+<code>$GPTOKEYB2</code> with an <code>.ini</code> instead. The idea is the same and the file format is
+different:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">$GPTOKEYB2</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOVE_GPTK</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;./voidcall.ini&quot;</span><span class="w"> </span><span class="p">&amp;</span>
+</span></code></pre></div>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">[controls]</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="na">back</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">esc</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="na">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">enter</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">z</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="na">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">x</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">c</span>
+</span></code></pre></div>
+<h2 id="resolution-conflua-and-performance">Resolution, conf.lua and performance<a class="headerlink" href="#resolution-conflua-and-performance" title="Permanent link">¶</a></h2>
+<p>LÖVE reads <code>conf.lua</code> before it opens a window, so it's where window size,
+fullscreen, the save identity and the target version are decided. A game written
+for a desktop sometimes sets values that suit a monitor and not a handheld, and
+then the port replaces the file:</p>
+<ul>
+<li><strong>Shell Out Showdown</strong> ships its own complete <code>conf.lua</code>, with fullscreen on
+  and a fixed <code>t.identity</code>, and copies it over the game's when it unpacks.</li>
+<li><strong>Planet D4RK</strong> patches the game's <code>conf.lua</code> with a small diff instead of
+  replacing it.</li>
+</ul>
+<p>Setting <code>t.identity</code> yourself pins the name of the save folder, which stops saves
+moving if the replacement <code>conf.lua</code> or the game changes.</p>
+<p>The device's resolution is available to the launch script as <code>DISPLAY_WIDTH</code> and
+<code>DISPLAY_HEIGHT</code>. A few ports use it to rewrite <code>conf.lua</code>. Nova Pinball does,
+for one device:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DEVICE_NAME</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;RGB30&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/t.window.width = [0-9]*/t.window.width = &#39;</span><span class="s2">&quot;</span><span class="nv">$DISPLAY_WIDTH</span><span class="s2">&quot;</span><span class="s1">&#39;/&#39;</span><span class="w"> </span>game/conf.lua
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/t.window.height = [0-9]*/t.window.height = &#39;</span><span class="s2">&quot;</span><span class="nv">$DISPLAY_HEIGHT</span><span class="s2">&quot;</span><span class="s1">&#39;/&#39;</span><span class="w"> </span>game/conf.lua
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="k">fi</span>
+</span></code></pre></div>
+<p>That is a fix for one device's quirk, not something to copy as a default. Most
+ports don't touch resolution at all.</p>
+<p><strong>Performance</strong> is the other half. Per-frame effects that are free on a desktop
+add up on a handheld GPU. Balatro asks on first launch whether to turn its CRT,
+bloom, shadow and screen shake effects off, and whether to cap the frame rate at
+60, 40 or 30. Players with performance to spare can keep every effect.</p>
+<h2 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">¶</a></h2>
+<p>Most LÖVE games port without modification. The things that cause trouble:</p>
+<ul>
+<li><strong>LÖVE version.</strong> The runtime is 11.5. A game written for 0.x is not
+  compatible with it, and the API changes between those versions are
+  significant. Check <code>t.version</code> in <code>conf.lua</code>.</li>
+<li><strong>LuaJIT FFI and native C libraries.</strong> Anything calling into a compiled <code>.so</code>
+  needs that library rebuilt for aarch64 and x86_64, and shipped in the port.
+  Put its folder on <code>LD_LIBRARY_PATH</code> before sourcing <code>love.txt</code>.
+  <code>$LOVE_RUN</code> keeps your path and adds the runtime's. Don't bundle SDL2 or
+  system libraries. Every CFW ships its own, and bundling them causes breakage
+  you won't see on your own device.</li>
+<li><strong>Gamepad assumptions.</strong> A game that only handles keyboard and mouse needs one
+  of the mappings above.</li>
+</ul>
+<h2 id="ports-that-bundle-their-own-love-legacy">Ports that bundle their own LÖVE (legacy)<a class="headerlink" href="#ports-that-bundle-their-own-love-legacy" title="Permanent link">¶</a></h2>
+<p>These ports predate the shared runtime. They're documented so you can read one.
+A new port shouldn't be built this way.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cityglitch/
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>├── bin/
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>│   └── love
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>├── libs/
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>│   ├── liblove-11.5.so
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>│   ├── libluajit-5.1.so.2
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>│   ├── libmodplug.so.1
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>│   └── libogg.so.0
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>└── cityglitch.gptk
+</span></code></pre></div>
+<p><code>bin/love</code> is the executable and <code>libs/</code> holds what it links against. The launch
+script adds <code>libs/</code> to <code>LD_LIBRARY_PATH</code> and runs the binary directly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GAMEDIR</span><span class="s2">/libs:</span><span class="nv">$LD_LIBRARY_PATH</span><span class="s2">&quot;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">$GPTOKEYB</span><span class="w"> </span><span class="s2">&quot;love&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;cityglitch.gptk&quot;</span><span class="w"> </span><span class="p">&amp;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>./bin/love<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$launch_file</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Most of them ship <code>liblove-11.5.so</code>, the same version the runtime provides, so
+there's no technical reason they carry it. A few differ. Thermomorph and UPO ship
+11.4. Hawkthorne and Snowman Stack carry an unversioned <code>liblove.so.0</code> and set
+<code>LOVE_GRAPHICS_USE_OPENGLES=1</code> before running it.</p>
+<p>Some of these also offer armhf, by shipping a <code>love.armhf</code> next to the aarch64
+binary. As noted above, armhf is being phased out.</p>
 <h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="https://love2d.org/">LÖVE</a> is the framework itself, and the desktop build is
-  useful for testing changes before putting them on a device.</li>
-<li>Any zip tool will open a <code>.love</code> archive, since that's all it is.</li>
+  useful for testing changes before putting them on a device. <code>love gamedata</code>
+  runs a directory the same way <code>$LOVE_RUN</code> does.</li>
+<li>Any zip tool opens a <code>.love</code> archive or a fused <code>.exe</code>, since both are just
+  zips.</li>
+<li><code>dos2unix</code> for the line endings problem in Windows builds.</li>
 </ul>
 <h2 id="example-ports">Example ports<a class="headerlink" href="#example-ports" title="Permanent link">¶</a></h2>
-<p>Real LÖVE ports in the library, useful to unpack and look at:</p>
-<p>Using the shared <code>love_11.5</code> runtime, which is what a new port should copy:</p>
+<p>Real LÖVE ports in the library, useful to unpack and look at.</p>
+<p>Ready to run on the shared runtime:</p>
 <ul>
-<li><a href="../../../../port/?name=balatro">Balatro</a></li>
-<li><a href="../../../../port/?name=curseofthearrow">Curse of the Arrow</a></li>
-<li><a href="../../../../port/?name=gravitycircuit">Gravity Circuit</a></li>
-<li><a href="../../../../port/?name=fridaynightfunkin">Friday Night Funkin</a></li>
+<li><a href="../../../../port/?name=curseofthearrow">Curse of the Arrow</a>, a game that
+  handles gamepads itself and needs no mapping</li>
+<li><a href="../../../../port/?name=mrrescue">Mr. Rescue</a> and
+  <a href="../../../../port/?name=fridaynightfunkin">Friday Night Funkin</a>, keyboard
+  games mapped with a <code>.gptk</code></li>
+<li><a href="../../../../port/?name=dumbasssmartass">Dumbass Smartass</a>, a mouse-driven
+  game with the cursor speed scaled to the display</li>
+<li><a href="../../../../port/?name=ot">Ot</a>, using gptokeyb2</li>
+<li><a href="../../../../port/?name=nova_pinball">Nova Pinball</a>, rewriting <code>conf.lua</code> for
+  one device</li>
+</ul>
+<p>Games the user supplies:</p>
+<ul>
+<li><a href="../../../../port/?name=shelloutshowdown">Shell Out Showdown</a>, unpacking a
+  fused <code>.exe</code> in the launch script</li>
+<li><a href="../../../../port/?name=gravitycircuit">Gravity Circuit</a>, using the patcher and
+  a diff</li>
+<li><a href="../../../../port/?name=balatro">Balatro</a>, with a rebuild-on-change patch
+  system</li>
+</ul>
+<p>A LÖVE launcher in front of another engine:</p>
+<ul>
+<li><a href="../../../../port/?name=maxpayne">Max Payne</a></li>
 </ul>
 <p>Bundling their own LÖVE binary, the older approach:</p>
 <ul>
 <li><a href="../../../../port/?name=bluerevolver">Blue Revolver</a></li>
 <li><a href="../../../../port/?name=cityglitch">City Glitch</a></li>
+<li><a href="../../../../port/?name=snowmanstack">Snowman Stack</a>, on an older LÖVE build</li>
 </ul>
 
 
@@ -1964,13 +2310,13 @@ gptokeyb via the port's <code>.gptk</code> file, the same as any other port.</p>
         
         
           
-          <a href="../../../gui/theme-engine/" class="md-footer__link md-footer__link--next" aria-label="Next: Themes">
+          <a href="../fna/" class="md-footer__link md-footer__link--next" aria-label="Next: FNA">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Themes
+                FNA
               </div>
             </div>
             <div class="md-footer__button md-icon">

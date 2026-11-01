@@ -299,11 +299,11 @@
             },
             "source": {
                 "date_added": "2026-07-29",
-                "date_updated": "2026-07-29",
-                "md5": "985b3356caeeda0d8b00cda86de9b1b5",
-                "release_id": "2026-07-29_1431",
-                "size": 24324846,
-                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-07-29_1431/dusklight.zip"
+                "date_updated": "2026-09-28",
+                "md5": "d1dedba31ce1a6121be93d4270cfe8a9",
+                "release_id": "2026-09-28_1738",
+                "size": 23715427,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-28_1738/dusklight.zip"
             }
         },
         "gizmoduck.zip": {
@@ -354,11 +354,11 @@
             },
             "source": {
                 "date_added": "2026-09-02",
-                "date_updated": "2026-09-02",
-                "md5": "6e3ef8be067a0bbf157d80168b35a5ed",
-                "size": 79219,
-                "release_id": "2026-09-02_1433",
-                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/gizmoduck.zip"
+                "date_updated": "2026-10-20",
+                "md5": "6628bd7b1dee0eec801243a92ee21118",
+                "release_id": "2026-10-20_0755",
+                "size": 79118,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-20_0755/gizmoduck.zip"
             }
         },
         "gta3.zip": {
@@ -556,11 +556,115 @@
             },
             "source": {
                 "date_added": "2026-09-02",
-                "date_updated": "2026-09-02",
-                "md5": "83910b8e2ce68e80fb6139d05215d186",
-                "size": 159739,
-                "release_id": "2026-09-02_1433",
-                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/megamanw.zip"
+                "date_updated": "2026-09-29",
+                "md5": "a60852810768e117992c14ebb8f9e6ec",
+                "release_id": "2026-09-29_1930",
+                "size": 178901,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-29_1930/megamanw.zip"
+            }
+        },
+        "megamanxregenesis.zip": {
+            "version": 4,
+            "name": "megamanxregenesis.zip",
+            "items": [
+                "Mega Man X regenesis.sh",
+                "megamanxregenesis"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Mega Man X regenesis",
+                "porter": [
+                    "armsonic"
+                ],
+                "desc": "Note: This game is hard to run so it comes with a preconfigured save file with lighting and partical effects turned off. If you wish to create or add a save file I HIGHLY recommend that you turn off lighting and partical effects. Game Description: Set in an alternate timeline following the events of Mega Man X, Sigma has won, X has fallen, and humanity stands on the brink of extinction. Just when all hope appears lost, Dr. Cain unveils his final contingency\u2014Project Regenesis. Given one last chance to rewrite history, X must rise once again and fight to save what remains of humanity.",
+                "desc_md": null,
+                "inst": "Download the latest Windows version of the game from https://mmxregenesis.itch.io/mega-man-x-regenesis#download/, extract the exe and place it into the game data folder within the ports directory.",
+                "inst_md": null,
+                "genres": [
+                    "action",
+                    "platformer"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [
+                    "godot_4.7.1.squashfs"
+                ],
+                "store": [
+                    {
+                        "name": "Itch.io",
+                        "gameurl": "https://mmxregenesis.itch.io/mega-man-x-regenesis#download",
+                        "developerurl": "https://mmxregenesis.itch.io/"
+                    }
+                ],
+                "availability": "free",
+                "reqs": [],
+                "arch": [],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-09-29",
+                "date_updated": "2026-09-29",
+                "md5": "096bae3f67d0a7e1635d289403605806",
+                "release_id": "2026-09-29_1930",
+                "size": 278980,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-29_1930/megamanxregenesis.zip"
+            }
+        },
+        "mporigins.zip": {
+            "version": 4,
+            "name": "mporigins.zip",
+            "items": [
+                "Metroid Prime Origins.sh",
+                "mporigins"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Metroid Prime Origins",
+                "porter": [
+                    "Ganimoth"
+                ],
+                "desc": "Metroid Prime Origins is a fan-made 2D \"demake\" of the 2002 classic Metroid Prime, reimagining the original 3D GameCube game as an 8-bit, NES-style adventure. Developed by the team at Lv. 4 GAMES with custom pixel art, sound effects, and fan-made chiptune music.",
+                "desc_md": null,
+                "inst": "Go to https://drive.google.com/drive/folders/15wf2j9x4SvWAuuYjOsznEBHtf41qaOJh and download the Metroid Prime Origins 1.1.2 VM.zip. Extract all game files into assets folder. Devices with H700 CPU are a minimum, but stronger devices like Mangmi Air X or Anbernic RG Vita Pro are recommended for this game.",
+                "inst_md": "Go to https://drive.google.com/drive/folders/15wf2j9x4SvWAuuYjOsznEBHtf41qaOJh and download the `Metroid Prime Origins 1.1.2 VM.zip`. Extract all game files into `assets` folder. Devices with H700 CPU are a minimum, but stronger devices like `Mangmi Air X` or `Anbernic RG Vita Pro` are recommended for this game.",
+                "genres": [
+                    "action",
+                    "platformer"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [],
+                "store": [],
+                "availability": "free",
+                "reqs": [],
+                "arch": [
+                    "aarch64"
+                ],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-09-28",
+                "date_updated": "2026-09-28",
+                "md5": "9111c9a3215b1b38ff690017d21eb2a0",
+                "release_id": "2026-09-28_1738",
+                "size": 8551984,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-28_1738/mporigins.zip"
             }
         },
         "minimario.zip": {
@@ -1277,6 +1381,54 @@
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2025-04-21_0926/starbound.zip"
             }
         },
+        "sternenfuchs.zip": {
+            "version": 4,
+            "name": "sternenfuchs.zip",
+            "items": [
+                "Sternenfuchs.sh",
+                "sternenfuchs/"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "Sternenfuchs",
+                "porter": [
+                    "mtoensing"
+                ],
+                "desc": "ARM64/PortMaster packaging of the open-source Star Fox Enhanced runtime, a fan-made SNES Star Fox/Starwing enhancement. No Nintendo ROM or ROM-derived data is included.",
+                "desc_md": null,
+                "inst": "Copy your own legally obtained Star Fox/Starwing `.sfc` or `.smc` ROM (USA, Japan or Europe retail revision) into the `ports/sternenfuchs/` folder (the `your rom here.txt` file marks the spot). On first launch the game builds `Starfox-Assets.BIN` from it.",
+                "inst_md": null,
+                "genres": [
+                    "action"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [
+                        "cover.png"
+                    ],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": false,
+                "exp": false,
+                "runtime": [],
+                "store": [],
+                "availability": "paid",
+                "reqs": [],
+                "arch": [
+                    "aarch64"
+                ],
+                "min_glibc": "2.35"
+            },
+            "source": {
+                "date_added": "2026-09-28",
+                "date_updated": "2026-10-08",
+                "md5": "69d1e1342b3e0c8464d39f14a20ff448",
+                "release_id": "2026-10-08_1426",
+                "size": 5555616,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-08_1426/sternenfuchs.zip"
+            }
+        },
         "sm64coopdx.zip": {
             "version": 4,
             "name": "sm64coopdx.zip",
@@ -1288,11 +1440,12 @@
             "attr": {
                 "title": "Super Mario 64 Co-op DX",
                 "porter": [
+                    "DedicatedToSoftware",
                     "CODEHEX4EVER"
                 ],
-                "desc": "Super Mario 64 Co-op DX is a game based on the Super Mario 64 engine and modified to have multiplayer and mods.",
+                "desc": "Super Mario 64 Co-op DX for aarch64 handhelds. A build of sm64coopdx with online multiplayer, widescreen and Lua modding support.",
                 "desc_md": null,
-                "inst": "You will have to copy your own rom legally obtained to ports/sm64coopdx with the name \u201cbaserom.us.z64\u201d.",
+                "inst": "Copy your legally obtained US Super Mario 64 ROM to ports/sm64coopdx/ as a .z64 file (e.g. baserom.us.z64). The launcher renames it automatically on first run.",
                 "inst_md": null,
                 "genres": [
                     "platformer"
@@ -1316,15 +1469,15 @@
                 "arch": [
                     "aarch64"
                 ],
-                "min_glibc": ""
+                "min_glibc": "2.30"
             },
             "source": {
                 "date_added": "2025-09-08",
-                "date_updated": "2025-09-08",
-                "md5": "b4e857ffad716ed2d0e2d90acd6d683e",
-                "release_id": "2025-09-08_1359",
-                "size": 43130358,
-                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2025-09-08_1359/sm64coopdx.zip"
+                "date_updated": "2026-10-03",
+                "md5": "7747071d062689023903a9f9427d0d8f",
+                "release_id": "2026-10-03_1820",
+                "size": 37907612,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-03_1820/sm64coopdx.zip"
             }
         },
         "super.mario.war.zip": {
@@ -1984,20 +2137,67 @@
                 "size": 31189414,
                 "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2024-10-01_1015/zelda3t.zip"
             }
+        },
+        "zquestclassic.zip": {
+            "version": 4,
+            "name": "zquestclassic.zip",
+            "items": [
+                "ZQuest Classic.sh",
+                "zquestclassic"
+            ],
+            "items_opt": null,
+            "attr": {
+                "title": "ZQuest Classic",
+                "porter": [
+                    "Cebion"
+                ],
+                "desc": "ZQuest Classic (formerly Zelda Classic) is an open source engine for top-down Zelda-style adventure games, with a library of hundreds of fan-made quests. This port includes the player plus the bundled demo quest The Deep; more quests, including the original classic quests, can be downloaded from PureZC.",
+                "desc_md": null,
+                "inst": "Ready to run out of the box. To add quests, drop quest .zip files from purezc.net into the zquestclassic/quests folder.",
+                "inst_md": null,
+                "genres": [
+                    "adventure",
+                    "action"
+                ],
+                "image": {
+                    "screenshot": "screenshot.png",
+                    "covers": [],
+                    "thumbnail": null,
+                    "video": null
+                },
+                "rtr": true,
+                "exp": false,
+                "runtime": [],
+                "store": [],
+                "availability": "full",
+                "reqs": [],
+                "arch": [
+                    "aarch64"
+                ],
+                "min_glibc": ""
+            },
+            "source": {
+                "date_added": "2026-10-03",
+                "date_updated": "2026-10-20",
+                "md5": "03d1addab63fbcc3d20b541ff8018548",
+                "release_id": "2026-10-20_0755",
+                "size": 55903271,
+                "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-20_0755/zquestclassic.zip"
+            }
         }
     },
     "utils": {
         "gameinfo.zip": {
             "name": "gameinfo.zip",
-            "md5": "cf42ed4a22be95e6a8bbc67b286c83e1",
-            "size": 9522605,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/gameinfo.zip"
+            "md5": "1f7abc2fd4d8050f5270ba9b2b795a16",
+            "size": 9487505,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-03_1820/gameinfo.zip"
         },
         "images.zip": {
             "name": "images.zip",
-            "md5": "c079c3ef33a826dcadb684779cb4f2ee",
-            "size": 4313999,
-            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-09-02_1433/images.zip"
+            "md5": "65128031753d1fa9c5a7621925b3553d",
+            "size": 4292888,
+            "url": "https://github.com/PortsMaster-MV/PortMaster-MV-New/releases/download/2026-10-20_0755/images.zip"
         }
     }
 }

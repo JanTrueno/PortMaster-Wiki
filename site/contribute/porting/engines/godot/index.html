@@ -708,6 +708,8 @@
       
         
       
+        
+      
     
     
     
@@ -931,6 +933,29 @@
   
   <span class="md-ellipsis">
     Love2D
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FNA
     
   </span>
   
@@ -1813,9 +1838,8 @@ FRT ports never use weston, so this is a clean dividing line between the two.</p
 <p>The practical consequence is that Godot 4 ports are heavier and have more that
 can go wrong. Godot 3 is the smoother target where you have the choice.</p>
 <h2 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">¶</a></h2>
-<p>The runtime has to match the engine version the game was exported with. These
-are the runtimes available, listed roughly most-used first, which is the best
-available guide to what is known to work:</p>
+<p>The runtime has to match the major engine version the game was exported with. These
+are the runtimes currently available, listed roughly most-used first:</p>
 <table>
 <thead>
 <tr>
@@ -1854,12 +1878,10 @@ available guide to what is known to work:</p>
 </tr>
 </tbody>
 </table>
-<p><code>frt_3.5.2</code> is the most common runtime in the library by a wide margin. If a
-Godot 3 game runs on it, that is the path of least resistance.</p>
 <h3 id="things-that-block-a-port">Things that block a port<a class="headerlink" href="#things-that-block-a-port" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>C# / Mono builds.</strong> Godot games written in C# need the Mono-enabled engine
-  build, which the standard runtimes are not. Very few ports manage this.</li>
+  build, which is only available for later versions (4.2.2 onwards).</li>
 <li><strong>GDNative / GDExtension plugins.</strong> These are compiled native libraries. They
   have to be rebuilt for ARM, and if the source isn't available the game can't
   be ported.</li>
@@ -1873,9 +1895,9 @@ FRT or a Godot 4 runtime, and then the specific engine version to pick a
 runtime.</p>
 <p>The <code>.pck</code> file and the game executable both carry version information, and the
 engine binary shipped with a desktop build reports it with <code>--version</code>.</p>
-<p><em>Determining the exact minor version reliably still needs writing by someone who
-does this regularly.</em> In practice porters often work down from the most common
-runtimes, starting with <code>frt_3.5.2</code> for Godot 3.</p>
+<p>For a more detailed version number, you can use <a href="https://github.com/GDRETools/gdsdecomp">GDRETools</a>:
+- Load the game data (pck if available, otherwise it's safe to assume data was embeded in the exe) in GDRE.
+- Look at the top left corner: you should be able to see a label indicating something like "Version: 4.3.0", that is this game's godot version! </p>
 <h2 id="port-structure">Port structure<a class="headerlink" href="#port-structure" title="Permanent link">¶</a></h2>
 <p>Godot ports are unusually small, because the engine lives in the shared runtime
 and the port carries little more than the data pack:</p>
@@ -1893,6 +1915,9 @@ game that expects keyboard and mouse.</p>
 <p>Godot 4 ports follow the same shape but additionally depend on the weston
 runtime, and some carry mod-loader setup or per-port config alongside the pack.</p>
 <h2 id="patching-and-common-fixes">Patching and common fixes<a class="headerlink" href="#patching-and-common-fixes" title="Permanent link">¶</a></h2>
+<h3 id="no-pck-in-my-game">No pck in my game<a class="headerlink" href="#no-pck-in-my-game" title="Permanent link">¶</a></h3>
+<p>If there is no pck to be found, however you are certain that this is a Godot game, you try to load the exe into GDRE instead, if that works, great! It means that the pck is embedded inside your executable, you can freely point to the exe in that case instead of a pck, the runtime will identify it and proceed normally.</p>
+<h3 id="general-export-variables">General export variables<a class="headerlink" href="#general-export-variables" title="Permanent link">¶</a></h3>
 <p><strong>Exit shortcuts.</strong> Set <code>FRT_NO_EXIT_SHORTCUTS</code> on FRT ports, or handheld button
 combinations can quit the game unexpectedly.</p>
 <p><strong>Resolution.</strong> Godot 4 ports pass <code>--resolution</code> explicitly from
@@ -1902,6 +1927,40 @@ handhelds provide OpenGL ES rather than desktop OpenGL.</p>
 <p><strong>Save locations.</strong> <code>XDG_DATA_HOME</code> is pointed at the port's own config folder
 so the game writes saves inside the port rather than into the user's home
 directory.</p>
+<h3 id="double-inputs">Double Inputs.<a class="headerlink" href="#double-inputs" title="Permanent link">¶</a></h3>
+<p>Some later Godot versions suffer from double inputs: meaning that the engine will identify a wrong gamepad profile, that is inconsistent across devices.
+Therefore the port should either patch out gamepad controls by decompiling the game or block them with libcrusty:</p>
+<p><em>For westonpack ports:</em>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ESUDO env WRAPPED_PRELOAD_PANFROST=$GAMEDIR/libcrusty.so CRUSTY_BLOCK_INPUT=1 $weston_dir/westonwrap.sh headless noop kiosk crusty_x11egl \
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>XDG_DATA_HOME=$CONFDIR $godot_dir/$godot_executable \
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>--resolution ${DISPLAY_WIDTH}x${DISPLAY_HEIGHT} -f --disable-cursor \
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>--rendering-driver opengl3_es --audio-driver ALSA --main-pack $GAMEDIR/$pck_filename
+</span></code></pre></div>
+<em>For frt ports:</em>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>export FRT_NO_EXIT_SHORTCUTS=FRT_NO_EXIT_SHORTCUTS
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>export CRUSTY_BLOCK_INPUT=1
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$GPTOKEYB &quot;$runtime&quot; -c &quot;./portname.gptk&quot; &amp;
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>pm_platform_helper &quot;$runtime&quot;
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>LD_PRELOAD=&quot;$GAMEDIR/libcrusty.so&quot; &quot;$runtime&quot; $GODOT_OPTS --main-pack &quot;gamedata/game.pck&quot;
+</span></code></pre></div>
+note that you will need to add libcrusty in your port directory <a href="https://github.com/PortsMaster/PortMaster-New/tree/main/ports/merpinmerpworld/merpinmerpworld">(example: merp in merpworld)</a></p>
+<h3 id="precomputed-patches-xdelta">Precomputed patches (xdelta)<a class="headerlink" href="#precomputed-patches-xdelta" title="Permanent link">¶</a></h3>
+<p>Build the modified game file on a PC, ship the binary difference, and apply it
+on device at first launch.
+<a href="https://github.com/Moodkiller/xdelta3-gui-2.0">XDelta3</a> creates the patch from
+the difference between the original and modified files, and the <code>xdelta3</code> binary
+in the PortMaster control folder applies it.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Check if pck exists and its MD5 checksum matches, then apply the patch</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;gamedata/a_meta_data_game.pck&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nv">checksum</span><span class="o">=</span><span class="k">$(</span>md5sum<span class="w"> </span><span class="s2">&quot;gamedata/a_meta_data_game.pck&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$checksum</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;4b97bb2da8c515d787fe70aa03550ce5&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="nv">$ESUDO</span><span class="w"> </span><span class="nv">$controlfolder</span>/xdelta3<span class="w"> </span>-d<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;gamedata/a_meta_data_game.pck&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;./patch/patch.xdelta3&quot;</span><span class="w"> </span><span class="s2">&quot;gamedata/a_meta_data_game_patched.pck&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span>rm<span class="w"> </span><span class="s2">&quot;gamedata/a_meta_data_game.pck&quot;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">fi</span>
+</span></code></pre></div>
+<p>This is simple and fast, but the patch is tied to one exact build of the game, and will fail if the game updates.
+<em>Also note that Godot xdelta patches can get very big, so should be generally avoided</em></p>
 <p><em>A fuller list of recurring Godot bugs and their fixes still needs writing.</em></p>
 <h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">¶</a></h2>
 <ul>
@@ -1909,6 +1968,7 @@ directory.</p>
   version, and re-exporting a pack where the game is open source.</li>
 <li><a href="https://github.com/efornara/frt">FRT</a> is the Godot 3 build for embedded ARM
   devices that the <code>frt_*</code> runtimes are made from.</li>
+<li><a href="https://github.com/GDRETools/gdsdecomp">GDRE tools</a> is used to check engine version number, and decompile the game in ports that require changing the game's source.</li>
 </ul>
 <h2 id="example-ports">Example ports<a class="headerlink" href="#example-ports" title="Permanent link">¶</a></h2>
 <p>Real Godot ports in the library, useful to unpack and look at:</p>
