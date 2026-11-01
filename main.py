@@ -1,3 +1,4 @@
+import copy
 import json
 import markdown
 import os
@@ -325,6 +326,64 @@ def load_latest_news(posts_dir, blog_dir="news", limit=3, authors=None):
 
 
 
+def apply_device_info_overrides(base_path):
+    """Add firmware that PortMaster-Info doesn't list for a device yet.
+
+    device_info.json is re-downloaded from PortMaster-Info on every build, so
+    it can't be edited in place. docs/assets/json/device_info_overrides.json
+    holds the hand-curated additions instead, and this writes them into the
+    downloaded file - on disk, not just in env.variables, because pages like
+    games.md fetch() the file themselves and need to see the same data.
+
+    An addition is a copy of another firmware's entry for the same device
+    (same hardware), with the name swapped and glibc taken from whatever
+    other entries that firmware already has. Idempotent: a firmware already
+    present is skipped, which covers both a repeat run (FAST_BUILD skips the
+    download, so the file may already be patched) and upstream catching up.
+    """
+    info_path = base_path / "device_info.json"
+    overrides_path = base_path / "device_info_overrides.json"
+    if not info_path.exists() or not overrides_path.exists():
+        return
+
+    with info_path.open(encoding="utf-8") as f:
+        info = json.load(f)
+    with overrides_path.open(encoding="utf-8") as f:
+        overrides = json.load(f)
+
+    added = []
+    for model, firmwares in overrides.items():
+        if model.startswith("_"):  # _readme and friends
+            continue
+        if model not in info:
+            print(f"device_info_overrides: no device named {model!r}, skipping", flush=True)
+            continue
+        for firmware, rule in firmwares.items():
+            if firmware in info[model]:
+                continue
+            source = info[model].get(rule.get("copy_from"))
+            if source is None:
+                print(f"device_info_overrides: {model!r} has no {rule.get('copy_from')!r} entry to copy for {firmware!r}", flush=True)
+                continue
+
+            entry = copy.deepcopy(source)
+            old_name, new_name = source["name"], firmware.lower()
+            entry["name"] = new_name
+            # The firmware's lowercase name is itself a capability tag.
+            entry["capabilities"] = [new_name if c == old_name else c for c in entry["capabilities"]]
+            reference = next((fw[firmware] for fw in info.values() if firmware in fw), None)
+            if reference is not None:
+                entry["glibc"] = reference["glibc"]
+
+            info[model][firmware] = entry
+            added.append(f"{firmware} -> {model}")
+
+    if added:
+        with info_path.open("w", encoding="utf-8") as f:
+            json.dump(info, f, indent=4)
+        print(f"device_info_overrides: added {', '.join(added)}", flush=True)
+
+
 def define_env(env):
     base_path = Path(__file__).parent / "docs" / "assets" / "json"
 
@@ -333,6 +392,8 @@ def define_env(env):
         print("FAST_BUILD=1: skipping GitHub JSON downloads, using local files as-is.", flush=True)
     else:
         download_portmaster_jsons(base_path)
+
+    apply_device_info_overrides(base_path)
 
     ports_files = [
         base_path / "ports.json",
@@ -387,6 +448,12 @@ def define_env(env):
 
     # Total port count for immediate display
     env.variables["total_port_count"] = len(merged_ports["ports"])
+
+    # Marketing copy says "1400+", not "1478+", so it only needs to be right to
+    # the hundred. Rounded down, never to nearest: a "+" has to stay true. This
+    # is separate from total_port_count on purpose - games.md uses that for
+    # exact counters ("Showing 1-100 of N") that must not be rounded.
+    env.variables["port_count_rounded"] = len(merged_ports["ports"]) // 100 * 100
 
     # Latest blog posts for the homepage strip
     news_dir = Path(__file__).parent / "docs" / "news"

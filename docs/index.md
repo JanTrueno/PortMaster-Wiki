@@ -23,10 +23,10 @@ hide:
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Real PC &amp; indie games, running natively on your handheld</h1>
-    <p class="hero-subtitle">Stardew Valley, Celeste, Balatro, Limbo, and {{ total_port_count }}+ more &mdash; installed and running on cheap Linux-based handhelds with PortMaster. Completely free. Not emulation.</p>
+    <h1>PC games running natively on your handhelds</h1>
+    <p class="hero-subtitle">Stardew Valley, Celeste, Balatro, Limbo, and {{ port_count_rounded }}+ more &mdash; installed and running on cheap Linux-based handhelds with PortMaster. Completely free. Not emulation.</p>
     <div class="hero-cta-group">
-      <a href="games/" class="hero-btn hero-btn-primary">Discover {{ total_port_count }}+ Games</a>
+      <a href="games/" class="hero-btn hero-btn-primary">Discover {{ port_count_rounded }}+ Games</a>
       <a href="installation/installing-portmaster/" class="hero-btn hero-btn-secondary">Get PortMaster</a>
     </div>
   </div>
@@ -76,7 +76,7 @@ hide:
 
   <div class="showcase-inner">
     <div class="showcase-text">
-      <h2>{{ total_port_count }}+ games,<br>ready to install.</h2>
+      <h2>{{ port_count_rounded }}+ games,<br>ready to install.</h2>
       <p>Stardew Valley, Celeste, Balatro, Half-Life, Doom &mdash; plus hundreds you've never heard of. Pick one, press install, play. No setup, no terminal.</p>
     </div>
   </div>

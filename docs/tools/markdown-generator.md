@@ -63,10 +63,12 @@ is documentation on Markdown writing and formatting syntax.
 
 <div class="filter-accordion">
   <div class="filter-accordion-summary" role="button" tabindex="0">
-    <span>Controls</span>
+    <span>Controls <small>*required</small></span>
     <i class="bi bi-chevron-down accordion-chevron"></i>
   </div>
   <div class="filter-accordion-body">
+    <p class="help-text">Tell players what each button does in the port. At least one mapping is required,
+    and every row needs both a button and an action.</p>
     <table class="controls-table" id="controlsTable">
       <thead>
         <tr>
@@ -95,6 +97,8 @@ is documentation on Markdown writing and formatting syntax.
 ## Generated README
 
 <div class="porter-tool">
+  <div class="alert alert-warning" id="readmeValidation" style="display:none"></div>
+
   <div class="output-container">
     <pre id="outputArea"><div class="output-placeholder">Fill in the form - the README output updates live here...</div></pre>
   </div>
@@ -119,6 +123,7 @@ is documentation on Markdown writing and formatting syntax.
   const notesEl = document.getElementById('notes');
   const compileEl = document.getElementById('compile');
   const outputArea = document.getElementById('outputArea');
+  const validationBox = document.getElementById('readmeValidation');
   const PLACEHOLDER = '<div class="output-placeholder">Fill in the form - the README output updates live here...</div>';
 
   // Same plain div + class-toggle accordion as the Browse filter panel
@@ -183,7 +188,30 @@ is documentation on Markdown writing and formatting syntax.
     return (notes + "\n" + controls + "\n" + compile).replaceAll("<br/>", "");
   }
 
+  // A README has to tell players what the buttons do, so Controls is the one
+  // section that can't be left out. A row needs both halves: a button with no
+  // action, or the reverse, is a broken row in the table.
+  function validateControls() {
+    const rows = Array.from(document.querySelectorAll('#controlsTable tbody tr'));
+    if (!rows.length) {
+      return { problem: 'Controls: add at least one button mapping', focus: document.getElementById('addMappingBtn') };
+    }
+    for (const row of rows) {
+      const inputs = [row.querySelector('.col1'), row.querySelector('.col2')];
+      const empty = inputs.find(input => !input.value.trim());
+      if (empty) {
+        return { problem: 'Controls: every row needs both a button and an action. Fill in or remove the empty ones', focus: empty };
+      }
+    }
+    return null;
+  }
+
   function refreshOutput() {
+    // Once the problem the warning describes is fixed, the warning goes too.
+    if (validationBox.style.display !== 'none' && !validateControls()) {
+      validationBox.style.display = 'none';
+    }
+
     const markdown = buildMarkdown();
     if (markdown.replaceAll('\n', '').trim() === '') {
       outputArea.innerHTML = PLACEHOLDER;
@@ -193,11 +221,19 @@ is documentation on Markdown writing and formatting syntax.
   }
 
   function downloadMarkdown() {
-    const markdown = buildMarkdown();
-    if (markdown.replaceAll('\n', '').trim() === '') {
-      alert('Add some notes, controls, or compile instructions first.');
+    const invalid = validateControls();
+    if (invalid) {
+      validationBox.innerHTML = '<strong>Missing or invalid:</strong> ' + invalid.problem;
+      validationBox.style.display = 'block';
+      // The section may be collapsed, so open it before sending focus there.
+      document.getElementById('controlsTable').closest('.filter-accordion').classList.add('open');
+      invalid.focus.focus();
+      validationBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+    validationBox.style.display = 'none';
+
+    const markdown = buildMarkdown();
 
     const blob = new Blob([markdown], { type: 'application/text' });
     const a = document.createElement('a');
