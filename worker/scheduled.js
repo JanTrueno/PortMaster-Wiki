@@ -5,10 +5,10 @@
 // own (Git integration), so they aren't handled here.
 //
 // The cron in wrangler.jsonc fires every INTERVAL_MIN minutes:
-//   - on the hour it always builds (also picks up PortMaster-Info changes,
-//     which are plain commits and have no release to watch);
+//   - at 00:00 and 12:00 UTC it always builds (also picks up PortMaster-Info
+//     changes, which are plain commits and have no release to watch);
 //   - on the other runs it builds only if a port repo published a release a few
-//     minutes ago, so a release shows up within ~15 minutes instead of ~1 hour.
+//     minutes ago, so a release shows up within ~15 minutes.
 //
 // DEPLOY_HOOK_URL is a Worker *secret* (Settings > Variables and secrets),
 // never committed. Page requests never reach this script: static assets are
@@ -21,6 +21,8 @@ const RELEASE_FEEDS = [
 
 // Must match the cron in wrangler.jsonc.
 const INTERVAL_MIN = 10;
+// Unconditional rebuild, as a safety net for anything that has no release.
+const FULL_REBUILD_EVERY_HOURS = 12;
 // Give a fresh release a few minutes to finish attaching its assets
 // (ports.json etc.) before building. A release lands in exactly one run's
 // [SETTLE_MIN, SETTLE_MIN + INTERVAL_MIN) window, so it triggers one build.
@@ -46,7 +48,10 @@ export default {
     }
 
     const now = controller.scheduledTime;
-    let reason = new Date(now).getUTCMinutes() === 0 ? "hourly refresh" : null;
+    const at = new Date(now);
+    const dueForFullRebuild =
+      at.getUTCMinutes() === 0 && at.getUTCHours() % FULL_REBUILD_EVERY_HOURS === 0;
+    let reason = dueForFullRebuild ? `scheduled ${FULL_REBUILD_EVERY_HOURS}-hourly rebuild` : null;
     const feedErrors = [];
 
     if (!reason) {
