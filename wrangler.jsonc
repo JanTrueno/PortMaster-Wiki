@@ -1,0 +1,11 @@
+{
+  // Must match the Worker's name in the Cloudflare dashboard (Workers Builds
+  // refuses to deploy otherwise).
+  "name": "portmaster-wiki",
+  "compatibility_date": "2026-11-01",
+  // `mkdocs build` writes the finished site into site/; that's what gets served.
+  "assets": {
+    "directory": "./site",
+    "not_found_handling": "404-page"
+  }
+}
