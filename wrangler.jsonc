@@ -14,9 +14,11 @@
     "directory": "./site",
     "not_found_handling": "404-page"
   },
-  // Hourly cron that pings the Workers Builds deploy hook, see worker/scheduled.js.
+  // Cron that pings the Workers Builds deploy hook: every hour, plus shortly
+  // after a new PortMaster-New / PortMaster-MV-New release. See
+  // worker/scheduled.js (INTERVAL_MIN there must match this schedule).
   "main": "worker/scheduled.js",
   "triggers": {
-    "crons": ["0 * * * *"]
+    "crons": ["*/10 * * * *"]
   }
 }
