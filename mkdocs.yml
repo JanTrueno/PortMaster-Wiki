@@ -144,6 +144,7 @@ nav:
               - Godot: contribute/porting/engines/godot.md
               - GameMaker Studio: contribute/porting/engines/gamemaker-studio.md
               - Love2D: contribute/porting/engines/love2d.md
+              - FNA: contribute/porting/engines/fna.md
       - GUI Development:
           - Themes: contribute/gui/theme-engine.md
           - Translation: contribute/gui/translation.md

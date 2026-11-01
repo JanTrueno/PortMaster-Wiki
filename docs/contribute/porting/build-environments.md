@@ -1,10 +1,21 @@
 
 # Compiling Opensource Games for PortMaster
 
-Since PortMaster is platform-independent and delivers its own dependencies, we don't rely on the build mechanism of the CFWs out there. To compile games for the AARCH64 architecture, you can do so in various ways. Most of the porters build on Ubuntu 20.04, this relatively old version is required to prevent issues with glibc requirements on some CFW's.
+Since PortMaster is platform-independent and delivers its own dependencies, we don't rely on the build mechanism of the CFWs out there. To compile games for the AARCH64 architecture, you can do so in various ways. We build on **Ubuntu 22.04 LTS**.
 
 !!! info
     Many porting methods do not require you to set up a build environment. This is only necessary when you need to build games and/or libraries from source!
+
+## Which Ubuntu version?
+
+A program only runs on a device whose glibc is at least as new as the one it was built against. So the version of Ubuntu you build on decides which firmware your port can run on.
+
+- **Ubuntu 22.04 (glibc 2.35)** is what we build on. Use it unless you have a reason not to.
+- **Ubuntu 20.04 (glibc 2.31)** is the one to use if you want your port to also run on older CFWs like ArkOS. A device can run anything built against an older glibc than its own, so a port built on 20.04 runs everywhere a 22.04 build does, and on the older firmware as well.
+
+The WSL steps below use 22.04, and say what to change to build on 20.04 instead.
+
+The `min_glibc` field in a port's `port.json` makes PortMaster hide the port on devices whose glibc is older, so people don't install something that won't run. Only fill it in if your port supplies its own binaries. The [Port JSON Generator](../../tools/json-generator.md) has a field for it and suggests 2.35 to match 22.04. If you built on 20.04 to support older CFWs like ArkOS, leave it empty.
 
 ## Build environment options
 Below you will find several options for build environments suited for PortMaster.
@@ -17,19 +28,21 @@ For more information, visit the [GitHub Repository](https://github.com/Cebion/Po
 
 #### Instructions
 
-Install required packages on Ubuntu 20.04/22.04 LTS WSL 2:
+Install required packages on Ubuntu 22.04 LTS WSL 2:
 
 ```bash
 sudo apt install build-essential binfmt-support daemonize libarchive-tools qemu-system qemu-user qemu-user-static gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 ```
 
-- Download ***20.04 Focal server-cloudimg-arm64-wsl.rootfs.tar.gz*** from [:material-ubuntu: Ubuntu Cloud Image](http://cloud-images-archive.ubuntu.com/releases/focal/release-20230731/).
+- Download ***ubuntu-22.04-server-cloudimg-arm64-root.tar.xz*** from [:material-ubuntu: Ubuntu Cloud Images](https://cloud-images.ubuntu.com/releases/jammy/release/).
+
+    To build on 20.04 instead, for older CFWs like ArkOS, download ***20.04 Focal server-cloudimg-arm64-wsl.rootfs.tar.gz*** from the [Ubuntu Cloud Image archive](http://cloud-images-archive.ubuntu.com/releases/focal/release-20230731/) and use its file name in the next step.
 
 - Extract the tarball in a folder:
 
       ```bash
       mkdir folder
-      sudo bsdtar -xpf ubuntu-20.04-server-cloudimg-arm64-wsl.rootfs.tar.gz -C folder
+      sudo bsdtar -xpf ubuntu-22.04-server-cloudimg-arm64-root.tar.xz -C folder
       ```
 
 - Copy qemu static binary into that folder:

@@ -62,7 +62,6 @@ Help others by improving our guides and documentation.
 Connect with other contributors and help fellow users.
 
 [:fontawesome-brands-discord: Join Discord](https://discord.gg/eqjK6yNQS4){ .md-button }
-[:fontawesome-brands-github: GitHub Discussions](https://github.com/PortsMaster/PortMaster-GUI/discussions){ .md-button }
 
 **How to help:**
 
