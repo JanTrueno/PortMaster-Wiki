@@ -3,6 +3,12 @@
   // refuses to deploy otherwise).
   "name": "portmaster-wiki",
   "compatibility_date": "2026-11-01",
+  // Runs before every `wrangler deploy` / `versions upload`, so Workers Builds
+  // regenerates the site (and re-downloads the port data) itself. Same
+  // packages as .github/workflows/ci.yml, plus pillow for the home page mosaic.
+  "build": {
+    "command": "python3 -m pip install mkdocs-material mkdocs-glightbox mkdocs-macros-plugin pillow && python3 -m mkdocs build"
+  },
   // `mkdocs build` writes the finished site into site/; that's what gets served.
   "assets": {
     "directory": "./site",
