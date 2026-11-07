@@ -147,7 +147,7 @@
 
   function similarCardHtml(id, port) {
     const img = port.screenshot
-      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
+      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onload="this.classList.add('is-loaded')" onerror="this.style.display='none'">`
       : '';
     const rtr = port.rtr ? '<span class="pm-rtr-badge">RTR</span>' : '';
     const downloads = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
@@ -256,6 +256,9 @@
     const heroImg = document.getElementById('port-screenshot');
     const hero = heroImg.closest('.port-hero');
     if (port.screenshot) {
+      // Ghost placeholder until the screenshot paints (see skeleton.css).
+      hero.classList.add('is-loading');
+      heroImg.onload = heroImg.onerror = () => hero.classList.remove('is-loading');
       heroImg.src = `https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${portId}/${port.screenshot}`;
       heroImg.alt = port.title;
       hero.style.display = '';
@@ -342,7 +345,7 @@
       return;
     }
 
-    readmeEl.innerHTML = '<div class="loading-spinner">Loading...</div>';
+    readmeEl.innerHTML = '<span class="skeleton sk-line"></span><span class="skeleton sk-line"></span><span class="skeleton sk-line sk-line--mid"></span>';
     const readmeUrl = `https://raw.githubusercontent.com/${repo}/refs/heads/main/ports/${portId}/README.md`;
 
     fetch(readmeUrl)
@@ -539,7 +542,7 @@
     }
 
     const compatible = checkCompatibility(currentPort, currentDevice, currentOS);
-    chipBtn.title = `${deviceSelect.value} · ${osSelect.value} — ${compatible ? 'Compatible' : 'May not be compatible'}`;
+    chipBtn.title = `${deviceSelect.value} · ${osSelect.value}. ${compatible ? 'Compatible' : 'May not be compatible'}`;
     chipDot.className = 'device-chip-dot ' + (compatible ? 'is-compatible' : 'is-incompatible');
     chipHint.textContent = compatible
       ? 'Compatible with your device.'

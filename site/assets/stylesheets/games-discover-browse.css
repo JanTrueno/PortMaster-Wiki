@@ -784,7 +784,7 @@
     margin-bottom: 0.4rem;
   }
 
-  .hero-slide-title {
+  .hero-slide-overlay .hero-slide-title {
     font-size: 1.3rem;
     margin-bottom: 0.25rem;
   }
@@ -824,7 +824,7 @@
     font-size: 0.5rem;
   }
 
-  .hero-slide-title {
+  .hero-slide-overlay .hero-slide-title {
     font-size: 0.65rem;
     margin-bottom: 0.15rem;
   }

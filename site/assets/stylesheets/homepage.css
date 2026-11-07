@@ -622,3 +622,13 @@
 .md-typeset > .news-band:last-child {
   margin-bottom: -1.2rem;
 }
+
+/* On a phone the two-up pair leaves "Discover 1500+ Games" pressed against
+   its own edges, so the text scales with the screen width instead, keeping
+   the buttons side by side. */
+@media (max-width: 480px) {
+  .hero-cta-group .hero-btn {
+    font-size: clamp(0.55rem, 3.4vw, 0.78rem);
+    padding: 0.62rem 0.6rem;
+  }
+}
