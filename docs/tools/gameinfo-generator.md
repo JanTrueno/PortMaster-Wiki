@@ -18,8 +18,9 @@ identical. See the [packaging documentation](../contribute/porting/packaging.md)
 for where to place the file.
 
 PortMaster installs this metadata into EmulationStation when a port is installed,
-alongside the [cover image](cover-generator.md). Every field is optional - blank
-ones are left out of the file entirely.
+alongside the [cover image](cover-generator.md). Name, script path and image path
+are required by the ports repo; the other fields are optional and left out of
+the file when blank.
 
 <div class="porter-tool porter-tool-panel">
 
@@ -52,20 +53,22 @@ ones are left out of the file entirely.
   </div>
   <div class="filter-accordion-body">
     <div class="form-group">
-      <label for="name">Name</label>
+      <label for="name">Name <small>*required</small></label>
       <input type="text" id="name" placeholder="Game Name" />
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label for="path">Script Path</label>
+        <label for="path">Script Path <small>*required</small></label>
         <input type="text" id="path" placeholder="./portname.sh" />
+        <p class="help-text">The launch script, starting with <code>./</code></p>
       </div>
 
       <div class="form-group">
-        <label for="image">Image Path</label>
+        <label for="image">Image Path <small>*required</small></label>
         <input type="text" id="image" placeholder="./portname/cover.png" />
-        <p class="help-text">PortMaster falls back to the screenshot if no cover is set.</p>
+        <p class="help-text">Your port folder, then the image: <code>./portname/cover.png</code>.
+        Use <code>screenshot.png</code> (or <code>.jpg</code>) if there's no cover.</p>
       </div>
     </div>
 
@@ -105,6 +108,8 @@ ones are left out of the file entirely.
 ## Generated XML
 
 <div class="porter-tool">
+  <div class="alert alert-warning" id="gameinfoValidation" style="display:none"></div>
+
   <div class="output-container">
     <pre id="outputArea"><div class="output-placeholder">Fill in the form - the XML output updates live here...</div></pre>
   </div>
@@ -146,12 +151,16 @@ ones are left out of the file entirely.
     });
   });
 
-  const val = id => document.getElementById(id).value;
+  const val = id => document.getElementById(id).value.trim();
+  const validationBox = document.getElementById('gameinfoValidation');
 
   // XML text-node escaping, matching the serializer the upstream editor
   // gets from xmlbuilder2: &, < and > are all escaped in element content.
+  // Control characters XML doesn't allow at all (pasted from elsewhere,
+  // usually) are dropped, since they'd make the whole file unparseable.
   function esc(value) {
     return String(value)
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '')
       .replaceAll('&', '&amp;')
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;');
@@ -197,6 +206,9 @@ ones are left out of the file entirely.
   }
 
   function refreshOutput() {
+    if (validationBox.style.display !== 'none' && !validate().length) {
+      validationBox.style.display = 'none';
+    }
     if (isEmpty()) {
       outputArea.innerHTML = PLACEHOLDER;
     } else {
@@ -204,11 +216,30 @@ ones are left out of the file entirely.
     }
   }
 
+  // The same rules PortMaster-New's tools/build_gameinfo.py checks a pull
+  // request against: name, path and image are required; path is a script
+  // next to gameinfo.xml and image sits inside a folder, both written "./...".
+  function validate() {
+    const problems = [];
+    if (!val('name')) problems.push('Name');
+    const path = val('path');
+    if (!path) problems.push('Script Path');
+    else if (!/^\.\/[^/]+\.sh$/.test(path)) problems.push('Script Path (like ./Game Name.sh: starts with ./, ends in .sh, no folders)');
+    const image = val('image');
+    if (!image) problems.push('Image Path');
+    else if (!/^\.\/[^/]+\/[^/]+\.(png|jpe?g)$/i.test(image)) problems.push('Image Path (like ./portname/cover.png: ./, your port folder, then a .png or .jpg)');
+    return problems;
+  }
+
   function downloadXml() {
-    if (isEmpty()) {
-      alert('Fill in at least one field first.');
+    const problems = validate();
+    if (problems.length) {
+      validationBox.innerHTML = '<strong>Missing or invalid:</strong> ' + problems.map(esc).join(', ');
+      validationBox.style.display = 'block';
+      validationBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+    validationBox.style.display = 'none';
     const blob = new Blob([buildXml()], { type: 'application/xml' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -277,6 +308,9 @@ ones are left out of the file entirely.
       : '';
 
     refreshOutput();
+    // Ports with several launch scripts have one <game> per script; this
+    // form edits one, so say what was left out.
+    return doc.querySelectorAll('gameList > game').length;
   }
 
   function loadPort() {
@@ -296,8 +330,10 @@ ones are left out of the file entirely.
     fetch(url)
       .then(r => r.ok ? r.text() : Promise.reject(new Error('not found')))
       .then(xml => {
-        applyXml(xml);
-        setStatus(`Loaded metadata for ${typed}.`, false);
+        const games = applyXml(xml);
+        setStatus(games > 1
+          ? `Loaded the first of ${games} entries for ${typed}. This port has ${games} scripts; the others aren't in this form.`
+          : `Loaded metadata for ${typed}.`, false);
       })
       .catch(() => setStatus(`${typed} has no gameinfo.xml yet - fill the form in by hand.`, true));
   }

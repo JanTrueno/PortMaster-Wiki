@@ -33,7 +33,7 @@ place the file.
       <div class="form-group">
         <label for="zipName">Zip File Name</label>
         <input type="text" id="zipName" placeholder="gamename.zip" />
-        <p class="help-text">Uniquely identifies the port, e.g. <code>gamename.zip</code></p>
+        <p class="help-text">Uniquely identifies the port. Must be the directory name plus <code>.zip</code>, e.g. <code>gamename.zip</code></p>
       </div>
     </div>
 
@@ -47,7 +47,7 @@ place the file.
       <div class="form-group">
         <label for="dirName">Directory Name</label>
         <input type="text" id="dirName" placeholder="gamename" />
-        <p class="help-text">The port folder name (lowercase, no spaces)</p>
+        <p class="help-text">The port folder name: lowercase letters, numbers, <code>.</code> <code>_</code> <code>-</code>, no spaces</p>
       </div>
     </div>
   </div>
@@ -678,22 +678,37 @@ place the file.
   // ===================================================================
   // Key order and layout follow the port.json files already in the ports repo:
   // 2-space indentation, items_opt: [], image: null, and min_glibc: "" unless set.
-  function buildPortJson() {
-    const items = [document.getElementById('scriptName').value, document.getElementById('dirName').value];
+  const field = id => document.getElementById(id).value.trim();
 
-    const store = Array.from(document.querySelectorAll('#storeTable tbody tr')).map(row => ({
-      name: row.querySelector('.store-name').value,
-      gameurl: row.querySelector('.store-game-url').value,
-      developerurl: row.querySelector('.store-dev-url').value
-    }));
+  // Same as name_cleaner() in PortMaster-New's tools/libs/util.py: the repo
+  // requires the zip to be name_cleaner(folder) + ".zip" and the port's data
+  // folder to already be in that form, so the checks below use it too.
+  function nameCleaner(text) {
+    return text.trim().toLowerCase().replace(/[^a-z0-9 _\-.]+/g, '').replace(/[ .]+/g, '.');
+  }
+
+  // Rows left completely blank are dropped rather than written out as
+  // {"name": "", "gameurl": "", ...}.
+  function storeRows() {
+    return Array.from(document.querySelectorAll('#storeTable tbody tr'))
+      .map(row => ({
+        name: row.querySelector('.store-name').value.trim(),
+        gameurl: row.querySelector('.store-game-url').value.trim(),
+        developerurl: row.querySelector('.store-dev-url').value.trim()
+      }))
+      .filter(s => s.name || s.gameurl || s.developerurl);
+  }
+
+  function buildPortJson() {
+    const items = [field('scriptName'), field('dirName')];
 
     return {
       version: 4,
-      name: document.getElementById('zipName').value,
+      name: field('zipName'),
       items: items,
       items_opt: [],
       attr: {
-        title: document.getElementById('title').value,
+        title: field('title'),
         porter: Array.from(porterSelect.selectedOptions).map(o => o.value),
         desc: document.getElementById('description').value,
         desc_md: document.getElementById('descriptionMd').value || null,
@@ -704,7 +719,7 @@ place the file.
         rtr: document.getElementById('rtr').checked,
         exp: document.getElementById('exp').checked,
         runtime: Array.from(runtimeSelect.selectedOptions).map(o => o.value),
-        store: store,
+        store: storeRows(),
         availability: document.getElementById('availability').value,
         reqs: pickedRequirements(),
         arch: checkedValues('archList'),
@@ -715,13 +730,34 @@ place the file.
 
   function validateForm() {
     const missing = [];
-    const script = document.getElementById('scriptName').value.trim();
-    if (!document.getElementById('title').value.trim()) missing.push('Port Title');
-    if (!document.getElementById('zipName').value.trim()) missing.push('Zip File Name');
+    const script = field('scriptName');
+    const zip = field('zipName');
+    const dir = field('dirName');
+    if (!field('title')) missing.push('Port Title');
+
+    if (!dir) missing.push('Directory Name');
+    else if (dir !== nameCleaner(dir) || dir.includes('/')) {
+      missing.push(`Directory Name (lowercase letters, numbers, . _ - only, e.g. "${nameCleaner(dir).replace(/\//g, '') || 'gamename'}")`);
+    }
+
+    if (!zip) missing.push('Zip File Name');
+    else if (dir && dir === nameCleaner(dir) && zip !== dir + '.zip') {
+      missing.push(`Zip File Name (must be the directory name plus .zip: "${dir}.zip")`);
+    } else if (!/^[a-z0-9_\-.]+\.zip$/.test(zip)) {
+      missing.push('Zip File Name (lowercase, ending in .zip)');
+    }
+
     if (!script) missing.push('Script Name');
     else if (script.includes(',')) missing.push('Script Name (a port has one script, remove the comma)');
+    else if (script.includes('/')) missing.push('Script Name (just the file name, no folders)');
     else if (!/\.sh$/i.test(script)) missing.push('Script Name (must end in .sh)');
-    if (!document.getElementById('dirName').value.trim()) missing.push('Directory Name');
+
+    storeRows().forEach((s, i) => {
+      const label = `Store link ${i + 1}`;
+      if (!/^https?:\/\/\S+$/i.test(s.gameurl)) missing.push(`${label} (game URL must start with http:// or https://)`);
+      if (s.developerurl && !/^https?:\/\/\S+$/i.test(s.developerurl)) missing.push(`${label} (developer URL must start with http:// or https://)`);
+      if (!s.name) missing.push(`${label} (store name)`);
+    });
     if (!checkedValues('genreList').length) missing.push('Genre (at least one)');
     if (!porterSelect.selectedOptions.length) missing.push('Porter (at least one)');
     if (!document.getElementById('description').value.trim()) missing.push('Description');
