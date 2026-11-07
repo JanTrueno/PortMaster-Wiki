@@ -145,7 +145,9 @@ glightbox: false
   <div class="hero-main">
     {% for slide in hero_slides %}
     {% set hero_bg_url = slide.custom_image_url if slide.custom_image_url else ('https://raw.githubusercontent.com/' ~ slide.repo ~ '/refs/heads/main/ports/' ~ slide.port_id ~ '/' ~ slide.screenshot if slide.screenshot else '') %}
-    <div class="hero-slide{% if loop.first %} active{% endif %}" data-index="{{ loop.index0 }}"{% if hero_bg_url %} style="background-image:url('{{ hero_bg_url }}')"{% endif %}>
+    {#- The whole slide is the link to the port page, so "View Details" below
+        is a styled span rather than a second (nested, invalid) <a>. #}
+    <a href="../port/?name={{ slide.port_id }}" class="hero-slide{% if loop.first %} active{% endif %}" data-index="{{ loop.index0 }}"{% if hero_bg_url %} style="background-image:url('{{ hero_bg_url }}')"{% endif %}>
       <div class="hero-slide-overlay">
         {% if slide.rtr %}
         <span class="hero-slide-status hero-slide-status--rtr"><i class="bi bi-check-lg"></i> Ready to Run</span>
@@ -155,11 +157,10 @@ glightbox: false
         <h1 class="hero-slide-title">{{ slide.title }}</h1>
         {% if slide.desc %}<p class="hero-slide-desc">{{ slide.desc }}</p>{% endif %}
         <div class="hero-slide-actions">
-          <a href="{{ slide.url }}" class="hero-download-btn">Download</a>
-          <a href="../port/?name={{ slide.port_id }}" class="hero-details-link">View Details <i class="bi bi-chevron-right"></i></a>
+          <span class="hero-details-link">View Details <i class="bi bi-chevron-right"></i></span>
         </div>
       </div>
-    </div>
+    </a>
     {% endfor %}
   </div>
   <div class="hero-sidebar">
@@ -171,6 +172,12 @@ glightbox: false
         <span class="hero-pill-title">{{ slide.title }}</span>
       </span>
     </button>
+    {% endfor %}
+  </div>
+  {#- Replaces the sidebar pills on narrow/vertical screens (see CSS). #}
+  <div class="hero-dots" role="group" aria-label="Choose a featured game">
+    {% for slide in hero_slides %}
+    <button type="button" class="hero-dot{% if loop.first %} active{% endif %}" data-index="{{ loop.index0 }}" aria-label="Show {{ slide.title }}"></button>
     {% endfor %}
   </div>
 </div>
@@ -518,15 +525,46 @@ glightbox: false
 
     const slides = banner.querySelectorAll('.hero-slide');
     const pills = banner.querySelectorAll('.hero-pill');
+    const dots = banner.querySelectorAll('.hero-dot');
     if (slides.length < 2) return;
 
     const HERO_DURATION = 7000;
     let current = 0;
     let timer = null;
 
-    function show(index) {
+    // dir: 1 = next (new slide enters from the right, old one leaves left),
+    // -1 = previous (the mirror image), 0 = the default fade-in from the left
+    // used by auto-rotate and the pills/dots.
+    const SWIPE_SHIFT = '30%';
+    function show(index, dir = 0) {
+      const prev = current;
       current = index;
+      // Drop offsets left over from earlier swipes (transitionend isn't
+      // guaranteed, e.g. in a background tab) - except on the slide being
+      // swiped away right now, which has to keep its finger position.
+      slides.forEach((slide, i) => {
+        if (i !== prev || !dir) slide.style.transform = '';
+      });
+      if (dir && prev !== index) {
+        const incoming = slides[index];
+        const outgoing = slides[prev];
+        const shift = dir > 0 ? SWIPE_SHIFT : `-${SWIPE_SHIFT}`;
+        const opposite = dir > 0 ? `-${SWIPE_SHIFT}` : SWIPE_SHIFT;
+        // Park the incoming slide on the side it enters from without
+        // animating there, then let the .active transition carry it in.
+        incoming.style.transition = 'none';
+        incoming.style.transform = `translateX(${shift})`;
+        void incoming.offsetWidth;
+        incoming.style.transition = '';
+        incoming.style.transform = '';
+        // The outgoing slide carries on from wherever the finger left it.
+        outgoing.style.transition = '';
+        outgoing.style.opacity = '';
+        outgoing.style.transform = `translateX(${opposite})`;
+        outgoing.addEventListener('transitionend', () => { outgoing.style.transform = ''; }, { once: true });
+      }
       slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
       pills.forEach((pill, i) => {
         pill.classList.toggle('active', i === index);
         const bar = pill.querySelector('.hero-pill-progress');
@@ -550,12 +588,70 @@ glightbox: false
       timer = setTimeout(goToNext, HERO_DURATION);
     }
 
-    pills.forEach((pill, i) => {
-      pill.addEventListener('click', () => {
-        show(i);
+    [...pills, ...dots].forEach(btn => {
+      btn.addEventListener('click', () => {
+        show(Number(btn.dataset.index));
         restart();
       });
     });
+
+    // Swipe left/right on touch screens: the slide follows the finger (and
+    // fades as it goes), then either slides off with the next one coming in
+    // behind it or springs back if the drag was too short. Whether a drag
+    // is horizontal is decided once, on its first few pixels, so vertical
+    // page scrolling still works (.hero-main has touch-action: pan-y). A tap
+    // still opens the port page; a swipe swallows the click after it.
+    const SWIPE_MIN_PX = 40;
+    const main = banner.querySelector('.hero-main');
+    let drag = null;
+    let swiped = false;
+
+    function endDrag(commit) {
+      if (!drag) return;
+      const { dx, horizontal } = drag;
+      drag = null;
+      const slide = slides[current];
+      slide.style.transition = '';
+      slide.style.opacity = '';
+      if (commit && horizontal && Math.abs(dx) >= SWIPE_MIN_PX) {
+        swiped = true;
+        const dir = dx < 0 ? 1 : -1;
+        show((current + dir + slides.length) % slides.length, dir);
+      } else {
+        slide.style.transform = '';
+      }
+      restart();
+    }
+
+    main.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      drag = { x: t.clientX, y: t.clientY, dx: 0, horizontal: null };
+      swiped = false;
+      clearTimeout(timer);
+    }, { passive: true });
+    main.addEventListener('touchmove', e => {
+      if (!drag) return;
+      const t = e.touches[0];
+      const dx = t.clientX - drag.x;
+      const dy = t.clientY - drag.y;
+      if (drag.horizontal === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+        drag.horizontal = Math.abs(dx) > Math.abs(dy);
+      }
+      if (!drag.horizontal) return;
+      drag.dx = dx;
+      const slide = slides[current];
+      slide.style.transition = 'none';
+      slide.style.transform = `translateX(${dx}px)`;
+      slide.style.opacity = String(1 - Math.min(Math.abs(dx) / main.offsetWidth, 1) * 0.6);
+    }, { passive: true });
+    main.addEventListener('touchend', () => endDrag(true));
+    main.addEventListener('touchcancel', () => endDrag(false));
+    main.addEventListener('click', e => {
+      if (swiped) {
+        e.preventDefault();
+        swiped = false;
+      }
+    }, true);
 
     show(0);
     restart();
