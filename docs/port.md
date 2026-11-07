@@ -25,7 +25,34 @@ glightbox: false
 <style>.md-path { display: none; }</style>
 
 <div class="port-page" id="port-page-root">
-  <div id="port-page-loading" class="port-page-loading">Loading...</div>
+  <!-- Ghost of the real layout below (same grid classes), shown until
+       port_details.json has loaded. -->
+  <div id="port-page-loading" class="port-page-skeleton" aria-busy="true" aria-label="Loading port">
+    <div class="port-titlebar">
+      <span class="skeleton sk-line" style="width:5rem"></span>
+      <span class="skeleton sk-title"></span>
+      <span class="skeleton sk-line" style="width:9rem"></span>
+    </div>
+    <div class="port-layout">
+      <div class="port-hero is-loading"></div>
+      <aside class="port-sidebar">
+        <div class="port-sidebar-inner">
+          <span class="skeleton sk-line sk-line--short"></span>
+          <span class="skeleton sk-button"></span>
+          <span class="skeleton sk-line"></span>
+          <span class="skeleton sk-line"></span>
+          <span class="skeleton sk-line"></span>
+          <span class="skeleton sk-line"></span>
+          <span class="skeleton sk-line sk-line--mid"></span>
+        </div>
+      </aside>
+      <div class="port-main">
+        <span class="skeleton sk-line"></span>
+        <span class="skeleton sk-line"></span>
+        <span class="skeleton sk-line sk-line--mid"></span>
+      </div>
+    </div>
+  </div>
 
   <div id="port-page-notfound" class="port-page-not-found" style="display:none">
     <p>We couldn't find that port.</p>
@@ -142,7 +169,9 @@ glightbox: false
         <div class="modal-text-section">
           <h2 class="modal-section-title">Additional Information</h2>
           <div class="modal-text-content" id="port-readme">
-            <div class="loading-spinner">Loading...</div>
+            <span class="skeleton sk-line"></span>
+            <span class="skeleton sk-line"></span>
+            <span class="skeleton sk-line sk-line--mid"></span>
           </div>
         </div>
       </div>

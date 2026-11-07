@@ -44,6 +44,7 @@ glightbox: false
     <img class="off-glb" src="https://raw.githubusercontent.com/{{ repo_owner }}/{{ repo_name }}/refs/heads/main/ports/{{ port_id }}/{{ screenshot }}"
          alt="{{ title }}"
          loading="lazy"
+         onload="this.classList.add('is-loaded')"
          onerror="this.style.display='none'">
     {% endif %}
     <h3>{{ title }}</h3>
@@ -333,7 +334,12 @@ glightbox: false
 
       <div class="filter-overlay" id="filterOverlay"></div>
 
-      <div class="game-grid" id="gameGrid"></div>
+      <div class="game-grid" id="gameGrid">
+        {#- Ghost cards until the Browse data loads; replaced on first render. #}
+        {%- for _ in range(12) %}
+        <div class="pm-card pm-card--ghost" aria-hidden="true"><span class="skeleton sk-image"></span><span class="skeleton sk-line sk-line--mid"></span><span class="skeleton sk-line sk-line--short"></span></div>
+        {%- endfor %}
+      </div>
 
       <div class="pagination-container" id="paginationContainer">
         <p class="pagination-info" id="paginationInfo">Showing 1-100 of {{ total_port_count }}</p>
@@ -419,7 +425,7 @@ glightbox: false
                  look an account up by display name, and plenty of people have
                  never set a custom URL at all, so the profile link is the one
                  input that always works. -->
-            <p class="steam-note">Your display name won't work &mdash; Steam can only match the profile link. <strong>Game details</strong> must also be set to Public.</p>
+            <p class="steam-note">Your display name won't work. Steam can only match the profile link. <strong>Game details</strong> must also be set to Public.</p>
           </div>
 
           <div id="steamOwnedBlock" style="display:none">
@@ -535,32 +541,35 @@ glightbox: false
     // dir: 1 = next (new slide enters from the right, old one leaves left),
     // -1 = previous (the mirror image), 0 = the default fade-in from the left
     // used by auto-rotate and the pills/dots.
-    const SWIPE_SHIFT = '30%';
+    function clearInline(slide) {
+      slide.style.transition = '';
+      slide.style.transform = '';
+      slide.style.opacity = '';
+      slide.style.visibility = '';
+    }
+
     function show(index, dir = 0) {
       const prev = current;
       current = index;
       // Drop offsets left over from earlier swipes (transitionend isn't
-      // guaranteed, e.g. in a background tab) - except on the slide being
-      // swiped away right now, which has to keep its finger position.
+      // guaranteed, e.g. in a background tab), except on the two slides a
+      // swipe is handing over between, which keep their finger positions.
       slides.forEach((slide, i) => {
-        if (i !== prev || !dir) slide.style.transform = '';
+        if (!dir || (i !== prev && i !== index)) clearInline(slide);
       });
       if (dir && prev !== index) {
         const incoming = slides[index];
         const outgoing = slides[prev];
-        const shift = dir > 0 ? SWIPE_SHIFT : `-${SWIPE_SHIFT}`;
-        const opposite = dir > 0 ? `-${SWIPE_SHIFT}` : SWIPE_SHIFT;
-        // Park the incoming slide on the side it enters from without
-        // animating there, then let the .active transition carry it in.
-        incoming.style.transition = 'none';
-        incoming.style.transform = `translateX(${shift})`;
-        void incoming.offsetWidth;
+        // The incoming slide was already dragged into view next to the
+        // finger; from there it slides the rest of the way in...
         incoming.style.transition = '';
         incoming.style.transform = '';
-        // The outgoing slide carries on from wherever the finger left it.
+        incoming.style.opacity = '';
+        incoming.style.visibility = '';
+        // ...and the outgoing one carries on off the opposite edge.
         outgoing.style.transition = '';
         outgoing.style.opacity = '';
-        outgoing.style.transform = `translateX(${opposite})`;
+        outgoing.style.transform = `translateX(${dir > 0 ? -100 : 100}%)`;
         outgoing.addEventListener('transitionend', () => { outgoing.style.transform = ''; }, { once: true });
       }
       slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
@@ -595,12 +604,14 @@ glightbox: false
       });
     });
 
-    // Swipe left/right on touch screens: the slide follows the finger (and
-    // fades as it goes), then either slides off with the next one coming in
-    // behind it or springs back if the drag was too short. Whether a drag
-    // is horizontal is decided once, on its first few pixels, so vertical
-    // page scrolling still works (.hero-main has touch-action: pan-y). A tap
-    // still opens the port page; a swipe swallows the click after it.
+    // Swipe left/right on touch screens, like a carousel: the slide follows
+    // the finger with the neighbouring slide attached to its edge, so the
+    // next image is already in view while dragging. Let go past
+    // SWIPE_MIN_PX and the neighbour slides in; a shorter drag springs back.
+    // Whether a drag is horizontal is decided once, on its first few
+    // pixels, so vertical page scrolling still works (.hero-main has
+    // touch-action: pan-y). A tap still opens the port page; a swipe
+    // swallows the click after it.
     const SWIPE_MIN_PX = 40;
     const main = banner.querySelector('.hero-main');
     let drag = null;
@@ -608,24 +619,30 @@ glightbox: false
 
     function endDrag(commit) {
       if (!drag) return;
-      const { dx, horizontal } = drag;
+      const { dx, horizontal, neighbour } = drag;
       drag = null;
       const slide = slides[current];
       slide.style.transition = '';
-      slide.style.opacity = '';
       if (commit && horizontal && Math.abs(dx) >= SWIPE_MIN_PX) {
         swiped = true;
         const dir = dx < 0 ? 1 : -1;
         show((current + dir + slides.length) % slides.length, dir);
       } else {
         slide.style.transform = '';
+        // Send the half-shown neighbour back off its edge, then hide it.
+        if (neighbour !== null) {
+          const n = slides[neighbour];
+          n.style.transition = '';
+          n.style.transform = `translateX(${dx < 0 ? 100 : -100}%)`;
+          setTimeout(() => { if (!n.classList.contains('active')) clearInline(n); }, 400);
+        }
       }
       restart();
     }
 
     main.addEventListener('touchstart', e => {
       const t = e.touches[0];
-      drag = { x: t.clientX, y: t.clientY, dx: 0, horizontal: null };
+      drag = { x: t.clientX, y: t.clientY, dx: 0, horizontal: null, neighbour: null };
       swiped = false;
       clearTimeout(timer);
     }, { passive: true });
@@ -642,7 +659,17 @@ glightbox: false
       const slide = slides[current];
       slide.style.transition = 'none';
       slide.style.transform = `translateX(${dx}px)`;
-      slide.style.opacity = String(1 - Math.min(Math.abs(dx) / main.offsetWidth, 1) * 0.6);
+
+      // Dragging left reveals the next slide on the right, and vice versa.
+      // If the direction flips mid-drag, put the other neighbour away.
+      const neighbour = (current + (dx < 0 ? 1 : -1) + slides.length) % slides.length;
+      if (drag.neighbour !== null && drag.neighbour !== neighbour) clearInline(slides[drag.neighbour]);
+      drag.neighbour = neighbour;
+      const n = slides[neighbour];
+      n.style.transition = 'none';
+      n.style.visibility = 'visible';
+      n.style.opacity = '1';
+      n.style.transform = `translateX(calc(${dx}px ${dx < 0 ? '+' : '-'} 100%))`;
     }, { passive: true });
     main.addEventListener('touchend', () => endDrag(true));
     main.addEventListener('touchcancel', () => endDrag(false));
@@ -652,6 +679,14 @@ glightbox: false
         swiped = false;
       }
     }, true);
+
+    // Fetch every slide's image up front (they're hidden until active, and
+    // a hidden background isn't guaranteed to load early), so whichever one
+    // comes next is ready.
+    slides.forEach(slide => {
+      const m = /url\(["']?([^"')]+)["']?\)/.exec(slide.style.backgroundImage);
+      if (m) new Image().src = m[1];
+    });
 
     show(0);
     restart();
@@ -1173,7 +1208,7 @@ glightbox: false
         const notFound = /no steam account/i.test(data.error || '');
         setSteamStatus(
           (notFound
-            ? "Not found — that's probably your display name. Open your Steam profile and paste the link from the address bar instead."
+            ? "Not found. That's probably your display name. Open your Steam profile and paste the link from the address bar instead."
             : (data.error || 'Could not reach Steam. Try again shortly.')) + stillConnected,
           'error'
         );
@@ -1189,7 +1224,7 @@ glightbox: false
       steamAppIds = new Set((data.appids || []).map(String));
       saveSteamLibrary(data.steamId, data.appids || []);
       updateSteamUI();
-      setSteamStatus(`Connected — you own ${steamOwnedPortCount()} of the ports on Steam.`, 'ok');
+      setSteamStatus(`Connected. You own ${steamOwnedPortCount()} of the ports on Steam.`, 'ok');
       filterAndSearch();
     } catch (e) {
       setSteamStatus('Could not reach Steam. Try again shortly.' + stillConnected, 'error');
@@ -1498,7 +1533,7 @@ glightbox: false
       ? '<span class="pm-owned-badge" title="In your Steam library"><i class="bi bi-check-lg"></i></span>'
       : '';
     const img = port.screenshot
-      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
+      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onload="this.classList.add('is-loaded')" onerror="this.style.display='none'">`
       : '';
     const downloadsText = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
     const cls = 'pm-card' + (port.incompatibleFlag ? ' incompatible' : '');

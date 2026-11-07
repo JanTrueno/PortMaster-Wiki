@@ -24,7 +24,7 @@ hide:
 <section class="hero">
   <div class="hero-content">
     <h1>PC games running natively on your handhelds</h1>
-    <p class="hero-subtitle">Stardew Valley, Celeste, Balatro, Limbo, and {{ port_count_rounded }}+ more &mdash; installed and running on cheap Linux-based handhelds with PortMaster. Completely free. Not emulation.</p>
+    <p class="hero-subtitle">Stardew Valley, Celeste, Balatro, Limbo, and {{ port_count_rounded }}+ more. Installed and running on cheap Linux-based handhelds with PortMaster. Completely free. Not emulation.</p>
     <div class="hero-cta-group">
       <a href="games/" class="hero-btn hero-btn-primary">Discover {{ port_count_rounded }}+ Games</a>
       <a href="installation/installing-portmaster/" class="hero-btn hero-btn-secondary">Get PortMaster</a>
@@ -77,11 +77,11 @@ hide:
   <div class="showcase-inner">
     <div class="showcase-text">
       <h2>{{ port_count_rounded }}+ games,<br>ready to install.</h2>
-      <p>Stardew Valley, Celeste, Balatro, Half-Life, Doom &mdash; plus hundreds you've never heard of. Pick one, press install, play. No setup, no terminal.</p>
+      <p>Stardew Valley, Celeste, Balatro, Half-Life, Doom. Plus hundreds you've never heard of. Pick one, press install, play. No setup, no terminal.</p>
     </div>
   </div>
 
-  <p class="showcase-caption">Every port is free and community-made &mdash; and runs on {{ device_count }}+ Linux handhelds.</p>
+  <p class="showcase-caption">Every port is free and community-made. They run on {{ device_count }}+ Linux handhelds.</p>
 </section>
 
 <!-- ===== GET INVOLVED (Community + Contribute) ===== -->

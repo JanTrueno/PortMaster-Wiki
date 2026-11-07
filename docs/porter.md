@@ -98,7 +98,7 @@ glightbox: false
 
   function renderCardHtml(port) {
     const img = port.screenshot
-      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onerror="this.style.display='none'">`
+      ? `<img class="off-glb" src="https://raw.githubusercontent.com/${port.repo}/refs/heads/main/ports/${port.id}/${port.screenshot}" alt="${escapeHtml(port.title)}" loading="lazy" onload="this.classList.add('is-loaded')" onerror="this.style.display='none'">`
       : '';
     const downloadsText = port.downloads > 0 ? port.downloads.toLocaleString() : '—';
     return `<div class="pm-card" onclick="window.location.href='../port/?name=${encodeURIComponent(port.id)}'">${img}<h3>${escapeHtml(port.title)}</h3><div class="card-stats"><span class="card-stat"><i class="bi bi-download"></i> ${downloadsText}</span><span class="card-stat"><i class="bi bi-calendar-plus"></i> ${port.dateAdded || '—'}</span></div></div>`;

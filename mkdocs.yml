@@ -91,6 +91,7 @@ extra_css:
   - assets/stylesheets/homepage.css
   - assets/stylesheets/handhelds.css
   - assets/stylesheets/porter-tools.css
+  - assets/stylesheets/skeleton.css
 plugins:
    - glightbox
    - search

@@ -1,0 +1,81 @@
+/* ===== Ghost (skeleton) placeholders =====
+   Grey blocks with a moving sheen, shown where content is still loading:
+   the port page before port_details.json arrives, its readme, the Browse
+   grid before its data loads, and any card/hero image that hasn't painted
+   yet. Built on the theme's faint foreground colour so it works in both
+   light and dark mode. */
+
+@keyframes skeleton-sheen {
+  from { background-position: 150% 0, 0 0; }
+  to   { background-position: -50% 0, 0 0; }
+}
+
+.skeleton {
+  display: block;
+  border-radius: 6px;
+  background-color: var(--md-default-fg-color--lightest);
+  background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.07) 50%, transparent 100%);
+  background-size: 50% 100%, auto;
+  background-repeat: no-repeat;
+  animation: skeleton-sheen 1.4s ease-in-out infinite;
+}
+
+/* Text-line sized blocks. */
+.sk-line {
+  height: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.sk-line--short { width: 40%; }
+.sk-line--mid   { width: 70%; }
+
+.sk-title {
+  height: 2rem;
+  width: 55%;
+  margin: 0.6rem 0 0.8rem;
+}
+
+.sk-button {
+  height: 2.6rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+/* Images that are still downloading get the same sheen behind them; it
+   is covered once the image paints, and switched off on load (the onload
+   handlers add .is-loaded) so finished cards don't keep animating. */
+.pm-card img:not(.is-loaded),
+.port-hero.is-loading {
+  background-color: var(--md-default-fg-color--lightest);
+  background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.07) 50%, transparent 100%);
+  background-size: 50% 100%, auto;
+  background-repeat: no-repeat;
+  animation: skeleton-sheen 1.4s ease-in-out infinite;
+}
+
+/* The port page screenshot is height:auto, so give the box a size while
+   it has nothing to show. */
+.port-hero.is-loading {
+  aspect-ratio: 4 / 3;
+}
+
+/* Ghost cards in the Browse grid before its data arrives. */
+.pm-card--ghost {
+  cursor: default;
+  pointer-events: none;
+}
+
+.pm-card--ghost .sk-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .pm-card img,
+  .port-hero.is-loading {
+    animation: none !important;
+  }
+}
