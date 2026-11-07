@@ -1,4 +1,3 @@
-import copy
 import json
 import markdown
 import os
@@ -325,65 +324,6 @@ def load_latest_news(posts_dir, blog_dir="news", limit=3, authors=None):
     return posts[:limit]
 
 
-
-def apply_device_info_overrides(base_path):
-    """Add firmware that PortMaster-Info doesn't list for a device yet.
-
-    device_info.json is re-downloaded from PortMaster-Info on every build, so
-    it can't be edited in place. docs/assets/json/device_info_overrides.json
-    holds the hand-curated additions instead, and this writes them into the
-    downloaded file - on disk, not just in env.variables, because pages like
-    games.md fetch() the file themselves and need to see the same data.
-
-    An addition is a copy of another firmware's entry for the same device
-    (same hardware), with the name swapped and glibc taken from whatever
-    other entries that firmware already has. Idempotent: a firmware already
-    present is skipped, which covers both a repeat run (FAST_BUILD skips the
-    download, so the file may already be patched) and upstream catching up.
-    """
-    info_path = base_path / "device_info.json"
-    overrides_path = base_path / "device_info_overrides.json"
-    if not info_path.exists() or not overrides_path.exists():
-        return
-
-    with info_path.open(encoding="utf-8") as f:
-        info = json.load(f)
-    with overrides_path.open(encoding="utf-8") as f:
-        overrides = json.load(f)
-
-    added = []
-    for model, firmwares in overrides.items():
-        if model.startswith("_"):  # _readme and friends
-            continue
-        if model not in info:
-            print(f"device_info_overrides: no device named {model!r}, skipping", flush=True)
-            continue
-        for firmware, rule in firmwares.items():
-            if firmware in info[model]:
-                continue
-            source = info[model].get(rule.get("copy_from"))
-            if source is None:
-                print(f"device_info_overrides: {model!r} has no {rule.get('copy_from')!r} entry to copy for {firmware!r}", flush=True)
-                continue
-
-            entry = copy.deepcopy(source)
-            old_name, new_name = source["name"], firmware.lower()
-            entry["name"] = new_name
-            # The firmware's lowercase name is itself a capability tag.
-            entry["capabilities"] = [new_name if c == old_name else c for c in entry["capabilities"]]
-            reference = next((fw[firmware] for fw in info.values() if firmware in fw), None)
-            if reference is not None:
-                entry["glibc"] = reference["glibc"]
-
-            info[model][firmware] = entry
-            added.append(f"{firmware} -> {model}")
-
-    if added:
-        with info_path.open("w", encoding="utf-8") as f:
-            json.dump(info, f, indent=4)
-        print(f"device_info_overrides: added {', '.join(added)}", flush=True)
-
-
 def define_env(env):
     base_path = Path(__file__).parent / "docs" / "assets" / "json"
 
@@ -392,8 +332,6 @@ def define_env(env):
         print("FAST_BUILD=1: skipping GitHub JSON downloads, using local files as-is.", flush=True)
     else:
         download_portmaster_jsons(base_path)
-
-    apply_device_info_overrides(base_path)
 
     ports_files = [
         base_path / "ports.json",
@@ -712,9 +650,6 @@ def define_env(env):
         if node.get("deprecated"):
             continue
 
-        if node.get("type") == "hero":
-            continue  # handled separately, below, not shown as a carousel category
-
         if node.get("type") == "category":
             groups = []
             for child in node.get("children", []):
@@ -811,7 +746,7 @@ def define_env(env):
                 return f"../assets/images/hero/{port_id}{ext}"
         return None
 
-    def build_hero_slide(label, key):
+    def build_hero_slide(key):
         port = merged_ports["ports"][key]
         attr = port.get("attr") or {}
         source = port.get("source") or {}
@@ -824,7 +759,6 @@ def define_env(env):
             desc = desc[:HERO_DESC_MAX_LEN].rsplit(" ", 1)[0].rstrip(",.;:") + "…"
         image = attr.get("image") or {}
         return {
-            "label": label,
             "port_id": port_id,
             "title": attr.get("title") or port_id,
             "repo": repo,
@@ -838,21 +772,6 @@ def define_env(env):
 
     hero_used = set(HERO_EXCLUDE_KEYS)
     hero_slides = []
-
-    # Optional labels (e.g. "Community Favorite") still come from
-    # featured_ports.json's "hero" node, keyed by port id, but the node no
-    # longer decides *which* ports show up - the image directory does.
-    hero_node = next(
-        (n for n in featured_ports_raw if n.get("type") == "hero" and not n.get("deprecated")),
-        None,
-    )
-    hero_labels = {}
-    if hero_node:
-        for entry in hero_node.get("ports", []):
-            key = entry.get("key") if isinstance(entry, dict) else entry
-            label = entry.get("label", "") if isinstance(entry, dict) else ""
-            if key:
-                hero_labels[key.replace(".zip", "")] = label
 
     if HERO_IMAGE_DIR.exists():
         image_port_ids = sorted({
@@ -875,7 +794,7 @@ def define_env(env):
         for port_id in hero_candidates:
             key = f"{port_id}.zip"
             hero_used.add(key)
-            hero_slides.append(build_hero_slide(hero_labels.get(port_id, ""), key))
+            hero_slides.append(build_hero_slide(key))
 
     if not hero_slides:
         def pick_top_excluding(candidate_keys):
@@ -896,19 +815,20 @@ def define_env(env):
         # the homepage, not an auto-computed pick - the other four are.
         if PORT_OF_THE_MONTH_KEY in merged_ports["ports"]:
             hero_used.add(PORT_OF_THE_MONTH_KEY)
-            hero_slides.append(build_hero_slide("Port of the Month", PORT_OF_THE_MONTH_KEY))
+            hero_slides.append(build_hero_slide(PORT_OF_THE_MONTH_KEY))
 
-        hero_slide_defs = [
-            ("Most Downloaded", sorted_orders["downloads"]),
-            ("Trending Now", recent_90_keys),
-            ("Top Ready to Run", rtr_all_keys),
-            ("Trending Ready to Run", rtr_recent_90_keys),
+        # Most downloaded, trending, top ready-to-run, trending ready-to-run.
+        hero_slide_candidates = [
+            sorted_orders["downloads"],
+            recent_90_keys,
+            rtr_all_keys,
+            rtr_recent_90_keys,
         ]
 
-        for label, candidates in hero_slide_defs:
+        for candidates in hero_slide_candidates:
             key = pick_top_excluding(candidates)
             if key:
-                hero_slides.append(build_hero_slide(label, key))
+                hero_slides.append(build_hero_slide(key))
 
     env.variables["hero_slides"] = hero_slides
 
