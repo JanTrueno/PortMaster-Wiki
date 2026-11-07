@@ -1727,11 +1727,12 @@
 
 
 <p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></p>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+
 <h1 id="readme-generator">README Generator<a class="headerlink" href="#readme-generator" title="Permanent link">¶</a></h1>
 <p>Use this form to generate a <code>README.md</code> file for your port, right in your browser.
 It matches the <a href="https://portmaster.games/port-markdown.html" rel="noopener" target="_blank">Port Markdown Generator</a>
-on the main PortMaster site field for field and byte for byte - the download is
-identical. See the <a href="../../contribute/porting/packaging/">packaging documentation</a>
+on the main PortMaster site field for field. See the <a href="../../contribute/porting/packaging/">packaging documentation</a>
 for where to place the file, and
 <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" rel="noopener" target="_blank">here</a>
 is documentation on Markdown writing and formatting syntax.</p>
@@ -1814,8 +1815,18 @@ is documentation on Markdown writing and formatting syntax.</p>
 <div class="porter-tool">
   <div class="alert alert-warning" id="readmeValidation" style="display:none"></div>
 
+  <div class="readme-view-toggle" role="tablist" aria-label="Output view">
+    <button type="button" class="readme-view-btn active" id="viewMarkdownBtn" role="tab" aria-selected="true">
+      <i class="bi bi-code-slash"></i> Markdown
+    </button>
+    <button type="button" class="readme-view-btn" id="viewPreviewBtn" role="tab" aria-selected="false">
+      <i class="bi bi-eye"></i> Preview
+    </button>
+  </div>
+
   <div class="output-container">
     <pre id="outputArea"><div class="output-placeholder">Fill in the form - the README output updates live here...</div></pre>
+    <div class="readme-preview" id="previewArea" style="display:none"></div>
   </div>
 
   <div class="action-buttons">
@@ -1878,7 +1889,8 @@ is documentation on Markdown writing and formatting syntax.</p>
 
   // Mirrors portmaster.games/port-markdown.html renderMarkdown(): sections
   // joined with blank lines, the compact |--|--| separator, no padding
-  // around table cells, and <br/> stripped - the download is byte-identical.
+  // around table cells, and <br/> stripped. Byte-identical to it except
+  // that control cells are trimmed and "|" is escaped (see cell() below).
   function buildMarkdown() {
     let notes = notesEl.value;
     if (notes != "") {
@@ -1890,10 +1902,13 @@ is documentation on Markdown writing and formatting syntax.</p>
       compile = "## Compile\n\n" + "```shell\n" + compile + "\n```" + "\n";
     }
 
+    // A bare "|" in a cell would end that cell early and break the table
+    // (e.g. "L1 | R1"), so it is escaped; surrounding spaces are trimmed.
+    const cell = value => value.trim().replaceAll('|', '\\|');
     let controls = "";
     document.querySelectorAll('#controlsTable tbody tr').forEach(row => {
-      const button = row.querySelector('.col1').value;
-      const action = row.querySelector('.col2').value;
+      const button = cell(row.querySelector('.col1').value);
+      const action = cell(row.querySelector('.col2').value);
       controls = controls + "|" + button + "|" + action + "|\n";
     });
     if (controls != "") {
@@ -1928,12 +1943,44 @@ is documentation on Markdown writing and formatting syntax.</p>
     }
 
     const markdown = buildMarkdown();
-    if (markdown.replaceAll('\n', '').trim() === '') {
+    const empty = markdown.replaceAll('\n', '').trim() === '';
+    if (empty) {
       outputArea.innerHTML = PLACEHOLDER;
     } else {
       outputArea.textContent = markdown;
     }
+    if (previewing) renderPreview(markdown, empty);
   }
+
+  // ===== Preview: the README rendered, roughly as GitHub shows it =====
+  const previewArea = document.getElementById('previewArea');
+  const viewMarkdownBtn = document.getElementById('viewMarkdownBtn');
+  const viewPreviewBtn = document.getElementById('viewPreviewBtn');
+  let previewing = false;
+
+  function renderPreview(markdown, empty) {
+    if (empty) {
+      previewArea.innerHTML = PLACEHOLDER;
+    } else if (window.marked) {
+      previewArea.innerHTML = window.marked.parse(markdown, { gfm: true });
+    } else {
+      previewArea.textContent = "Couldn't load the markdown renderer. The Markdown view still shows the file.";
+    }
+  }
+
+  function setView(preview) {
+    previewing = preview;
+    outputArea.style.display = preview ? 'none' : '';
+    previewArea.style.display = preview ? '' : 'none';
+    viewMarkdownBtn.classList.toggle('active', !preview);
+    viewPreviewBtn.classList.toggle('active', preview);
+    viewMarkdownBtn.setAttribute('aria-selected', String(!preview));
+    viewPreviewBtn.setAttribute('aria-selected', String(preview));
+    refreshOutput();
+  }
+
+  viewMarkdownBtn.addEventListener('click', () => setView(false));
+  viewPreviewBtn.addEventListener('click', () => setView(true));
 
   function downloadMarkdown() {
     const invalid = validateControls();
