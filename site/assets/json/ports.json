@@ -922,8 +922,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "252a74dda62f219a0730dc732682a3bd",
-        "size": 17618905,
         "release_id": "2026-10-30_1111",
+        "size": 17618905,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/adonthell.zip"
       }
     },
@@ -14299,6 +14299,66 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-18_1011/cubosphere.zip"
       }
     },
+    "cuphead.zip": {
+      "version": 4,
+      "name": "cuphead.zip",
+      "items": [
+        "Cuphead.sh",
+        "cuphead"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Cuphead",
+        "porter": [
+          "wild1walker"
+        ],
+        "desc": "A classic run and gun action game heavily focused on boss battles, inspired by 1930s cartoons.",
+        "desc_md": null,
+        "inst": "Requires Cuphead for macOS (1.3.4) from GOG or Steam, with or without The Delicious Last Course: copy GOG's macOS installers (.pkg) or the installed Cuphead.app into ports/cuphead/gamedata. The first launch builds the game on the handheld: one to a few hours, about 10 GB free space during setup (12 GB on firmwares without 32-bit support), no Wi-Fi needed.",
+        "inst_md": null,
+        "genres": [
+          "action",
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [
+            "cover.jpg"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/game/cuphead",
+            "developerurl": "https://www.studiomdhr.com/"
+          },
+          {
+            "name": "Steam",
+            "gameurl": "https://store.steampowered.com/app/268910/Cuphead/",
+            "developerurl": "https://www.studiomdhr.com/"
+          }
+        ],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": ""
+      },
+      "source": {
+        "date_added": "2026-11-02",
+        "date_updated": "2026-11-02",
+        "md5": "1da13d4193ac2b141f47093d249f79ee",
+        "size": 82491530,
+        "release_id": "2026-11-02_1442",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/cuphead.zip"
+      }
+    },
     "curseofthearrow.zip": {
       "version": 4,
       "name": "curseofthearrow.zip",
@@ -14938,8 +14998,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "641af0e936f5ddac7fbeda49c16efd92",
-        "size": 205790,
         "release_id": "2026-10-30_1111",
+        "size": 205790,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/darkember.zip"
       }
     },
@@ -23293,8 +23353,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "c189bb77a074d987b3e368e5673984ee",
-        "size": 52674701,
         "release_id": "2026-10-30_1111",
+        "size": 52674701,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/fnaf4.zip"
       }
     },
@@ -23646,8 +23706,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "c2c4210dac29302931256bb5c98e01f5",
-        "size": 7649579,
         "release_id": "2026-10-30_1111",
+        "size": 7649579,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/floraandfang.zip"
       }
     },
@@ -26796,11 +26856,11 @@
       },
       "source": {
         "date_added": "2026-10-22",
-        "date_updated": "2026-10-30",
-        "md5": "0a849f36f5a9cbda7a01f4243e84987e",
-        "release_id": "2026-10-30_1111",
-        "size": 65394599,
-        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/gonefishing.zip"
+        "date_updated": "2026-11-02",
+        "md5": "99409dc35575b9336b5fc68db74b0e79",
+        "release_id": "2026-11-02_1442",
+        "size": 66877262,
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/gonefishing.zip"
       }
     },
     "googledinowithagun.zip": {
@@ -30430,6 +30490,53 @@
         "release_id": "2026-05-14_1654",
         "size": 6844702,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-05-14_1654/hotlinesanzu.zip"
+      }
+    },
+    "hover.zip": {
+      "version": 4,
+      "name": "hover.zip",
+      "items": [
+        "Hover.sh",
+        "hover"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Hover!",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Microsoft's capture-the-flag hovercraft maze racer from the Windows 95 CD, statically recompiled from its original executable into native code. Steer through the maze, grab the other team's flags before the drones grab yours, and use jumps, walls and cloaks to get there first.",
+        "desc_md": null,
+        "inst": "Copy the files from your own Hover! folder (HOVER.EXE, DASHRES.DLL, WAVEMIX.INF, MAZES and SOUNDS, found in FUNSTUFF\\HOVER on the Windows 95 CD) into ports/hover/gamedata.",
+        "inst_md": null,
+        "genres": [
+          "arcade",
+          "racing"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": "2.34"
+      },
+      "source": {
+        "date_added": "2026-11-02",
+        "date_updated": "2026-11-02",
+        "md5": "f414b9f1b98c4efe24b01d6808619ddb",
+        "size": 10124686,
+        "release_id": "2026-11-02_1442",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/hover.zip"
       }
     },
     "hovertank3d.zip": {
@@ -36131,6 +36238,52 @@
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-04-28_1830/loguploader.zip"
       }
     },
+    "zoombinis.zip": {
+      "version": 4,
+      "name": "zoombinis.zip",
+      "items": [
+        "Zoombinis.sh",
+        "zoombinis"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Logical Journey of the Zoombinis",
+        "porter": [
+          "Cebion"
+        ],
+        "desc": "Broderbund's 1996 logic puzzle adventure. Guide the little blue Zoombinis through twelve puzzles of deduction and pattern-finding on their way to a new home, running on the zbtools decompilation.",
+        "desc_md": null,
+        "inst": "Copy your Logical Journey of the Zoombinis Windows CD (original, Deluxe, 2001 rerelease, French or German edition) into ports/zoombinis/gamedata, as an .iso, a .bin/.cue or the files on the CD. The game installs itself from it on first launch.",
+        "inst_md": null,
+        "genres": [
+          "puzzle"
+        ],
+        "image": {
+          "screenshot": "screenshot.jpg",
+          "covers": [],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "store": [],
+        "availability": "paid",
+        "reqs": [],
+        "arch": [
+          "aarch64"
+        ],
+        "min_glibc": "2.34"
+      },
+      "source": {
+        "date_added": "2026-11-02",
+        "date_updated": "2026-11-02",
+        "md5": "a9c9396f5ce830650f2c6f7bdf0eab6a",
+        "size": 31226906,
+        "release_id": "2026-11-02_1442",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/zoombinis.zip"
+      }
+    },
     "longspear.zip": {
       "version": 4,
       "name": "longspear.zip",
@@ -38422,8 +38575,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "73e9978c4e5b6afe5815c3dd69baff87",
-        "size": 6058850,
         "release_id": "2026-10-30_1111",
+        "size": 6058850,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/megandtrapper.zip"
       }
     },
@@ -40303,8 +40456,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "d5286dab2464699e19aab741b88ebc0b",
-        "size": 1258677,
         "release_id": "2026-10-30_1111",
+        "size": 1258677,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/monochromeworlds.zip"
       }
     },
@@ -43686,6 +43839,61 @@
         "release_id": "2025-11-25_1116",
         "size": 930408,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2025-11-25_1116/oilwar.zip"
+      }
+    },
+    "olduvai.zip": {
+      "version": 4,
+      "name": "olduvai.zip",
+      "items": [
+        "Olduvai.sh",
+        "olduvai"
+      ],
+      "items_opt": null,
+      "attr": {
+        "title": "Olduvai",
+        "porter": [
+          "Krzysztof Soko\u0142owski"
+        ],
+        "desc": "The 1991 caveman platformer on Olduvai, a native recreation of its engine. Classic DOS plays it exactly as it was; Enhanced HD adds smooth motion, widescreen margins and sharp upscaled graphics. Switch any time under Options - Style.",
+        "desc_md": null,
+        "inst": "Needs your own copy of the game (GOG's Prehistorik 1+2, or the DOS original): copy FILESA.CUR, FILESB.CUR, FILESA.VGA, FILESB.VGA and HISTORIK.EXE (or GOG's PREH.SQZ) into ports/olduvai/game/. Roland MT-32 / CM-32L ROMs (ports/olduvai/mt32-roms/) or a SoundFont (ports/olduvai/soundfonts/) are optional; without them the AdLib / Sound Blaster sound plays.",
+        "inst_md": null,
+        "genres": [
+          "platformer"
+        ],
+        "image": {
+          "screenshot": "screenshot.png",
+          "covers": [
+            "cover.png"
+          ],
+          "thumbnail": null,
+          "video": null
+        },
+        "rtr": false,
+        "exp": false,
+        "runtime": [],
+        "min_glibc": "2.17",
+        "reqs": [],
+        "store": [
+          {
+            "name": "GOG",
+            "gameurl": "https://www.gog.com/en/game/prehistorik_12",
+            "developerurl": "https://en.wikipedia.org/wiki/Titus_Interactive"
+          }
+        ],
+        "availability": "paid",
+        "arch": [
+          "aarch64",
+          "armhf"
+        ]
+      },
+      "source": {
+        "date_added": "2026-11-02",
+        "date_updated": "2026-11-02",
+        "md5": "9f714f6767dbe578326dd580ebff7880",
+        "size": 2757861,
+        "release_id": "2026-11-02_1442",
+        "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/olduvai.zip"
       }
     },
     "omegastrike.zip": {
@@ -69446,8 +69654,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "37559caacdee0081a22083764ff4e5ab",
-        "size": 2888182,
         "release_id": "2026-10-30_1111",
+        "size": 2888182,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/vesaball.zip"
       }
     },
@@ -72616,8 +72824,8 @@
         "date_added": "2026-10-30",
         "date_updated": "2026-10-30",
         "md5": "d656f336a658119fc37dcbf4389564a9",
-        "size": 13496226,
         "release_id": "2026-10-30_1111",
+        "size": 13496226,
         "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/ytc.zip"
       }
     },
@@ -73228,9 +73436,9 @@
   "utils": {
     "gameinfo.zip": {
       "name": "gameinfo.zip",
-      "md5": "5305d173c58e521da6b667c115bfe376",
-      "size": 179618037,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/gameinfo.zip"
+      "md5": "3d9973fcbcc689d06838ec5794f8ea9e",
+      "size": 180034216,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/gameinfo.zip"
     },
     "images.000.zip": {
       "name": "images.000.zip",
@@ -74734,9 +74942,9 @@
     },
     "images.014.zip": {
       "name": "images.014.zip",
-      "md5": "8fcdaa53513fc3e0f3af92086c4fa698",
-      "size": 6378657,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/images.014.zip",
+      "md5": "e645a8608ceff4235351b380878a52a3",
+      "size": 6587741,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/images.014.zip",
       "images": [
         "adonthell.screenshot.png",
         "alexandria.screenshot.png",
@@ -74758,6 +74966,7 @@
         "critter.screenshot.jpg",
         "crystalstoryawakening.screenshot.png",
         "cubes.screenshot.png",
+        "cuphead.screenshot.jpg",
         "darkember.screenshot.png",
         "defblade.screenshot.png",
         "dijeweled.screenshot.png",
@@ -74783,6 +74992,7 @@
         "gunslugs2.screenshot.png",
         "hexon.screenshot.jpg",
         "hostilelands.screenshot.png",
+        "hover.screenshot.jpg",
         "ittledew.screenshot.png",
         "iyfct.screenshot.png",
         "jetboardjoust.screenshot.png",
@@ -74803,6 +75013,7 @@
         "motionrec.screenshot.png",
         "mutecrimsondx.screenshot.png",
         "naezith.screenshot.png",
+        "olduvai.screenshot.png",
         "oneshotwme.screenshot.png",
         "opensurge.screenshot.png",
         "penumbra.screenshot.png",
@@ -74830,14 +75041,15 @@
         "vertsky.screenshot.png",
         "vesaball.screenshot.png",
         "xskat.screenshot.png",
-        "ytc.screenshot.jpg"
+        "ytc.screenshot.jpg",
+        "zoombinis.screenshot.jpg"
       ]
     },
     "images.zip": {
       "name": "images.zip",
-      "md5": "9cde8553f1f87ea75e06b38a09bfa49a",
-      "size": 95936321,
-      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-10-30_1111/images.zip"
+      "md5": "519a73b2ef5aa77099cfb6281c06751d",
+      "size": 96145405,
+      "url": "https://github.com/PortsMaster/PortMaster-New/releases/download/2026-11-02_1442/images.zip"
     },
     "ags_3.6.squashfs": {
       "name": "Adventure Game Studio 3.6",
